@@ -16,7 +16,6 @@
 	<button>배송완료</button>
 	<div class="deliveryMenu" onclick="deleveryManage">배송완료</div>
 	<!-- 새로운 주문 알람 -->
-	<div class="deliveryMenu" onclick="deliveryAlarm">공지,QNA</div>
 
 
 </body>

@@ -1,0 +1,39 @@
+@charset "UTF-8";
+*{
+	background: rgb(40, 44, 52);
+	color: white;
+	text-align: center;
+	padding: 0px;
+	margin : 0px;
+}
+
+/* 상단 여백 */
+.emptyHeader{height: 10vh;}
+
+/* 메뉴 div */
+.menu {
+	display:inline-block;
+	text-align: center;
+	padding: 10vh;
+	width : 20vw;
+	height: 5vh;
+	border: 1px solid white;
+}
+
+/* 검색 */
+.search input, button{height: 5vh;}
+.search input{width : 30vw;}
+.search button{width : 10vw;}
+
+/* adminMemberView */
+.memberList th:hover{cursor: pointer;}
+.memberList tr {height: 5vh; margin-top: 10px;}
+.memberList tr td{
+	width : 12vw;
+	border-top: 1px solid white;
+	font-size: 12px;
+}
+.memberList tr td:hover {
+	cursor: pointer;
+	color:gray;
+}

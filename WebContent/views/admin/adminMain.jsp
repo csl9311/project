@@ -5,19 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 메인</title>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/admin.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/admin/admin.css" />
 </head>
 <body>
 
 	<div class="emptyHeader">
 		헤더여백
 	</div>
+	
 	<div>
 		<nav>
 			<!-- 회원관리 : 회원정보 RUD, 등급 설정, 블랙리스트 등록 및 해제 -->
-			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_memberView.jsp'">회원관리</div>
+			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/adminMember/adminMemberView.jsp'">회원관리</div>
 			<!-- 상픔목록 CRUD -->
-			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_productView.jsp'">상품관리</div>
+			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/adminProduct/admin_productView.jsp'">상품관리</div>
 			<!-- 배송관리 -->
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_deliveryView.jsp'">배송관리</div>
 			<!-- 공지 CRUD, QNA CRUD -->
