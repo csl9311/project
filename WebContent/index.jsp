@@ -14,6 +14,6 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/main.css" />
 </head>
 <body>
-<%@include file="/views/MyPage/myPageMain.jsp" %>
+<%@include file="/views/common/mainPage.jsp" %>
 </body>
 </html>

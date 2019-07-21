@@ -16,8 +16,8 @@
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/header.js?v=<%=System.currentTimeMillis() %>"></script>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
 
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/loginForm.css">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main/loginForm.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main/main.css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"> <!-- //트위터 아이콘 -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <!--부트스트랩  -->
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -57,7 +57,7 @@
 				<button type="button" class="logout btn btn-sm none" style="display:none">로그아웃</button>
 				<button type="button" class="profile btn btn-sm none"style="display:none">프로필</button>
 			</div>
-			<h1 class="logo">로고</h1>
+			<h1 class="logo"  onclick= "location.href='<%= request.getContextPath() %>/views/common/mainPage.jsp'" style="cursor:pointer">로고</h1>
 		</nav>
 	</header>
 

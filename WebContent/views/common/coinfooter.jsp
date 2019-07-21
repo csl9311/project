@@ -9,7 +9,7 @@
 
 
 </style>
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/Footer-with-button-logo.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main/Footer-with-button-logo.css">
 <title>Insert title here</title>
 </head>
 <body>
