@@ -3,6 +3,7 @@
 	width: 100%;
     background-color: #3c3d41 ;
     color: white;
+   
     padding-top: auto;
 }
 #myFooter .containerbg{
@@ -35,6 +36,12 @@
     list-style-type: none;
     padding-left: 0;
     line-height: 1.7;
+    display:block !important;
+}
+
+#myFooter li {
+ 
+    display:block !important;
 }
 
 #myFooter h5 {
