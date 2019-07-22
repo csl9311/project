@@ -36,11 +36,12 @@ body{
 }
 .memberList tr :hover {
 	cursor: pointer;
-	color:rgb(40, 44, 52);
+	color:gray;
 }
 
 /* memberDetailView */
 .memberDetail tr td{
 	width : 25vw;
-	height : 10vh;
+	height : 5vh;
 }
+.phone {width : 50px;}
