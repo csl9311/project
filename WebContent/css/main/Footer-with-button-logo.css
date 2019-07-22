@@ -10,6 +10,7 @@
 	  background-color: #3c3d41;
 	  width:100%;
 	  position:relative;
+	  display:inline-block;
 }
 #myFooter .footer-copyright {
     background-color: #333333;
@@ -19,6 +20,7 @@
 }
 
 #myFooter .row {
+	display:block;
     margin-bottom: 30px;
 }
 
@@ -112,5 +114,8 @@
 @media screen and (max-width: 767px) {
     #myFooter {
         text-align: center;
-    }
+  	
+            }
+    
+   
 }

@@ -75,14 +75,14 @@
 <form>
 <%-- <form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm" onsubmit="return validate();"> --%>
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none; ">
-          <div class="modal-dialog">
+          <div class="modal-dialog" style="text-align:center">
                 <div class="loginmodal-container">
                     <h1>로그인</h1><br>
-                  <form>
-                    <input type="text" name="user" placeholder="Username">
+              
+                    <input type="text" name="user" placeholder="Username" >
                     <input type="password" name="pass" placeholder="Password">
                     <input type="submit" name="login" class="button loginmodal-submit" value="Login">
-                  </form>
+                 
                     
                   <div class="login-help">
                     <a href="<%= request.getContextPath() %>/views/MyPage/upDate.jsp">회원가입</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">Forgot Password</a>

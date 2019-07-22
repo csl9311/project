@@ -10,7 +10,15 @@ body::-webkit-scrollbar {
     display: none; 
 }
 
+.mainMenu {
+	display:block;
+
+
+}
+
 .mainMenu button{
+	margin-top:5vh;
+	margin-bottom:5vh;
 	color:black !important;
 	background: yellow;
 }
@@ -26,6 +34,7 @@ body::-webkit-scrollbar {
     position: relative;
     overflow: hidden;
     z-index:100;
+    
 	
 
     
