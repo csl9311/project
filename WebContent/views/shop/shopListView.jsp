@@ -6,17 +6,37 @@
 <meta charset="UTF-8">
 <title>shopListView</title>
 <%@ include file="/views/common/coinheader.jsp"%>
-<link href="<%=request.getContextPath()%>/css/shop/shopListView.css"
+<link
+	href="<%=request.getContextPath()%>/css/shop/shopListView.css?ver=1"
 	rel="stylesheet">
+	<script>
+	var windowWidth = $(window).width();
+	function cssResize() {
+		if(windowWidth >= 1800) {
+			$('#items li').css('width','23%'); 
+		} else if(windowWidth >= 1100){
+			$('#items li').css('width','');
+		} else {
+			$('#items li').css('width','40%');
+		}
+	}
+	$(function() {
+		cssResize();
+	});
+	$(window).resize(function() {
+		windowWidth = $(window).width();
+		cssResize();
+	});
+	</script>
 </head>
 <body>
 	<!-- 상세 페이지 전체 감싸는 div -->
-	<div id="Index">
+	<div id="Index" class="flex column">
 		<!-- 소분류 카테고리 -->
-		<nav id="shopCategory">
+		<nav id="shopCategory" class="flex">
 			<ul id="sct_ul">
 				<li>
-					<div class="sct_btn">
+					<div class="sct_btn pointer">
 						<a
 							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY1</span></a>
 					</div>
@@ -48,19 +68,36 @@
 			</ul>
 		</nav>
 		<!-- 상단 nav 제외 전체 감싸는 div -->
-		<div id="content">
-			<p>카테고리 별 리스트 뷰</p>
+		<div id="best_item">
+			베스트 아이템 걸릴 부분
+		</div>
+		<div id="content" class="flex">
 			<div id="items">
-				<ul>
-				<% for(int i = 0; i < 50; i++){ %>
+				<ul class="flex ">
+					<%
+						for (int i = 0; i < 50; i++) {
+					%>
 					<li>
-						<div>
-							<a href="<%=request.getContextPath()%>/views/shop/shopDetailView.jsp">
-								<img alt="" src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
-							</a>
+						<div class="item_border flex">
+								<input type="checkbox" name="checkBox" class="pointer">
+							<div class="item flex column">
+								<div class="item_top flex">
+									<a
+										href="<%=request.getContextPath()%>/views/shop/shopDetailView.jsp">
+										<img class="pointer" alt=""
+										src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
+									</a>
+								</div>
+								<div class="item_bottom">
+									<span class="pointer">상품이름</span><br> <span
+										class="pointer">가격</span>
+								</div>
+							</div>
 						</div>
 					</li>
-					<%} %>
+					<%
+						}
+					%>
 				</ul>
 			</div>
 		</div>
