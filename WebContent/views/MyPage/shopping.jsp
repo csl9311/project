@@ -10,12 +10,14 @@
 	.sdiv{
 		
 	}
-	.tab-1 {
-		
+	.tab-1 {		
 		margin:auto;
 		width: 80vw;
 		height: auto;
-		border: 1px solid white"
+		border: 1px solid white;
+	}
+	.tab-1 tr td{
+		border: 1px solid white;
 	}
 	
 </style>
@@ -36,7 +38,7 @@
 			<td>선택</td>
 		</tr>
 		<tr>
-			<td rowspan ="3"><input type="checkbox">
+			<td><input type="checkbox">
 			<td></td>
 			<td colspan="3">zz</td>
 			<td>10000원</td>
@@ -50,7 +52,7 @@
 		</tr>
 		<tr>
 		<td colspan="5" style="text-align:left">ㅋㅋㅋ</td>
-		<td colspan="3">상품구매가격</td>
+		<td colspan="4">상품구매가격</td>
 		</tr>	
 	</table>
 	</div>

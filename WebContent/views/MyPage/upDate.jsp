@@ -152,7 +152,7 @@
                 </td>
                 <td>
                    		
-                    -<input type="text" name="smartPhone1" size="5">
+                    <input type="text" name="smartPhone1" size="5">
                     -<input type="text" name="smartPhone1" size="5">
                     -<input type="text" name="smartPhone2" size="5">
                 </td>
