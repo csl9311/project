@@ -1,31 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="member.model.vo.*" %>
-
+<% Member member = new Member(); %>
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>메인페이지</title>
-
-
-<style>
-
-</style>
-<script type="text/javascript" src="<%= request.getContextPath() %>/js/header.js?v=<%=System.currentTimeMillis() %>"></script>
-<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
-
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main/loginForm.css">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main/main.css">
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"> <!-- //트위터 아이콘 -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <!--부트스트랩  -->
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
-
-
-
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>메인페이지</title>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/js/header.js?v=<%=System.currentTimeMillis() %>"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
+	
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main/loginForm.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main/main.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"> <!-- //트위터 아이콘 -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <!--부트스트랩  -->
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -41,10 +31,11 @@
 	  <a href="<%= request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
 	  <a href="#">고객센터</a>
 <%-- 관리자 로그인 시 --%>
-<% Member loginUser = (Member)request.getAttribute("loginUser");
-	if (loginUser.getGrade().equals("admin")){%>
+<%-- <% if (member.getGrade().equals("admin")){ %>
+<!-- Member loginUser = (Member)request.getAttribute("loginUser"); -->
+<!-- if (loginUser.getGrade().equals("admin")){%> -->
 	  <a href="<%= request.getContextPath()%>/views/admin/adminMain.jsp">관리자페이지</a>
-<% } %>
+<% } %> --%>
 	</div>
 
 
