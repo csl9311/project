@@ -79,10 +79,10 @@
 	</section>
 
 	<nav class="navButtons" >
-		<button class="btn" type="button" onclick="location.href('')">기능1</button>
-		<button class="btn" type="button" value="2">기능2</button>
-		<button class="btn" type="button" value="3">기능3</button>
-		<button class="btn" type="button" value="4">기능4</button>
+		<button class="btn" type="button" onclick="location.href('')">노래방찾기</button>
+		<button class="btn" type="button" value="2">커뮤니티</button>
+		<button class="btn" type="button" value="3">예약관리</button>
+		<button class="btn" type="button" value="4">쇼핑몰</button>
 	</nav>
 	
 	</div>

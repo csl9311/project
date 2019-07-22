@@ -1,17 +1,15 @@
 @charset "UTF-8";
-body{
+#main{
 	min-height:100vh;
-}
-* {
 	margin: 0px;
 	padding: 0px;
 	text-align: center;
 	color: rgb(210, 210, 210);
-}
-#main{
 	background: rgb(40, 44, 52);
-	 
 }
+
+
+
 header{
 	 height: 51px;
 }
