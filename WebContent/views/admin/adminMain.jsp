@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +7,6 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/admin/admin.css" />
 </head>
 <body>
-	
 	<div class="emptyHeader">
 		헤더여백
 	</div>
