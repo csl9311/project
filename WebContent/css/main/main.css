@@ -4,7 +4,11 @@
 	margin: 0px;
 	padding: 0px;
 	text-align: center;
-	color: rgb(210, 210, 210);
+
+	
+}
+#main{
+	color: rgb(210, 210, 210) !important ;
 	background: rgb(40, 44, 52);
 }
 

@@ -7,13 +7,14 @@
 <title>마이페이지</title>
 <script src="../../js/jquery-3.4.1.min.js"></script>
 <%@ include file="/views/common/coinheader.jsp"%>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/sub.css">
 <style>
-<%@include file="../../css/sub.css" %>
+
 
 </style>
 </head>
-<body>
-
+<body >
+<div id="mypage">
 	
 	<div class="search">
 		<button class="btn" onclick="update()">개인정보수정</button>
@@ -51,7 +52,9 @@
 		}
 	
 	</script>
-	<%@ include file="/views/common/coinfooter.jsp"%>
-	
+		</div>
+
+
 </body>
+	<%@ include file="/views/common/coinfooter.jsp"%>
 </html>

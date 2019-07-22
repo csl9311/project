@@ -13,11 +13,12 @@
 }
 </style>
 </head>
+<%@ include file="Form.jsp"%>
 <body>
 
+<div id="mypage">
 
-<div id="Index">
-<%@ include file="Form.jsp"%>
+
 <section>	
 <form>
 	<br><br>
@@ -28,7 +29,7 @@
 	<br>
 	<p>개인정보 변경을 위해 비밀번호를 다시 한번 입력해 주세요.</p>	
 	<br>	
-	<label>비밀번호 확인 : &nbsp;</label><input type="password" id="pwd" style="width:30vw"><br><br>
+	<label>비밀번호 확인 : &nbsp;</label><input type="password" id="pwd" style="width:20vw"><br><br>
 	<div>
 	
 	<input type="button" onclick="check();" id="ch" value="확인"> &nbsp;&nbsp;&nbsp;
@@ -47,8 +48,8 @@
 	
 
 </script>
-</div>
 
+</div>
 </body>
 
 <%@ include file="/views/common/coinfooter.jsp"%>

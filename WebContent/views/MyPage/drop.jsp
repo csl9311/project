@@ -15,9 +15,9 @@
 	
 	<div class="check border">
 	<br>
-	<pre>탈퇴를 위하여 비밀번호를 다시 입력해주세요.</pre>	
+	<p>탈퇴를 위하여 비밀번호를 다시 입력해주세요.</p>	
 	<br>	
-	<label>비밀번호 확인 : &nbsp;</label><input type="password" id="pwd"><br><br>
+	<label>비밀번호 확인 : &nbsp;</label><input type="password" id="pwd" style="width:20vw"><br><br>
 	<div>
 	
 	<input type="button" onclick="check();" id="ch" value="확인"> &nbsp;&nbsp;&nbsp;
