@@ -8,12 +8,11 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/admin/admin.css" />
 </head>
 <body>
-
+	
 	<div class="emptyHeader">
 		헤더여백
 	</div>
-	
-	<div>
+	<div class="content">
 		<nav>
 			<!-- 회원관리 : 회원정보 RUD, 등급 설정, 블랙리스트 등록 및 해제 -->
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/adminMember/adminMemberView.jsp'">회원관리</div>

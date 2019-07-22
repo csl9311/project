@@ -1,47 +1,85 @@
 @charset "UTF-8";
-body{
+
+.content {
 	background: rgb(40, 44, 52);
-	color: white;
+	color: black;
 	text-align: center;
 	padding: 0px;
-	margin : 0px;
+	margin: 0px;
 }
 
 /* 상단 여백 */
-.emptyHeader{height: 10vh;}
+.emptyHeader {
+	height: 10vh;
+}
 
 /* 메뉴 div */
 .menu {
-	display:inline-block;
+	display: inline-block;
 	text-align: center;
 	padding: 10vh;
-	width : 20vw;
+	width: 20vw;
 	height: 5vh;
 	border: 1px solid white;
 }
 
 /* 검색 */
-.search input, button{height: 5vh;}
-.search input{width : 30vw;}
-.search button{width : 10vw;}
+.search input, button {
+	height: 5vh;
+}
+
+.search input {
+	width: 30vw;
+}
+
+.search button {
+	width: 10vw;
+}
 
 /* adminMemberView */
-.memberList th{width : 12vw;border-top: 1px solid white;}
-.memberList th:hover{cursor: pointer;}
-.memberList tr {height: 5vh; margin-top: 10px;}
-.memberList tr td{
-	width : 12vw;
+.memberList th:hover {
+	cursor: pointer;
+}
+
+.memberList th {
+	width: 12vw;
+	border-top: 1px solid white;
+	text-align: center;
+	color: white;
+}
+
+.memberList tr {
+	height: 5vh;
+	margin-top: 10px;
+}
+
+.memberList tr td {
+	width: 12vw;
 	border-top: 1px solid white;
 	font-size: 12px;
 }
+
 .memberList tr :hover {
 	cursor: pointer;
-	color:gray;
+	color: gray;
 }
 
 /* memberDetailView */
-.memberDetail tr td{
-	width : 25vw;
-	height : 5vh;
+.memberDetail tr th, td {
+	border: 1px solid white;
+	text-align: center;
+	width: 25vw;
+	height: 5vh;
 }
-.phone {width : 50px;}
+
+.memberDetail tr th {
+	color: white;
+}
+
+.phone {
+	width: 50px;
+}
+
+.dash {
+	color: white;
+}

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page
-	import="java.util.ArrayList, member.model.vo.*, common.PageInfo"%>
+<%@ page import="java.util.ArrayList, member.model.vo.*, common.PageInfo"%>
 
 <%
 	ArrayList<Member> list = new ArrayList<>();/*  Member loginUser = request.getAttribute("loginUser"); */
@@ -12,6 +11,7 @@
 		list.add(member1);
 	}
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,14 +22,15 @@
 <%-- jQuery 호출 --%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+<%@include file="/views/common/coinheader.jsp"%>
 <body>
 
 	<%-- 헤더 여백 --%>
 	<div class="emptyHeader"></div>
-
+	
 	<%-- 검색 영역 --%>
-	<form class="search"
-		action="<%=request.getContextPath()%>/searchMem.admin" method="get">
+	<div class="content">
+	<form class="search" action="<%=request.getContextPath()%>/searchMem.admin" method="get">
 		<input type="search" name="search">
 		<button type="submit">검색</button>
 	</form>
@@ -101,5 +102,6 @@
 			}
 		<%}%>
 	</script>
+	</div>
 </body>
 </html>
