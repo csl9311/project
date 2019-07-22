@@ -1,5 +1,5 @@
 @charset "UTF-8";
-*{
+body{
 	background: rgb(40, 44, 52);
 	color: white;
 	text-align: center;
@@ -26,6 +26,7 @@
 .search button{width : 10vw;}
 
 /* adminMemberView */
+.memberList th{width : 12vw;border-top: 1px solid white;}
 .memberList th:hover{cursor: pointer;}
 .memberList tr {height: 5vh; margin-top: 10px;}
 .memberList tr td{
@@ -33,7 +34,13 @@
 	border-top: 1px solid white;
 	font-size: 12px;
 }
-.memberList tr td:hover {
+.memberList tr :hover {
 	cursor: pointer;
-	color:gray;
+	color:rgb(40, 44, 52);
+}
+
+/* memberDetailView */
+.memberDetail tr td{
+	width : 25vw;
+	height : 10vh;
 }
