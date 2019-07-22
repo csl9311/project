@@ -97,7 +97,7 @@
 						<tbody id="itemTableTbody">
 							<tr>
 								<td>배송정보</td>
-								<td><span>택배배송</span>&nbsp;&nbsp;&nbsp; 평균 2일 이내
+								<td><span>택배배송</span>&#38;nbsp;&#38;nbsp;&#38;nbsp; 평균 2일 이내
 									배송(토,일,공휴일제외) <img alt="안내창"
 									src="<%=request.getContextPath()%>/img/shopImg/question-mark.png">
 								</td>
@@ -170,7 +170,7 @@
 							<li class="clicked_category"><a href="#cb_detail"
 								class="clicked_category">DETAIL</a></li>
 							<li><a href="#cb_review">REVIEW </a></li>
-							<li><a href="#cb_qna">Q&A </a></li>
+							<li><a href="#cb_qna">Q&#38;A </a></li>
 							<li><a href="#cb_info">INFO</a></li>
 						</ul>
 					</div>
@@ -183,7 +183,7 @@
 							<li><a href="#cb_detail">DETAIL</a></li>
 							<li class="clicked_category"><a href="#cb_review"
 								class="clicked_category">REVIEW </a></li>
-							<li><a href="#cb_qna">Q&A </a></li>
+							<li><a href="#cb_qna">Q&#38;A </a></li>
 							<li><a href="#cb_info">INFO</a></li>
 						</ul>
 					</div>
@@ -217,7 +217,7 @@
 									</div>
 									<div class="text_box_title">
 										<blockquote>
-											<b>관리자</b>&nbsp;&nbsp;2019-07-20
+											<b>관리자</b>&#38;nbsp;&#38;nbsp;2019-07-20
 										</blockquote>
 									</div>
 									<div class="text_box">
@@ -243,7 +243,7 @@
 							<li><a href="#cb_detail">DETAIL</a></li>
 							<li><a href="#cb_review">REVIEW </a></li>
 							<li class="clicked_category"><a href="#cb_qna"
-								class="clicked_category">Q&A </a></li>
+								class="clicked_category">Q&#38;A </a></li>
 							<li><a href="#cb_info">INFO</a></li>
 						</ul>
 						<div class="cb_review_inner">
@@ -262,7 +262,7 @@
 						<ul>
 							<li><a href="#cb_detail">DETAIL</a></li>
 							<li><a href="#cb_review">REVIEW </a></li>
-							<li><a href="#cb_qna">Q&A </a></li>
+							<li><a href="#cb_qna">Q&#38;A </a></li>
 							<li class="clicked_category"><a href="#cb_info"
 								class="clicked_category">INFO</a></li>
 						</ul>

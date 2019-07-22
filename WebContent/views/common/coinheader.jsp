@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="member.model.vo.*" %>
-<% Member member = new Member(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,11 +30,11 @@
 	  <a href="<%= request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
 	  <a href="#">고객센터</a>
 <%-- 관리자 로그인 시 --%>
-<%-- <% if (member.getGrade().equals("admin")){ %>
+<%-- <% if (loginUser.getGrade().equals("admin")){ %> --%>
 <!-- Member loginUser = (Member)request.getAttribute("loginUser"); -->
 <!-- if (loginUser.getGrade().equals("admin")){%> -->
 	  <a href="<%= request.getContextPath()%>/views/admin/adminMain.jsp">관리자페이지</a>
-<% } %> --%>
+<%-- <% } %> --%>
 	</div>
 
 

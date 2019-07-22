@@ -63,7 +63,6 @@
 		<%
 			for (int i = 0; i < list.size(); i++) {
 					Member member = list.get(i);
-					System.out.println(list.get(i));
 		%>
 		<form action="" method="post">
 			<table class="memberList">
@@ -94,7 +93,10 @@
 			function trClick<%=i%>(){
 				var id = document.getElementById("memberId<%=i%>");
 				if('<%=member.getId()%>' == id.value) {
-					location.href="<%=request.getContextPath()%>/views/admin/adminMember/memberDetail.jsp?memId=<%=member.getId()%>";
+					<%
+						request.setAttribute("member", member);
+					%>
+					location.href="<%=request.getContextPath()%>/views/admin/adminMember/memberDetail.jsp";
 				}
 			}
 		<%}%>
