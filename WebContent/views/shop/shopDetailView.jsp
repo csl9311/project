@@ -309,21 +309,7 @@
 		</div>
 	</div>
 	<script>
-		// 화면 시작 시 smallImg의 첫번째 값이 bigImg에 담기는 함수
-		/*    $(function(e) {
-		      var cloneImg = $('#smallImg img').eq(0).clone();
-		      // 찾은 요소 중 첫번째 index값 복사
-		      $('#bigImg *').remove();
-		      $('#bigImg').append(cloneImg);
-		   });
-		   // smallImg 클릭 시 bigImg에 해당 값이 담기는 함수
-		   $("#smallImg img").on("click", function() {
-		      var cloneImg = $(this).clone();
-		      $('#bigImg *').remove();
-		      $('#bigImg').append(cloneImg);
-		   }); */
-
-		// 옵션이 선택되면 td추가되는 함수
+		// 옵션이 선택되면 td추가
 		$('#select').on("change", function() {
 			var item = $(this).children('option:selected').text();
 			$('#addTr .amount_name').text(item);
@@ -337,15 +323,16 @@
 			$('#itemTableTbody').append(tr);
 		});
 
-		// X누르면 td 제거되는 함수
+		// X누르면 td 제거
 		function deleteItem() {
 			$(event.target).closest('.amountTr').remove();
 		}
-		// puls()
+		// puls
 		function plus() {
-			/* var currVal = $(event.target).closest('.textType').val();
-			이렇게 하면 안되는 이유 : input[type=text]가 부모가 아닌 형제 노드여서*/
 			var currVal = parseInt($(event.target).next().val()) + 1;
+			console.log(event.target); /* --> 버튼 태그 전부 호출  */
+			console.log(event.currentTarget);
+			
 			if (currVal <= 5) {
 				$('.textType').val(currVal);
 			} else {
@@ -353,7 +340,7 @@
 			}
 		}
 
-		// minus()
+		// minus
 		function minus() {
 			var currVal = parseInt($(event.target).prev().val()) - 1;
 			if (currVal > 0) {
@@ -361,21 +348,7 @@
 			}
 		}
 
-		/* 
-		// 선택된 카테고리에만 색 들어오는 함수
-		   var id = "";
-		   var aTag = "";
-		   $('.cb_cate a').on('click', function(){
-		      $(id + aTag).toggleClass('clicked_category');
-		      $(id + aTag).closest('li').toggleClass('clicked_category');
-
-		      id = $(this).attr('href');
-		      aTag = ' a[href=\"'+id+'\"]';
-		      $(id + aTag).toggleClass('clicked_category');
-		      $(id + aTag).closest('li').toggleClass('clicked_category');
-		   }); */
-
-		// 창 사이즈 줄어들면 화면 바뀌는 함수
+		// 창 사이즈 줄어들면 화면 css변경
 		console.log(windowWidth);
 		var windowWidth = $(window).width();
 		function cssResize() {
@@ -403,22 +376,7 @@
 			windowWidth = $(window).width();
 			cssResize();
 		});
-		/*    function cssResize() {
-		      if (windowWidth <= 1100) {
-		         $('#content_top').css('flex-direction', 'column');
-		         $('#ct_col_lft').css('width', '100%').css('flex-direction',
-		               'row');
-		         $('#smallImg ul').css('flex-flow', 'column wrap');
-		         $('#smallImg ul li').css('max-width', '');
-		         $('#ct_col_rgt').css('width', '100%');
-		      } else {
-		         $('#content_top').css('flex-direction', '');
-		         $('#ct_col_lft').css('width', '').css('flex-direction', '');
-		         $('#smallImg ul').css('flex-flow', '');
-		         $('#smallImg ul li').css('max-width', '10vw');
-		         $('#ct_col_rgt').css('width', '');
-		      }
-		   } */
+
 	</script>
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>
