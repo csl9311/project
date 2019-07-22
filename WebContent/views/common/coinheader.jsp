@@ -85,7 +85,7 @@
                   </form>
                     
                   <div class="login-help">
-                    <a href="<%= request.getContextPath() %>/views/upDate/mainPage.jsp">회원가입</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">Forgot Password</a>
+                    <a href="<%= request.getContextPath() %>/views/MyPage/upDate.jsp">회원가입</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">Forgot Password</a>
                   </div>
                 </div>
             </div>

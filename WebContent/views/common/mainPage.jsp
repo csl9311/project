@@ -78,12 +78,12 @@
 
 	</section>
 
-	<nav class="navButtons" >
+	<div class="mainMenu" style="display:inline-block">
 		<button class="btn" type="button" onclick="location.href('')">노래방찾기</button>
 		<button class="btn" type="button" value="2">커뮤니티</button>
 		<button class="btn" type="button" value="3">예약관리</button>
 		<button class="btn" type="button" value="4">쇼핑몰</button>
-	</nav>
+	</div>
 	
 	</div>
 	
