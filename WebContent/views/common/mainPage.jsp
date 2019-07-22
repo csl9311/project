@@ -20,7 +20,7 @@
 	
 	<!--*****************배너광고 영역  ************** -->
 <div id="Index" >
-
+wq
 
 <div id="slider-wrap" >
     <ul id="slider" >
