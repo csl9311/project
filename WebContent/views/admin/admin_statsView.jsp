@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>통계</title>
 </head>
 <body>
-
+	
+	일매출, 월매출, 작년 데이터 비교 (성장률)
+	
 </body>
 </html>
