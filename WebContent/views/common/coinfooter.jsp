@@ -25,25 +25,25 @@
                 <div class="col-sm-2">
                     <h5>Get started</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Sign up</a></li>
-                        <li><a href="#">Downloads</a></li>
+                        <li><a href="<%= request.getContextPath() %>/views/common/mainPage.jsp">홈으로</a></li>
+                        <li><a href="<%= request.getContextPath() %>/views/upDate/mainPage.jsp">회원가입</a></li>
+                        <li><a href="#">사이트소개</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">
                     <h5>About us</h5>
                     <ul>
-                        <li><a href="#">Company Information</a></li>
-                        <li><a href="#">Contact us</a></li>
-                        <li><a href="#">Reviews</a></li>
+                        <li><a href="#">회사 소개</a></li>
+                        <li><a href="#">인재 채용</a></li>
+                        <li><a href="#">제휴 제안</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">
                     <h5>Support</h5>
                     <ul>
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Help desk</a></li>
-                        <li><a href="#">Forums</a></li>
+                        <li><a href="#">운영 정책</a></li>
+                        <li><a href="#">고객센터</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
@@ -58,7 +58,7 @@
         </div>
         </div>
         <div class="footer-copyright">
-            <p>© 2019 Copyright Text </p>
+            <p>© 2019 Copyright 코노차자조 Corp. </p>
         </div>
         
     </div>

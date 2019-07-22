@@ -72,7 +72,8 @@
 <!-- <div class="login-btn">
 <a href="#" class="button" >Login</a>
 </div> -->
-
+<form>
+<%-- <form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm" onsubmit="return validate();"> --%>
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none; ">
           <div class="modal-dialog">
                 <div class="loginmodal-container">
@@ -84,13 +85,13 @@
                   </form>
                     
                   <div class="login-help">
-                    <a href="#">Register</a> - <a href="#">Forgot Password</a>
+                    <a href="<%= request.getContextPath() %>/views/upDate/mainPage.jsp">회원가입</a> - <a href="#">Forgot Password</a>
                   </div>
                 </div>
             </div>
           </div>
 
-
+</form>
 </body>
 
 <!--     <script>
