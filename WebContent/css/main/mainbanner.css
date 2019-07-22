@@ -11,7 +11,7 @@ body::-webkit-scrollbar {
 }
 
 button{
-	color:black;
+	color:black !important;
 }
 
 #slider{
