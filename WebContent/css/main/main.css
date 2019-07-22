@@ -4,7 +4,7 @@
 	margin: 0px;
 	padding: 0px;
 	text-align: center;
-	color: rgb(210, 210, 210);
+	color: rgb(210, 210, 210) !important;
 	background: rgb(40, 44, 52);
 }
 
@@ -15,7 +15,7 @@ header{
 }
 nav {
 	height: 5vh;
-	background-color: rgba(40, 44, 52, 0.5); 
+	background-color: rgba(40, 44, 52, 0.5) !important; 
 	
 }
 
@@ -49,6 +49,10 @@ section {
 }
 
 .navButtons {
+	padding: 20vh;
+}
+
+div .mainMenu{
 	padding: 20vh;
 }
 

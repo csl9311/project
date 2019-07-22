@@ -10,8 +10,9 @@ body::-webkit-scrollbar {
     display: none; 
 }
 
-button{
-	color:black;
+.mainMenu button{
+	color:black !important;
+	background: yellow;
 }
 
 #slider{

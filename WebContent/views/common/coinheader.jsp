@@ -53,7 +53,7 @@
 				<button type="button" class="logout btn btn-sm none" style="display:none">로그아웃</button>
 				<button type="button" class="profile btn btn-sm none"style="display:none">프로필</button>
 			</div>
-			<h1 class="logo"  onclick= "location.href='<%= request.getContextPath() %>/views/common/mainPage.jsp'" style="cursor:pointer">로고</h1>
+			<div class="logo"  onclick= "location.href='<%= request.getContextPath() %>/views/common/mainPage.jsp'" style="cursor:pointer;display:inline-block">로고</div>
 		</nav>
 	</header>
 
@@ -85,7 +85,7 @@
                   </form>
                     
                   <div class="login-help">
-                    <a href="<%= request.getContextPath() %>/views/upDate/mainPage.jsp">회원가입</a> - <a href="#">Forgot Password</a>
+                    <a href="<%= request.getContextPath() %>/views/MyPage/upDate.jsp">회원가입</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">Forgot Password</a>
                   </div>
                 </div>
             </div>
