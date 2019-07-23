@@ -19,8 +19,10 @@
 </style>
 
 </head>
-<body>
 <%@ include file="Form.jsp"%>
+<body>
+<div id="mypage">
+
 
 	<section class="result border">		
 		
@@ -152,7 +154,7 @@
                 </td>
                 <td>
                    		
-                    -<input type="text" name="smartPhone1" size="5">
+                    <input type="text" name="smartPhone1" size="5">
                     -<input type="text" name="smartPhone1" size="5">
                     -<input type="text" name="smartPhone2" size="5">
                 </td>
@@ -180,9 +182,10 @@
         <br>
         <input type="button" id="join" value="회원가입">
 	</section>
+</div>
 
-<%@ include file="/views/common/coinfooter.jsp"%>
 	
 
 </body>
+<%@ include file="/views/common/coinfooter.jsp"%>
 </html>

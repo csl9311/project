@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+	.tab-1 {		
+		margin:auto;
+		width: 80vw;
+		height: auto;
+		border: 1px solid white;
+	}
+	.tab-1 tr td{
+		border: 1px solid white;
+	}
+	.tab-2 {		
+		margin:auto;
+		width: 80vw;
+		height: auto;
+		border: 1px solid white;
+		
+	}
+	.tab-2 tr td{
+		border: 1px solid white;
+	}
+	.pay1 {
+		font-size: 2em;
+		text-ailgn=left;
+	}
+	#quantity{
+	width : 40px;
+	}
+	.cartBtn{
+	padding: 5px;
+	}
+	

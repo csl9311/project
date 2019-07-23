@@ -13,8 +13,9 @@
 
 
 </style>
-   <%@include file="/views/common/coinheader.jsp" %>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/main/mainbanner.css">
+   <%@include file="/views/common/coinheader.jsp" %>
+
 
 <body >
 	

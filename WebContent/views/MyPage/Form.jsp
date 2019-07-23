@@ -9,23 +9,15 @@
 
 <style>
 
-<%@include file="../../css/sub.css" %>
+
 
 </style>
+
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/mypage/sub.css">
 </head>
 <body>
+<div id="mypage">
 
-
-
-	<aside class="menu left none">
-		<button id="lCate" class="btn lCate" type="button">aaa</button>
-		<br> <br>
-		<div id="mCate" class="absolute none">
-			<button class="btn mCate" type="button">1</button>
-			<button class="btn mCate" type="button">2</button>
-			<button class="btn mCate" type="button">3</button>
-		</div>
-	</aside>	
 	<div class="search">
 		<button class="btn" onclick="update()">개인정보수정</button>
 		<button class="btn" >예약내역</button>
@@ -48,7 +40,7 @@
 		}
 	
 	</script>
-	
+	</div>
 	
 	
 </body>
