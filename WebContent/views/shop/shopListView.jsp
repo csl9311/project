@@ -17,7 +17,7 @@
 		} else if(windowWidth >= 1100){
 			$('#items li').css('width','');
 		} else {
-			$('#items li').css('width','40%');
+			$('#items li').css('width','45%');
 		}
 	}
 	$(function() {
@@ -27,6 +27,9 @@
 		windowWidth = $(window).width();
 		cssResize();
 	});
+/* 	$('.item_top').hover(function(){
+		$('.icons').css('display', 'block');
+	}); */
 	</script>
 </head>
 <body>
@@ -81,16 +84,18 @@
 						<div class="item_border flex">
 								<input type="checkbox" name="checkBox" class="pointer">
 							<div class="item flex column">
-								<div class="item_top flex">
+								<div class="item_top">
 									<a
 										href="<%=request.getContextPath()%>/views/shop/shopDetailView.jsp">
 										<img class="pointer" alt=""
 										src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
 									</a>
+									<div class="icons">
+									</div>
 								</div>
 								<div class="item_bottom">
-									<span class="pointer">상품이름</span><br> <span
-										class="pointer">가격</span>
+									<span class="pointer">커세어 K70 RGB MK.2 게이밍 기계식 키보드</span><br> <span
+										class="pointer">219,000원</span>
 								</div>
 							</div>
 						</div>
