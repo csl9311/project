@@ -6,11 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
-	.sdiv{
-
-		
-	}
 	.tab-1 {		
 		margin:auto;
 		width: 80vw;
@@ -33,7 +28,14 @@
 	.pay1 {
 		font-size: 2em;
 		text-ailgn=left;
-	}	
+	}
+	#quantity{
+	width : 40px;
+	}
+	.cartBtn{
+	padding: 5px;
+	}
+		
 	
 </style>
 <%@  include file="Form.jsp"%>
@@ -44,11 +46,11 @@
 <div class=".sdiv">
 	<table class="tab-1">
 		<tr >
-			<td><input type="checkbox">전체선택</td>
+			<td width="100px">전체선택&nbsp;<input type="checkbox"></td>
 			<td>이미지</td>
 			<td colspan="3">상품정보</td>
 			<td>상품 금액</td>
-			<td>수량</td>
+			<td width="50px">수량</td>
 			<td>배송비</td>
 			<td>합계</td>
 			<td>선택</td>
@@ -58,12 +60,13 @@
 			<td></td>
 			<td colspan="3">zz</td>
 			<td>10000원</td>
-			<td><input type="Number" min="1"></td>
+			<td><input type="Number" min="1" id="quantity"></td>
 			<td>3000원</td>
 			<td>9900원</td>
-			<td><button>주문하기</button><br>
-				<button>관심상품등록</button><br>
-				<button>삭제</button>
+			<td><br>
+			<button class="cartBtn">주문하기</button><br>
+				<button class="cartBtn">관심상품등록</button><br>
+				<button class="cartBtn">삭제</button>
 			</td>
 		</tr>
 		<tr>
@@ -91,7 +94,16 @@
 	</tr>
 	</table>
 	<br>
-	<button>전체상품주문</button>&nbsp;&nbsp;<button>선택상품주문</button>	
+	<button onclick="allpayment()">전체상품주문</button>&nbsp;&nbsp;<button onclick="selectpayment()">선택상품주문</button>	
+	<script>
+	function allpayment(){
+		location.href="<%= request.getContextPath()%>/views/MyPage/payment.jsp";
+	}
+	function selectpaymnet(){
+		location.href="<%= request.getContextPath()%>/views/MyPage/payment.jsp";
+	}
+	
+	</script>
 	</div>
 	<div>
 	<br>

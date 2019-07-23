@@ -8,7 +8,9 @@
 </head>
 <body>
 <%@ include file="Form.jsp"%>
+
 <form>
+
 	<br><br>
 	<h2  id="la1">정말로 탈퇴하시겠습니까?</h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label></label>
 	<br><br>
@@ -27,7 +29,8 @@
 	
 	</div>
 </form>
+
 	
 
 </body>
-</html>
+</html>  

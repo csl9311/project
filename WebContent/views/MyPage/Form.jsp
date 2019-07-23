@@ -13,7 +13,7 @@
 
 </style>
 
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/sub.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/mypage/sub.css">
 </head>
 <body>
 <div id="mypage">
