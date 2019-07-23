@@ -6,88 +6,16 @@
 <meta charset="UTF-8">
 <title>ShopDetailView</title>
 <%@ include file="/views/common/coinheader.jsp"%>
-<link
-	href="<%=request.getContextPath()%>/css/shop/shopDetailView.css?ver=1"
+<link href="<%=request.getContextPath()%>/css/shop/shopDetailView.css?ver=1"
 	rel="stylesheet">
-		<script>
-		// 옵션이 선택되면 td추가
-		$('#select').on("change", function() {
-			var item = $(this).children('option:selected').text();
-			$('#addTr .amount_name').text(item);
-			for (i = 0; i <= $('#itemTableTbody .amount_name').length; i++) {
-				if (item == $('#itemTableTbody .amount_name').eq(i).text()) {
-					alert('이미 동일한 항목이 선택되어 있습니다.');
-					return;
-				}
-			}
-			var tr = $('#addTr').html();
-			$('#itemTableTbody').append(tr);
-		});
-
-		// X누르면 td 제거
-		function deleteItem() {
-			$(event.target).closest('.amountTr').remove();
-		}
-		// puls
-		function plus() {
-			var currVal = parseInt($(event.target).next().val()) + 1;
-			console.log(event.target); /* --> 버튼 태그 전부 호출  */
-			console.log(event.currentTarget);
-			
-			if (currVal <= 5) {
-				$('.textType').val(currVal);
-			} else {
-				alert('최대 주문가능수량은 5개 입니다.');
-			}
-		}
-
-		// minus
-		function minus() {
-			var currVal = parseInt($(event.target).prev().val()) - 1;
-			if (currVal > 0) {
-				$('.textType').val(currVal);
-			}
-		}
-
-		// 창 사이즈 줄어들면 화면 css변경
-		console.log(windowWidth);
-		var windowWidth = $(window).width();
-		function cssResize() {
-			if (windowWidth <= 1100) {
-				$('#content_top').css('flex-direction', 'column');
-				$('#ct_col_lft').css({
-					'width' : '100%',
-					'margin-bottom' : '3vh'
-				});
-				$('#ct_col_rgt').css('width', '100%')
-						.css('font-size', '1.2rem');
-			} else {
-				$('#content_top').css('flex-direction', '');
-				$('#ct_col_lft').css({
-					'width' : '',
-					'margin-bottom' : ''
-				});
-				$('#ct_col_rgt').css('width', '').css('font-size', '');
-			}
-		}
-		$(function() {
-			cssResize();
-		});
-		$(window).resize(function() {
-			windowWidth = $(window).width();
-			cssResize();
-		});
-
-	</script>
 </head>
 <body>
 	<!-- 
-      해야할 것 :
+      해야할 것 : 
        
          1) 사진 왼쪽 오른쪽 버튼에 따라 바뀌는거
          2) DB구축 후 hidden으로 값 받아오는 input Tag들 만들기  
          3) 배송정보 칸의 안내창(물음표) 이미지 hover이벤트(시간남으면)
-         4) plus(), minus() 수정하기 
    -->
 	<!-- 상세 페이지 전체 감싸는 div -->
 	<div id="Index">
@@ -132,12 +60,10 @@
 			<div id="content_top">
 				<!-- 사진 영역 -->
 				<div id="ct_col_lft">
-					<div id="bfBtn">◀</div>
 					<div id="bigImg">
 						<img alt=""
 							src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
 					</div>
-					<div id="afBtn">▶</div>
 					<%-- <div id="smallImg">
                   <ul>
                      <li><img alt="5번사진"
@@ -167,8 +93,7 @@
 						<tbody id="itemTableTbody">
 							<tr>
 								<td>배송정보</td>
-								<td><span>택배배송</span> &nbsp; &nbsp; &nbsp; 평균 2일 이내
-									배송(토,일,공휴일제외) <img alt="안내창"
+								<td><span>택배배송</span> 평균 2일 이내 배송(토,일,공휴일제외) <img alt="안내창"
 									src="<%=request.getContextPath()%>/img/shopImg/question-mark.png">
 								</td>
 							</tr>
@@ -195,12 +120,12 @@
 						<ul id="ct_btn_ul">
 							<li>
 								<div id="ct_btn_cart">
-									<a href=""><span>CART</span></a>
+									<a href="" class="color1"><span>CART</span></a>
 								</div>
 							</li>
 							<li>
 								<div id="ct_btn_buy">
-									<a href=""><span>BUY</span></a>
+									<a href="" class="color1"><span>BUY</span></a>
 								</div>
 							</li>
 						</ul>
@@ -216,7 +141,7 @@
 										<div class="amount_dltBtn" onclick="deleteItem();">X</div>
 										<div class="amount_Btns">
 											<button class="amount_Btn" type="button" onclick="plus();">▲</button>
-											<input type="text" class="textType" value="1">
+											<input type="text" value="1">
 											<button class="amount_Btn" type="button" onclick="minus();">▼</button>
 										</div>
 										<div class="itemPrice">
@@ -378,6 +303,73 @@
 			</div>
 		</div>
 	</div>
+<script>
+	// 옵션이 선택되면 td추가
+	$('#select').on("change", function() {
+		var item = $(this).children('option:selected').text();
+		$('#addTr .amount_name').text(item);
+		for (i = 0; i <= $('#itemTableTbody .amount_name').length; i++) {
+			if (item == $('#itemTableTbody .amount_name').eq(i).text()) {
+				alert('이미 동일한 항목이 선택되어 있습니다.');
+				return;
+			}
+		}
+		var tr = $('#addTr').html();
+		$('#itemTableTbody').append(tr);
+	});
+
+	// X누르면 td 제거
+	function deleteItem() {
+		$(event.target).closest('.amountTr').remove();
+	}
+	// puls
+	function plus() {
+		var currVal = parseInt($(event.target).next().val()) + 1;
+		console.log(event.target); /* --> 버튼 태그 전부 호출  */
+		console.log(event.currentTarget);
+
+		if (currVal <= 5) {
+			$(event.target).next().val(currVal);
+		} else {
+			alert('최대 주문가능수량은 5개 입니다.');
+		}
+	}
+
+	// minus
+	function minus() {
+		var currVal = parseInt($(event.target).prev().val()) - 1;
+		if (currVal > 0) {
+			$(event.target).prev().val(currVal);
+		}
+	}
+
+	// 창 사이즈 줄어들면 화면 css변경
+	var windowWidth = $(window).width();
+	function cssResize() {
+		if (windowWidth <= 900) {
+			$('#content_top').css('flex-direction', 'column');
+			$('#ct_col_lft').css({
+				'width' : '100%',
+				'margin-bottom' : '3vh'
+			});
+			$('#ct_col_rgt').css('width', '100%').css('font-size', '1.2rem');
+		} else {
+			$('#content_top').css('flex-direction', '');
+			$('#ct_col_lft').css({
+				'width' : '',
+				'margin-bottom' : ''
+			});
+			$('#ct_col_rgt').css('width', '').css('font-size', '');
+		}
+	}
+	$(function() {
+		cssResize();
+	});
+	$(window).resize(function() {
+		windowWidth = $(window).width();
+		cssResize();
+	});
+</script>
 
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>
