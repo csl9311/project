@@ -2,9 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="member.model.vo.Member"%>
 <%
-	String userId = (String)request.getAttribute("memberId");
-	System.out.print(userId);
-	/* id로 멤버객체 불러오기 */
 	Member member = new Member();
 	member.setGender("-");
 	member.setGrade("사용자");
@@ -36,8 +33,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상세정보조회</title>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css" />
+<title>회원정보조회</title>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css">
+<style type="text/css">
+#memberDetail tr th {color: white;}
+
+#memberDetail tr td {color: black;}
+
+#memberDetail tr th,td {
+	text-align: center;
+	width: 25vw;
+	height: 5vh;
+	border: 1px solid white;
+	border-collapse: collapse;
+}
+</style>
 </head>
 <body>
 	<div class="content">

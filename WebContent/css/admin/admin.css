@@ -24,7 +24,7 @@ hr {border: 1px solid white;}
 	padding: 10vh;
 	width: 20vw;
 	height: 5vh;
-	border: 1px solid white;
+	border: 0.5px solid white;
 }
 
 /* 검색 */
@@ -34,29 +34,8 @@ hr {border: 1px solid white;}
 
 .search button {width: 10vw;}
 
-/* adminMemberView */
-.resultList tr :hover {
-	cursor: pointer;
-	color: gray;
-}
-
-.resultList tr th,td {
-	width: 12vw;
-	font-size: 14px;
-	padding: 0px;
-	color: white;
-}
-
 /* memberDetailView */
-#memberDetail tr th {color: white;}
 
-#memberDetail tr td {color: black;}
-
-#memberDetail tr th,td {
-	text-align: center;
-	width: 25vw;
-	height: 5vh;
-}
 .grade {width: 173px;}
 
 .phone {width: 45px;}

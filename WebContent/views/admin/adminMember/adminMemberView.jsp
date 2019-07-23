@@ -5,7 +5,7 @@
 
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("memberList");
-	list.add(new Member());
+	String msg = (String)request.getAttribute("msg");
 %>
 
 <!DOCTYPE html>
@@ -15,6 +15,20 @@
 <title>회원관리</title>
 <%-- css 호출 --%>
 <link rel="stylesheet" href='<%=request.getContextPath()%>/css/admin/admin.css'>
+<style type="text/css">
+.resultList tr :hover {
+	cursor: pointer;
+	color: gray;
+}
+
+.resultList tr th,td {
+	width: 12vw;
+	font-size: 12px;
+	padding: 0px;
+	color: white;
+}
+</style>
+
 <%-- jQuery 호출 --%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
@@ -86,10 +100,16 @@
 			function trClick<%=i%>(){
 				var id = document.getElementById("memberId<%=i%>");
 				if('<%=member.getId()%>' == id.value) {
-					location.href="<%=request.getContextPath()%>/views/admin/adminMember/memberDetail.jsp";
+					location.href="<%=request.getContextPath()%>/admin.memberDetail";
 				}
 			}
 		<%}%>
+		
+		(function(){
+			if(<%=msg%> != null){
+				alert(<%=msg%>);
+			}
+		})();
 	</script>
 	</div>
 </body>

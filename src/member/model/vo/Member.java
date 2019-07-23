@@ -30,6 +30,13 @@ public class Member {
 		this.modifyDate = modifyDate;
 	}
 
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", pw=" + pw + ", name=" + name + ", phone=" + phone + ", gender=" + gender
+				+ ", address=" + address + ", email=" + email + ", grade=" + grade + ", status=" + status + ", birth="
+				+ birth + ", regDate=" + regDate + ", modifyDate=" + modifyDate + "]";
+	}
+
 	public String getId() {
 		return id;
 	}

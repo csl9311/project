@@ -22,7 +22,7 @@
 			<!-- 신고 된 게시글 조회, 삭제 -->
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_reportedView.jsp'">게시물 관리</div>
 			<!-- 통계 : 광고 재생 수, 기간 별 신규 가입 -->
-			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_statsView.jsp'">통계</div>
+			<%-- <div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_statsView.jsp'">통계</div> --%>
 			<!-- 결제정보조회 -->
 			<!-- 사업장 정보 조회 수정 삭제 -->
 		</nav>

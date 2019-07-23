@@ -1,7 +1,6 @@
 package admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,23 +11,28 @@ import javax.servlet.http.HttpServletResponse;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
-@WebServlet("/admin.memberList")
-public class MemberController extends HttpServlet {
+@WebServlet("/admin.memberDetail")
+public class MemberDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public MemberController() {}
+	public MemberDetailServlet() {
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<Member> list = new MemberService().selectAll();
+		String id = (String)request.getAttribute("memberId");
+		Member member = new MemberService().selectMember(id);
 		
-		if (list != null) {
-			request.setAttribute("memberList", list);
+		String page = null;
+		if(member != null) {
+			request.setAttribute("member", member);
+			page = "views/admin/adminMember/adminMemberDetail.jsp";
 		} else {
-			request.setAttribute("msg", "회원정보조회에 실패했습니다.");
+			request.setAttribute("msg", "상세 정보 조회에 실패했습니다.");
+			page = "views/common/errorPage.jsp";
 		}
-		request.getRequestDispatcher("views/admin/adminMember/adminMemberView.jsp").forward(request, response);
-
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
