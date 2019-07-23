@@ -5,40 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	.tab-1 {		
-		margin:auto;
-		width: 80vw;
-		height: auto;
-		border: 1px solid white;
-	}
-	.tab-1 tr td{
-		border: 1px solid white;
-	}
-	.tab-2 {		
-		margin:auto;
-		width: 80vw;
-		height: auto;
-		border: 1px solid white;
-		
-	}
-	.tab-2 tr td{
-		border: 1px solid white;
-	}
-	.pay1 {
-		font-size: 2em;
-		text-ailgn=left;
-	}
-	#quantity{
-	width : 40px;
-	}
-	.cartBtn{
-	padding: 5px;
-	}
-		
-	
+<style>	
 </style>
 <%@  include file="Form.jsp"%>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/mypage/cart.css">
 </head>
 <body>
 <div id="mypage">
@@ -49,8 +19,8 @@
 			<td width="100px">전체선택&nbsp;<input type="checkbox"></td>
 			<td>이미지</td>
 			<td colspan="3">상품정보</td>
-			<td>상품 금액</td>
 			<td width="50px">수량</td>
+			<td>상품 금액</td>			
 			<td>배송비</td>
 			<td>합계</td>
 			<td>선택</td>
@@ -59,8 +29,8 @@
 			<td><input type="checkbox">
 			<td></td>
 			<td colspan="3">zz</td>
-			<td>10000원</td>
 			<td><input type="Number" min="1" id="quantity"></td>
+			<td>10000원</td>			
 			<td>3000원</td>
 			<td>9900원</td>
 			<td><br>
@@ -111,7 +81,6 @@
 	장바구니 이용안내
 <p>해외배송 상품과 국내배송 상품은 함께 결제하실 수 없으니 장바구니 별로 따로 결제해 주시기 바랍니다.</p>
 <p>해외배송 가능 상품의 경우 국내배송 장바구니에 담았다가 해외배송 장바구니로 이동하여 결제하실 수 있습니다.</p>
-<p>[쇼핑계속하기] 버튼을 누르시면 쇼핑을 계속 하실 수 있습니다.</p>
 <p>장바구니와 관심상품을 이용하여 원하시는 상품만 주문하거나 관심상품으로 등록하실 수 있습니다.</p>
 <p>무이자할부 이용안내</p>
 <p>상품별 무이자할부 혜택을 받으시려면 무이자할부 상품만 선택하여 [주문하기] 버튼을 눌러 주문/결제 하시면 됩니다.</p>

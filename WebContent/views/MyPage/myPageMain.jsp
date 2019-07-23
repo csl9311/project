@@ -7,7 +7,7 @@
 <title>마이페이지</title>
 <script src="../../js/jquery-3.4.1.min.js"></script>
 <%@ include file="/views/common/coinheader.jsp"%>
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/sub.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/mypage/sub.css">
 <style>
 
 
