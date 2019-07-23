@@ -50,9 +50,6 @@ section .section-title {
     font-size: 20px;
 }
 
-.form .input-group{ width: 0 !important; display: none !important;}
-
-div col-xs-12{padding : 0px;}
 
 /**      리스트 부분         **/
 
@@ -163,22 +160,22 @@ select {
 				
 				<!-- select -->
 					
-				<!-- search -->
-					
 				<div class="row" style="margin-left: 5px;">
-					<div class="btn-group show-on-hover">
-			          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-			            Action <span class="caret"></span>
-			          </button>
-			          <ul class="dropdown-menu" role="menu">
-			            <li><a href="#">Action</a></li>
-			            <li><a href="#">Another action</a></li>
-			            <li><a href="#">Something else here</a></li>
-			            <li class="divider"></li>
-			            <li><a href="#">Separated link</a></li>
-			          </ul>
-			        </div>
+				<div class="col">
+					<div class="btn-group">
+					    <button type="button" class="form-control btn btn-default dropdown-toggle" data-toggle="dropdown">
+					        옵션
+					    </button>
+					    <ul class="dropdown-menu" role="menu">
+					        <li><a href="#">small</a></li>
+					        <li><a href="#">medium</a></li>
+					        <li><a href="#">large</a></li>
+					    </ul>
+					</div>
+			    </div>
 			        
+			        <!-- search -->
+			    <div class="col" style="padding:0;">
 					<form class="form" >
 						<div class="input-group">
 			    			<input class="form-control" type="text" placeholder="업소명을 입력하세요" aria-label="Search" style="padding-left: 20px; border-radius: 40px;" id="search">
@@ -187,6 +184,7 @@ select {
 			    			</div>
 						</div>
 					</form>
+					</div>
 				</div>
 				
 				<!-- 검색 끝 -->
@@ -312,23 +310,17 @@ select {
 					
 					</div>	
 					<div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-contact-tab">
-						<div id="mapapi" onload="relayout();"></div>
-							<script>
-								var container = document.getElementById('mapapi');
-								var options = {
-									center: new kakao.maps.LatLng(33.450701, 126.570667),
+						<div id="mapapi"></div>
+						<script>
+							var container = document.getElementById('mapapi');
+							var options = {
+							center: new kakao.maps.LatLng(33.450701, 126.570667),
 									level: 3
-									
-									
-								};
+							};
 								var map = new kakao.maps.Map(container, options);
 								
-								function relayout() {    
-								    
-									map.relayout();
-								    
-								}
-							</script>
+								map.relayout();
+						</script>
 					</div>
 				</div>
 			</div>
