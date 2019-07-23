@@ -3,6 +3,7 @@
 	min-height:100vh;
 	margin: 0px;
 	padding: 0px;
+<<<<<<< HEAD
 	text-align: center;
 
 	
@@ -10,16 +11,23 @@
 #main{
 	color: rgb(210, 210, 210) !important ;
 	background: rgb(40, 44, 52);
+	
 }
 
-
+#Index{
+	text-align: center;
+	color: rgb(210, 210, 210);
+}
 
 header{
+	text-align: center;
 	 height: 51px;
+	 color: rgb(210, 210, 210);
+	 
 }
 nav {
 	height: 5vh;
-	background-color: rgba(40, 44, 52, 0.5); 
+	background-color: rgba(40, 44, 52, 0.5) !important; 
 	
 }
 
@@ -55,6 +63,8 @@ section {
 .navButtons {
 	padding: 20vh;
 }
+
+
 
 footer {
 

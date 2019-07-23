@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,15 +7,12 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/admin/admin.css" />
 </head>
 <body>
-
-	<div class="emptyHeader">
-		헤더여백
-	</div>
+	<div class="emptyHeader"></div>
 	
-	<div>
+	<div class="content">
 		<nav>
 			<!-- 회원관리 : 회원정보 RUD, 등급 설정, 블랙리스트 등록 및 해제 -->
-			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/adminMember/adminMemberView.jsp'">회원관리</div>
+			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/admin.memberList'">회원관리</div>
 			<!-- 상픔목록 CRUD -->
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/adminProduct/admin_productView.jsp'">상품관리</div>
 			<!-- 배송관리 -->

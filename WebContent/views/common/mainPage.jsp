@@ -20,8 +20,8 @@
 <body >
 	
 	<!--*****************배너광고 영역  ************** -->
-	<div id="Index" >
-<section class="border"  > 
+<div id="Index" >
+
 
 <div id="slider-wrap" >
     <ul id="slider" >
@@ -77,14 +77,14 @@
 </div>
 
 
-	</section>
 
-	<nav class="navButtons" >
+
+	<div class="mainMenu">
 		<button class="btn" type="button" onclick="location.href('')">노래방찾기</button>
 		<button class="btn" type="button" value="2">커뮤니티</button>
 		<button class="btn" type="button" value="3">예약관리</button>
 		<button class="btn" type="button" value="4">쇼핑몰</button>
-	</nav>
+	</div>
 	
 	</div>
 	

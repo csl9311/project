@@ -2,10 +2,35 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="member.model.vo.Member"%>
 <%
-	Member member = (Member)request.getAttribute("member");
-	String gender = "";
-	String checked = "";
-	String selected = "";
+	String userId = (String)request.getAttribute("memberId");
+	System.out.print(userId);
+	/* id로 멤버객체 불러오기 */
+	Member member = new Member();
+	member.setGender("-");
+	member.setGrade("사용자");
+	member.setPhone("010-4645-9876");
+	
+	String[] checked = new String[2];
+	String[] selected = new String[5];
+	String[] phone = {};
+	if (member != null) {
+		phone = member.getPhone().split("-");
+		
+		if(member.getGender().equals("남")){
+			checked[0] = "checked";
+		} else if (member.getGender().equals("남")){
+			checked[1] = "checked";
+		}
+		
+		switch(member.getGender()){
+			case "사용자": selected[0] = "selected"; break;
+			case "사장님": selected[1] = "selected"; break;
+			case "관리자": selected[2] = "selected"; break;
+			case "휴면": selected[3] = "selected"; break;
+			case "블랙": selected[4] = "selected"; break;
+		}
+	}
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -15,62 +40,73 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css" />
 </head>
 <body>
-	<div class="emptyHeader">헤더여백</div>
-	<form action="">
-		<table class="memberDetail">
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" value="<%-- <%=member.getId()%> --%>" disabled="disabled"></td>
-				<td rowspan="2">등급</td>
-				<td rowspan="2">
-					<select>
-						<option>사용자</option>
-						<%-- 추후 등급 세분화 할 예정 --%>
-						<option>사장님</option>
-						<option>관리자</option>
-						<option>블랙</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>이름</td>
-				<td><input type="text" value=""></td>
-				
-			</tr>
-			<tr>
-				<td>생일</td>
-				<td><input type="text" value="" disabled="disabled"></td>
-				
-				<td rowspan="2">회원가입일</td>
-				<td rowspan="2"><input type="text" value="" disabled="disabled"></td>
-				
-			</tr>
-			<tr>
-				<td>성별</td>
-				<td>
-					<input type="radio" name="gender" value="남">남
-					<input type="radio" name="gender" value="여">여
-				</td>
-			</tr>
-			<tr>
-				<td>휴대폰</td>
-				<td><input type="text" value=""></td>
-				<td rowspan="2">정보수정일</td>
-				<td rowspan="2"><input type="text" value="" disabled="disabled"></td>
-			</tr>
-			<tr>
-				<td>연락처</td>
-				<td><input type="tel" value=""></td>
-			</tr>
-			<tr>
-				<td>이메일 <!-- 카카오톡 ID? --></td>
-				<td><input type="text" value=""></td>
-			</tr>
-			<tr>
-				<td colspan="2"><button type="submit">수정완료</button></td>
-				<td colspan="2"><button type="submit">취소</button></td>
-			</tr>
-		</table>
-	</form>
+	<div class="content">
+		<div class="emptyHeader"></div>
+		<form action="<%=request.getContextPath()%>/update.mem" method="post">
+			<table id="memberDetail">
+				<tr>
+					<th>아이디</th>
+					<td colspan="2"><input class="disabled" type="text" value="<%=member.getId()%>" disabled="disabled"></td>
+					<th rowspan="3">등급</th>
+					<td rowspan="3">
+						<select class="grade">
+							<option <%=selected[0]%>>사용자</option>
+							<%-- 추후 등급 세분화 할 예정 --%>
+							<option <%=selected[1]%>>사장님</option>
+							<option <%=selected[2]%>>관리자</option>
+							<option <%=selected[3]%>>휴면</option>
+							<option <%=selected[4]%>>블랙</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td colspan="2"><input type="text" value="<%=member.getName()%>"></td>
+
+				</tr>
+				<tr>
+					<th>생일</th>
+					<td colspan="2"><input class="disabled" type="text" value="<%=member.getBirth()%>" disabled="disabled"></td>
+
+				</tr>
+				<tr>
+					<th>성별</th>
+					<th><input type="radio" name="gender" value="남" <%=checked[0]%>>&nbsp;&nbsp;남</th>
+					<th><input type="radio" name="gender" value="여" <%=checked[1]%>>&nbsp;&nbsp;여</th>
+
+					<th rowspan="2">회원가입일</th>
+					<td rowspan="2"><input class="disabled" type="text" value="<%=member.getRegDate()%>" disabled="disabled"></td>
+				</tr>
+				<tr>
+					<th>휴대폰</th>
+					<td colspan="2">
+						<input class="phone" type="text" value="<%=phone[0]%>">
+						<label class="dash">-</label>
+						<input class="phone" type="text" value="<%=phone[1]%>">
+						<label class="dash">-</label>
+						<input class="phone" type="text" value="<%=phone[2]%>">
+					</td>
+				</tr>
+				<tr>
+					<th>연락처</th>
+					<td colspan="2"><input type="tel" value=""></td>
+
+					<th rowspan="2">정보수정일</th>
+					<td rowspan="2"><input class="disabled" type="text" value="<%=member.getModifyDate() %>" disabled="disabled"></td>
+				</tr>
+				<tr>
+					<th>이메일 <!-- 카카오톡 ID? --></th>
+					<td colspan="2"><input type="text" value="<%=member.getEmail()%>"></td>
+				</tr>
+				<tr>
+					<td colspan="5"></td>
+				</tr>
+				<tr>
+					<td colspan="3"><button type="submit">수정완료</button></td>
+					<td colspan="2"><button type="button" onclick="location.href='javascript:history.go(-1)'">취소</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </body>
 </html>

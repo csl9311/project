@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div id="myFooter"  >
+<footer id="myFooter"  >
 
 	<div class="containerbg">
         <div class="container" >
@@ -26,7 +26,7 @@
                     <h5>Get started</h5>
                     <ul>
                         <li><a href="<%= request.getContextPath() %>/views/common/mainPage.jsp">홈으로</a></li>
-                        <li><a href="<%= request.getContextPath() %>/views/upDate/mainPage.jsp">회원가입</a></li>
+                        <li><a href="<%= request.getContextPath() %>/views/MyPage/upDate.jsp">회원가입</a></li>
                         <li><a href="#">사이트소개</a></li>
                     </ul>
                 </div>
@@ -61,7 +61,7 @@
             <p>© 2019 Copyright 코노차자조 Corp. </p>
         </div>
         
-    </div>
+    </footer>
 </body>
 
 <script> 

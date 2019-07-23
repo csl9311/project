@@ -3,21 +3,19 @@ package member.model.vo;
 import java.sql.Date;
 
 public class Member {
-	private String id, pw, name, phone, birth, gender;
-	private String address, grade, status;
-	private Date regDate, modifyDate;
-	
-	
+	private String id, pw, name, phone,  gender;
+	private String address, email, grade, status;
+	private Date birth, regDate, modifyDate;
 
-	@Override
-	public String toString() {
-		return "Member [id=" + id + ", pw=" + pw + ", name=" + name + ", phone=" + phone + ", birth=" + birth
-				+ ", gender=" + gender + ", address=" + address + ", grade=" + grade + ", status=" + status + ", regDate="
-				+ regDate + ", modifyDate=" + modifyDate + "]";
+	public Member() {
 	}
-	public Member() {}
-	public Member(String id, String pw, String name, String phone, String birth, String gender, String address,
-			String grade, String status, Date regDate, Date modifyDate) {
+	
+	public Member(String id) {
+		this.id = id;
+	}
+
+	public Member(String id, String pw, String name, String phone, Date birth, String gender, String address,
+			String email, String grade, String status, Date regDate, Date modifyDate) {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
@@ -25,6 +23,7 @@ public class Member {
 		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
+		this.email = email;
 		this.grade = grade;
 		this.status = status;
 		this.regDate = regDate;
@@ -63,11 +62,11 @@ public class Member {
 		this.phone = phone;
 	}
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 
@@ -85,6 +84,14 @@ public class Member {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getGrade() {

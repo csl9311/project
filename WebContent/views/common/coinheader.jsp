@@ -53,7 +53,7 @@
 				<button type="button" class="logout btn btn-sm none" style="display:none">로그아웃</button>
 				<button type="button" class="profile btn btn-sm none"style="display:none">프로필</button>
 			</div>
-			<h1 class="logo"  onclick= "location.href='<%= request.getContextPath() %>/views/common/mainPage.jsp'" style="cursor:pointer">로고</h1>
+			<div class="logo"  onclick= "location.href='<%= request.getContextPath() %>/views/common/mainPage.jsp'" style="cursor:pointer;display:inline-block">로고</div>
 		</nav>
 	</header>
 
@@ -75,17 +75,17 @@
 <form>
 <%-- <form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm" onsubmit="return validate();"> --%>
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none; ">
-          <div class="modal-dialog">
+          <div class="modal-dialog" style="text-align:center">
                 <div class="loginmodal-container">
                     <h1>로그인</h1><br>
-                  <form>
-                    <input type="text" name="user" placeholder="Username">
+              
+                    <input type="text" name="user" placeholder="Username" >
                     <input type="password" name="pass" placeholder="Password">
                     <input type="submit" name="login" class="button loginmodal-submit" value="Login">
-                  </form>
+                 
                     
                   <div class="login-help">
-                    <a href="<%= request.getContextPath() %>/views/upDate/mainPage.jsp">회원가입</a> - <a href="#">Forgot Password</a>
+                    <a href="<%= request.getContextPath() %>/views/MyPage/upDate.jsp">회원가입</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">Forgot Password</a>
                   </div>
                 </div>
             </div>

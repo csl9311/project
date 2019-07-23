@@ -4,7 +4,7 @@
 .loginmodal-container {
   padding: 30px;
   max-width: 350px;
-  
+
   width: 100% !important;
   background-color: #F7F7F7;
   color:black;
@@ -88,12 +88,13 @@
 
 .loginmodal-container a {
   text-decoration: none;
-  color: #666;
-  font-weight: 400;
+ 
+  font-weight: 600;
   text-align: center;
   display: inline-block;
   opacity: 0.6;
   transition: opacity ease 0.5s;
+  color: black;
 } 
 
 .login-help{

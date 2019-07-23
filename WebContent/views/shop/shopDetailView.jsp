@@ -9,6 +9,76 @@
 <link
 	href="<%=request.getContextPath()%>/css/shop/shopDetailView.css?ver=1"
 	rel="stylesheet">
+		<script>
+		// 옵션이 선택되면 td추가
+		$('#select').on("change", function() {
+			var item = $(this).children('option:selected').text();
+			$('#addTr .amount_name').text(item);
+			for (i = 0; i <= $('#itemTableTbody .amount_name').length; i++) {
+				if (item == $('#itemTableTbody .amount_name').eq(i).text()) {
+					alert('이미 동일한 항목이 선택되어 있습니다.');
+					return;
+				}
+			}
+			var tr = $('#addTr').html();
+			$('#itemTableTbody').append(tr);
+		});
+
+		// X누르면 td 제거
+		function deleteItem() {
+			$(event.target).closest('.amountTr').remove();
+		}
+		// puls
+		function plus() {
+			var currVal = parseInt($(event.target).next().val()) + 1;
+			console.log(event.target); /* --> 버튼 태그 전부 호출  */
+			console.log(event.currentTarget);
+			
+			if (currVal <= 5) {
+				$('.textType').val(currVal);
+			} else {
+				alert('최대 주문가능수량은 5개 입니다.');
+			}
+		}
+
+		// minus
+		function minus() {
+			var currVal = parseInt($(event.target).prev().val()) - 1;
+			if (currVal > 0) {
+				$('.textType').val(currVal);
+			}
+		}
+
+		// 창 사이즈 줄어들면 화면 css변경
+		console.log(windowWidth);
+		var windowWidth = $(window).width();
+		function cssResize() {
+			if (windowWidth <= 1100) {
+				$('#content_top').css('flex-direction', 'column');
+				$('#ct_col_lft').css({
+					'width' : '100%',
+					'margin-bottom' : '3vh'
+				});
+				$('#ct_col_rgt').css('width', '100%')
+						.css('font-size', '1.2rem');
+			} else {
+				$('#content_top').css('flex-direction', '');
+				$('#ct_col_lft').css({
+					'width' : '',
+					'margin-bottom' : ''
+				});
+				$('#ct_col_rgt').css('width', '').css('font-size', '');
+			}
+		}
+		$(function() {
+			cssResize();
+		});
+		$(window).resize(function() {
+			windowWidth = $(window).width();
+			cssResize();
+		});
+
+	</script>
 </head>
 <body>
 	<!-- 
@@ -97,7 +167,7 @@
 						<tbody id="itemTableTbody">
 							<tr>
 								<td>배송정보</td>
-								<td><span>택배배송</span>&#38;nbsp;&#38;nbsp;&#38;nbsp; 평균 2일 이내
+								<td><span>택배배송</span> &nbsp; &nbsp; &nbsp; 평균 2일 이내
 									배송(토,일,공휴일제외) <img alt="안내창"
 									src="<%=request.getContextPath()%>/img/shopImg/question-mark.png">
 								</td>
@@ -217,7 +287,7 @@
 									</div>
 									<div class="text_box_title">
 										<blockquote>
-											<b>관리자</b>&#38;nbsp;&#38;nbsp;2019-07-20
+											<b>관리자</b>&nbsp;&nbsp;2019-07-20
 										</blockquote>
 									</div>
 									<div class="text_box">
@@ -308,76 +378,7 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		// 옵션이 선택되면 td추가
-		$('#select').on("change", function() {
-			var item = $(this).children('option:selected').text();
-			$('#addTr .amount_name').text(item);
-			for (i = 0; i <= $('#itemTableTbody .amount_name').length; i++) {
-				if (item == $('#itemTableTbody .amount_name').eq(i).text()) {
-					alert('이미 동일한 항목이 선택되어 있습니다.');
-					return;
-				}
-			}
-			var tr = $('#addTr').html();
-			$('#itemTableTbody').append(tr);
-		});
 
-		// X누르면 td 제거
-		function deleteItem() {
-			$(event.target).closest('.amountTr').remove();
-		}
-		// puls
-		function plus() {
-			var currVal = parseInt($(event.target).next().val()) + 1;
-			console.log(event.target); /* --> 버튼 태그 전부 호출  */
-			console.log(event.currentTarget);
-			
-			if (currVal <= 5) {
-				$('.textType').val(currVal);
-			} else {
-				alert('최대 주문가능수량은 5개 입니다.');
-			}
-		}
-
-		// minus
-		function minus() {
-			var currVal = parseInt($(event.target).prev().val()) - 1;
-			if (currVal > 0) {
-				$('.textType').val(currVal);
-			}
-		}
-
-		// 창 사이즈 줄어들면 화면 css변경
-		console.log(windowWidth);
-		var windowWidth = $(window).width();
-		function cssResize() {
-			if (windowWidth <= 1100) {
-				$('#content_top').css('flex-direction', 'column');
-				$('#ct_col_lft').css({
-					'width' : '100%',
-					'margin-bottom' : '3vh'
-				});
-				$('#ct_col_rgt').css('width', '100%')
-						.css('font-size', '1.2rem');
-			} else {
-				$('#content_top').css('flex-direction', '');
-				$('#ct_col_lft').css({
-					'width' : '',
-					'margin-bottom' : ''
-				});
-				$('#ct_col_rgt').css('width', '').css('font-size', '');
-			}
-		}
-		$(function() {
-			cssResize();
-		});
-		$(window).resize(function() {
-			windowWidth = $(window).width();
-			cssResize();
-		});
-
-	</script>
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>
 </html>
