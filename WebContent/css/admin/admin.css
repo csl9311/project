@@ -6,9 +6,7 @@ body {
 	background: rgb(40, 44, 52);
 }
 
-hr {
-	border: 1px solid white;
-}
+hr {border: 1px solid white;}
 
 /* 바디내 가장 바깥쪽 div 태그 */
 .content {
@@ -17,9 +15,7 @@ hr {
 }
 
 /* 상단 여백 */
-.emptyHeader {
-	height: 10vh;
-}
+.emptyHeader {height: 10vh;}
 
 /* 메뉴 div */
 .menu {
@@ -32,25 +28,19 @@ hr {
 }
 
 /* 검색 */
-.search input, button {
-	height: 5vh;
-}
+.search input, button {height: 5vh;}
 
-.search input {
-	width: 30vw;
-}
+.search input {width: 30vw;}
 
-.search button {
-	width: 10vw;
-}
+.search button {width: 10vw;}
 
 /* adminMemberView */
-.memberList tr :hover {
+.resultList tr :hover {
 	cursor: pointer;
 	color: gray;
 }
 
-.memberList tr th,td {
+.resultList tr th,td {
 	width: 12vw;
 	font-size: 14px;
 	padding: 0px;
@@ -58,30 +48,21 @@ hr {
 }
 
 /* memberDetailView */
-#memberDetail tr th {
-	color: white;
-}
+#memberDetail tr th {color: white;}
 
-#memberDetail tr td {
-	color: black;
-}
+#memberDetail tr td {color: black;}
 
 #memberDetail tr th,td {
 	text-align: center;
 	width: 25vw;
 	height: 5vh;
 }
-.grade {
-	width: 173px;
-}
+.grade {width: 173px;}
 
-.phone {
-	width: 45px;
-}
+.phone {width: 45px;}
 
-.dash {
-	color: white;
-}
+.dash {color: white;}
+
 .disabled{
 	background: rgb(40, 44, 52);
 	color: white;

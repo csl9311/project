@@ -3,14 +3,18 @@ package member.model.vo;
 import java.sql.Date;
 
 public class Member {
-	private String id, pw, name, phone, birth, gender;
+	private String id, pw, name, phone,  gender;
 	private String address, email, grade, status;
-	private Date regDate, modifyDate;
+	private Date birth, regDate, modifyDate;
 
 	public Member() {
 	}
+	
+	public Member(String id) {
+		this.id = id;
+	}
 
-	public Member(String id, String pw, String name, String phone, String birth, String gender, String address,
+	public Member(String id, String pw, String name, String phone, Date birth, String gender, String address,
 			String email, String grade, String status, Date regDate, Date modifyDate) {
 		this.id = id;
 		this.pw = pw;
@@ -58,11 +62,11 @@ public class Member {
 		this.phone = phone;
 	}
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 
