@@ -55,7 +55,7 @@
 					<th rowspan="2">등급</th>
 					<td rowspan="2">
 						<select class="grade" name="grade">
-							<option <%=selected[0]%> value="사용자">사용자</option>
+							<option <%=selected[0]%> value="일반">일반</option>
 							<%-- 등급 세분화 할 예정 --%>
 							<option <%=selected[1]%> value="사장님">사장님</option>
 							<option <%=selected[2]%> value="관리자">관리자</option>
