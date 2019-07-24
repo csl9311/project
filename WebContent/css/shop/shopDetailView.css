@@ -3,10 +3,13 @@
 .color1 {
 	color: rgb(210, 210, 210);
 }
+.plex{
+	display: flex;
+}
 
 #Index {
 	width: 100%;
-	display: flex;
+	display: inline-flex;
 	flex-direction: column;
 	color: rgb(210, 210, 210);
 }
@@ -18,6 +21,9 @@
 #shopCategory, #content {
 	display: flex;
 	margin: 0 auto;
+}
+#shopCategory{
+	margin-top: 1vh;
 }
 
 #shopCategory ul {
@@ -68,10 +74,20 @@ input[type="text"], .amount_Btn, .amount_dltBtn, .sct_btn, select {
 	background-color: rgb(40, 44, 52);
 }
 
+
+#rct_prd{
+	width: 8vw;
+}
+#quick{
+	display: flex;
+}
+#quick_card, #quick_top{
+	width: 3.5vw;
+}
 #content {
 	flex-direction: column;
 	width: 60vw;
-	margin-top: 9vh;
+	margin-top: 7vh;
 }
 
 #content_top {

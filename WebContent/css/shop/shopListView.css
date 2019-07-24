@@ -3,6 +3,7 @@
 #Index {
 	width: 100%;
 	text-align: left;
+	display: flex;
 }
 
 #Index ul {
@@ -26,15 +27,21 @@
 }
 
 #shopCategory, #content {
+	display: flex;
 	margin: 0 auto;
 }
 
-#Index #shopCategory ul {
+#shopCategory ul {
+	display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
 }
 
-#Index #shopCategory li {
+#shopCategory li {
 	display: inline-flex;
+}
+#shopCategory{
+	margin-top: 1vh;
 }
 
 .sct_btn {
@@ -63,7 +70,7 @@
 	margin-top: 7vh;
 	/* background-color: rgb(76, 73, 165); */
 	background-color: rgba(210, 210, 210, 0.1);
-	overflow: hidden;
+	padding-left: 1vw;
 }
 #best_item .item_top{
 	margin-top: 5vh;
@@ -81,22 +88,21 @@
 	margin-top: 6vh;
 	width: 65vw;
 }
-#search_bar_top{
-	display: inline-flex;
-	justify-content: space-between;
-}
 #range li{
 	display: inline-flex;
 }
 #range li::after{
 	margin: 0 0.5vw 0 0.5vw;
-	
 	content: " | ";
 }
 #range li:last-of-type::after{
 	padding: 0;
 	margin: 0;
 	content: "";
+}
+#search_bar_top{
+	display: inline-flex;
+	justify-content: space-between;
 }
 #search_bar_bottom{
 	margin-top: 1vh;
@@ -105,9 +111,6 @@
 input[type="text"], select{
 	background-color: rgba(210,210,210,0.1);
 	border: none;
-}
-select{
-	
 }
 
 input[type="text"]::placeholder{
@@ -173,8 +176,8 @@ input[type="text"]::placeholder{
 #paging a{
 	color: rgb(210, 210, 210);
 	font-size: 1.5rem;
+	text-decoration: none;
 }
 .this{
-	color: rgb(75,75,175) !important;
-	font-weight: bold;
+	font-weight: 800;
 }

@@ -67,9 +67,8 @@
 								</a>
 							</div>
 							<div class="item_bottom">
-								<span class="pointer"><b>[아스트로]</b></span><br>
-								<span>아스트로 A40+ MixAmp</span><br>
-								<span class="pointer">169,000원</span>
+								<span class="pointer"><b>[아스트로]</b></span><br> <span>아스트로
+									A40+ MixAmp</span><br> <span class="pointer">169,000원</span>
 							</div>
 
 						</div>
@@ -93,13 +92,12 @@
 					<li>상품명</li>
 				</ul>
 			</div>
-				<hr>
+			<hr>
 			<div id="search_bar_bottom" class="flex">
-				<input type="text" placeholder="s e a r c h"> 
-				<select>
-					<option>10개씩 정렬</option>
+				<input type="text" placeholder="s e a r c h"> <select>
 					<option>20개씩 정렬</option>
-					<option>50개씩 정렬</option>
+					<option>40개씩 정렬</option>
+					<option>60개씩 정렬</option>
 				</select>
 			</div>
 		</div>
@@ -134,41 +132,31 @@
 			</ul>
 		</div>
 		<div id="paging" class="flex">
-			<p><a href="#">&lt;&lt;</a></p>
-			<p><a href="#">&lt;</a></p>
+			<p>
+				<a href="#">&lt;&lt;</a>
+			</p>
+			<p>
+				<a href="#">&lt;</a>
+			</p>
 			<ol class="flex">
-			<li>
-			<a href="#" class="this"><span>1</span></a>
-			</li>
-			
-			<li>
-			<a href="#" class="other">2</a>
-			</li>
-			<li>
-			<a href="#" class="other">3</a>
-			</li>
-			<li>
-			<a href="#" class="other">3</a>
-			</li>
-			<li>
-			<a href="#" class="other">4</a>
-			</li>
-			<li>
-			<a href="#" class="other">5</a>
-			</li>
-			<li>
-			<a href="#" class="other">6</a>
-			</li>
-			<li>
-			<a href="#" class="other">7</a>
-			</li>
-			<li>
-			<a href="#" class="other">8</a>
-			</li>
-			
+				<li><a href="#" class="this"><span>1</span></a></li>
+
+				<li><a href="#" class="other">2</a></li>
+				<li><a href="#" class="other">3</a></li>
+				<li><a href="#" class="other">3</a></li>
+				<li><a href="#" class="other">4</a></li>
+				<li><a href="#" class="other">5</a></li>
+				<li><a href="#" class="other">6</a></li>
+				<li><a href="#" class="other">7</a></li>
+				<li><a href="#" class="other">8</a></li>
+
 			</ol>
-			<p><a href="#">&gt;</a></p>
-			<p><a href="#">&gt;&gt;</a></p>
+			<p>
+				<a href="#">&gt;</a>
+			</p>
+			<p>
+				<a href="#">&gt;&gt;</a>
+			</p>
 		</div>
 	</div>
 	<script>
@@ -189,7 +177,6 @@
 			windowWidth = $(window).width();
 			cssResize();
 		});
-
 	</script>
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>

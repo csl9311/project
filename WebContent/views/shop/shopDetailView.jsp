@@ -6,8 +6,21 @@
 <meta charset="UTF-8">
 <title>ShopDetailView</title>
 <%@ include file="/views/common/coinheader.jsp"%>
-<link href="<%=request.getContextPath()%>/css/shop/shopDetailView.css?ver=1"
+<link
+	href="<%=request.getContextPath()%>/css/shop/shopDetailView.css?ver=1"
 	rel="stylesheet">
+<style>
+	#sticky{
+	display: inline-flex;
+	align-self: flex-end;
+	position: sticky;
+	top: 7vh;
+	width: 10vw;
+	/* height: 10vh; */ 
+	flex-direction: column;
+	text-align: center;
+}
+</style>
 </head>
 <body>
 	<!-- 
@@ -55,7 +68,32 @@
 			</ul>
 		</nav>
 		<!-- 상단 nav 제외 전체 감싸는 div -->
+		 <div id="sticky">
+			<p>최근 본 상품</p>
+			<div id="rct_prd" class="flex">
+				<%
+					for (int i = 0; i < 3; i++) {
+				%>
+				<ul class="flex">
+					<li class="flex"><img alt="5번사진"
+						src="<%=request.getContextPath()%>/img/shopImg/mouse1.jpg" class="flex">
+					</li>
+				</ul>
+				<%
+					}
+				%>
+			</div>
+			<div id="quick">
+				<div id="quick_card">
+					<a href="#">CART</a>
+				</div>
+				<div id="quick_top">TOP</div>
+			</div>
+			<span>1:1 고객센터</span>
+		</div> 
 		<div id="content">
+		<div style="height:10vh; width:60vw; background-color:blue;">
+		</div>
 			<!-- 사진, 상품정보 영역 감싸는 div -->
 			<div id="content_top">
 				<!-- 사진 영역 -->
@@ -64,17 +102,6 @@
 						<img alt=""
 							src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
 					</div>
-					<%-- <div id="smallImg">
-                  <ul>
-                     <li><img alt="5번사진"
-                        src="<%=request.getContextPath()%>/img/shopImg/mouse1.jpg"></li>
-                     <li><img alt="4번사진"
-                        src="<%=request.getContextPath()%>/img/shopImg/mouse2.jpg"></li>
-                     <li><img alt="3번사진"
-                        src="<%=request.getContextPath()%>/img/shopImg/mouse3.jpg"></li>
-
-                  </ul>
-               </div> --%>
 				</div>
 				<!-- // 사진영역 끝 -->
 				<!-- 상품정보 영역 -->
@@ -303,73 +330,74 @@
 			</div>
 		</div>
 	</div>
-<script>
-	// 옵션이 선택되면 td추가
-	$('#select').on("change", function() {
-		var item = $(this).children('option:selected').text();
-		$('#addTr .amount_name').text(item);
-		for (i = 0; i <= $('#itemTableTbody .amount_name').length; i++) {
-			if (item == $('#itemTableTbody .amount_name').eq(i).text()) {
-				alert('이미 동일한 항목이 선택되어 있습니다.');
-				return;
+	<script>
+		// 옵션이 선택되면 td추가
+		$('#select').on("change", function() {
+			var item = $(this).children('option:selected').text();
+			$('#addTr .amount_name').text(item);
+			for (i = 0; i <= $('#itemTableTbody .amount_name').length; i++) {
+				if (item == $('#itemTableTbody .amount_name').eq(i).text()) {
+					alert('이미 동일한 항목이 선택되어 있습니다.');
+					return;
+				}
+			}
+			var tr = $('#addTr').html();
+			$('#itemTableTbody').append(tr);
+		});
+
+		// X누르면 td 제거
+		function deleteItem() {
+			$(event.target).closest('.amountTr').remove();
+		}
+		// puls
+		function plus() {
+			var currVal = parseInt($(event.target).next().val()) + 1;
+			console.log(event.target); /* --> 버튼 태그 전부 호출  */
+			console.log(event.currentTarget);
+
+			if (currVal <= 5) {
+				$(event.target).next().val(currVal);
+			} else {
+				alert('최대 주문가능수량은 5개 입니다.');
 			}
 		}
-		var tr = $('#addTr').html();
-		$('#itemTableTbody').append(tr);
-	});
 
-	// X누르면 td 제거
-	function deleteItem() {
-		$(event.target).closest('.amountTr').remove();
-	}
-	// puls
-	function plus() {
-		var currVal = parseInt($(event.target).next().val()) + 1;
-		console.log(event.target); /* --> 버튼 태그 전부 호출  */
-		console.log(event.currentTarget);
-
-		if (currVal <= 5) {
-			$(event.target).next().val(currVal);
-		} else {
-			alert('최대 주문가능수량은 5개 입니다.');
+		// minus
+		function minus() {
+			var currVal = parseInt($(event.target).prev().val()) - 1;
+			if (currVal > 0) {
+				$(event.target).prev().val(currVal);
+			}
 		}
-	}
 
-	// minus
-	function minus() {
-		var currVal = parseInt($(event.target).prev().val()) - 1;
-		if (currVal > 0) {
-			$(event.target).prev().val(currVal);
+		// 창 사이즈 줄어들면 화면 css변경
+		var windowWidth = $(window).width();
+		function cssResize() {
+			if (windowWidth <= 900) {
+				$('#content_top').css('flex-direction', 'column');
+				$('#ct_col_lft').css({
+					'width' : '100%',
+					'margin-bottom' : '3vh'
+				});
+				$('#ct_col_rgt').css('width', '100%')
+						.css('font-size', '1.2rem');
+			} else {
+				$('#content_top').css('flex-direction', '');
+				$('#ct_col_lft').css({
+					'width' : '',
+					'margin-bottom' : ''
+				});
+				$('#ct_col_rgt').css('width', '').css('font-size', '');
+			}
 		}
-	}
-
-	// 창 사이즈 줄어들면 화면 css변경
-	var windowWidth = $(window).width();
-	function cssResize() {
-		if (windowWidth <= 900) {
-			$('#content_top').css('flex-direction', 'column');
-			$('#ct_col_lft').css({
-				'width' : '100%',
-				'margin-bottom' : '3vh'
-			});
-			$('#ct_col_rgt').css('width', '100%').css('font-size', '1.2rem');
-		} else {
-			$('#content_top').css('flex-direction', '');
-			$('#ct_col_lft').css({
-				'width' : '',
-				'margin-bottom' : ''
-			});
-			$('#ct_col_rgt').css('width', '').css('font-size', '');
-		}
-	}
-	$(function() {
-		cssResize();
-	});
-	$(window).resize(function() {
-		windowWidth = $(window).width();
-		cssResize();
-	});
-</script>
+		$(function() {
+			cssResize();
+		});
+		$(window).resize(function() {
+			windowWidth = $(window).width();
+			cssResize();
+		});
+	</script>
 
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>
