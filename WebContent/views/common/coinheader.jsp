@@ -26,7 +26,7 @@
 	  <a onclick="closeNav();">코인노래방 찾기</a>
 	  <a href="#" class="menu2">메뉴2</a>
 	  <a href="<%= request.getContextPath()%>/views/shop/shopMainView.jsp">shop</a>
-	  <a href="#">커뮤니티</a>
+	  <a href="<%= request.getContextPath()%>/views/community/aviBoardDetailView.jsp">커뮤니티</a>
 	  <a href="<%= request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
 	  <a href="#">고객센터</a>
 <%-- 관리자 로그인 시 --%>
