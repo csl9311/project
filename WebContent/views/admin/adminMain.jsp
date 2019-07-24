@@ -8,7 +8,10 @@
 </head>
 <body>
 	<div class="emptyHeader"></div>
-	
+	<!-- 
+		https://kkotkkio.tistory.com/87 
+		이거 가져오고싶다....... 
+	-->
 	<div class="content">
 		<nav>
 			<!-- 회원관리 : 회원정보 RUD, 등급 설정, 블랙리스트 등록 및 해제 -->

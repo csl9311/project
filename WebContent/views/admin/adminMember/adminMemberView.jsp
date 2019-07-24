@@ -50,9 +50,7 @@
 		<%-- 회원정보조회, 등급 수정, 관리자 권한부여 --%>
 		<div class="memberList">
 			<%-- 회원정보조회 --%>
-			<%if(request.getAttribute("msg") != null){%>
-				<h3><%=request.getAttribute("msg") %></h3>
-			<%} else if (list.isEmpty()) {%>
+			<% if (list.isEmpty()) {%>
 				<h3>조회 결과가 없습니다.</h3>
 			<%} else {%>
 			<table class="resultList">
@@ -65,6 +63,7 @@
 					<th>주소</th>
 					<th>등급</th>
 					<th>회원가입일</th>
+					<th>포인트</th>
 					<!-- 영역 클릭 시 정렬 -->
 				</tr>
 			</table>
@@ -83,6 +82,7 @@
 					<td><%=member.getGender()%></td>
 					<td><%=member.getGrade()%></td>
 					<td><%=member.getRegDate()%></td>
+					<td><%=member.getPoint()%></td>
 					<%-- 클릭 시 상세정보조회, 회원정보수정, 등급변경, 관리자 권한부여 --%>
 				</tr>
 			</table>
@@ -106,8 +106,8 @@
 		<%}%>
 		
 		(function(){
-			if(<%=msg%> != null){
-				alert(<%=msg%>);
+			if(<%=msg != null%>){
+				alert("<%=msg%>");
 			}
 		})();
 	</script>
