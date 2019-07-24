@@ -47,7 +47,7 @@ public class MemberUpdate extends HttpServlet {
 			msg = "정보 수정에 실패했습니다.";
 		}
 		
-		ArrayList list = new MemberService().selectAll();
+		ArrayList<Member> list = new MemberService().selectAll();
 		request.setAttribute("memberList", list);
 		request.setAttribute("msg", msg);
 		request.getRequestDispatcher("views/admin/adminMember/adminMemberView.jsp").forward(request, response);
