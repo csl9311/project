@@ -4,9 +4,34 @@ body {
 	padding: 0px;
 	margin: 0px;
 	background: rgb(40, 44, 52);
+	vertical-align: middle;
+	font-size:12px !important;
 }
 
 hr {border: 1px solid white;}
+table{
+	border-spacing: 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+select {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+	height: 21px;
+	min-width: 40px;
+}
+/* input {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+} 
+각종 버튼 이미지 구한 후에 적용하자.
+*/
+
+
+input {
+}
 
 /* 바디내 가장 바깥쪽 div 태그 */
 .content {
@@ -21,6 +46,7 @@ hr {border: 1px solid white;}
 .menu {
 	display: inline-block;
 	text-align: center;
+	margin: 4vh;
 	padding: 10vh;
 	width: 20vw;
 	height: 5vh;
@@ -29,20 +55,38 @@ hr {border: 1px solid white;}
 
 /* 검색 */
 .search input, button {height: 5vh;}
-
 .search input {width: 30vw;}
-
 .search button {width: 10vw;}
 
 /* memberDetailView */
-
 .grade {width: 173px;}
-
-.phone {width: 45px;}
-
+.phone {width: 50px; text-align: center;}
 .dash {color: white;}
 
-.disabled{
-	background: rgb(40, 44, 52);
+.readonly{
+	background: none;
 	color: white;
+}
+
+/* signUp */
+
+.rowTitle {
+	color: white;
+	width : 10vw;
+	min-width: 100px;
+	font-size: 12px;
+}
+.description{
+	color : white;
+	font-size: 12px;
+}
+	
+
+.small{font-size: 10px;}
+.resultLabel{
+	display:none;
+	padding:0px; 
+	font-size: 12px;
+	color:white;
+	height:1vh;
 }
