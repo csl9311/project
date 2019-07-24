@@ -12,35 +12,36 @@
 			<tr>
 				<td>아이디</td>
 				<td>
-					<input type="text" name="id" id="id" size="20px">
+					<input type="text" name="id" id="id">
 					<input type="button" id="check" value="중복확인">
 				</td>
 			</tr>
 
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="text" name="pwd" id="pwd" size="20px">
-					*영문 대소문자/숫자/특수문자를 혼용하여 2종류10~16자 또는 3종 8~16자</td>
+				<td>
+					<input type="text" name="pw" id="pw">
+					<label>*영문 대소문자/숫자/특수문자를 혼용하여 2종류10~16자 또는 3종 8~16자</label>
+				</td>
 			</tr>
 			<tr>
 				<td>비밀번호 확인</td>
-				<td><input type="text" name="pwdCheck" id="pwdCheck"
-					size="20px"></td>
+				<td><input type="text" name="pwCheck" id="pwCheck"></td>
 			</tr>
 			
 			<tr>
 				<td>닉네임</td>
 				<td>
-					<input type="text" name="id" id="id" size="20px">
+					<input type="text" name="id" id="id">
 					<input type="button" id="check" value="중복확인">
 				</td>
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td><input type="text" name="sname" id="sname" size="20px">
+				<td><input type="text" name="name" id="name">
 				</td>
 			</tr>
-			<tr>
+			<tr style="display: none;">
 				<td>연락처</td>
 				
 				<td>
@@ -50,9 +51,9 @@
 					<option>LG U+</option>
 					<option>SKT</option>
 				</select>
-				<input type="text" name="smartPhone1" class="updatephone">
-					- <input type="text" name="smartPhone1" class="updatephone">
-					- <input type="text" name="smartPhone2" class="updatephone">
+				<input type="text" name="phone" class="updatephone">
+				- <input type="text" name="phone" class="updatephone">
+				- <input type="text" name="phone" class="updatephone">
 				</td>
 			</tr>
 			<tr>
@@ -90,19 +91,17 @@
 			<tr>
 				<td>우편번호</td>
 				<td>
-					<input type="text" name="dong" id="dong" size="5">-
-					<input type="text" name="dong" id="dong" size="5">
-					<input type="button" id="address" value="우편번호검색">
+					<input type="text" name="postNum">
+					<button type="button" id="postNum">우편번호검색</button>
 				</td>
 			</tr>
 			<tr>
 				<td>주소</td>
-				<td><input type="text" name="home" id="home" class="updateadr">
-				</td>
+				<td><input type="text" name="address" id="address" class="updateadr"></td>
 			</tr>
 			<tr>
 				<td>상세주소</td>
-				<td><input type="text" name="homeAddress" id="homeAddress" class="updateadr"></td>
+				<td><input type="text" name="address" id="addressDetail" class="updateadr"></td>
 			</tr>
 			<tr>
 				<td>이메일</td>
