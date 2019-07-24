@@ -1,11 +1,14 @@
 @charset "UTF-8";
 
 #mypage {
-	margin: 0px;
+	margin: auto;
 	padding: 0px;
 	text-align: center;
 	background: rgb(40, 44, 52);
-	color: white;
+	color: blue;
+	border: 1px solid red;
+	width : 90%;
+	
 }
 
 header {

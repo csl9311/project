@@ -7,13 +7,18 @@
 <title>Insert title here</title>
 <style>
 .tab{
-	border : 1px solid red;
 	margin : auto;
 	
 }
 .tab tr td{
 	padding : 10px;
 	text-align: left !important
+}
+.updateadr{
+	width: 25vw;
+}
+.updatephone{
+	width: 5vw;
 }
 
 </style>
@@ -24,7 +29,7 @@
 <div id="mypage">
 
 
-	<section class="result border">		
+	<section class="result">		
 		
 		<table class="tab">
             <tr>
@@ -103,10 +108,10 @@
             </tr>
             <tr>
                 <td>
-                    <label>집주소</label>
+                    <label>주소</label>
                 </td>
                 <td>
-                    <input type="text" name="home" id="home" size="60"> 
+                    <input type="text" name="home" id="home" class="updateadr"> 
                 </td>
             </tr>
             <tr>
@@ -114,23 +119,17 @@
                     <label>상세주소</label>
                 </td>
                 <td>
-                    <input type="text" name="homeAddress" id="homeAddress" size="60">   
+                    <input type="text" name="homeAddress" id="homeAddress" class="updateadr">   
                 </td>
             </tr>
             <tr>
                 <td>
                     <label>연락처</label>
                 </td>
-                <td>
-                    <select id="phone">
-                        <option value=""></option>
-                        <option value="010">010</option>
-                        <option value="011">011</option>
-                        <option value="019">019</option>
-                    </select>
-                    -
-                    <input type="text" name="phone" id="phone" size="10">-
-                    <input type="text" name="phone" id="phone" size="10">
+                <td>                   
+                    <input type="text" name="phone" id="phone" class="updatephone"> -
+                    <input type="text" name="phone" id="phone" class="updatephone"> -
+                    <input type="text" name="phone" id="phone" class="updatephone">
                 </td>
             </tr>
             <tr>
@@ -138,12 +137,15 @@
                     <label>이메일</label>
                 </td>
                 <td>
-                    <input type="text" name="email" id="email" size="10">@
-                    <select id="email2">
+                    <input type="text" name="email" id="email" size="10"> @
+                    <input type="text" name="email2" id="email2" style="width:10vw">
+                    <select id="email2" style="width: 5vw">
                         <option value=""></option>
-                        <option value="1">http://www.google.com</option>
-                        <option value="2">http://www.naver.com</option>
-                        <option value="3">http://www.daum.com</option>
+                        <option value="1">직접 입력</option>
+                        <option value="google.com">google.com</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="daum.com">daum.com</option>
+                        
                     </select>
                     <input type="button" id="check2" value="중복확인">
                 </td>
@@ -152,11 +154,10 @@
                 <td>
                     휴대폰
                 </td>
-                <td>
-                   		
-                    <input type="text" name="smartPhone1" size="5">
-                    -<input type="text" name="smartPhone1" size="5">
-                    -<input type="text" name="smartPhone2" size="5">
+                <td>                   		
+                    <input type="text" name="smartPhone1" class="updatephone"> -
+                    <input type="text" name="smartPhone1" class="updatephone"> -
+                    <input type="text" name="smartPhone2" class="updatephone">
                 </td>
             </tr>
             <tr>
