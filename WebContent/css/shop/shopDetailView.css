@@ -19,6 +19,9 @@
 	display: flex;
 	margin: 0 auto;
 }
+#shopCategory{
+	margin-top: 1vh;
+}
 
 #shopCategory ul {
 	display: flex;
@@ -71,7 +74,7 @@ input[type="text"], .amount_Btn, .amount_dltBtn, .sct_btn, select {
 #content {
 	flex-direction: column;
 	width: 60vw;
-	margin-top: 9vh;
+	margin-top: 7vh;
 }
 
 #content_top {
