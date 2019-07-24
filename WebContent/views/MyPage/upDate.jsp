@@ -124,16 +124,6 @@
             </tr>
             <tr>
                 <td>
-                    <label>연락처</label>
-                </td>
-                <td>                   
-                    <input type="text" name="phone" id="phone" class="updatephone"> -
-                    <input type="text" name="phone" id="phone" class="updatephone"> -
-                    <input type="text" name="phone" id="phone" class="updatephone">
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <label>이메일</label>
                 </td>
                 <td>
@@ -144,7 +134,7 @@
                         <option value="1">직접 입력</option>
                         <option value="google.com">google.com</option>
                         <option value="naver.com">naver.com</option>
-                        <option value="daum.com">daum.com</option>
+                        <option value="daum.net">daum.net</option>
                         
                     </select>
                     <input type="button" id="check2" value="중복확인">

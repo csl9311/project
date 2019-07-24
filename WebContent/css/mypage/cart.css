@@ -32,12 +32,14 @@
 	#pay-div1{
 	border: 1px solid white;
 	width: 80vw;
-	margin: auto;	
+	margin: auto;
+	color : green;	
 	}
-	.pay-tab{
-		display:inline-block;
+	.pay-tab {
+	width:70vw;
+	border : 1px solid rgb(239,222,255);
 	}
 	.pay-tab tr td{
 	padding : 5px;
-	border : 1px solid rgb(239,222,255);
+	
 	}
