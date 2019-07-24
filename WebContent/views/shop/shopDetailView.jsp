@@ -9,18 +9,6 @@
 <link
 	href="<%=request.getContextPath()%>/css/shop/shopDetailView.css?ver=1"
 	rel="stylesheet">
-<style>
-	#sticky{
-	display: inline-flex;
-	align-self: flex-end;
-	position: sticky;
-	top: 7vh;
-	width: 10vw;
-	/* height: 10vh; */ 
-	flex-direction: column;
-	text-align: center;
-}
-</style>
 </head>
 <body>
 	<!-- 
@@ -68,33 +56,17 @@
 			</ul>
 		</nav>
 		<!-- 상단 nav 제외 전체 감싸는 div -->
-		 <div id="sticky">
-			<p>최근 본 상품</p>
-			<div id="rct_prd" class="flex">
-				<%
-					for (int i = 0; i < 3; i++) {
-				%>
-				<ul class="flex">
-					<li class="flex"><img alt="5번사진"
-						src="<%=request.getContextPath()%>/img/shopImg/mouse1.jpg" class="flex">
-					</li>
-				</ul>
-				<%
-					}
-				%>
-			</div>
-			<div id="quick">
-				<div id="quick_card">
-					<a href="#">CART</a>
-				</div>
-				<div id="quick_top">TOP</div>
-			</div>
-			<span>1:1 고객센터</span>
-		</div> 
 		<div id="content">
-		<div style="height:10vh; width:60vw; background-color:blue;">
-		</div>
 			<!-- 사진, 상품정보 영역 감싸는 div -->
+			<div id="Index" class="flex column">
+	<form name="itemForm" method="post" id="itemForm">
+	<input type="hidden" id="itemId" name="itemId" value="">
+	<input type="hidden" id="brandId" name="brandId" value="">
+	<input type="hidden" id="cId" name="cId" value="">
+	<input type="hidden" id="price" name="price" value="">
+	<input type="hidden" id="stock" name="stock" value="">
+	<input type="hidden" id="sellcount" name="sellcount" value="">
+	</form>
 			<div id="content_top">
 				<!-- 사진 영역 -->
 				<div id="ct_col_lft">
