@@ -65,15 +65,35 @@ public class MemberDAO {
 
 	public Member selectMember(Connection conn, String id) {
 		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		Member member = null;
 		
+		String query = prop.getProperty("selectMember");
+		
 		try {
-			pstmt = conn.prepareStatement("selectMember");
+			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, id);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				member = new Member(
+						rset.getString("id"),
+						rset.getString("pw"),
+						rset.getString("name"),
+						rset.getString("phone"),
+						rset.getDate("birth"),
+						rset.getString("gender"),
+						rset.getString("address"),
+						rset.getString("email"),
+						rset.getString("grade"),
+						rset.getString("status"),
+						rset.getDate("regdate"),
+						rset.getDate("modifydate")
+				);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return member;
 	}
 

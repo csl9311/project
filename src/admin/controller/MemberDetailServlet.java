@@ -20,7 +20,8 @@ public class MemberDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String id = (String)request.getAttribute("memberId");
+		String id = (String)request.getParameter("memberId");
+		System.out.println(id);
 		Member member = new MemberService().selectMember(id);
 		
 		String page = null;

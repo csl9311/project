@@ -75,7 +75,7 @@
 			<hr>
 			<table class="resultList">
 				<tr onclick="trClick<%=i%>();">
-					<td><input id="memberId<%=i%>" type="hidden" value="<%=member.getId()%>"><%=member.getId()%></td>
+					<td><input id="memberId<%=i%>" name = "name" type="hidden" value="<%=member.getId()%>"><%=member.getId()%></td>
 					<td><%=member.getName()%></td>
 					<td><%=member.getBirth()%></td>
 					<td><%=member.getPhone()%></td>
@@ -100,7 +100,7 @@
 			function trClick<%=i%>(){
 				var id = document.getElementById("memberId<%=i%>");
 				if('<%=member.getId()%>' == id.value) {
-					location.href="<%=request.getContextPath()%>/admin.memberDetail";
+					location.href="<%=request.getContextPath()%>/admin.memberDetail?memberId=<%=member.getId()%>";
 				}
 			}
 		<%}%>
