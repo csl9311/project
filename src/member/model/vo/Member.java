@@ -3,38 +3,53 @@ package member.model.vo;
 import java.sql.Date;
 
 public class Member {
-	private String id, pw, name, phone,  gender;
+	private String id, pw, name, phone, gender;
 	private String address, email, grade, status;
 	private Date birth, regDate, modifyDate;
+	private int point;
 
 	public Member() {
 	}
-	
-	public Member(String id) {
+
+	// 로그인
+	public Member(String id, String pw) {
 		this.id = id;
+		this.pw = pw;
 	}
 
-	public Member(String id, String pw, String name, String phone, Date birth, String gender, String address,
-			String email, String grade, String status, Date regDate, Date modifyDate) {
+	// 포인트 사용
+	public Member(String id, int point) {
+		this.id = id;
+		this.point = point;
+	}
+
+	public Member(String id, String name, String phone, String gender, String address, String email, String grade) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.gender = gender;
+		this.address = address;
+		this.email = email;
+		this.grade = grade;
+	}
+
+	// 전체 생성자
+	public Member(String id, String pw, String name, String phone, String gender, String address, String email,
+			String grade, String status, Date birth, Date regDate, Date modifyDate, int point) {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
 		this.phone = phone;
-		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
 		this.email = email;
 		this.grade = grade;
 		this.status = status;
+		this.birth = birth;
 		this.regDate = regDate;
 		this.modifyDate = modifyDate;
-	}
-
-	@Override
-	public String toString() {
-		return "Member [id=" + id + ", pw=" + pw + ", name=" + name + ", phone=" + phone + ", gender=" + gender
-				+ ", address=" + address + ", email=" + email + ", grade=" + grade + ", status=" + status + ", birth="
-				+ birth + ", regDate=" + regDate + ", modifyDate=" + modifyDate + "]";
+		this.point = point;
 	}
 
 	public String getId() {
@@ -67,14 +82,6 @@ public class Member {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public Date getBirth() {
-		return birth;
-	}
-
-	public void setBirth(Date birth) {
-		this.birth = birth;
 	}
 
 	public String getGender() {
@@ -117,6 +124,14 @@ public class Member {
 		this.status = status;
 	}
 
+	public Date getBirth() {
+		return birth;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+
 	public Date getRegDate() {
 		return regDate;
 	}
@@ -131,6 +146,14 @@ public class Member {
 
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
 	}
 
 }

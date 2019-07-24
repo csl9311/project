@@ -1,5 +1,7 @@
 package member.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,7 +12,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import static common.JDBCTemplate.*;
 import member.model.vo.Member;
 
 public class MemberDAO {
@@ -43,14 +44,15 @@ public class MemberDAO {
 						rset.getString("pw"),
 						rset.getString("name"),
 						rset.getString("phone"),
-						rset.getDate("birth"),
 						rset.getString("gender"),
 						rset.getString("address"),
 						rset.getString("email"),
 						rset.getString("grade"),
 						rset.getString("status"),
+						rset.getDate("birth"),
 						rset.getDate("regdate"),
-						rset.getDate("modifydate")
+						rset.getDate("modifydate"),
+						rset.getInt("point")
 				);
 				list.add(member);
 			}
@@ -81,20 +83,48 @@ public class MemberDAO {
 						rset.getString("pw"),
 						rset.getString("name"),
 						rset.getString("phone"),
-						rset.getDate("birth"),
 						rset.getString("gender"),
 						rset.getString("address"),
 						rset.getString("email"),
 						rset.getString("grade"),
 						rset.getString("status"),
+						rset.getDate("birth"),
 						rset.getDate("regdate"),
-						rset.getDate("modifydate")
+						rset.getDate("modifydate"),
+						rset.getInt("point")
 				);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return member;
+	}
+
+	public int updateMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateMember");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getPhone());
+			pstmt.setString(3, member.getGender());
+			pstmt.setString(4, member.getAddress());
+			pstmt.setString(5, member.getEmail());
+			pstmt.setString(6, member.getGrade());
+			pstmt.setString(7, member.getId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

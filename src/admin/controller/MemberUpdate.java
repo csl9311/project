@@ -1,13 +1,16 @@
 package admin.controller;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import member.model.service.MemberService;
+import member.model.vo.Member;
 
 @WebServlet("/admin.MemberUpdate")
 public class MemberUpdate extends HttpServlet {
@@ -19,16 +22,36 @@ public class MemberUpdate extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String id = (String)request.getAttribute("id");
-		String name = (String)request.getAttribute("name");
-		String[] phone = (String[])request.getAttribute("phone");
-		String gender = (String)request.getAttribute("gender");
-		String email = (String)request.getAttribute("email");
-		String address = (String)request.getAttribute("address");
-		String grade = (String)request.getAttribute("grade");
-		Date birth = (Date)request.getAttribute("birth");
-		Date modifyDate = (Date)request.getAttribute("modifyDate");
+		request.setCharacterEncoding("UTF-8");
+
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String[] phoneArr = request.getParameterValues("phone");
+		String phone = "";
+		if (phoneArr != null) {
+			phone = String.join("-", phoneArr);
+		}
+
+		String gender = request.getParameter("gender");
+		String email = request.getParameter("email");
+		String address = request.getParameter("address");
+		String grade = request.getParameter("grade");
+
+		Member member = new Member(id, name, phone, gender, address, email, grade);
+		int result = new MemberService().updateMember(member);
+
+		String msg = "";
+		if (result > 0) {
+			msg = "수정 되었습니다.";
+		} else {
+			msg = "정보 수정에 실패했습니다.";
+		}
 		
+		ArrayList list = new MemberService().selectAll();
+		request.setAttribute("memberList", list);
+		request.setAttribute("msg", msg);
+		request.getRequestDispatcher("views/admin/adminMember/adminMemberView.jsp").forward(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

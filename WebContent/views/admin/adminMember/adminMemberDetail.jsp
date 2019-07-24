@@ -47,16 +47,16 @@
 <body>
 	<div class="content">
 		<div class="emptyHeader"></div>
-		<form action="<%=request.getContextPath()%>/update.mem" method="post">
+		<form action="<%=request.getContextPath()%>/admin.MemberUpdate" method="post">
 			<table id="memberDetail">
 				<tr>
 					<th>아이디</th>
-					<td colspan="2"><input class="disabled" type="text" name="id" value="<%=member.getId()%>" disabled="disabled"></td>
+					<td colspan="2"><input name="id" class="disabled" type="text" value="<%=member.getId()%>" readonly></td>
 					<th rowspan="2">등급</th>
 					<td rowspan="2">
 						<select class="grade" name="grade">
 							<option <%=selected[0]%> value="사용자">사용자</option>
-							<%-- 추후 등급 세분화 할 예정 --%>
+							<%-- 등급 세분화 할 예정 --%>
 							<option <%=selected[1]%> value="사장님">사장님</option>
 							<option <%=selected[2]%> value="관리자">관리자</option>
 							<option <%=selected[3]%> value="휴면">휴면</option>
@@ -66,21 +66,19 @@
 				</tr>
 				<tr>
 					<th>이름</th>
-					<td colspan="2"><input type="text" name="name" value="<%=member.getName()%>"></td>
+					<td colspan="2"><input name="name" type="text"  value="<%=member.getName()%>"></td>
 				</tr>
 				<tr>
 					<th>생년월일</th>
-					<td colspan="2"><input class="disabled" name="birth"type="text" value="<%=member.getBirth()%>" disabled="disabled"></td>
+					<td colspan="2"><input name="birth" type="text" class="disabled" value="<%=member.getBirth()%>" readonly></td>
 
 					<th rowspan="2">회원가입일</th>
-					<td rowspan="2"><input class="disabled" type="text" value="<%=member.getRegDate()%>" disabled="disabled"></td>
+					<td rowspan="2"><input type="text" class="disabled" value="<%=member.getRegDate()%>" readonly></td>
 				</tr>
 				<tr>
 					<th>성별</th>
 					<th><input type="radio" name="gender" value="남" <%=checked[0]%>>&nbsp;&nbsp;남</th>
 					<th><input type="radio" name="gender" value="여" <%=checked[1]%>>&nbsp;&nbsp;여</th>
-
-					
 				</tr>
 				<tr>
 					<th>휴대폰</th>
@@ -92,7 +90,7 @@
 						<input class="phone" name="phone" type="text" value="<%=phone[2]%>">
 					</td>
 					<th rowspan="2">정보수정일</th>
-					<td rowspan="2"><input class="disabled" name="modifyDate" type="text" value="<%=member.getModifyDate() %>" disabled="disabled"></td>
+					<td rowspan="2"><input class="disabled" name="modifyDate" type="text" value="<%=member.getModifyDate() %>" readonly></td>
 				</tr>
 				<tr>
 					<th>이메일 <!-- 카카오톡 ID? --></th>
@@ -100,7 +98,9 @@
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td colspan="4"><input type="text" name="address" value="<%=member.getEmail()%>"></td>
+					<td colspan="2"><input type="text" name="address" value="<%=member.getAddress()%>"></td>
+					<th>포인트</th>
+					<td colspan="2"><input class="disabled" name="point" type="text" value="<%=member.getPoint()%>" readonly></td>
 				</tr>
 				<tr>
 					<td colspan="3"><button type="submit">수정완료</button></td>
