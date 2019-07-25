@@ -120,6 +120,18 @@
 	margin-top: 1vh;
 	justify-content: space-between;
 }
+#range li{
+	display: inline-flex;
+}
+#range li::after{
+	margin: 0 0.5vw 0 0.5vw;
+	content: " | ";
+}
+#range li:last-of-type::after{
+	padding: 0;
+	margin: 0;
+	content: "";
+}
 input[type="text"], select{
 	background-color: rgba(210,210,210,0.1);
 	border: none;
