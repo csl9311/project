@@ -3,18 +3,33 @@
 <%@ page import="member.model.vo.Member"%>
 <%
 	Member member = (Member) request.getAttribute("member");
-	String[] checked = new String[2];
+	String[] genderChecked = new String[2];
+	String[] smsChecked = new String[2];
+	String[] newsChecked = new String[2];
 	String[] selected = new String[5];
 	String[] phone = {};
 	if (member != null) {
+		// phone
 		phone = member.getPhone().split("-");
-		
+		// 성별
 		if(member.getGender().equals("남")){
-			checked[0] = "checked";
+			genderChecked[0] = "checked";
 		} else if (member.getGender().equals("여")){
-			checked[1] = "checked";
+			genderChecked[1] = "checked";
 		}
-		
+		// sms 수신 여부
+		if(member.getSms() == 0){
+			smsChecked[0] = "checked";
+		} else {
+			smsChecked[1] = "checked";
+		}
+		// news 수신 여부
+		if(member.getNews() == 0){
+			newsChecked[0] = "checked";
+		} else {
+			newsChecked[1] = "checked";
+		}
+		// 등급
 		switch(member.getGrade()){
 			case "일반": selected[0] = "selected"; break;
 			case "사장님": selected[1] = "selected"; break;
@@ -32,13 +47,8 @@
 <title>회원정보조회</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css">
 <style type="text/css">
-#memberDetail tr th {color: white;}
 
-#memberDetail tr td {color: black;}
-
-#memberDetail tr th,td {
-	text-align: center;
-	width: 25vw;
+#memberDetail tr td,td {
 	height: 5vh;
 	border: 1px solid white;
 }
@@ -46,13 +56,12 @@
 </head>
 <body>
 	<div class="content">
-		<div class="emptyHeader"></div>
 		<form action="<%=request.getContextPath()%>/admin.MemberUpdate" method="post">
 			<table id="memberDetail">
 				<tr>
-					<th>아이디</th>
-					<td colspan="2"><input name="id" class="disabled" type="text" value="<%=member.getId()%>" readonly></td>
-					<th rowspan="2">등급</th>
+					<td class="rowTitle">아이디</td>
+					<td colspan="2"><input name="id" class="readonly" type="text" value="<%=member.getId()%>" readonly></td>
+					<td class="rowTitle" rowspan="2">등급</td>
 					<td rowspan="2">
 						<select class="grade" name="grade">
 							<option <%=selected[0]%> value="일반">일반</option>
@@ -65,23 +74,23 @@
 					</td>
 				</tr>
 				<tr>
-					<th>이름</th>
+					<td class="rowTitle">이름</td>
 					<td colspan="2"><input name="name" type="text"  value="<%=member.getName()%>"></td>
 				</tr>
 				<tr>
-					<th>생년월일</th>
-					<td colspan="2"><input name="birth" type="text" class="disabled" value="<%=member.getBirth()%>" readonly></td>
+					<td class="rowTitle">생년월일</td>
+					<td colspan="2"><input name="birth" type="text" class="readonly" value="<%=member.getBirth()%>" readonly></td>
 
-					<th rowspan="2">회원가입일</th>
-					<td rowspan="2"><input type="text" class="disabled" value="<%=member.getRegDate()%>" readonly></td>
+					<td class="rowTitle" rowspan="2">회원가입일</td>
+					<td rowspan="2"><input type="text" class="readonly" value="<%=member.getRegDate()%>" readonly></td>
 				</tr>
 				<tr>
-					<th>성별</th>
-					<th><input type="radio" name="gender" value="남" <%=checked[0]%>>&nbsp;&nbsp;남</th>
-					<th><input type="radio" name="gender" value="여" <%=checked[1]%>>&nbsp;&nbsp;여</th>
+					<td class="rowTitle">성별</td>
+					<td><input type="radio" name="gender" value="남" <%=genderChecked[0]%>>&nbsp;&nbsp;남</td>
+					<td><input type="radio" name="gender" value="여" <%=genderChecked[1]%>>&nbsp;&nbsp;여</td>
 				</tr>
 				<tr>
-					<th>휴대폰</th>
+					<td class="rowTitle">연락처</td>
 					<td colspan="2">
 						<input class="phone" name="phone" type="text" value="<%=phone[0]%>">
 						<label class="dash">-</label>
@@ -89,18 +98,45 @@
 						<label class="dash">-</label>
 						<input class="phone" name="phone" type="text" value="<%=phone[2]%>">
 					</td>
-					<th rowspan="2">정보수정일</th>
-					<td rowspan="2"><input class="disabled" name="modifyDate" type="text" value="<%=member.getModifyDate() %>" readonly></td>
+					<td class="rowTitle" rowspan="2">정보수정일</td>
+					<td rowspan="2"><input class="readonly" name="modifyDate" type="text" value="<%=member.getModifyDate() %>" readonly></td>
 				</tr>
 				<tr>
-					<th>이메일 <!-- 카카오톡 ID? --></th>
-					<td colspan="2"><input type="text" name="email" value="<%=member.getEmail()%>"></td>
+					<td class="rowTitle">닉네임</td>
+					<td colspan="2"><input type="text" name="nickName" value="<%=member.getNickName()%>"></td>
 				</tr>
 				<tr>
-					<th>주소</th>
+					<td class="rowTitle">이메일 <!-- 카카오톡 ID? --></td>
+					<td colspan="2"><input type="email" name="email" value="<%=member.getEmail()%>"></td>
+					<td class="rowTitle" rowspan="2">포인트</td>
+					<td rowspan="2"><input class="readonly" name="point" type="text" value="<%=member.getPoint()%>" readonly></td>
+				</tr>
+				<tr>
+					<td class="rowTitle">우편번호</td>
+					<td colspan="2"><input type="text" name="postNum" value="<%=member.getPostNum()%>"></td>
+					
+				</tr>
+				<tr>
+					<td class="rowTitle">주소</td>
 					<td colspan="2"><input type="text" name="address" value="<%=member.getAddress()%>"></td>
-					<th>포인트</th>
-					<td colspan="2"><input class="disabled" name="point" type="text" value="<%=member.getPoint()%>" readonly></td>
+					<td class="rowTitle">sms 수신 여부</td>
+					<td colspan="2">
+						<input type="radio" name="sms" <%=smsChecked[0] %>>
+						<label>동의</label>
+						<input type="radio" name="sms" <%=smsChecked[1] %>>
+						<label>동의하지 않음</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="rowTitle">상세주소</td>
+					<td colspan="2"><input type="text" name="addressDetail" value="<%=member.getAddressDetail()%>"></td>
+					<td class="rowTitle">news 수신 여부</td>
+					<td colspan="2">
+						<input type="radio" name="news" <%=newsChecked[0] %>>
+						<label>동의</label>
+						<input type="radio" name="news" <%=newsChecked[1] %>>
+						<label>동의하지 않음</label>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="3"><button type="submit">수정완료</button></td>

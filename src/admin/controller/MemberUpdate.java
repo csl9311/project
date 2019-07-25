@@ -26,6 +26,9 @@ public class MemberUpdate extends HttpServlet {
 
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
+		String nickName = request.getParameter("nickName");
+	
+		
 		String[] phoneArr = request.getParameterValues("phone");
 		String phone = "";
 		if (phoneArr != null) {
@@ -33,12 +36,17 @@ public class MemberUpdate extends HttpServlet {
 		}
 
 		String gender = request.getParameter("gender");
-		String email = request.getParameter("email");
+		String postNum = request.getParameter("postNum");
 		String address = request.getParameter("address");
+		String addressDetail = request.getParameter("addressDetail");
+		String email = request.getParameter("email");
 		String grade = request.getParameter("grade");
+		
+		int news = Integer.parseInt(request.getParameter("news"));
+		int sms = Integer.parseInt(request.getParameter("sms"));
 
-		Member member = new Member(id, name, phone, gender, address, email, grade);
-		int result = new MemberService().updateMember(member);
+		Member member = new Member(id, name, nickName, phone, gender, postNum, address, addressDetail, email, grade, news, sms);
+		int result = new MemberService().adminUpdateMember(member);
 
 		String msg = "";
 		if (result > 0) {

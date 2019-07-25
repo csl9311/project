@@ -1,140 +1,171 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String idCheckMsg = "";
+	String pwdCheckMsg1 = "";
+	String pwdCheckMsg2 = "";
+	String nickCheckMsg = "";
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<style>
+.signUpTable tr {
+	height: 5vh;
+}
+</style>
 </head>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css">
 <body>
-	<div id="mypage">
-		<table class="">
-			<tr>
-				<td>아이디</td>
-				<td>
-					<input type="text" name="id" id="id">
-					<input type="button" id="check" value="중복확인">
-				</td>
-			</tr>
-
-			<tr>
-				<td>비밀번호</td>
-				<td>
-					<input type="text" name="pw" id="pw">
-					<label>*영문 대소문자/숫자/특수문자를 혼용하여 2종류10~16자 또는 3종 8~16자</label>
-				</td>
-			</tr>
-			<tr>
-				<td>비밀번호 확인</td>
-				<td><input type="text" name="pwCheck" id="pwCheck"></td>
-			</tr>
-			
-			<tr>
-				<td>닉네임</td>
-				<td>
-					<input type="text" name="id" id="id">
-					<input type="button" id="check" value="중복확인">
-				</td>
-			</tr>
-			<tr>
-				<td>이름</td>
-				<td><input type="text" name="name" id="name">
-				</td>
-			</tr>
-			<tr style="display: none;">
-				<td>연락처</td>
+<!--
+	input태그 이미지 구한 후 스타일 날리기.(라디오버튼 css 날리고 이미지파일로 대체)
+	우편번호 검색 DB 짜야함. pk : 우편번호, address : text
+	아이디, 비밀번호, 닉네임, 본인인증, 우편번호 DB, 주소 자동 완성, 이메일 중복체크, 뉴스메일 & 이벤트 선택여부
+	
+ -->
+	<div>
+		<form action="<%=request.getContextPath()%>/member.signUp" method="post">
+			<table class="signUpTable">
+				<tr>
+					<td class="rowTitle">아이디</td>
+					<td><input type="text" name="id"></td>
+				</tr>
+				<tr class="resultLabel">
+					<td></td>
+					<td><label><%=idCheckMsg%></label></td>
+				</tr>
+				<tr>
+					<td class="rowTitle">비밀번호</td>
+					<td><input type="text" name="pw"></td>
+				</tr>
+				<tr class="resultLabel">
+					<td></td>
+					<td><label class="description small"><%=pwdCheckMsg1 %></label><!-- * 영문/숫자/특수문자 중 2가지 이상 혼용하여 8자 이상 --></td>
+				</tr>
+				<tr>
+					<td class="rowTitle">비밀번호 확인</td>
+					<td><input type="text" name="pwCheck"></td>
+				</tr>
+				<tr class="resultLabel">
+					<td></td>
+					<td><label><%=pwdCheckMsg2 %></label></td>
+				</tr>
+				<tr>
+					<td class="rowTitle">닉네임</td>
+					<td><input type="text" name="nickName"></td>
+				</tr>
+				<tr class="resultLabel">
+					<td></td>
+					<td><label><%=nickCheckMsg %></label></td>
+				</tr>
+				<tr>
+					<td class="rowTitle">이름</td>
+					<td><input type="text" name="name"></td>
+				</tr>
+				<tr>
+					<td class="rowTitle">연락처</td>
+					<td>
+						<select>
+							<option value="KT">KT</option>
+							<option value="LG U+">LG U+</option>
+							<option value="SKT">SKT</option>
+						</select>
+						<input type="text" name="phone" class="phone">
+						<label class='description'>-</label>
+						<input type="text" name="phone" class="phone">
+						<label class='description'>-</label>
+						<input type="text" name="phone" class="phone">
+					</td>
+				</tr>
+				<tr>
+					<td class="rowTitle">생년월일</td>
+					<td>
+						<script type="text/javascript">
+							var today = new Date();
+							var toyear = parseInt(today.getFullYear());
+							var start = toyear;
+							var end = toyear - 100;
+		
+							document.write("<select name='birth'> ");
+							for (i = start; i >= end; i--){
+								document.write('<option value="' + i + '">' + i + '</option>');
+							}
+							document.write("</select><label class='description'>년 </label>");
+		
+							document.write("<select name='birth'>");
+							for (i = 1; i <= 12; i++){
+								document.write('<option value="' + i + '">' + i + '</option>');
+							}
+							document.write("</select><label class='description'>월 </label>  ");
+		
+							document.write("<select name='birth'>");
+							for (i = 1; i <= 31; i++){
+								document.write('<option value="' + i + '">' + i + '</option>');
+							}
+							document.write("</select><label class='description'>일</label>");
+						</script> 
+					</td>
+				</tr>
+				<tr>
 				
+				<td class="rowTitle">성별</td>
 				<td>
-				<select>
-					<option>통신사 선택</option>
-					<option>KT</option>
-					<option>LG U+</option>
-					<option>SKT</option>
-				</select>
-				<input type="text" name="phone" class="updatephone">
-				- <input type="text" name="phone" class="updatephone">
-				- <input type="text" name="phone" class="updatephone">
+					<input type="radio" name="gender" value="남"><label class='description'>남</label>
+					<input type="radio" name="gender" value="여"><label class='description'>여</label>
 				</td>
-			</tr>
-			<tr>
-				<td>생일/성별</td>
-				<td>
-					<script type="text/javascript">
-						var today = new Date();
-						var toyear = parseInt(today.getFullYear());
-						var start = toyear;
-						var end = toyear - 15;
-	
-						document.write("<select name=birth1> ");
-						document.write("<option value='2015' selected>");
-						for (i = start; i >= end; i--)
-							document.write("<option>" + i);
-						document.write("</select>년  ");
-	
-						document.write("<select name=birth2>");
-						document.write("<option value='' selected>");
-						for (i = 1; i <= 12; i++)
-							document.write("<option>" + i);
-						document.write("</select>월  ");
-	
-						document.write("<select name=birth3>");
-						document.write("<option value='' selected>");
-						for (i = 1; i <= 31; i++)
-							document.write("<option>" + i);
-						document.write("</select>일  </font>");
-					</script> 
-					
-					<input type="radio" name="gender" value="남">남 
-					<input type="radio" name="gender" value="여" checked>여
-				</td>
-			</tr>
-			<tr>
-				<td>우편번호</td>
-				<td>
-					<input type="text" name="postNum">
-					<button type="button" id="postNum">우편번호검색</button>
-				</td>
-			</tr>
-			<tr>
-				<td>주소</td>
-				<td><input type="text" name="address" id="address" class="updateadr"></td>
-			</tr>
-			<tr>
-				<td>상세주소</td>
-				<td><input type="text" name="address" id="addressDetail" class="updateadr"></td>
-			</tr>
-			<tr>
-				<td>이메일</td>
-				<td>
-					<input type="text" name="email" id="email"> @
-					<input type="text" name="email2" id="email2" style="width: 10vw">
-					<select id="email2" style="width: 5vw">
-						<option value="naver.com">naver.com</option>
-						<option value="google.com">google.com</option>
-						<option value="daum.com">daum.com</option>
-						<option value="1">직접 입력</option>
-					</select>
-					<input type="button" id="check2" value="중복확인">
-				</td>
-			</tr>
-			<tr>
-			<tr>
-				<td><label>뉴스메일</label></td>
-				<td>
-					<input type="radio" name="news" checked>받습니다.
-					<input type="radio" name="news">받지 않습니다.
-				</td>
-			</tr>
-			<tr>
-				<td><label>SMS안내(이벤트)</label></td>
-				<td><input type="radio" name="sms" checked> 받습니다.
-				<input type="radio" name="sms">받지 않습니다.</td>
-			</tr>
-		</table>
-		<br> <input type="button" id="join" value="회원가입">
+				</tr>
+				<tr>
+					<td class="rowTitle">우편번호</td>
+					<td>
+						<input type="text" name="postNum">
+						<button type="button" id="postNum">우편번호 검색</button>
+					</td>
+				</tr>
+				<tr>
+					<td class="rowTitle">주소</td>
+					<td><input type="text" name="address"></td>
+				</tr>
+				<tr>
+					<td class="rowTitle">상세주소</td>
+					<td><input type="text" name="addressDetail"></td>
+				</tr>
+				<tr>
+					<td class="rowTitle">이메일</td>
+					<td>
+						<input type="email" name="email">
+					</td>
+				</tr>
+				<tr class="resultLabel">
+					<td></td>
+					<td><label id="emailCheck">이미 사용 중인 이메일 주소입니다.</label></td>
+				</tr>
+				<tr>
+					<td class="rowTitle">뉴스메일</td>
+					<td class="description">
+						<input type="radio" name="news" value="0">
+						<label>동의</label>
+						<input type="radio" name="news" value="1">
+						<label>동의하지 않음</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="rowTitle">SMS안내 (이벤트)</td>
+					<td class="description">
+						<input type="radio" name="sms" value="0">
+						<label>동의</label>
+						<input type="radio" name="sms" value="1">
+						<label>동의하지 않음</label>
+					</td>
+				</tr>
+			</table>
+			<button class="submit" type="submit">회원가입</button>
+		</form>
 	</div>
-
-
-
+	<script>
+		
+	</script>
 </body>
 </html>

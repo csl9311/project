@@ -11,8 +11,8 @@
 	rel="stylesheet">
 </head>
 <body>
+<div id="Index" class="flex column">
 	<!-- 상세 페이지 전체 감싸는 div -->
-	<div id="Index" class="flex column">
 		<!-- 소분류 카테고리 -->
 		<nav id="shopCategory" class="flex">
 			<ul id="sct_ul">
@@ -70,7 +70,6 @@
 								<span class="pointer"><b>[아스트로]</b></span><br> <span>아스트로
 									A40+ MixAmp</span><br> <span class="pointer">169,000원</span>
 							</div>
-
 						</div>
 					</div>
 				</li>
@@ -108,7 +107,7 @@
 				%>
 				<li>
 					<div class="item_border flex">
-						<input type="checkbox" name="checkBox" class="pointer">
+						<!-- <input type="checkbox" name="checkBox" class="pointer"> -->
 						<div class="item flex column">
 							<div class="item_top">
 								<a
