@@ -26,6 +26,7 @@
 </head>
 <%@ include file="Form.jsp"%>
 <body>
+<<<<<<< HEAD
 <div id="mypage">
 
 
@@ -175,7 +176,7 @@
 	</section>
 </div>
 
-	
+
 
 </body>
 <%@ include file="/views/common/coinfooter.jsp"%>
