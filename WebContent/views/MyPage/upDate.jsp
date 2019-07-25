@@ -26,7 +26,7 @@
 </head>
 <%@ include file="Form.jsp"%>
 <body>
-<<<<<<< HEAD
+
 <div id="mypage">
 
 

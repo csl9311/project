@@ -30,16 +30,17 @@
 	padding: 5px;
 	}
 	#pay-div1{
-	border: 1px solid white;
 	width: 80vw;
 	margin: auto;
 	color : green;	
 	}
 	.pay-tab {
+	border: 1px solid white;
 	width:70vw;
-	border : 1px solid rgb(239,222,255);
+	
 	}
 	.pay-tab tr td{
 	padding : 5px;
 	
 	}
+

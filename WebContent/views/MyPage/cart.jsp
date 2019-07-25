@@ -13,7 +13,8 @@
 <body>
 <div id="mypage">
 <section class="result">	
-<div class=".sdiv">
+<div><!-- 상품목록 -->
+	<p>장바구니</p>
 	<table class="tab-1">
 		<tr >
 			<td width="100px">전체선택&nbsp;<input type="checkbox"></td>
@@ -34,8 +35,7 @@
 			<td>3000원</td>
 			<td>9900원</td>
 			<td><br>
-			<button class="cartBtn">주문하기</button><br>
-				<button class="cartBtn">관심상품등록</button><br>
+				<button class="cartBtn">주문하기</button><br>
 				<button class="cartBtn">삭제</button>
 			</td>
 		</tr>
@@ -45,9 +45,11 @@
 		</tr>	
 	</table>
 	</div>
+	<!-- 상품목록 끝 -->
 	<br>
 	<br><br>
 	<div>
+	<!-- 금액  -->
 	<table class="tab-2">
 	<tr>
 	<td>총 상품금액
@@ -63,8 +65,9 @@
 	<td class="pay1">13000원	</td>	
 	</tr>
 	</table>
+	<!-- 금액 끝 -->
 	<br>
-	<button onclick="allpayment()">전체상품주문</button>&nbsp;&nbsp;<button onclick="selectpayment()">선택상품주문</button>	
+	<button onclick="allpayment()">전체상품주문</button>&nbsp;&nbsp;<button onclick="selectpayment()">선택상품주문</button>
 	<script>
 	function allpayment(){
 		location.href="<%= request.getContextPath()%>/views/MyPage/payment.jsp";

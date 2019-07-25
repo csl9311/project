@@ -29,11 +29,11 @@
 	<br>
 	<p>개인정보 변경을 위해 비밀번호를 다시 한번 입력해 주세요.</p>	
 	<br>	
-	<label>비밀번호 확인 : &nbsp;</label><input type="password" id="pwd" style="width:20vw"><br><br>
+	<label>비밀번호 확인 : &nbsp;</label><input type="password" id="pwd" style="width:10vw"><br><br>
 	<div>
 	
-	<input type="button" onclick="check();" id="ch" value="확인"> &nbsp;&nbsp;&nbsp;
-	<input type="button" onclick="check();" id="che" value="취소">
+	<input type="button" class=btn-primary onclick="check();" id="ch" value="확인"> &nbsp;&nbsp;&nbsp;
+	<input type="button" class=btn-primary onclick="check();" id="che" value="취소">
 
 	</div>
 	<p></p>

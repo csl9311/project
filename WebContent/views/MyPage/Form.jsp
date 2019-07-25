@@ -19,10 +19,11 @@
 <div id="mypage">
 
 	<div class="search">
-		<button class="btn" onclick="update()">개인정보수정</button>
-		<button class="btn" >작성글 목록</button>
-		<button class="btn" onclick="shopping()">장바구니</button>
-		<button class="btn" >문의 목록</button>
+		<button class=btn-primary onclick="update()">개인정보수정</button>
+		<button class=btn-primary onclick="purchase()">구매내역</button>
+		<button class=btn-primary onclick="cart()">장바구니</button>
+		<button class=btn-primary >작성글 목록</button>
+		<button class=btn-primary >문의 목록</button>
 		
 	</div>
 	
@@ -30,8 +31,11 @@
 		function update(){
 			location.href="<%= request.getContextPath()%>/views/MyPage/check.jsp";
 		}
-		function shopping(){
-			location.href="<%= request.getContextPath()%>/views/MyPage/shopping.jsp";
+		function cart(){
+			location.href="<%= request.getContextPath()%>/views/MyPage/cart.jsp";
+		}
+		function purchase(){
+			location.href="<%= request.getContextPath()%>/views/MyPage/purchase.jsp";
 		}
 	
 	</script>

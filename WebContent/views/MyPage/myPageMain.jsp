@@ -14,10 +14,28 @@
 </head>
 <body >
 <div id="mypage">
-      <img src="../../img/mypageImg/personal.png" onclick="update()">
-      <button class="btn" >작성글 목록</button><br>
-      <button class="btn" onclick="shopping()">장바구니</button>
-      <button class="btn" >문의 목록</button>
+<!-- 아이콘  -->
+	  <div style="display:inline-block">
+	  <label>개인정보수정</label><br>
+      <img src="../../img/mypageImg/personal.png" onclick="update()" width="300px" height="300px">  
+      </div>
+      <div style="display:inline-block">
+	  <label>구매내역</label><br>
+      <img src="../../img/mypageImg/Purchase.png" onclick="purchase()" width="300px" height="300px">
+      </div>
+      <div style="display:inline-block">
+	  <label>장바구니</label><br>
+      <img src="../../img/mypageImg/cart.png" onclick="cart()" width="300px" height="300px">
+      </div><br>
+      <div style="display:inline-block">
+	  <label>내가 쓴 게시판</label><br>
+      <img src="../../img/mypageImg/board.png" onclick="update()" width="300px" height="300px">
+      </div>
+      <div style="display:inline-block">
+	  <label>Q&A</label><br>
+      <img src="../../img/mypageImg/Q&A.png" onclick="update()" width="300px" height="300px">
+      </div>
+  <!-- 아이콘 끝 -->
 </div>
 
    
@@ -25,9 +43,13 @@
       function update(){
          location.href="<%= request.getContextPath()%>/views/MyPage/check.jsp";
       }
-      function shopping(){
-         location.href="<%= request.getContextPath()%>/views/MyPage/shopping.jsp"
+      function cart(){
+         location.href="<%= request.getContextPath()%>/views/MyPage/cart.jsp"
       }
+  		function purchase(){
+		location.href="<%= request.getContextPath()%>/views/MyPage/purchase.jsp";
+	  }
+
    
    </script>
 
