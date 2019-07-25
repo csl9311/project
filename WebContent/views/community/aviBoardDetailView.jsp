@@ -27,13 +27,14 @@ ul{
 
 
 	<div class="main">
-		<div class="subpage"
-			style="text-align: center; border: 1px solid black; padding: 10px; margin: 10px; display: inline-block;">
+		<div class="subpage">
 			<table>
 				<tr>
 					<td><input type="text"
-						style="width: 80vw; background: none; color: white; margin-bottom: 8px;"
-						placeholder="미형의 유산"></td>
+						style="width: 80vw; background: none; color: white; margin-bottom: 8px; border:0;focus:outline=none;"
+						placeholder="제목창" value="파일런 함 지어봤습니다." readonly
+						><hr style="border:1px solid gray"><br></td>
+						
 				</tr>
 
 				<tr>
@@ -55,32 +56,36 @@ ul{
 						</span>
 						</div>
 
-							<hr>
+							<hr style="border:1px solid gray">
 							<br> <span style="float: right;margin-bottom:3vh">작성자 : <%=request.getAttribute("BoardName")%></span>
 								
 						</div></td>
 				</tr>
 				<tr>
 					<td>
-						<div style=" width: 80vw; margin: 5px;display: inline;">
+						<div style=" width: 80vw; margin-bottom: 5px;display: inline;">
 
 
 							<textarea
-								style="width: 69.5vw; height: 10vh; overflow-y: hidden; resize: none; background: none; color: white;"
-								onkeyup="resize(this) ">댓글창</textarea>
+								style="width: 69.5vw; min-height: 10vh; overflow-y: hidden; resize: none; background: none; color: white;border:0"
+								onkeyup="resize(this) " placeholder="댓글창입니다."></textarea>
 
 							<button class="btn-primary"
 								style="width: 10vw; height: 10vh; vertical-align: top;">등록</button>
+						
+						
+						</div>	
 							
-						</div> <br>
 					</td>
+					
 				</tr>
 
 				<tr>
-					<td>
-						
+					<td><br>
+						<hr style="border:1px solid gray"> <br>
 						<div class="readAviReview"
-							style="width: 80vw; height: auto; text-align:left; border: 1px solid black; display: inline-block; margin: 5px;">
+							style="width: 80vw; height: auto; text-align:left; border: 1px solid black; display: inline-block; margin: 5px;
+							padding:5px;">
 					<!-- 		<table>
 								<tr>
 									<td class="sm-1"><span>댓글111</span></td>
@@ -138,6 +143,7 @@ ul{
 
 <script type="text/javascript">
 	//youtube link size 변환
+	
 	$(window).resize(function() {
 		resizeYoutube();
 	});
@@ -147,8 +153,11 @@ ul{
 	function resizeYoutube() {
 		$("iframe").each(
 				function() {
-					if (/^https?:\/\/www.youtube.com\/embed\//g.test($(this)
-							.attr("src"))) {
+					if (/^https?:\/\/www.youtube.com\/embed\//g.test($(this).attr("src"))) {
+				
+						var add=this.src;
+						var arr = add.split('/');
+						console.log(arr[4]);
 						$(this).css("width", "100%");
 						$(this)
 								.css(
