@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="member.model.vo.*" %>
-    <%
+      <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
 	
 %>
@@ -11,7 +11,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>메인페이지</title>
-	<script type="text/javascript" src="<%= request.getContextPath() %>/js/header.js?v=<%=System.currentTimeMillis() %>"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/js/main/header.js?v=<%=System.currentTimeMillis() %>"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
 	
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main/loginForm.css">
@@ -30,7 +30,8 @@
 	  <a onclick="closeNav();">코인노래방 찾기</a>
 	  <a href="#" class="menu2">메뉴2</a>
 	  <a href="<%= request.getContextPath()%>/views/shop/shopMainView.jsp">shop</a>
-	  <a href='<%=request.getContextPath()%>/views/community/aviBoardListView.jsp'>커뮤니티</a>
+	  
+	  <a href="<%= request.getContextPath() %>/list.bo">커뮤니티</a>
 	  <a href="<%= request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
 	  <a href="#">고객센터</a>
 <%-- 관리자 로그인 시 --%>
@@ -76,7 +77,6 @@
 <!-- <div class="login-btn">
 <a href="#" class="button" >Login</a>
 </div> -->
-
 <form action="<%= request.getContextPath() %>/LoginServlet" method="post" onsubmit="return validate();" >
 <%-- <form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm" onsubmit="return validate();"> --%>
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none; ">
@@ -97,7 +97,6 @@
           </div>
 
 </form>
-
 </body>
 
 <!--     <script>
