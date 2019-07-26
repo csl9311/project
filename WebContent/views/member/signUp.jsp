@@ -22,7 +22,7 @@
 	input태그 이미지 구한 후 스타일 날리기.(라디오버튼 css 날리고 이미지파일로 대체)
 	우편번호 검색 DB 짜야함. pk : 우편번호, address : text
 	아이디, 비밀번호, 닉네임, 본인인증, 우편번호 DB, 주소 자동 완성, 이메일 중복체크, 뉴스메일 & 이벤트 선택여부
-	
+
  -->
 	<div class="content">
 		<form action="<%=request.getContextPath()%>/member.signUp" method="post">
@@ -86,29 +86,29 @@
 							var toyear = parseInt(today.getFullYear());
 							var start = toyear;
 							var end = toyear - 100;
-		
+
 							document.write("<select name='birth'> ");
 							for (i = start; i >= end; i--){
 								document.write('<option value="' + i + '">' + i + '</option>');
 							}
 							document.write("</select><label class='description'>년 </label>");
-		
+
 							document.write("<select name='birth'>");
 							for (i = 1; i <= 12; i++){
 								document.write('<option value="' + i + '">' + i + '</option>');
 							}
 							document.write("</select><label class='description'>월 </label>  ");
-		
+
 							document.write("<select name='birth'>");
 							for (i = 1; i <= 31; i++){
 								document.write('<option value="' + i + '">' + i + '</option>');
 							}
 							document.write("</select><label class='description'>일</label>");
-						</script> 
+						</script>
 					</td>
 				</tr>
 				<tr>
-				
+
 				<td class="rowTitle">성별</td>
 				<td>
 					<input type="radio" name="gender" value="M"><label class='description'>남</label>
@@ -167,12 +167,12 @@
 		</form>
 	</div>
 	<script>
-	
+
 		// 아이디 js
 		var regExpId = /^[0-9a-z]+$/;
 		var idChecked = false;
 		var usable = false;
-		
+
 		$('#id').change(function(){
 			var $id = $('#id');
 			if($id.test(regExpId)){
@@ -190,9 +190,9 @@
 				usable = true;
 			}
 		});
-		
+
 		// 비밀번호 js
-		// 참조 : https://hee-kkk.tistory.com/22 
+		// 참조 : https://hee-kkk.tistory.com/22
 		var regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
 		$('#pw').on("change paste keyup", function(){
 			var $pw = $('#pw');
@@ -204,7 +204,7 @@
 				$('#idResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
 			}
 		});
-	
+
 	</script>
 </body>
 </html>
