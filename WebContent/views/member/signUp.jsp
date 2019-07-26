@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	String idCheckMsg = "";
-	String pwdCheckMsg1 = "";
-	String pwdCheckMsg2 = "";
-	String nickCheckMsg = "";
-
+	String idCheckMsg = (String)request.getAttribute("idCheckMsg");
+	String pwdCheckMsg1 = (String)request.getAttribute("pwCheckMsg");
+	String pwdCheckMsg2 = (String)request.getAttribute("idCheckMsg");
+	String nickCheckMsg = (String)request.getAttribute("nickCheckMsg");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +20,7 @@
 </head>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css">
 <body>
+<%@ include file="../../views/common/coinheader.jsp" %>
 <!--
 	input태그 이미지 구한 후 스타일 날리기.(라디오버튼 css 날리고 이미지파일로 대체)
 	우편번호 검색 DB 짜야함. pk : 우편번호, address : text
@@ -31,11 +32,10 @@
 			<table class="signUpTable">
 				<tr>
 					<td class="rowTitle">아이디</td>
-					<td><input type="text" name="id"></td>
+					<td><input type="text" name="id" id="id"></td>
 				</tr>
-				<tr class="resultLabel">
-					<td></td>
-					<td><label><%=idCheckMsg%></label></td>
+				<tr class="resultLabel" id="idResult">
+					
 				</tr>
 				<tr>
 					<td class="rowTitle">비밀번호</td>
@@ -169,6 +169,15 @@
 		</form>
 	</div>
 	<script>
+		var usable = false;
+		var isIdChecked = false;
+		$('#id').change(function(){
+			var $id = $('#id');
+			if($id.val().length < 6){
+				$('#idResult').html('<td></td><td>아이디는 최소 6자리 이상이어야 합니다.</td>');
+				$('#idResult').css({'color':'red', 'display':'inline-block'});
+			}
+		});
 	</script>
 </body>
 </html>
