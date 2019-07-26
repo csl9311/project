@@ -50,6 +50,8 @@ input {
 	width: 20vw;
 	height: 5vh;
 	border: 0.5px solid white;
+	color: white;
+	font-size: 20px !important;
 }
 
 /* 검색 */
