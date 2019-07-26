@@ -18,14 +18,14 @@ select {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-	height: 21px;
+	height: 23px;
 	min-width: 40px;
 }
 /* input {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-} 
+}
 각종 버튼 이미지 구한 후에 적용하자.
 */
 
@@ -35,8 +35,7 @@ input {
 
 /* 바디내 가장 바깥쪽 div 태그 */
 .content {
-	color: white;
-	text-align: center;
+	color: black;
 }
 
 /* 상단 여백 */
@@ -69,6 +68,9 @@ input {
 }
 
 /* signUp */
+.signUpTable tr {
+	height: 5vh;
+}
 
 .rowTitle {
 	color: white;
@@ -80,15 +82,11 @@ input {
 	color : white;
 	font-size: 12px;
 }
-	
 
 .small{font-size: 10px;}
 .resultLabel{
 	display:none;
-	padding:0px; 
-	font-size: 12px;
-	color:white;
-	height:1vh;
+	padding:0px;
 }
 .submit{
 	text-align: center;

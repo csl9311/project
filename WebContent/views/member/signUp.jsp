@@ -1,53 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	String idCheckMsg = (String)request.getAttribute("idCheckMsg");
-	String pwdCheckMsg1 = (String)request.getAttribute("pwCheckMsg");
-	String pwdCheckMsg2 = (String)request.getAttribute("idCheckMsg");
-	String nickCheckMsg = (String)request.getAttribute("nickCheckMsg");
-%>
+	String idCheckMsg = "";
+	String pwdCheckMsg1 = "";
+	String pwdCheckMsg2 = "";
+	String nickCheckMsg = "";
 
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style>
-.signUpTable tr {
-	height: 5vh;
-}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css">
 <body>
-<%@ include file="../../views/common/coinheader.jsp" %>
 <!--
 	input태그 이미지 구한 후 스타일 날리기.(라디오버튼 css 날리고 이미지파일로 대체)
 	우편번호 검색 DB 짜야함. pk : 우편번호, address : text
 	아이디, 비밀번호, 닉네임, 본인인증, 우편번호 DB, 주소 자동 완성, 이메일 중복체크, 뉴스메일 & 이벤트 선택여부
-	
+
  -->
-	<div>
+	<div class="content">
 		<form action="<%=request.getContextPath()%>/member.signUp" method="post">
 			<table class="signUpTable">
 				<tr>
 					<td class="rowTitle">아이디</td>
-					<td><input type="text" name="id" id="id"></td>
+					<td><input type="text" name="id"></td>
 				</tr>
-				<tr class="resultLabel" id="idResult">
-					
+				<tr class="resultLabel" id="idResultTr">
+					<td></td>
+					<td colspan="2" id="idResultTd"></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">비밀번호</td>
-					<td><input type="text" name="pw"></td>
+					<td><input type="password" name="pw" id="pw"></td>
 				</tr>
-				<tr class="resultLabel">
+				<tr class="resultLabel" id="pwResultTr">
 					<td></td>
-					<td><label class="description small"><%=pwdCheckMsg1 %></label><!-- * 영문/숫자/특수문자 중 2가지 이상 혼용하여 8자 이상 --></td>
+					<td><label class="description small" id="pwResultTd"><%=pwdCheckMsg1 %></label></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">비밀번호 확인</td>
-					<td><input type="text" name="pwCheck"></td>
+					<td><input type="password" name="pwCheck"></td>
 				</tr>
 				<tr class="resultLabel">
 					<td></td>
@@ -88,29 +85,29 @@
 							var toyear = parseInt(today.getFullYear());
 							var start = toyear;
 							var end = toyear - 100;
-		
+
 							document.write("<select name='birth'> ");
 							for (i = start; i >= end; i--){
 								document.write('<option value="' + i + '">' + i + '</option>');
 							}
 							document.write("</select><label class='description'>년 </label>");
-		
+
 							document.write("<select name='birth'>");
 							for (i = 1; i <= 12; i++){
 								document.write('<option value="' + i + '">' + i + '</option>');
 							}
 							document.write("</select><label class='description'>월 </label>  ");
-		
+
 							document.write("<select name='birth'>");
 							for (i = 1; i <= 31; i++){
 								document.write('<option value="' + i + '">' + i + '</option>');
 							}
 							document.write("</select><label class='description'>일</label>");
-						</script> 
+						</script>
 					</td>
 				</tr>
 				<tr>
-				
+
 				<td class="rowTitle">성별</td>
 				<td>
 					<input type="radio" name="gender" value="M"><label class='description'>남</label>
@@ -169,15 +166,44 @@
 		</form>
 	</div>
 	<script>
+
+		// 아이디 js
+		var regExpId = /^[0-9a-z]+$/;
+		var idChecked = false;
 		var usable = false;
-		var isIdChecked = false;
+
 		$('#id').change(function(){
 			var $id = $('#id');
-			if($id.val().length < 6){
-				$('#idResult').html('<td></td><td>아이디는 최소 6자리 이상이어야 합니다.</td>');
-				$('#idResult').css({'color':'red', 'display':'inline-block'});
+			if($id.test(regExpId)){
+				$('#idResultTd').text('아이디에 사용 불가능한 문자가 포함되어있습니다.');
+				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+			} else if($id.val().length < 6){
+				$('#idResultTd').text('아이디는 최소 6자리 이상이어야 합니다.');
+				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+			} else if(idChecked){
+				$('#idResultTd').text('이미 사용중인 아이디입니다.');
+				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+			} else {
+				$('#idResultTd').text('사용 가능한 아이디입니다.');
+				$('#idResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
+				usable = true;
 			}
 		});
+
+		// 비밀번호 js
+		// 참조 : https://hee-kkk.tistory.com/22
+		var regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
+		$('#pw').on("change paste keyup", function(){
+			var $pw = $('#pw');
+			if($id.val().length < 6){
+				$('#idResultTd').text('* 영문/숫자/특수문자 중 2가지 이상 혼용하여 8자 이상');
+				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+			} else {
+				$('#idResultTd').text('사용 가능한 비밀번호입니다.');
+				$('#idResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
+			}
+		});
+
 	</script>
 </body>
 </html>
