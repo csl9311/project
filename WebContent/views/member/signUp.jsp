@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	String idCheckMsg = (String)request.getAttribute("idCheckMsg");
-	String pwdCheckMsg1 = (String)request.getAttribute("pwCheckMsg");
-	String pwdCheckMsg2 = (String)request.getAttribute("idCheckMsg");
-	String nickCheckMsg = (String)request.getAttribute("nickCheckMsg");
-%>
+	String idCheckMsg = "";
+	String pwdCheckMsg1 = "";
+	String pwdCheckMsg2 = "";
+	String nickCheckMsg = "";
 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +17,6 @@
 </head>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css">
 <body>
-<%@ include file="../../views/common/coinheader.jsp" %>
 <!--
 	input태그 이미지 구한 후 스타일 날리기.(라디오버튼 css 날리고 이미지파일로 대체)
 	우편번호 검색 DB 짜야함. pk : 우편번호, address : text
@@ -29,7 +28,7 @@
 			<table class="signUpTable">
 				<tr>
 					<td class="rowTitle">아이디</td>
-					<td><input type="text" name="id" id="id"></td>
+					<td><input type="text" name="id"></td>
 				</tr>
 				<tr class="resultLabel" id="idResultTr">
 					<td></td>
