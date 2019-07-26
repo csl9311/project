@@ -18,7 +18,7 @@ select {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-	height: 21px;
+	height: 24px;
 	min-width: 40px;
 }
 /* input {
@@ -90,6 +90,4 @@ input {
 	color:white;
 	height:1vh;
 }
-.submit{
-	text-align: center;
-}
+.submit{text-align: center;}
