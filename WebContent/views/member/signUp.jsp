@@ -174,7 +174,7 @@
 		$('#id').change(function(){
 			var $id = $('#id');
 			if($id.val().length < 6){
-				$('#idResult').html('<td></td><td>아이디는 최소 6자리 이상이어야 합니다.</td>');
+				$('#idResult').html('<td rowspan="2">아이디는 최소 6자리 이상이어야 합니다.</td>');
 				$('#idResult').css({'color':'red', 'display':'inline-block'});
 			}
 		});

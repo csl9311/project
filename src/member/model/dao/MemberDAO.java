@@ -178,6 +178,11 @@ public class MemberDAO {
 		Member loginUser= null;
 		
 		String query= prop.getProperty("loginMember");
+		pstmt = conn.
+		
+		
+		
+	
 		
 		return loginUser;
 	}
