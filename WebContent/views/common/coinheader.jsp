@@ -30,8 +30,8 @@
 			<a onclick="closeNav();">코인노래방 찾기</a> <a href="#" class="menu2">메뉴2</a>
 			<a href="<%=request.getContextPath()%>/views/shop/shopMainView.jsp">shop</a>
 	
-			<a href="<%=request.getContextPath()%>/list.bo">커뮤니티</a> <a
-				href="<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
+			<a href="<%=request.getContextPath()%>/list.bo">커뮤니티</a>
+			<a href="<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
 			<a href="#">고객센터</a>
 			<%-- 관리자 로그인 시 --%>
 			<%-- <% if (loginUser.getGrade().equals("admin")){ %> --%>
@@ -41,47 +41,36 @@
 			<%-- <% } %> --%>
 		</div>
 	
-	
-	
-	
 		<header>
-	
-				<nav class="navbar navbar-fixed-top" style="z-index: 121;">
-					<span style="font-size: 30px; cursor: pointer" onclick="openNav()"
-						class=" top left">&#9776; Menu</span>
-					<div class="right">
-						<!-- <button type="button" class="login btn btn-sm">로그인</button> -->
-						<span style="font-size: 30px; cursor: pointer" class="login"
-							data-toggle="modal" data-target="#login-modal">Login</span>
-						<button type="button" class="logout btn btn-sm none"
-							style="display: none">로그아웃</button>
-						<button type="button" class="profile btn btn-sm none"
-							style="display: none">프로필</button>
-					</div>
-					<div class="logo"
-						onclick="location.href='<%=request.getContextPath()%>/views/common/mainPage.jsp'"
-						style="cursor: pointer; display: inline-block">로고</div>
-				</nav>
+			<nav class="navbar navbar-fixed-top" style="z-index: 121;">
+				<span style="font-size: 30px; cursor: pointer" onclick="openNav()"
+					class=" top left">&#9776; Menu</span>
+				<div class="right">
+					<!-- <button type="button" class="login btn btn-sm">로그인</button> -->
+					<span style="font-size: 30px; cursor: pointer" class="login" data-toggle="modal" data-target="#login-modal">Login</span>
+					<button type="button" class="logout btn btn-sm none" style="display: none">로그아웃</button>
+					<button type="button" class="profile btn btn-sm none" style="display: none">프로필</button>
+				</div>
+				<%-- 로고 --%>
+				<div class="logo" onclick="location.href='<%=request.getContextPath()%>/views/common/mainPage.jsp'" style="cursor: pointer; display: inline-block">로고</div>
+			</nav>
 	
 			<!--******************로그인폼 ***************************  -->
 			<form action="<%=request.getContextPath()%>/LoginServlet" method="post" onsubmit="return validate();">
 				<%-- <form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm" onsubmit="return validate();"> --%>
-				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true"
-					style="display: none;">
+				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 					<div class="modal-dialog" style="text-align: center">
 						<div class="loginmodal-container">
 							<h1>로그인</h1>
-							<br> <input type="text" name="userId" id="userId"
-								placeholder="Username"> <input type="password"
-								name="userPwd" id="userPwd" placeholder="Password"> <input
-								type="submit" name="login" class="button loginmodal-submit"
-								value="Login">
+							<br>
+							<input type="text" name="userId" id="userId" placeholder="Username">
+							<input type="password" name="userPwd" id="userPwd" placeholder="Password">
+							<input type="submit" name="login" class="button loginmodal-submit" value="Login">
 	
 							<div class="login-help">
 								<a href="<%=request.getContextPath()%>/views/member/signUp.jsp">회원가입</a>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">Forgot
-									Password</a>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="#">Forgot Password</a>
 							</div>
 						</div>
 					</div>
@@ -89,29 +78,6 @@
 				<div class="logo" onclick="location.href='<%=request.getContextPath()%>/views/common/mainPage.jsp'" style="cursor: pointer; display: inline-block">로고</div>
 			</form>
 		</header>
-	
-		<form action="<%=request.getContextPath()%>/LoginServlet" method="post" onsubmit="return validate();">
-			<%-- <form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm" onsubmit="return validate();"> --%>
-			<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true"
-				style="display: none;">
-				<div class="modal-dialog" style="text-align: center">
-					<div class="loginmodal-container">
-						<h1>로그인</h1>
-						<br> 
-						<input type="text" name="userId" id="userId" placeholder="Username">
-						<input type="password" name="userPwd" id="userPwd" placeholder="Password">
-						<input type="submit" name="login" class="button loginmodal-submit" value="Login">
-	
-						<div class="login-help">
-							<a href="<%=request.getContextPath()%>/views/member/signUp.jsp">회원가입</a>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<a href="#">Forgot Password</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
 	</div>
 </body>
 

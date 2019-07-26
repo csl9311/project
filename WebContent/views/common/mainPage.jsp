@@ -64,7 +64,7 @@
 					<span>◀</span>
 				</div>
 
-				<div id="slider-pagination-wrap"></div>
+				<div id="slider-pagination-wrap"><ul></ul></div>
 			</div>
 
 			<div class="mainMenu">
@@ -142,13 +142,11 @@
 			//pagination
 			slides.forEach(function() {
 				var li = document.createElement('li');
-				document.querySelector('#slider-pagination-wrap ul')
-						.appendChild(li);
+				document.querySelector('#slider-pagination-wrap ul').appendChild(li);
 			})
 
 			function pagination() {
-				var dots = document
-						.querySelectorAll('#slider-pagination-wrap ul li');
+				var dots = document.querySelectorAll('#slider-pagination-wrap ul li');
 				dots.forEach(function(element) {
 					element.classList.remove('active');
 				});
