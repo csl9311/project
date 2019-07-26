@@ -193,10 +193,11 @@ select {
 				<div class="list-group">
 				  <a href="#" class="list-group-item">
 				    <div class="thumbnailImg">
-				    		<img src="../../img/shopImg/photo1.jpg" class="img-thumbnail">
+				    	<img src="../../img/shopImg/photo1.jpg" class="img-thumbnail">
 				    </div>
 				    <div class="rtitle">
 				    	<h2>노래방</h2>
+				    </div>
 				    <div>
 				    	<span>위치~~</span>
 				    </div>
@@ -205,66 +206,6 @@ select {
 				    </div>
 				    <div>
 			    		<span>가격정보~~</span>
-			    	</div>
-				    </div>
-				  </a>
-				</div>
-				
-				<div class="list-group">
-				  <a href="#" class="list-group-item">
-				    <div class="thumbnailImg">
-				    		<img src="../../img/shopImg/photo1.jpg" class="img-thumbnail">
-				    </div>
-				    <div class="rtitle">
-				    	<h2>노래방</h2>
-				    <div>
-				    	<span>위치~~</span>
-				    </div>
-				    <div>
-				    	<span>별점~~</span>
-				    </div>
-				    <div>
-			    		<span>가격정보~~</span>
-			    	</div>
-				    </div>
-				  </a>
-				</div>
-				
-				<div class="list-group">
-				  <a href="#" class="list-group-item">
-				    <div class="thumbnailImg">
-				    		<img src="../../img/shopImg/photo1.jpg" class="img-thumbnail">
-				    </div>
-				    <div class="rtitle">
-				    	<h2>노래방</h2>
-				    <div>
-				    	<span>위치~~</span>
-				    </div>
-				    <div>
-				    	<span>별점~~</span>
-				    </div>
-				    <div>
-			    		<span>가격정보~~</span>
-			    	</div>
-				    </div>
-				  </a>
-				</div>
-				<div class="list-group">
-				  <a href="#" class="list-group-item">
-				    <div class="thumbnailImg">
-				    		<img src="../../img/shopImg/photo1.jpg" class="img-thumbnail">
-				    </div>
-				    <div class="rtitle">
-				    	<h2>노래방</h2>
-				    <div>
-				    	<span>위치~~</span>
-				    </div>
-				    <div>
-				    	<span>별점~~</span>
-				    </div>
-				    <div>
-			    		<span>가격정보~~</span>
-			    	</div>
 				    </div>
 				  </a>
 				</div>

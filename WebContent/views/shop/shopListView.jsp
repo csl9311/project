@@ -11,6 +11,7 @@
 	rel="stylesheet">
 </head>
 <body>
+<div id="Index" class="flex column">
 	<!-- 상세 페이지 전체 감싸는 div -->
 		<!-- 소분류 카테고리 -->
 		<nav id="shopCategory" class="flex">

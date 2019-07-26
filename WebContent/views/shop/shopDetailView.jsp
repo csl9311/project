@@ -19,7 +19,7 @@
          3) 배송정보 칸의 안내창(물음표) 이미지 hover이벤트(시간남으면)
    -->
 	<!-- 상세 페이지 전체 감싸는 div -->
-	<div id="Index">
+			<div id="Index" class="flex column">
 		<!-- 소분류 카테고리 -->
 		<nav id="shopCategory">
 			<ul id="sct_ul">
@@ -58,15 +58,14 @@
 		<!-- 상단 nav 제외 전체 감싸는 div -->
 		<div id="content">
 			<!-- 사진, 상품정보 영역 감싸는 div -->
-			<div id="Index" class="flex column">
-	<form name="itemForm" method="post" id="itemForm">
-	<input type="hidden" id="itemId" name="itemId" value="">
-	<input type="hidden" id="brandId" name="brandId" value="">
-	<input type="hidden" id="cId" name="cId" value="">
-	<input type="hidden" id="price" name="price" value="">
-	<input type="hidden" id="stock" name="stock" value="">
-	<input type="hidden" id="sellcount" name="sellcount" value="">
-	</form>
+			<form name="itemForm" method="post" id="itemForm">
+				<input type="hidden" id="itemId" name="itemId" value="">
+				<input type="hidden" id="brandId" name="brandId" value="">
+				<input type="hidden" id="cId" name="cId" value="">
+				<input type="hidden" id="price" name="price" value="">
+				<input type="hidden" id="stock" name="stock" value="">
+				<input type="hidden" id="sellcount" name="sellcount" value="">
+			</form>
 			<div id="content_top">
 				<!-- 사진 영역 -->
 				<div id="ct_col_lft">
