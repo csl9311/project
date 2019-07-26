@@ -1,11 +1,17 @@
 package member.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import member.model.service.MemberService;
+import member.model.vo.Member;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -16,7 +22,26 @@ public class LoginServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		 String userId = request.getParameter("userId");
+		 String userPwd = request.getParameter("userPwd");
+		 System.out.println("zzz"+ userId);
+		 Member member = new Member(userId,userPwd);
+		 
+		 Member loginUser= new MemberService().loginMember(member);
+		 if(loginUser != null) {
+	         HttpSession session = request.getSession();
+	         session.setMaxInactiveInterval(600);
+	         response.sendRedirect("index.jsp");
+	        
+	      } else {
+	         request.setAttribute("msg", "로그인 실패");
+	         RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+	         view.forward(request, response);
+	        
+	      }
+		 
+		 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

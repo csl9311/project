@@ -40,7 +40,7 @@ body {
 	background-color: rgb(120, 120, 120);
 	bottom: 180px;
 	right: 100px;
-	
+
 }
 
 #goMain {
@@ -82,6 +82,6 @@ h1{
 		</div>
 	</div>
 		<h1 align="center" style="color:rgb(210,210,210)">ERROR : <%=msg%></h1>
-		
+
 </body>
 </html>
