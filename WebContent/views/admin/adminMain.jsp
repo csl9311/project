@@ -12,7 +12,7 @@
 		https://kkotkkio.tistory.com/87 
 		이거 가져오고싶다....... 
 	-->
-	<div class="content search">
+	<div class="center">
 		<nav>
 			<!-- 회원관리 : 회원정보 RUD, 등급 설정, 블랙리스트 등록 및 해제 -->
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/admin.memberList'">회원관리</div>

@@ -6,7 +6,7 @@
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("memberList");
 	String msg = (String)request.getAttribute("msg");
 %>
-
+<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,33 +15,26 @@
 <%-- css 호출 --%>
 <link rel="stylesheet" href='<%=request.getContextPath()%>/css/admin/admin.css'>
 <style type="text/css">
-.resultList{text-align: center;}
 
 .resultList tr :hover {
 	cursor: pointer;
 	color: gray;
 }
 
-.resultList tr th,td {
+.resultList tr th, .resultList tr td {
 	width: 12vw;
-	font-size: 12px;
 	padding: 0px;
-	color: white;
 }
 </style>
-
-<%-- jQuery 호출 --%>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
-<%-- <%@include file="/views/common/coinheader.jsp"%> --%>
 <body>
-	<div class="content">
+	<div>
 
 		<%-- 헤더 여백 --%>
 		<div class="emptyHeader"></div>
 
 		<%-- 검색 영역 --%>
-		<form class="search" action="<%=request.getContextPath()%>/searchMem.admin" method="get">
+		<form class="center" action="<%=request.getContextPath()%>/searchMem.admin" method="get">
 			<input type="search" name="search">
 			<button type="submit">검색</button>
 		</form>
@@ -49,12 +42,12 @@
 		<br> <br>
 
 		<%-- 회원정보조회, 등급 수정, 관리자 권한부여 --%>
-		<div class="memberList">
+		<div>
 			<%-- 회원정보조회 --%>
 			<% if (list.isEmpty()) {%>
 				<h3>조회 결과가 없습니다.</h3>
 			<%} else {%>
-			<table class="resultList">
+			<table class="resultList center">
 				<tr>
 					<th>ID</th>
 					<th>이름</th>
