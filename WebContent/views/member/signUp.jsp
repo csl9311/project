@@ -192,6 +192,7 @@
 		});
 		
 		// 비밀번호 js
+		// 참조 : https://hee-kkk.tistory.com/22 
 		var regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
 		$('#pw').on("change paste keyup", function(){
 			var $pw = $('#pw');
@@ -203,9 +204,6 @@
 				$('#idResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
 			}
 		});
-		
-		
-		// 참조 : https://hee-kkk.tistory.com/22 
 	
 	</script>
 </body>
