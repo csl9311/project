@@ -36,7 +36,7 @@
 		</tr>
 		<tr>
 			<td><img></td>
-			<td colspan="3">zz</td>
+			<td colspan="3">z</td>
 			<td>1</td>
 			<td>10000원</td>	
 			<td>3000원</td>

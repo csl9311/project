@@ -29,7 +29,7 @@
 		<tr>
 			<td><input type="checkbox">
 			<td></td>
-			<td colspan="3">zz</td>
+			<td colspan="3">z</td>
 			<td><input type="Number" min="1" id="quantity"></td>
 			<td>10000원</td>			
 			<td>3000원</td>
