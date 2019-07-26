@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="member.model.vo.*" %>
+    <%
+	Member loginUser = (Member) session.getAttribute("loginUser");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,15 +76,16 @@
 <!-- <div class="login-btn">
 <a href="#" class="button" >Login</a>
 </div> -->
-<form>
+
+<form action="<%= request.getContextPath() %>/LoginServlet" method="post" onsubmit="return validate();" >
 <%-- <form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm" onsubmit="return validate();"> --%>
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none; ">
           <div class="modal-dialog" style="text-align:center">
                 <div class="loginmodal-container">
                     <h1>로그인</h1><br>
               
-                    <input type="text" name="user" placeholder="Username" >
-                    <input type="password" name="pass" placeholder="Password">
+                    <input type="text" name="userId" id="userId" placeholder="Username" >
+                    <input type="password" name="userPwd" id="userPwd" placeholder="Password">
                     <input type="submit" name="login" class="button loginmodal-submit" value="Login">
                  
                     
@@ -92,6 +97,7 @@
           </div>
 
 </form>
+
 </body>
 
 <!--     <script>
