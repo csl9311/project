@@ -172,4 +172,14 @@ public class MemberDAO {
 		return result;
 	}
 
+	public Member loginMember(Connection conn, Member member) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member loginUser= null;
+		
+		String query= prop.getProperty("loginMember");
+		
+		return loginUser;
+	}
+
 }
