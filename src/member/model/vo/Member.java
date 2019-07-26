@@ -93,6 +93,7 @@ public class Member {
 		this.point = point;
 		this.news = news;
 		this.sms = sms;
+		
 	}
 
 	public String getId() {

@@ -48,4 +48,12 @@ public class MemberService {
 		return result;
 	}
 
+	public Member loginMember(Member member) {
+		Connection conn = getConnection();
+		Member loginUser = new MemberDAO().loginMember(conn,member);
+		
+		close(conn);
+		return loginUser;
+	}
+
 }

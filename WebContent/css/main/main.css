@@ -35,13 +35,7 @@ nav {
 	margin-top: 4px;
 	font-size: 2em; 
 	position: absoluate;
-	display: flex;
-
-}
-
-.logo img{
-	height: 45px;
-	width: auto;	
+	
 }
 
 hr {

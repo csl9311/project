@@ -25,7 +25,7 @@ select {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-} 
+}
 각종 버튼 이미지 구한 후에 적용하자.
 */
 
@@ -88,4 +88,6 @@ input {
 	display:none;
 	padding:0px;
 }
-.submit{text-align: center;}
+.submit{
+	text-align: center;
+}
