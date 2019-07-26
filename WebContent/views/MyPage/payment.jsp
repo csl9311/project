@@ -28,7 +28,7 @@
 	<table class="tab-1">
 		<tr>
 			<td>상품</td>
-			<td colspan="3">상품정보</td>
+			<td colspan="3">상품정보ㅋㅋ</td>
 			<td width="50px">수량</td>
 			<td>상품 금액</td>			
 			<td>배송비</td>
