@@ -1,11 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	String idCheckMsg = "";
-	String pwdCheckMsg1 = "";
-	String pwdCheckMsg2 = "";
-	String nickCheckMsg = "";
-
+	String idCheckMsg = (String)request.getAttribute("idCheck");
+	String nickCheckMsg = (String)request.getAttribute("pwCheck");
 %>
 <!DOCTYPE html>
 <html>
@@ -40,7 +36,7 @@
 				</tr>
 				<tr class="resultLabel" id="pwResultTr">
 					<td></td>
-					<td><label class="description small" id="pwResultTd"><%=pwdCheckMsg1 %></label></td>
+					<td><label class="description small" id="pwResultTd"></label></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">비밀번호 확인</td>
@@ -48,7 +44,7 @@
 				</tr>
 				<tr class="resultLabel">
 					<td></td>
-					<td><label><%=pwdCheckMsg2 %></label></td>
+					<td><label></label></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">닉네임</td>

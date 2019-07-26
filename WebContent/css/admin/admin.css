@@ -43,9 +43,8 @@ input {
 
 /* 메뉴 div */
 .menu {
-	display: inline-block;
+	display:inline-block;
 	text-align: center;
-	margin: 4vh;
 	padding: 10vh;
 	width: 20vw;
 	height: 5vh;
@@ -55,7 +54,8 @@ input {
 }
 
 /* 검색 */
-.search input, button {height: 5vh;}
+.search {text-align: center;}
+.search input, button {height: 3vh;}
 .search input {width: 30vw;}
 .search button {width: 10vw;}
 
@@ -82,7 +82,6 @@ input {
 }
 .description{
 	color : white;
-	font-size: 12px;
 }
 
 .small{font-size: 10px;}
