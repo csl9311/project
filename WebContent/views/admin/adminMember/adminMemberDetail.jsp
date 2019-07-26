@@ -12,9 +12,9 @@
 		// phone
 		phone = member.getPhone().split("-");
 		// 성별
-		if(member.getGender().equals("남")){
+		if(member.getGender().equals("M")){
 			genderChecked[0] = "checked";
-		} else if (member.getGender().equals("여")){
+		} else if (member.getGender().equals("W")){
 			genderChecked[1] = "checked";
 		}
 		// sms 수신 여부
@@ -55,6 +55,7 @@
 </style>
 </head>
 <body>
+	<div class="emptyHeader"></div>
 	<div class="content">
 		<form action="<%=request.getContextPath()%>/admin.MemberUpdate" method="post">
 			<table id="memberDetail">
@@ -86,8 +87,8 @@
 				</tr>
 				<tr>
 					<td class="rowTitle">성별</td>
-					<td><input type="radio" name="gender" value="M" <%=genderChecked[0]%>>&nbsp;&nbsp;남</td>
-					<td><input type="radio" name="gender" value="W" <%=genderChecked[1]%>>&nbsp;&nbsp;여</td>
+					<td><input type="radio" name="gender" value="M" <%=genderChecked[0]%>><label class="description">남</label></td>
+					<td><input type="radio" name="gender" value="W" <%=genderChecked[1]%>><label class="description">여</label></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">연락처</td>
@@ -121,10 +122,10 @@
 					<td colspan="2"><input type="text" name="address" value="<%=member.getAddress()%>"></td>
 					<td class="rowTitle">sms 수신 여부</td>
 					<td colspan="2">
-						<input type="radio" name="sms" <%=smsChecked[0] %>>
-						<label>동의</label>
-						<input type="radio" name="sms" <%=smsChecked[1] %>>
-						<label>동의하지 않음</label>
+						<input type="radio" name="sms" <%=smsChecked[0]%> value="0">
+						<label class="description">동의</label>
+						<input type="radio" name="sms" <%=smsChecked[1]%> value="1">
+						<label class="description">동의하지 않음</label>
 					</td>
 				</tr>
 				<tr>
@@ -132,10 +133,10 @@
 					<td colspan="2"><input type="text" name="addressDetail" value="<%=member.getAddressDetail()%>"></td>
 					<td class="rowTitle">news 수신 여부</td>
 					<td colspan="2">
-						<input type="radio" name="news" <%=newsChecked[0] %>>
-						<label>동의</label>
-						<input type="radio" name="news" <%=newsChecked[1] %>>
-						<label>동의하지 않음</label>
+						<input type="radio" name="news" <%=newsChecked[0]%> value="0">
+						<label class="description">동의</label>
+						<input type="radio" name="news" <%=newsChecked[1]%> value="1">
+						<label class="description">동의하지 않음</label>
 					</td>
 				</tr>
 				<tr>

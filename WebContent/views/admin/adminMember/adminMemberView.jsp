@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page
-	import="java.util.ArrayList, member.model.vo.*, common.PageInfo"%>
+<%@ page import="java.util.ArrayList, member.model.vo.*, common.PageInfo"%>
 
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("memberList");
@@ -16,6 +15,8 @@
 <%-- css 호출 --%>
 <link rel="stylesheet" href='<%=request.getContextPath()%>/css/admin/admin.css'>
 <style type="text/css">
+.resultList{text-align: center;}
+
 .resultList tr :hover {
 	cursor: pointer;
 	color: gray;
