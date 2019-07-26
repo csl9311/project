@@ -24,6 +24,7 @@ public class SignUpServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		// 중복확인
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		String nickName = request.getParameter("nickName");

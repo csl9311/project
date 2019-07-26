@@ -86,8 +86,8 @@
 				</tr>
 				<tr>
 					<td class="rowTitle">성별</td>
-					<td><input type="radio" name="gender" value="남" <%=genderChecked[0]%>>&nbsp;&nbsp;남</td>
-					<td><input type="radio" name="gender" value="여" <%=genderChecked[1]%>>&nbsp;&nbsp;여</td>
+					<td><input type="radio" name="gender" value="M" <%=genderChecked[0]%>>&nbsp;&nbsp;남</td>
+					<td><input type="radio" name="gender" value="W" <%=genderChecked[1]%>>&nbsp;&nbsp;여</td>
 				</tr>
 				<tr>
 					<td class="rowTitle">연락처</td>

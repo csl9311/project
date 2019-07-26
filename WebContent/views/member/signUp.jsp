@@ -113,8 +113,8 @@
 				
 				<td class="rowTitle">성별</td>
 				<td>
-					<input type="radio" name="gender" value="남"><label class='description'>남</label>
-					<input type="radio" name="gender" value="여"><label class='description'>여</label>
+					<input type="radio" name="gender" value="M"><label class='description'>남</label>
+					<input type="radio" name="gender" value="W"><label class='description'>여</label>
 				</td>
 				</tr>
 				<tr>
@@ -160,12 +160,15 @@
 						<label>동의하지 않음</label>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2" class="submit">
+						<button type="submit">회원가입</button>
+					</td>
+				</tr>
 			</table>
-			<button class="submit" type="submit">회원가입</button>
 		</form>
 	</div>
 	<script>
-		
 	</script>
 </body>
 </html>
