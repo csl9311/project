@@ -216,7 +216,7 @@
 											<blockquote>
 												마이크 정말 좋아요! <br> <br> <br>
 											</blockquote>
-											<span class="update"> <a href="#">UPDATE</a>
+											<span class="update"> <a href="<%=request.getContextPath()%>/views/shop/shopReviewView.jsp">UPDATE</a>
 											</span>
 
 										</div>

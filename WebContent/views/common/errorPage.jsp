@@ -63,12 +63,17 @@ a {
 #goMain a {
 	color: rgb(100, 100, 100);
 }
+h1{
+	display: flex;
+	position: absolute;
+	top: 0;
+	align-self: center;
+}
 </style>
 </head>
 <body>
 	<div id="wrap">
 		<img alt="에러페이지" src="../../img/shopImg/error2.png">
-		<h1 align="center"><%=msg%></h1>
 		<div id="goBack">
 			<a href="javascript:history.go(-1)">GO BACK</a>
 		</div>
@@ -76,5 +81,7 @@ a {
 			<a href="mainPage.jsp">GO MAIN</a>
 		</div>
 	</div>
+		<h1 align="center" style="color:rgb(210,210,210)">ERROR : <%=msg%></h1>
+		
 </body>
 </html>
