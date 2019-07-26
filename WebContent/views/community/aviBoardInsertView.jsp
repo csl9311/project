@@ -19,11 +19,12 @@
 
 	<div class="main">
 		<div class="aviCommonBoard">
+		<form action="<%= request.getContextPath() %>/insert.bo" method="post" encType="multipart/farm-date">
 			<table>
 				<tr>
 					<td><input type="text"
 						style="width: 60vw; margin-bottom: 5px; border: 0;"
-						name="aviBoardName" placeholder="aviBoardName">
+						name="title" placeholder="aviBoardName">
 						<hr style="border: 0.7px solid gray"> <br></td>
 
 				</tr>
@@ -38,7 +39,7 @@
 							style="width: 60vw; height: 70vh; text-align: left; margin: 5px; display: inline-block;">
 
 							<textarea style="height: 100%; width: 100%"
-								name="aviBoardContent"></textarea>
+								name="content"></textarea>
 						</div>
 					</td>
 				</tr>
@@ -47,15 +48,15 @@
 					<td>
 						<!-- <span style="font-size:20px; cursor:pointer"   data-toggle="modal" data-target="#insert-avi">영상등록</span> -->
 						<span style="float: left; cursor: pointer; margin-bottom: 5px;"
-						onclick="displayAviAddress()" id="opendiv">영상 주소 넣기</span>
+						onclick="displayAviAddress()" id="opendiv">영상 삽입 하기</span>
 
 						<div class="insertAddress fulldiv" style="display: none;">
 							<input type="text"
 								style="float: left; width: 70%; border: 0; margin-right: 30px;"
 								class="inputYoutube" name="inputYoutube"
 								placeholder="youtube 소스코드 붙여넣기">
-							<button style="float: left" type="submit"
-								class="btn-outline-primary btnYoutube">영상넣기</button>
+							<button type="button" style="float: left;width:4vw;height:3vh;display:block; " 
+								class="btn-primary btnYoutube">삽입</button>
 							<hr style="border: 0.7px solid gray; width: 70%">
 							<!-- <button class="inputAddress" style="float:right" >등록 </button> -->
 						</div>
@@ -63,14 +64,14 @@
 				</tr>
 
 				<tr>
-					<td><button style="width: 10vw; height: 10vh; float: right"
+					<td><button type="submit" style="width: 10vw; height: 7vh; float: right"
 							class="btn-primary">등록하기</button></td>
 				</tr>
 
 			</table>
 
 
-
+		</form>
 		</div>
 
 
@@ -141,7 +142,7 @@
 							} else {
 								console.log("실패");
 								document.getElementById("youtubeInsert").innerHTML="";
-								alert("올바른 유튜브 주소를 입력해주세요.");
+								alert("올바른 유튜브 소스코드를 입력해주세요.");
 								$('.inputYoutube').val("");
 								$('.inputYoutube').focus();
 							

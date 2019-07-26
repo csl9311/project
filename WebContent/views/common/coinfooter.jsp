@@ -19,10 +19,10 @@
 	<div class="containerbg">
         <div class="container" >
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3 footerlogo">
                     <h2 class="logoimg"><a href="#"> 로고영역 </a></h2>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2 footerstart">
                     <h5>Get started</h5>
                     <ul>
                         <li><a href="<%= request.getContextPath() %>/views/common/mainPage.jsp">홈으로</a></li>
@@ -30,7 +30,7 @@
                         <li><a href="#">사이트소개</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2 1 footerdelete">
                     <h5>About us</h5>
                     <ul>
                         <li><a href="#">회사 소개</a></li>
@@ -38,7 +38,7 @@
                         <li><a href="#">제휴 제안</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2 1 footerdelete">
                     <h5>Support</h5>
                     <ul>
                         <li><a href="#">FAQ</a></li>
@@ -46,7 +46,7 @@
                         <li><a href="#">고객센터</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 2 footerdelete">
                     <div class="social-networks">
                         <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
                         <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
@@ -65,5 +65,18 @@
 </body>
 
 <script> 
+
+
+//**************가변footer 
+var Height_Index = Number(document.getElementById("Index").clientHeight);
+window.onload  = changeContentSize;
+window.onresize  = changeContentSize;
+function changeContentSize() {
+var Height_Window   = Number(document.documentElement.clientHeight);
+var Height_Footer   = Number(document.getElementById("myFooter").clientHeight);
+var ContentTop = Height_Window - Height_Footer - 5;
+document.getElementById("Index").style.minHeight = Height_Index + 'px';
+document.getElementById("Index").style.height = ContentTop + "px";
+}
  </script>
 </html>

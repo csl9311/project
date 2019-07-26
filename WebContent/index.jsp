@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <title>메인화면</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/main.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/main/main.css" />
 </head>
 <body>
 <%@include file="/views/common/mainPage.jsp" %>

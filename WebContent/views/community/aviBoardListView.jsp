@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="community.model.vo.*,community.model.dao.* ,java.util.*,common.* " %>
+	
+<%
+	
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	/* PageInfo pi = (PageInfo)request.getAttribute("pi"); */
+	
+/* 	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage(); */
+%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,8 +41,15 @@ color:white;
 				<%
 					//youtube 주소  id값따오기
 					String address = "A5AmE_b68cg";
+				
 					/* String address = null; */
-					for (int i = 0; i < 9; i++) {
+					for (Board b : list ) {
+						
+						String adr = b.getbAddress();
+						String[] arr = adr.split("/");
+						
+						
+						
 				%>
 				<div class="aviList"
 					style="width: 20vw; height: auto; display: inline-block; margin: 3%; text-align: left;"
@@ -41,7 +60,7 @@ color:white;
 								<td>
 									<div class="aviThumbnail"
 										style="width: 100%; height: 50%; margin: auto; display: block">
-										<img src="https://img.youtube.com/vi/<%=address%>/0.jpg">
+										<img src="https://img.youtube.com/vi/<%=arr[0]%>/0.jpg">
 									</div>
 								</td>
 							</tr>
@@ -49,7 +68,8 @@ color:white;
 							<tr>
 								<td>
 									<div class="aviTitle">
-										<span style="text-align: left">제목입니다 </span>
+									<input type="hidden" value="<%= b.getBid() %>">
+										<span style="text-align: left"><%=b.getbTitle() %> </span>
 									</div>
 								</td>
 							</tr>
@@ -58,7 +78,7 @@ color:white;
 
 								<td>
 									<div class="aviwriter">
-										<span style="font-size: 10px">작성자</span>
+										<span style="font-size: 10px"><%=b.getbWriter() %></span>
 									</div>
 								</td>
 							</tr>
@@ -67,7 +87,7 @@ color:white;
 
 								<td>
 									<div>
-										<span style="font-size: 9px">조회수</span>
+										<span style="font-size: 9px"><%=b.getbCount() %></span>
 									</div>
 								</td>
 							</tr>

@@ -33,7 +33,10 @@ ul{
 					<td><input type="text"
 						style="width: 80vw; background: none; color: white; margin-bottom: 8px; border:0;focus:outline=none;"
 						placeholder="제목창" value="파일런 함 지어봤습니다." readonly
-						><hr style="border:1px solid gray"><br></td>
+						><hr style="border:1px solid gray">
+							<span style="float:right; font-size:14px;margin-top:3px">조회수:<%=request.getAttribute("Count") %> </span>
+							<br>
+						</td>
 						
 				</tr>
 
@@ -53,11 +56,29 @@ ul{
 								weqeqweqweqwe<br>
 								ewqeqweqweqweq <br>
 								eqweqweqw<br>
-						</span>
+								
+								</span>
+								<div class="divparent">
+									<div class="good">
+												<button>추천</button> 
+										
+										</div>
+										</div>
+										
+								<div class="updatedeletebtn" style="float:right;display:none">
+									<button onclick="location">수정</button> <button>삭제</button>
+								
+								
+								</div>
 						</div>
 
 							<hr style="border:1px solid gray">
-							<br> <span style="float: right;margin-bottom:3vh">작성자 : <%=request.getAttribute("BoardName")%></span>
+							<div style="font-size:14px">
+							<br>
+						 <span style="float: right;">작성자 : <%=request.getAttribute("BoardName")%></span><br>
+						 <span style="float: right;">작성일 : <%=request.getAttribute("BoardName")%></span> 
+							<br><span style="float: right;margin-bottom:1vh">추천수 : <%=request.getAttribute("BoardName")%></span>
+							</div>
 								
 						</div></td>
 				</tr>
