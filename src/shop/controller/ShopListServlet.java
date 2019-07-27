@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.PageInfo;
 import product.model.vo.Product;
 import shop.model.service.ShopService;
+import shop.model.vo.PageInfo;
 
 @WebServlet("/shopList.do")
 public class ShopListServlet extends HttpServlet {
