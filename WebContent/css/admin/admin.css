@@ -27,6 +27,7 @@ table {
 }
 
 select {
+	color: black;
 	height: 23px;
 	min-width: 40px;
 }
@@ -42,7 +43,7 @@ input, button {
 	height: 3vh;
 }
 
-.center, .center tr, .center td {
+.center, .center tr, .center tr td {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;

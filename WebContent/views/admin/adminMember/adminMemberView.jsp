@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, member.model.vo.*, common.PageInfo"%>
+<%@ include file="/views/common/coinheader.jsp"%>
 
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("memberList");
 	String msg = (String)request.getAttribute("msg");
 %>
-<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +24,7 @@
 .resultList tr th, .resultList tr td {
 	width: 12vw;
 	padding: 0px;
+	text-align: center;
 }
 </style>
 </head>
@@ -47,7 +48,7 @@
 			<% if (list.isEmpty()) {%>
 				<h3>조회 결과가 없습니다.</h3>
 			<%} else {%>
-			<table class="resultList center">
+			<table class="resultList">
 				<tr>
 					<th>ID</th>
 					<th>이름</th>
