@@ -171,6 +171,7 @@
 			var regExpId = /^[0-9a-zA-Z]+$/;
 			var idChecked = false;
 			
+			
 			if(regExpId.test($id)){
 				$('#idResultTd').text('아이디에 사용 불가능한 문자가 포함되어있습니다.');
 				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
