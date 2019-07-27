@@ -214,6 +214,24 @@ ul{
 			$('#goodbtn').text(add);
 			
 	});
+	
+	$(function(){
+		
+		$('.goodbtn').clcick(function(){
+			
+			$.ajax({
+				url: "avidetail.bo",
+				type: "post",
+				data {
+					
+					bno: $(board.)
+					
+				}
+				
+			})
+			
+		})
+	})
 </script>
 <%@ include file="/views/common/coinfooter.jsp"%>
 </html>

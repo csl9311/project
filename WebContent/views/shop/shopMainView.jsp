@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>shopMainView</title>
-<%@ include file="/views/common/coinheader.jsp"%>
 <link href="<%=request.getContextPath()%>/css/shop/shopMainView.css"
 	rel="stylesheet">
 </head>

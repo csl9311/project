@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,6 @@
 
 </head>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/main/mainbanner.css">
-<%@include file="/views/common/coinheader.jsp"%>
 
 <body>
 	<div id="main">

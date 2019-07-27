@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ShopDetailView</title>
-<%@ include file="/views/common/coinheader.jsp"%>
-<link
-	href="<%=request.getContextPath()%>/css/shop/shopDetailView.css?ver=1"
-	rel="stylesheet">
+
+<link href="<%=request.getContextPath()%>/css/shop/shopDetailView.css?ver=1" rel="stylesheet">
 </head>
 <body>
 	<!--
@@ -19,38 +18,33 @@
          3) 배송정보 칸의 안내창(물음표) 이미지 hover이벤트(시간남으면)
    -->
 	<!-- 상세 페이지 전체 감싸는 div -->
-			<div id="Index" class="flex column">
+		<div id="Index" class="flex column">
 		<!-- 소분류 카테고리 -->
 		<nav id="shopCategory">
 			<ul id="sct_ul">
 				<li>
 					<div class="sct_btn">
-						<a
-							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY1</span></a>
+						<a href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY1</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
-						<a
-							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY2</span></a>
+						<a href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY2</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
-						<a
-							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY3</span></a>
+						<a href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY3</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
-						<a
-							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY4</span></a>
+						<a href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY4</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
-						<a
-							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY5</span></a>
+						<a href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY5</span></a>
 					</div>
 				</li>
 			</ul>
@@ -398,7 +392,11 @@
 		});
 	</script>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/master
 </body>
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </html>
+<%@ include file="/views/common/coinfooter.jsp"%>

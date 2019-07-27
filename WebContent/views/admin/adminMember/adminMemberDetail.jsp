@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="member.model.vo.Member"%>
+<%@ include file="/views/common/coinheader.jsp"%>
 <%
 	Member member = (Member) request.getAttribute("member");
 	String[] genderChecked = new String[2];
@@ -39,7 +40,7 @@
 		}
 	}
 %>
-<%@ include file="/views/common/coinheader.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>

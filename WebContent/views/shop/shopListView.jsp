@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>shopListView</title>
-<%@ include file="/views/common/coinheader.jsp"%>
-<link
-	href="<%=request.getContextPath()%>/css/shop/shopListView.css?ver=1"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/shop/shopListView.css?ver=1" rel="stylesheet">
 </head>
 <body>
 <div id="Index" class="flex column">

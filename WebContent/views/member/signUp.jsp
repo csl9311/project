@@ -26,7 +26,7 @@
 			<table class="signUpTable">
 				<tr>
 					<td class="rowTitle">아이디</td>
-					<td><input type="text" name="id"></td>
+					<td><input type="text" name="id" id="id"></td>
 				</tr>
 				<tr class="resultLabel" id="idResultTr">
 					<td></td>
@@ -42,19 +42,19 @@
 				</tr>
 				<tr>
 					<td class="rowTitle">비밀번호 확인</td>
-					<td><input type="password" name="pwCheck"></td>
+					<td><input type="password" name="pwCheck" id="pwCheck"></td>
 				</tr>
-				<tr class="resultLabel">
+				<tr class="resultLabel" id="pwCheckResultTr">
 					<td></td>
-					<td><label></label></td>
+					<td colspan="2" id="pwCheckResultTd"></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">닉네임</td>
-					<td><input type="text" name="nickName"></td>
+					<td><input type="text" name="nickName" id="nickName"></td>
 				</tr>
-				<tr class="resultLabel">
+				<tr class="resultLabel" id="nickNameResultTr">
 					<td></td>
-					<td><label><%=nickCheckMsg %></label></td>
+					<td><label id="nickNameResultTd"></label></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">이름</td>
@@ -164,20 +164,21 @@
 		</form>
 	</div>
 	<script>
-
 		// 아이디 js
-		var regExpId = /^[0-9a-z]+$/;
-		var idChecked = false;
+		var $id = $('#id');
 		var idUsable = false;
-
-		$('#id').change(function(){
-			var $id = $('#id');
-			if($id.test(regExpId)){
+		$id.change(function(){
+			var regExpId = /^[0-9a-zA-Z]+$/;
+			var idChecked = false;
+			
+			
+			if(regExpId.test($id)){
 				$('#idResultTd').text('아이디에 사용 불가능한 문자가 포함되어있습니다.');
 				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
 			} else if($id.val().length < 6){
 				$('#idResultTd').text('아이디는 최소 6자리 이상이어야 합니다.');
 				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+				
 			} else if(idChecked){
 				$('#idResultTd').text('이미 사용중인 아이디입니다.');
 				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
@@ -190,24 +191,76 @@
 
 		// 비밀번호 js
 		// 참조 : https://hee-kkk.tistory.com/22
-		var pwUseable = false;
-		var regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
-		
-		$('#pw').on("change paste keyup", function(){
-			var $pw = $('#pw');
-			if($id.val().length < 6){
-				$('#idResultTd').text('* 영문/숫자/특수문자 중 2가지 이상 혼용하여 8자 이상');
-				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+		var $pw = $('#pw');
+		var pwUsable1 = false;
+		var pwUsable2 = false;
+
+		$pw.on("change paste keyup", function(){
+			if($pw.val().length < 8) {
+				$('#pwResultTd').text('8자리 이상의 비밀번호를 입력해주세요.');
+				$('#pwResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+				pwUsable1 = false;
+				
+			} else if(checkNumber < 0 || checkEnglish < 0){
+				$('#pwResultTd').text('숫자와 영문자를 혼용하여야 합니다.');
+				$('#pwResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+				pwUsable1 = false;
 			} else {
-				$('#idResultTd').text('사용 가능한 비밀번호입니다.');
-				$('#idResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
-				pwUseable = true;
+				$('#pwResultTd').text('사용 가능한 비밀번호입니다.');
+				$('#pwResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
+				pwUsable1 = true;
 			}
 		});
+		
+		// 비밀번호 확인 js
+		var $pwCheck = $('#pwCheck');
+		$pwCheck.on('change paste keyup', function(){
+			if ($pw.val() != $pwCheck.val()){
+				$('#pwCheckResultTd').text('입력하신 두 비밀번호가 같지 않습니다.');
+				$('#pwCheckResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+				pwUsable2 = false;
+			} else {
+				$('#pwCheckResultTd').text('사용 가능한 비밀번호입니다.');
+				$('#pwCheckResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
+				pwUsable2 = true;
+			}
+		});
+		
+		if(pwUsable1 && pwUsable2){
+			
+		}
+		
+		// 닉네임 js
+		var $nickName = $('#nickName');
+		$nickName.change(function(){
+			var nickCheck = function(){
+				
+			};
+			var nickUsable = false;
+			var regExpId = /^[0-9a-zA-Z]+$/;
+			
+			if(regExpNick.test($nickName)){
+				$('#nickNameResultTd').text('닉네임에 사용 불가능한 문자가 포함되어있습니다.');
+				$('#nickNameResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+				var nickUsable = false;
+			} else if(nickCheck){
+				$('#nickNameResultTd').text('이미 사용중인 닉네임입니다.');
+				$('#nickNameResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+				var nickUsable = false;
+			} else {
+				$('#nickNameResultTd').text('사용 가능한 아이디입니다.');
+				$('#nickNameResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
+				idUsable = true;
+			}
+		});
+		
 		
 		if(idUsable && pwUseable){
 			$('#submit').removeAttr('disabled');
 		}
+		
+		
 	</script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
 </body>
 </html>
