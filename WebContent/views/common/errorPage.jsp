@@ -73,7 +73,7 @@ h1{
 </head>
 <body>
 	<div id="wrap">
-		<img alt="에러페이지" src="../../img/shopImg/error2.PNG">
+		<img alt="에러페이지" src="../../img/shopImg/error2.png">
 		<div id="goBack">
 			<a href="javascript:history.go(-1)">GO BACK</a>
 		</div>
