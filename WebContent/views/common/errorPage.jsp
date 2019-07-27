@@ -36,8 +36,8 @@ body {
 }
 
 #goBack {
-	/* background-color:  #FFEA96; */
-	background-color: rgb(120, 120, 120);
+	background-color:  #FFEA96;
+	/* background-color: rgb(120, 120, 120); */
 	bottom: 180px;
 	right: 100px;
 
@@ -57,7 +57,7 @@ a {
 }
 
 #goBack a {
-	color: rgb(210, 210, 210);
+	color: rgb(100, 100, 100);
 }
 
 #goMain a {
