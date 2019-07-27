@@ -70,7 +70,7 @@
 			<div class="mainMenu">
 				<button class="btn" type="button" onclick="location.href=''">노래방찾기</button>
 				<button class="btn" type="button" value="2">커뮤니티</button>
-				<button class="btn" type="button" value="3">예약관리</button>
+				<button class="btn" type="button" value="3">버튼이미지3</button>
 				<button class="btn" type="button" value="4">쇼핑몰</button>
 			</div>
 

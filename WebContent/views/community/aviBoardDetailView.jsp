@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	 <%@ page import = "community.model.vo.Board" %>
-    <% Board board = (Board)request.getAttribute("board"); %>
+    <% Board board = (Board)request.getAttribute("board");
+    Member loginInfo = (Member) session.getAttribute("loginUser");
+    
+   
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -206,32 +210,36 @@ ul{
 			            
 			      
 			});
-	
-	
-	$('.goodbtn').click(function(){
-			console.log("추천함");
-			var add = <%=board.getbGood()+1 %>;
-			$('#goodbtn').text(add);
-			
-	});
-	
-	$(function(){
+
 		
-		$('.goodbtn').clcick(function(){
-			
+		$('.goodbtn').click(function(){
+			<%if (loginUser != null) {%>
+				
+			var writer = '<%= loginInfo.getId()%>';
+			var bid ='<%=board.getBid()%>'
+			var add = <%=board.getbGood()+1 %>
 			$.ajax({
-				url: "avidetail.bo",
+				url: "avigood.bo",
 				type: "post",
-				data {
+				data: {writer:writer,bid:bid},
+				success: function(data){
 					
-					bno: $(board.)
-					
+					$('#goodbtn').text(add);
+					console.log("성공");
 				}
 				
 			})
-			
-		})
-	})
+				<%}else{%>
+					console.log("로그인하세요");
+				<%}%>
+	
+		
+		});
+
+
+	
+	
+
 </script>
 <%@ include file="/views/common/coinfooter.jsp"%>
 </html>
