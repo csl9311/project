@@ -3,6 +3,8 @@
 <%@ page import="member.model.vo.*"%>
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
+
+		
 %>
 <!DOCTYPE html>
 <html>

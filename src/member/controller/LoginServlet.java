@@ -25,14 +25,16 @@ public class LoginServlet extends HttpServlet {
 		
 		 String userId = request.getParameter("userId");
 		 String userPwd = request.getParameter("userPwd");
-		 System.out.println("zzz"+ userId);
+		 
 		 Member member = new Member(userId,userPwd);
 		 
 		 Member loginUser= new MemberService().loginMember(member);
 		 if(loginUser != null) {
 	         HttpSession session = request.getSession();
 	         session.setMaxInactiveInterval(600);
+	         session.setAttribute("loginUser", loginUser);
 	         response.sendRedirect("index.jsp");
+	      
 	        
 	      } else {
 	         request.setAttribute("msg", "로그인 실패");

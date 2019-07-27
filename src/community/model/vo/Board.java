@@ -5,10 +5,11 @@ import java.sql.Date;
 public class Board {
 
 	private int bid; // 게시판 고유번호
-	private int bType; // (게시판타입)일반게시판 / 사진게시판
+	private int bType;
+	// (게시판타입)일반게시판 / 사진게시판
 	/*
 	 * private String category; // 게시판 분류
-	 */	private String bTitle; // 게시판 제목
+	 */ private String bTitle; // 게시판 제목
 	private String bAddress; // 유튜브 주소
 	private String bContent; // 게시판 내용
 	private String bWriter; // 게시판 작성자
@@ -17,17 +18,17 @@ public class Board {
 	private Date createDate; // 게시판 작성일
 	private Date modifyDate; // 게시판 수정일
 	private String status; // 게시판 상태
-	
+
 	public Board() {
-		
+
 	}
 
-	public Board(int bid, int bType,  String bTitle, String bAddress, String bContent, String bWriter,
-			int bCount, int bGood, Date createDate, Date modifyDate, String status) {
+	public Board(int bid, int bType, String bTitle, String bAddress, String bContent, String bWriter, int bCount,
+			int bGood, Date createDate, Date modifyDate, String status) {
 		super();
 		this.bid = bid;
 		this.bType = bType;
-		
+
 		this.bTitle = bTitle;
 		this.bAddress = bAddress;
 		this.bContent = bContent;
@@ -38,7 +39,17 @@ public class Board {
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
+	
+	
 
+	public Board(int bid, String bWriter, int bGood) {
+		super();
+		this.bid = bid;
+		this.bWriter = bWriter;
+		this.bGood = bGood;
+	}
+
+	
 	public int getBid() {
 		return bid;
 	}
@@ -54,8 +65,6 @@ public class Board {
 	public void setbType(int bType) {
 		this.bType = bType;
 	}
-
-
 
 	public String getbTitle() {
 		return bTitle;
@@ -136,11 +145,5 @@ public class Board {
 				+ ", bGood=" + bGood + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status="
 				+ status + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	}
+
+}
