@@ -19,31 +19,31 @@
 				<li>
 					<div class="sct_btn">
 						<a
-							href="<%=request.getContextPath()%>/shopList.do?cid=10"><span>스피커</span></a>
+							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY1</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
 						<a
-							href="<%=request.getContextPath()%>/shopList.do?cid=20"><span>헤드셋</span></a>
+							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY2</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
 						<a
-							href="<%=request.getContextPath()%>/shopList.do?cid=30"><span>헤드폰/이어폰</span></a>
+							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY3</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
 						<a
-							href="<%=request.getContextPath()%>/shopList.do?cid=40"><span>블루투스 사운드</span></a>
+							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY4</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
 						<a
-							href="<%=request.getContextPath()%>/shopList.do?cid=50"><span>마이크</span></a>
+							href="<%=request.getContextPath()%>/views/shop/shopListView.jsp"><span>CATEGORY5</span></a>
 					</div>
 				</li>
 			</ul>
