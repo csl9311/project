@@ -6,11 +6,7 @@
 <meta charset="utf-8">
 <title>마이페이지</title>
 <script src="../../js/jquery-3.4.1.min.js"></script>
-<%@ include file="/views/common/coinheader.jsp"%>
 <%@ include file="Form.jsp"%>
-<style>
-
-</style>
 </head>
 <body >
 <div id="mypage">

@@ -86,7 +86,7 @@ span{
 }
 
 .main{
-	text-align:center;
+	
 	min-height:100vh;
 	width:100%;
 
@@ -99,8 +99,8 @@ span{
 .subpage ,.aviCommonBoard {
 	
 	text-align: center;
-	padding: 10px;
-	margin: 50px;
+	
+	margin: 5%;
 	font-size:17px;
 	display: inline-block;
 	height:auto;
@@ -127,7 +127,7 @@ body{
 }
 
 .aviBoardList{
-	width: 80vw;
+	width: 100%;
 	height: auto;
 }
 
@@ -137,6 +137,58 @@ body{
 
 *:focus{
 	outline:none;
+}
+
+ .divparent{
+ 	text-align:center;
+ }
+ 
+ /*button  */
+ 
+ .good{
+ 	display:inline-block;
+ }
+ 
+.good button{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+
+  height:6vh;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.good button:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+.good button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+.good button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.good button:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+hr{
+	margin:0px;
 }
 
 

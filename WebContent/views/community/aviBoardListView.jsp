@@ -5,7 +5,7 @@
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
  PageInfo pi = (PageInfo)request.getAttribute("pi");
- 	int listCount = pi.getListCount();
+ 		int listCount = pi.getListCount();
 		int currentPage = pi.getCurrentPage();
 		int maxPage = pi.getMaxPage();
 		int startPage = pi.getStartPage();
@@ -35,8 +35,8 @@ CSS
 <body>
 	<div class="main" style="text-align: center">
 		<span style="padding-right: 10vw">자유게시판</span> <span>영상게시판</span>
-		<div class="aviCommonBoard" style="border: 1px solid white">
-
+		<div class="aviCommonBoard" style="border: 1px solid white;text-align:center" >
+			<div style="text-align:center;width:80vw">
 			<div class="aviBoardList" style="text-align: left;height:auto">
 
 				<%
@@ -51,14 +51,16 @@ CSS
 						String[] arr = adr.split("/");
 						String[] arr2 = arr[4].split("\"");
 						System.out.println(arr2[0]);
+						
+						
 				%>
 				<div class="aviList"
-					style="width: 20vw; height: auto; display: inline-block; margin: 4%; text-align: left;"
-					onclick="location.href='<%=request.getContextPath()%>/views/community/aviBoardDetailView.jsp'">
-					<div>
-						<table>
+					style="width: 20vw; height: 10vh; display: inline-block; margin: 3.5%; text-align: left;">
+				
+						<table id="avilistSelect">
 							<tr>
-								<td>
+								<td >
+								<input type="hidden" value="<%=b.getBid()%>">
 									<div class="aviThumbnail"
 										style="width: 100%; height: 50%; margin: auto; display: inline-block">
 										<img src="https://img.youtube.com/vi/<%=arr2[0]%>/0.jpg">
@@ -69,7 +71,7 @@ CSS
 							<tr>
 								<td>
 									<div class="aviTitle">
-										<input type="hidden" value="<%=b.getBid()%>"> <span
+										 <span
 											style="text-align: left"><%=b.getbTitle()%> </span>
 									</div>
 								</td>
@@ -95,7 +97,7 @@ CSS
 
 						</table>
 						<br>
-					</div>
+				
 
 
 				</div>
@@ -105,7 +107,7 @@ CSS
 				%>
 
 			</div>
-
+</div>
 
 		</div>
 	 <div class="pagingArea" align="center">
@@ -167,6 +169,22 @@ CSS
 
 					}
 				});
+		
+		
+		$(function(){
+			$('#avilistSelect td').mouseenter(function(){
+		
+			}).click(function(){
+				console.log("ㅅㅂ");
+				var bid = $(this).children('input').val();
+				console.log(bid);
+			<%-- 	<%if(loginUser !=null){ %> --%>
+			 location.href="<%= request.getContextPath() %>/avidetail.bo?bid="+bid; 
+				<%-- <%}else{ %>
+					alert("회원만 이용할 수 있는 서비스 입니다");
+				<%}%> --%>
+			});
+		});
 	</script>
 </body>
 

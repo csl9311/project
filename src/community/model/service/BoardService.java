@@ -46,11 +46,30 @@ public class BoardService {
 		
 	}
 
-	/*
-	 * public Board boardDetail(int bid) { Connection conn = getConnection(); int
-	 * result = new BoardDAO().boardDetail(conn,bid); close(conn);
-	 * 
-	 * return result; }
-	 */
+	public Board boardDetail(int bid) {
+		Connection conn = getConnection();
+		Board board = new BoardDAO().boardDetail(conn,bid);
+		close(conn);
+		
+		return board;
+	}
+
+	public void updateCount(int bid) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDAO().updateCount(conn,bid);
+		//커밋을 해줘야하기때문에 정수형 변수가 필요하다
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+	}
+
+
 	
 }

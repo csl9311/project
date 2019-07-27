@@ -17,7 +17,7 @@ import community.model.vo.Board;
 /**
  * Servlet implementation class BoardDetailServlet
  */
-@WebServlet("/detail.bo")
+@WebServlet("/avidetail.bo")
 public class BoardDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,7 +48,7 @@ public class BoardDetailServlet extends HttpServlet {
 		String page = null;
 		if(board!=null) {
 			
-			page = "views/board/boardDetailView.jsp";
+			page = "views/community/aviBoardDetailView.jsp";
 			request.setAttribute("board",board);
 			/******************ajax 추가시 ****************/
 			/* request.setAttribute("list",list); */

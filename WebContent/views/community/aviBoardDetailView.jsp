@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	 <%@ page import = "community.model.vo.Board" %>
+    <% Board board = (Board)request.getAttribute("board"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@include file="/views/common/coinheader.jsp"%>
@@ -31,10 +33,11 @@ ul{
 			<table>
 				<tr>
 					<td><input type="text"
-						style="width: 80vw; background: none; color: white; margin-bottom: 8px; border:0;focus:outline=none;"
-						placeholder="제목창" value="파일런 함 지어봤습니다." readonly
-						><hr style="border:1px solid gray">
-							<span style="float:right; font-size:14px;margin-top:3px">조회수:<%=request.getAttribute("Count") %> </span>
+						style="width: 80vw; background: none; color: white;  border:0;focus:outline=none;"
+						placeholder="제목창" value="<%=board.getbTitle() %>" readonly
+						>
+						<hr style="border:1px solid gray">
+							<span style="float:right; font-size:14px;margin-top:3px">조회수:<%=board.getbCount()+1 %> </span>
 							<br>
 						</td>
 						
@@ -43,24 +46,16 @@ ul{
 				<tr>
 					<td><div class="aviBoard" 
 							style="width: 80vw;text-align:left; margin: 5px; display: inline-block;">
-							<!--<%=request.getAttribute("Youtube^^address")%>  -->
-							<iframe width="811" height="456"
-								src="https://www.youtube.com/embed/A5AmE_b68cg" frameborder="0"
-								allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-								allowfullscreen></iframe>
+								<%=board.getbAddress() %>
+						
+							<div class="aviContent mar" style="text-align: left; ">
+							<textarea id="avicontent"
+								style="width: 100%; height: auto; overflow-y: hidden; margin-top: 8px;  background: none; color: white; border: 0 ; "><%=board.getbContent() %>
 								
-							<div class="aviContent mar">
-							<span
-								style="width: 100%; height: auto; overflow-y: hidden; margin-top: 8px;  background: none; color: white; border: 0 ; ">
-								
-								weqeqweqweqwe<br>
-								ewqeqweqweqweq <br>
-								eqweqweqw<br>
-								
-								</span>
+								</textarea>
 								<div class="divparent">
 									<div class="good">
-												<button>추천</button> 
+												<button class="goodbtn">추천</button> 
 										
 										</div>
 										</div>
@@ -73,11 +68,11 @@ ul{
 						</div>
 
 							<hr style="border:1px solid gray">
-							<div style="font-size:14px">
-							<br>
-						 <span style="float: right;">작성자 : <%=request.getAttribute("BoardName")%></span><br>
-						 <span style="float: right;">작성일 : <%=request.getAttribute("BoardName")%></span> 
-							<br><span style="float: right;margin-bottom:1vh">추천수 : <%=request.getAttribute("BoardName")%></span>
+							<div style="font-size:14px; margin-top:5px; text-align:left; float:right">
+							
+						 <span style="">작성자 : <%=board.getbWriter()%></span><br>
+						 <span style="">작성일 : <%=board.getModifyDate()%></span> 
+							<br><span>추천수 :</span><span id="goodbtn" style=" margin-bottom:1vh">  <%=board.getbGood() %></span>
 							</div>
 								
 						</div></td>
@@ -89,7 +84,7 @@ ul{
 
 							<textarea
 								style="width: 69.5vw; min-height: 10vh; overflow-y: hidden; resize: none; background: none; color: white;border:0"
-								onkeyup="resize(this) " placeholder="댓글창입니다."></textarea>
+								onkeyup="resize(this)"  placeholder="댓글창입니다."></textarea>
 
 							<button class="btn-primary"
 								style="width: 10vw; height: 10vh; vertical-align: top;">등록</button>
@@ -198,6 +193,45 @@ ul{
 		obj.style.height = (20 + obj.scrollHeight) + "px";
 
 	}
+	
+	
+	
+	$(document).ready(function()
+			{
+			       var tar = document.getElementById('avicontent');
+			       console.log(tar);
+			    
+			    
+			              tar.style.height = tar.scrollHeight+"px";
+			            
+			      
+			});
+	
+	
+	$('.goodbtn').click(function(){
+			console.log("추천함");
+			var add = <%=board.getbGood()+1 %>;
+			$('#goodbtn').text(add);
+			
+	});
+	
+	$(function(){
+		
+		$('.goodbtn').clcick(function(){
+			
+			$.ajax({
+				url: "avidetail.bo",
+				type: "post",
+				data {
+					
+					bno: $(board.)
+					
+				}
+				
+			})
+			
+		})
+	})
 </script>
 <%@ include file="/views/common/coinfooter.jsp"%>
 </html>
