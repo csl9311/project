@@ -98,11 +98,12 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
-		int posts = 10; // 한 페이지에서 보여질 게시글 갯수
+		int posts = 9; // 한 페이지에서 보여질 게시글 갯수
 		
 		int startRow = (currentPage -1)*posts+1;
-		int endRow = startRow + posts -1 ;
-		
+		int endRow = startRow + posts-1  ;
+		System.out.println("스타트"+startRow);
+		System.out.println("끝"+endRow);
 		String query = prop.getProperty("selectAVIList");
 		
 		try {
@@ -117,9 +118,9 @@ public class BoardDAO {
 				Board b = new Board(rset.getInt("bid"),
 									rset.getInt("btype"),
 									rset.getString("btitle"),
+									rset.getString("byoutubeaddress"),
 									rset.getString("bcontent"),
 									rset.getString("bwriter"),
-									rset.getString("byoutubeaddress"),
 									rset.getInt("bcount"),	
 									rset.getInt("bgood"),
 									rset.getDate("create_date"),
