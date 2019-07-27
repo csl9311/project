@@ -398,6 +398,7 @@
 		});
 	</script>
 
-	<%@ include file="/views/common/coinfooter.jsp"%>
+
 </body>
+	<%@ include file="/views/common/coinfooter.jsp"%>
 </html>
