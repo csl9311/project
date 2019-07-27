@@ -396,12 +396,6 @@
 			cssResize();
 		});
 	</script>
-
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/master
-</body>
-	<%@ include file="/views/common/coinfooter.jsp"%>
-</html>
 <%@ include file="/views/common/coinfooter.jsp"%>
+</body>
+</html>
