@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="Form.jsp"%>
     <%
 	String idCheckMsg = (String)request.getAttribute("idCheckMsg");
 	String pwdCheckMsg1 = (String)request.getAttribute("pwCheckMsg");
@@ -20,7 +21,6 @@
 </head>
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css">
-<%@ include file="Form.jsp"%>
 <body>
 
 <div>

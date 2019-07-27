@@ -7,12 +7,6 @@
 <title>마이페이지</title>
 <%@ include file="/views/common/coinheader.jsp"%>
 
-<style>
-
-
-
-</style>
-
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mypage/sub.css">
 </head>
 <body>
@@ -40,8 +34,5 @@
 	
 	</script>
 	</div>
-	
-	
 </body>
-
 </html>
