@@ -1,55 +1,43 @@
 @charset "UTF-8";
-#main{
-	min-height:100vh;
+
+#main {
 	margin: 0px;
 	padding: 0px;
-<<<<<<< HEAD
 	text-align: center;
-
-	
 }
-#main{
-	color: rgb(210, 210, 210) !important ;
+
+#main {
+	color: rgb(210, 210, 210) !important;
 	background: rgb(40, 44, 52);
-	
 }
 
-#Index{
+#Index {
 	text-align: center;
 	color: rgb(210, 210, 210);
 }
 
-header{
+header {
 	text-align: center;
-	 height: 51px;
-	 color: rgb(210, 210, 210);
-	 
+	height: 51px;
+	color: rgb(210, 210, 210);
 }
+
 nav {
 	height: 5vh;
-	background-color: rgba(40, 44, 52, 0.5) !important; 
-	
+	background-color: rgba(40, 44, 52, 0.5) !important;
 }
 
 .logo {
 	margin-top: 4px;
-	font-size: 2em; 
+	font-size: 2em;
 	position: absoluate;
-	
-}
-
-hr {
-	padding: 0px !important;
-	margin: 0px !important;
-	/* border: 0.35px solid white !important; */
-	
 }
 
 aside {
 	width: 20vw;
 	height: 85vh;
 	background: rgb(40, 44, 52);
-	z-index:120;
+	z-index: 120;
 }
 
 .lCate, .mCate {
@@ -64,18 +52,13 @@ section {
 	padding: 20vh;
 }
 
-
-
-footer {
-
-}
-
-
-
 .none {
 	display: none;
 }
 
+hr{
+	margin:0px;
+}
 .btn.none {
 	display: none;
 }
@@ -90,7 +73,6 @@ footer {
 }
 
 .right {
-	
 	position: absolute;
 	right: 4px;
 }

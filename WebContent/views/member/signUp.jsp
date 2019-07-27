@@ -3,6 +3,8 @@
 	String idCheckMsg = (String)request.getAttribute("idCheck");
 	String nickCheckMsg = (String)request.getAttribute("pwCheck");
 %>
+
+<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -155,7 +157,7 @@
 				</tr>
 				<tr>
 					<td colspan="2" class="submit">
-						<button type="submit">회원가입</button>
+						<button id="submit" type="submit" disabled="disabled">회원가입</button>
 					</td>
 				</tr>
 			</table>
@@ -166,7 +168,7 @@
 		// 아이디 js
 		var regExpId = /^[0-9a-z]+$/;
 		var idChecked = false;
-		var usable = false;
+		var idUsable = false;
 
 		$('#id').change(function(){
 			var $id = $('#id');
@@ -182,13 +184,15 @@
 			} else {
 				$('#idResultTd').text('사용 가능한 아이디입니다.');
 				$('#idResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
-				usable = true;
+				idUsable = true;
 			}
 		});
 
 		// 비밀번호 js
 		// 참조 : https://hee-kkk.tistory.com/22
+		var pwUseable = false;
 		var regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
+		
 		$('#pw').on("change paste keyup", function(){
 			var $pw = $('#pw');
 			if($id.val().length < 6){
@@ -197,9 +201,13 @@
 			} else {
 				$('#idResultTd').text('사용 가능한 비밀번호입니다.');
 				$('#idResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
+				pwUseable = true;
 			}
 		});
-
+		
+		if(idUsable && pwUseable){
+			$('#submit').removeAttr('disabled');
+		}
 	</script>
 </body>
 </html>

@@ -38,32 +38,25 @@
 			case "블랙": selected[4] = "selected"; break;
 		}
 	}
-	
 %>
+<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원정보조회</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css">
-<style type="text/css">
-
-#memberDetail tr td,td {
-	height: 5vh;
-	border: 1px solid white;
-}
-</style>
 </head>
 <body>
 	<div class="emptyHeader"></div>
-	<div class="content">
+	<div id="center">
 		<form action="<%=request.getContextPath()%>/admin.MemberUpdate" method="post">
-			<table id="memberDetail">
+			<table border="1">
 				<tr>
 					<td class="rowTitle">아이디</td>
 					<td colspan="2"><input name="id" class="readonly" type="text" value="<%=member.getId()%>" readonly></td>
 					<td class="rowTitle" rowspan="2">등급</td>
-					<td rowspan="2">
+					<td rowspan="2" colspan="2">
 						<select class="grade" name="grade">
 							<option <%=selected[0]%> value="일반">일반</option>
 							<%-- 등급 세분화 할 예정 --%>
@@ -83,12 +76,12 @@
 					<td colspan="2"><input name="birth" type="text" class="readonly" value="<%=member.getBirth()%>" readonly></td>
 
 					<td class="rowTitle" rowspan="2">회원가입일</td>
-					<td rowspan="2"><input type="text" class="readonly" value="<%=member.getRegDate()%>" readonly></td>
+					<td rowspan="2" colspan="2"><input type="text" class="readonly" value="<%=member.getRegDate()%>" readonly></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">성별</td>
-					<td><input type="radio" name="gender" value="M" <%=genderChecked[0]%>><label class="description">남</label></td>
-					<td><input type="radio" name="gender" value="W" <%=genderChecked[1]%>><label class="description">여</label></td>
+					<td class="center"><input type="radio" name="gender" value="M" <%=genderChecked[0]%>><label>남</label></td>
+					<td class="center"><input type="radio" name="gender" value="W" <%=genderChecked[1]%>><label>여</label></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">연락처</td>
@@ -100,7 +93,7 @@
 						<input class="phone" name="phone" type="text" value="<%=phone[2]%>">
 					</td>
 					<td class="rowTitle" rowspan="2">정보수정일</td>
-					<td rowspan="2"><input class="readonly" name="modifyDate" type="text" value="<%=member.getModifyDate() %>" readonly></td>
+					<td rowspan="2" colspan="2"><input class="readonly" name="modifyDate" type="text" value="<%=member.getModifyDate() %>" readonly></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">닉네임</td>
@@ -109,8 +102,9 @@
 				<tr>
 					<td class="rowTitle">이메일 <!-- 카카오톡 ID? --></td>
 					<td colspan="2"><input type="email" name="email" value="<%=member.getEmail()%>"></td>
+					
 					<td class="rowTitle" rowspan="2">포인트</td>
-					<td rowspan="2"><input class="readonly" name="point" type="text" value="<%=member.getPoint()%>" readonly></td>
+					<td rowspan="2" colspan="2"><input class="readonly" name="point" type="text" value="<%=member.getPoint()%>" readonly></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">우편번호</td>
@@ -121,25 +115,27 @@
 					<td class="rowTitle">주소</td>
 					<td colspan="2"><input type="text" name="address" value="<%=member.getAddress()%>"></td>
 					<td class="rowTitle">sms 수신 여부</td>
-					<td colspan="2">
+					<td  class="center">
 						<input type="radio" name="sms" <%=smsChecked[0]%> value="0">
-						<label class="description">동의</label>
+						<label>동의</label>
+						</td><td>
 						<input type="radio" name="sms" <%=smsChecked[1]%> value="1">
-						<label class="description">동의하지 않음</label>
+						<label>동의하지 않음</label>
 					</td>
 				</tr>
 				<tr>
 					<td class="rowTitle">상세주소</td>
 					<td colspan="2"><input type="text" name="addressDetail" value="<%=member.getAddressDetail()%>"></td>
 					<td class="rowTitle">news 수신 여부</td>
-					<td colspan="2">
+					<td class="center">
 						<input type="radio" name="news" <%=newsChecked[0]%> value="0">
-						<label class="description">동의</label>
+						<label>동의</label>
+						</td><td>
 						<input type="radio" name="news" <%=newsChecked[1]%> value="1">
-						<label class="description">동의하지 않음</label>
+						<label>동의하지 않음</label>
 					</td>
 				</tr>
-				<tr>
+				<tr class="center">
 					<td colspan="3"><button type="submit">수정완료</button></td>
 					<td colspan="2"><button type="button" onclick="location.href='javascript:history.go(-1)'">취소</button></td>
 				</tr>

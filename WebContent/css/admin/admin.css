@@ -1,94 +1,113 @@
 @charset "UTF-8";
 
-body {
-	padding: 0px;
+* {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 	margin: 0px;
-	background: rgb(40, 44, 52);
-	vertical-align: middle;
-	font-size:12px !important;
+	padding: 0px;
 }
 
-hr {border: 1px solid white;}
-table{
+body {
+	background: rgb(40, 44, 52);
+	vertical-align: middle;
+	font-size: 12px !important;
+	color: white;
+}
+
+hr {
+	border: 0.5px solid white;
+	margin: 0px !important;
+}
+
+table {
 	border-spacing: 0px;
 	margin-left: auto;
 	margin-right: auto;
 }
+
 select {
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
 	height: 23px;
 	min-width: 40px;
 }
-/* input {
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
-}
-각종 버튼 이미지 구한 후에 적용하자.
-*/
 
-
-input {
+tr, td, th {
+	height: 5vh;
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
-/* 바디내 가장 바깥쪽 div 태그 */
-.content {
+input, button {
 	color: black;
+	height: 3vh;
 }
 
+.center, .center tr, .center td {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
 /* 상단 여백 */
-.emptyHeader {height: 10vh;}
+.emptyHeader {
+	height: 10vh;
+}
 
 /* 메뉴 div */
 .menu {
-	display:inline-block;
+	display: inline-block;
 	text-align: center;
 	padding: 10vh;
+	margin: 1vw;
 	width: 20vw;
 	height: 5vh;
 	border: 0.5px solid white;
-	color: white;
 	font-size: 20px !important;
 }
 
 /* 검색 */
-.search {text-align: center;}
-.search input, button {height: 3vh;}
-.search input {width: 30vw;}
-.search button {width: 10vw;}
+
+.search>input {
+	width: 30vw;
+}
+
+.search>button {
+	width: 10vw;
+}
 
 /* memberDetailView */
-.grade {width: 173px;}
-.phone {width: 50px; text-align: center;}
-.dash {color: white;}
+.grade {
+	width: 173px;
+}
 
-.readonly{
+.phone {
+	width: 50px;
+	text-align: center;
+}
+
+.dash {
+	color: white;
+}
+
+.readonly, label {
 	background: none;
 	color: white;
 }
 
 /* signUp */
-.signUpTable tr {
-	height: 5vh;
-}
-
 .rowTitle {
-	color: white;
-	width : 10vw;
-	min-width: 100px;
-	font-size: 12px;
-}
-.description{
-	color : white;
+	width: 10vw;
+	min-width: 110px;
 }
 
-.small{font-size: 10px;}
-.resultLabel{
-	display:none;
-	padding:0px;
+.small {
+	font-size: 10px;
 }
-.submit{
+
+.resultLabel {
+	display: none;
+	padding: 0px;
+}
+
+.submit {
 	text-align: center;
 }
