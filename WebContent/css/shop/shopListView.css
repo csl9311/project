@@ -89,14 +89,14 @@
 	margin-top: 6vh;
 	width: 65vw;
 }
-#range li{
+#sortBy li{
 	display: inline-flex;
 }
-#range li::after{
+#sortBy li::after{
 	margin: 0 0.5vw 0 0.5vw;
 	content: " | ";
 }
-#range li:last-of-type::after{
+#sortBy li:last-of-type::after{
 	padding: 0;
 	margin: 0;
 	content: "";
@@ -153,6 +153,10 @@ input[type="text"]::placeholder{
 .item_bottom span:first-child {
 	font-size: 1em;
 	font-weight: 700;
+}
+
+.item_bottom span{
+	overflow: hidden;
 }
 
 #paging{

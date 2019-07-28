@@ -55,14 +55,12 @@ input, button {
 
 /* 메뉴 div */
 .menu {
-	display: inline-block;
+	display: inline-flex;
 	text-align: center;
 	padding: 10vh;
 	margin: 1vw;
-	width: 20vw;
-	height: 5vh;
 	border: 0.5px solid white;
-	font-size: 20px !important;
+	font-size: 16px;
 }
 
 /* 검색 */

@@ -17,8 +17,8 @@ import product.model.vo.Product;
 
 public class ShopDAO {
 	private Properties prop = new Properties();
-	
-	public ShopDAO(){
+
+	public ShopDAO() {
 		String fileName = MemberDAO.class.getResource("/sql/shop/shop-query.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
@@ -27,99 +27,40 @@ public class ShopDAO {
 		}
 	}
 
-	public int getListCount(Connection conn, String cName) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int result = 0;
-		String query = prop.getProperty("getListCount");
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, cName);
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				result = rset.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return result;
-	}
-
-	public ArrayList<Product> selectList(Connection conn, int currentPage, String cName) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Product> pList = null;
-		
-		int posts = 10;
-		
-		int startRow = (currentPage - 1) * posts + 1;
-		int endRow = startRow + posts - 1;
-
-		String query = prop.getProperty("selectList");
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, cName);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-
-			rset = pstmt.executeQuery();
-
-			pList = new ArrayList<Product>();
-			while (rset.next()) {
-				Product p = new Product(rset.getInt("pId"),
-										rset.getInt("price"),
-										rset.getString("pName"),
-										rset.getString("cName"),
-										rset.getString("sub_cname"),
-										rset.getString("bName"));
-				pList.add(p);
-				System.out.println(p);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return pList;
-		
-	}
-
+	// 메인페이지 전체 카운팅
 	public int getListCount(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("getAllListCount");
-		
+
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
+
+			if (rset.next()) {
 				result = rset.getInt(1);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(stmt);
 		}
-		
+
 		return result;
 	}
 	
+	// 메인페이지 전부 list로 리턴하는 메소드
 	public ArrayList<Product> selectAllList(Connection conn, int currentPage) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Product> list = null;
-		
+
 		int posts = 10;
-		
+
 		int startRow = (currentPage - 1) * posts + 1;
 		int endRow = startRow + posts - 1;
 
@@ -133,11 +74,11 @@ public class ShopDAO {
 
 			list = new ArrayList<Product>();
 			while (rset.next()) {
-				Product p = new Product(rset.getInt("pId"),
-										rset.getInt("price"),
+				Product p = new Product(rset.getInt("pId"), 
+										rset.getInt("price"), 
 										rset.getString("pName"),
-										rset.getString("cName"),
-										rset.getString("sub_cname"),
+										rset.getString("cName"), 
+										rset.getString("sub_cname"), 
 										rset.getString("bName"));
 				list.add(p);
 			}
@@ -148,7 +89,107 @@ public class ShopDAO {
 			close(pstmt);
 		}
 		return list;
+
+	}
+	
+	// 카테고리 카운팅
+	public int getListCount(Connection conn, String cName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("getListCount");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cName);
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 카테고리 리스트
+	public ArrayList<Product> selectList(Connection conn, int currentPage, String cName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Product> pList = null;
+		System.out.println("받은 cName은?:" + cName);
+		int posts = 10;
 		
+		int startRow = (currentPage - 1) * posts + 1;
+		int endRow = startRow + posts - 1;
+		System.out.println("시작페이지는? : " + startRow);
+		System.out.println("마지막페이지는? : " + endRow);
+		String query = prop.getProperty("selectList");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cName);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			System.out.println("쿼리는?: " + query);
+			rset = pstmt.executeQuery();
+			System.out.println("rset : " + rset);
+			pList = new ArrayList<Product>();
+			while (rset.next()) {
+				Product p = new Product(rset.getInt("pId"), rset.getInt("price"), rset.getString("pName"),
+						rset.getString("cName"), rset.getString("sub_cname"), rset.getString("bName"));
+				pList.add(p);
+			}
+			System.out.println("사이즈는? : " + pList.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pList;
+
+	}
+	
+	// 정렬
+	public ArrayList<Product> selectSortList(Connection conn, String cName, String sortBy, int currentPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Product> list = new ArrayList<Product>();
+
+		int posts = 10;
+
+		int startRow = (currentPage - 1) * posts + 1;
+		int endRow = startRow + posts - 1;
+
+		String query = prop.getProperty("selectSortList"+sortBy);
+		System.out.println(query);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cName);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Product p = new Product(rset.getInt("pId"), 
+										rset.getInt("price"), 
+										rset.getString("pName"),
+										rset.getString("cName"), 
+										rset.getString("sub_cname"), 
+										rset.getString("bName"));
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }
