@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class="emptyHeader"></div>
-	<!-- 
+	<!-- w
 		https://kkotkkio.tistory.com/87 
 		이거 가져오고싶다....... 
 	-->
@@ -19,10 +19,12 @@
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/admin.memberList'">회원관리</div>
 			<!-- 상픔목록 CRUD -->
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/adminProduct/admin_productView.jsp'">상품관리</div>
+			<br>
 			<!-- 배송관리 -->
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_deliveryView.jsp'">배송관리</div>
 			<!-- 공지 CRUD, QNA CRUD -->
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_noticeView.jsp'">공지,QNA</div>
+			<br>
 			<!-- 신고 된 게시글 조회, 삭제 -->
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_reportedView.jsp'">게시물 관리</div>
 			<!-- 통계 : 광고 재생 수, 기간 별 신규 가입 -->
