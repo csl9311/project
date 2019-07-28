@@ -26,12 +26,20 @@ public class ShopService {
 	public ArrayList<Product> selectList(int currentPage, String cName) {
 		Connection conn = getConnection();
 		ArrayList<Product> list = new ShopDAO().selectList(conn, currentPage, cName);
+		close(conn);
 		return list;
 	}
 	
 	public ArrayList<Product> selectAllList(int currentPage) {
 		Connection conn = getConnection();
 		ArrayList<Product> list = new ShopDAO().selectAllList(conn, currentPage);
+		close(conn);
+		return list;
+	}
+	public ArrayList<Product> selectList(int currentPage, String cName, String sortBy) {
+		Connection conn = getConnection();
+		ArrayList<Product> list = new ShopDAO().selectSortList(conn, cName, sortBy, currentPage);
+		close(conn);
 		return list;
 	}
 
