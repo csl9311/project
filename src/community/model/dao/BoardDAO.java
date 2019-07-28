@@ -40,7 +40,7 @@ public class BoardDAO {
 		int result = 0;
 
 		String query = prop.getProperty("insertAVIBoard");
-
+		System.out.println(b.getbWriter());
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, b.getbTitle());
@@ -201,12 +201,14 @@ public class BoardDAO {
 			rlist = new ArrayList<Reply>();
 
 			while (rs.next()) {
-				rlist.add(new Reply(rs.getInt("rid"), rs.getString("rcontent"), rs.getInt("ref_bid"),
-						rs.getString("nickname"), rs.getDate("create_date"), rs.getDate("modify_date"),
+				rlist.add(new Reply(rs.getInt("rid"), rs.getString("rcontent"), rs.getInt("ref_abid"),
+						rs.getString("rwriter"), rs.getDate("create_date"), rs.getDate("modify_date"),
 						rs.getString("status")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 
 		return rlist;
@@ -221,8 +223,8 @@ public class BoardDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, r.getrContent());
-			pstmt.setInt(2, r.getRefBid());
-			pstmt.setString(3, r.getrWriter());
+			pstmt.setString(2, r.getrWriter());
+			pstmt.setInt(3, r.getRefBid());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

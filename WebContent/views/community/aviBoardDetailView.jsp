@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	 <%@ page import = "community.model.vo.Board" %>
+	 <%@ page import = "community.model.vo.*, java.util.* " %>
+
     <% Board board = (Board)request.getAttribute("board");
     Member loginInfo = (Member) session.getAttribute("loginUser");
+    ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
     
    
     %>
@@ -54,7 +56,7 @@ ul{
 						
 							<div class="aviContent mar" style="text-align: left; ">
 							<textarea id="avicontent"
-								style="width: 100%; height: auto; overflow-y: hidden; margin-top: 8px;  background: none; color: white; border: 0 ; "><%=board.getbContent() %>
+								style="width: 100%; height: auto; overflow-y: hidden; margin-top: 8px;  background: none; color: white; border: 0 ; "readonly><%=board.getbContent() %>
 								
 								</textarea>
 								<div class="divparent">
@@ -85,14 +87,15 @@ ul{
 					<td>
 						<div style=" width: 80vw; margin-bottom: 5px;display: inline;">
 
-
-							<textarea
-								style="width: 69.5vw; min-height: 10vh; overflow-y: hidden; resize: none; background: none; color: white;border:0"
-								onkeyup="resize(this)"  placeholder="댓글창입니다."></textarea>
-
-							<button class="btn-primary"
-								style="width: 10vw; height: 10vh; vertical-align: top;">등록</button>
 						
+						
+							<textarea
+								class="contentarea" style="width: 69.5vw; min-height: 10vh; overflow-y: hidden; resize: none; background: none; color: white;border:0"
+								onkeyup="resize(this)"  placeholder="댓글창입니다."></textarea>
+						
+							<button class="btn-primary" id="insertReply"
+								style="width: 10vw; height: 10vh; vertical-align: top;">등록</button>
+							
 						
 						</div>	
 							
@@ -123,24 +126,34 @@ ul{
 									<td class="sm-3">2019-07-24</td>
 								</tr>
 							</table> -->
-						
+		
+			<%-- 				<% if(list.isEmpty()){ %>
+							<span>댓글이없습니다.</span>
+							<% }else{ %>
+							<%
+							for (int i = 0; i < list.size(); i++) {
+							%>
+							<div id="replycontent">
 							<ul >
 							<li style="display:inline-block">
-								<span style="font-size:13px;font-weight:bolder;">김개똥</span>
+								<span style="font-size:13px;font-weight:bolder;"><%=list.get(i).getrWriter() %></span>
 							
-								<span style="font-size:10px"> 2019-07-07</span>
+								<span style="font-size:10px"><%=list.get(i).getModifyDate() %></span>
 							</li>
 								<li>
 								
-								<span>아이십자</span>
+								<span><%=list.get(i).getrContent()%></span>
 								</li>
 							
 							</ul>
+							</div>
+							<%} %>
+							<%} %>  --%>
 							
 							
 								<ul >
 							<li style="display:inline-block">
-								<span style="font-size:13px;font-weight:bolder;">뭔데</span>
+								<span style="font-size:13px;font-weight:bolder;">ddd</span>
 							
 								<span style="font-size:10px"> 2019-07-07</span>
 							</li>
@@ -217,28 +230,66 @@ ul{
 				
 			var writer = '<%= loginInfo.getId()%>';
 			var bid ='<%=board.getBid()%>'
-			var add = <%=board.getbGood()+1 %>
+		
+			
+			
 			$.ajax({
 				url: "avigood.bo",
 				type: "post",
 				data: {writer:writer,bid:bid},
 				success: function(data){
 					
-					$('#goodbtn').text(add);
 					console.log("성공");
+					var add = <%=board.getbGood()+1 %>
+					$('#goodbtn').text(add);
+				},
+				error: function(data){
+					console.log("에러입니다.");
+					alert("이미 추천한 글입니다.");
+					
 				}
 				
-			})
+			});
 				<%}else{%>
-					console.log("로그인하세요");
+				 $("#login-modal").modal();
 				<%}%>
 	
 		
 		});
-
-
+		
+		$('.contentarea').click(function(){
+			<%if (loginUser == null) {%>
+			 $("#login-modal").modal();
+			 
+			 <%}else{%>
+			 
+			 
+				$('#insertReply').click(function(){
+					
+					var bid ='<%=board.getBid()%>';
+					var writer ='<%=loginInfo.getNickName()%>'; 
+					var content = $('.contentarea').val();
+					console.log(content);
+					console.log(bid);
+					console.log(writer);
+					
+					$.ajax({
+						
+						url: "insertreply.bo",
+						type: "post",
+						data: {writer:writer,content:content,bid:bid},
+						success: function(data){
+							console.log("리플성공");
+							
+					}
+					
+				});
+				
+			
+		});
+		<%} %>
 	
-	
+		});
 
 </script>
 <%@ include file="/views/common/coinfooter.jsp"%>
