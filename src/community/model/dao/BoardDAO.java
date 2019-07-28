@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import community.model.vo.Board;
+import community.model.vo.Reply;
 
 public class BoardDAO {
 
@@ -180,5 +181,102 @@ public class BoardDAO {
 		}
 		
 		return result;
+	}
+	
+	
+	public ArrayList<Reply> selectReplyList(Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<Reply> rlist = null;
+
+		String query = prop.getProperty("selectReplyList");
+		// DB켜서 view 생성 해야함!
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			rs = pstmt.executeQuery();
+
+			rlist = new ArrayList<Reply>();
+
+			while (rs.next()) {
+				rlist.add(new Reply(rs.getInt("rid"), rs.getString("rcontent"), rs.getInt("ref_bid"),
+						rs.getString("nickname"), rs.getDate("create_date"), rs.getDate("modify_date"),
+						rs.getString("status")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rlist;
+	}
+
+	public int insertReply(Connection conn, Reply r) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertReply");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, r.getrContent());
+			pstmt.setInt(2, r.getRefBid());
+			pstmt.setString(3, r.getrWriter());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertGood(Connection conn,Board b) {
+		PreparedStatement pstmt  = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertGood");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, b.getBid());
+			pstmt.setString(2, b.getbWriter());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	
+	}
+
+	public void insertGoodDB(Connection conn, Board b) {
+		PreparedStatement pstmt  = null;
+		int result =0;
+		
+		String query = prop.getProperty("insertGoodDB");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, b.getBid());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
 	}
 }

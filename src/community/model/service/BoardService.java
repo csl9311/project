@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import community.model.dao.BoardDAO;
 import community.model.vo.Board;
+import community.model.vo.Reply;
 
 public class BoardService {
 
@@ -67,6 +68,53 @@ public class BoardService {
 		}
 		
 		close(conn);
+		
+	}
+
+	public ArrayList<Reply> selectReplyList(int bid) {
+		Connection conn = getConnection();
+		ArrayList<Reply> list = new BoardDAO().selectReplyList(conn,bid);
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Reply> insertReply(Reply r) {
+		Connection conn = getConnection();
+		BoardDAO dao = new BoardDAO();
+		
+		int result = dao.insertReply(conn,r);
+		
+		ArrayList<Reply> rlist = null;
+		
+		if(result > 0) {
+			commit(conn);
+			rlist = dao.selectReplyList(conn, r.getRefBid());
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return rlist;
+	}
+
+	public int insertGood(Board b) {
+		
+		Connection conn  = getConnection();
+		BoardDAO dao =  new BoardDAO();
+		
+		int result = dao.insertGood(conn,b);
+		
+		if(result>0) {
+			dao.insertGoodDB(conn,b);
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+			
 		
 	}
 

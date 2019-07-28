@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ include file="/views/common/coinheader.jsp"%>
+<%@page import="product.model.vo.*, java.util.*,common.PageInfo"%>
+<%
+	ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("list");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
+<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +21,11 @@
 	rel="stylesheet">
 </head>
 <body>
-	<!-- <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script> -->
+	<!-- 
+	
+	해야할 것 : 마지막 페이지인데도 넘어가고 페이징 버튼이 사라지는거 수정하기
+
+ -->
 	<!-- 상세 페이지 전체 감싸는 div -->
 	<div id="Index">
 		<!-- 소분류 카테고리 -->
@@ -18,32 +33,27 @@
 			<ul id="sct_ul">
 				<li>
 					<div class="sct_btn">
-						<a
-							href="<%=request.getContextPath()%>/shopList.do?cid=10"><span>스피커</span></a>
+						<a href="<%=request.getContextPath()%>/shopList.do?cid=10"><span>스피커</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
-						<a
-							href="<%=request.getContextPath()%>/shopList.do?cid=20"><span>헤드셋</span></a>
+						<a href="<%=request.getContextPath()%>/shopList.do?cid=20"><span>헤드셋</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
-						<a
-							href="<%=request.getContextPath()%>/shopList.do?cid=30"><span>헤드폰/이어폰</span></a>
+						<a href="<%=request.getContextPath()%>/shopList.do?cid=30"><span>헤드폰 / 이어폰</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
-						<a
-							href="<%=request.getContextPath()%>/shopList.do?cid=40"><span>블루투스 사운드</span></a>
+						<a href="<%=request.getContextPath()%>/shopList.do?cid=40"><span>블루투스 사운드</span></a>
 					</div>
 				</li>
 				<li>
 					<div class="sct_btn">
-						<a
-							href="<%=request.getContextPath()%>/shopList.do?cid=50"><span>마이크</span></a>
+						<a href="<%=request.getContextPath()%>/shopList.do?cid=50"><span>마이크</span></a>
 					</div>
 				</li>
 			</ul>
@@ -102,6 +112,37 @@
 						%>
 						<li>
 							<div class="item_border flex">
+								<div class="item flex column">
+									<div class="item_top">
+										<a
+											href="<%=request.getContextPath()%>/views/shop/shopDetailView.jsp">
+											<img alt=""
+											src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
+										</a>
+									</div>
+									<div class="item_bottom">
+										<span class="pointer"><b>[아스트로]</b></span><br> <span>아스트로
+											A40+ MixAmp</span><br> <span class="pointer">169,000원</span>
+									</div>
+
+								</div>
+							</div>
+						</li>
+						<%
+							}
+						%>
+					</ul>
+				</div>
+				<!-- 베스트 상품 -->
+
+				<div id="best_item" class=" flex column">
+					<span class="mb_text"><b>RANKING</b></span>
+					<ul class="flex">
+						<%
+							for (int i = 0; i < 5; i++) {
+						%>
+						<li>
+							<div class="item_border flex">
 								<!-- <input type="checkbox" name="checkBox" class="pointer"> -->
 								<div class="item flex column">
 									<div class="item_top">
@@ -123,39 +164,7 @@
 							}
 						%>
 					</ul>
-					</div>
-					<!-- 베스트 상품 -->
-					
-					<div id="best_item" class=" flex column">
-						<span class="mb_text"><b>RANKING</b></span>
-						<ul class="flex">
-							<%
-								for (int i = 0; i < 5; i++) {
-							%>
-							<li>
-								<div class="item_border flex">
-									<!-- <input type="checkbox" name="checkBox" class="pointer"> -->
-									<div class="item flex column">
-										<div class="item_top">
-											<a
-												href="<%=request.getContextPath()%>/views/shop/shopDetailView.jsp">
-												<img alt=""
-												src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
-											</a>
-										</div>
-										<div class="item_bottom">
-											<span class="pointer"><b>[아스트로]</b></span><br> <span>아스트로
-												A40+ MixAmp</span><br> <span class="pointer">169,000원</span>
-										</div>
-
-									</div>
-								</div>
-							</li>
-							<%
-								}
-							%>
-						</ul>
-					</div>
+				</div>
 			</div>
 			<div id="main_bottom" class="flex column">
 				<div id="search_bar_top">
@@ -182,7 +191,7 @@
 				<div id="items">
 					<ul class="flex">
 						<%
-							for (int i = 0; i < 8; i++) {
+							for (Product p : list) {
 						%>
 						<li>
 							<div class="item_border flex">
@@ -195,11 +204,10 @@
 										</a>
 									</div>
 									<div class="item_bottom">
-										<span class="pointer"><b>[아스트로]</b></span><br> <span
-											class="pointer">아스트로 A40+ MixAmp</span><br> <br> <span
-											class="pointer">169,000원</span>
+										<span class="pointer"><b>[<%=p.getBrand()%>]
+										</b></span><br> <span class="pointer"><%=p.getpName()%></span><br>
+										<br> <span class="pointer"><%=p.getPrice()%></span>
 									</div>
-
 								</div>
 							</div>
 						</li>
@@ -209,33 +217,59 @@
 					</ul>
 				</div>
 				<div id="paging" class="flex">
-			<p>
-				<a href="#">&lt;&lt;</a>
-			</p>
-			<p>
-				<a href="#">&lt;</a>
-			</p>
-			<ol class="flex">
-				<li><a href="#" class="this"><span>1</span></a></li>
+					<%
+						if (!list.isEmpty()) {
+					%>
+					<p>
+						<a href="<%=request.getContextPath()%>/shopMain.do?currentPage=1">&lt;&lt;</a>
+					</p>
+					<p id="bfBtn">
+						<a
+							href="<%=request.getContextPath()%>/shopMain.do?currentPage=<%=currentPage - 1%>">&lt;</a>
+					</p>
+					<script>
+						if (
+					<%=currentPage%>
+						<= 1) {
+							$('#bfBtn').css('display', 'none');
+						}
+					</script>
+					<%
+						for (int i = startPage; i <= endPage; i++) {
+								if (i == currentPage) {
+					%>
+					<ol class="flex">
+						<li><a href="#" class="this"><span><%=i%></span></a></li>
+						<%
+							} else {
+						%>
+						<li><a
+							href="<%=request.getContextPath()%>/shopMain.do?currentPage=<%=i%>"
+							class="other"><%=i%></a></li>
+					</ol>
+					<%
+						}
+							}
+					%>
+					<p id="afBtn">
+						<a
+							href="<%=request.getContextPath()%>/shopMain.do?currentPage=<%=currentPage + 1%>">&gt;</a>
+					</p>
+					<script>
+						if (<%=currentPage%> >= <%=maxPage%>) {
+							$('#afBtn').css('display', 'none');
+						}
+					</script>
+					<p>
+						<a
+							href="<%=request.getContextPath()%>/shopMain.do?currentPage=<%=maxPage%>">&gt;&gt;</a>
+					</p>
+					<%
+						}
+					%>
+				</div>
 
-				<li><a href="#" class="other">2</a></li>
-				<li><a href="#" class="other">3</a></li>
-				<li><a href="#" class="other">3</a></li>
-				<li><a href="#" class="other">4</a></li>
-				<li><a href="#" class="other">5</a></li>
-				<li><a href="#" class="other">6</a></li>
-				<li><a href="#" class="other">7</a></li>
-				<li><a href="#" class="other">8</a></li>
 
-			</ol>
-			<p>
-				<a href="#">&gt;</a>
-			</p>
-			<p>
-				<a href="#">&gt;&gt;</a>
-			</p>
-		</div>
-				
 			</div>
 		</div>
 	</div>

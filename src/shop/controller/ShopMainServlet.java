@@ -10,33 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.PageInfo;
 import product.model.vo.Product;
 import shop.model.service.ShopService;
-import common.PageInfo;
 
-@WebServlet("/shopList.do")
-public class ShopListServlet extends HttpServlet {
+@WebServlet("/shopMain.do")
+public class ShopMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	public ShopListServlet() {
-        super();
+       
+    public ShopMainServlet() {
+    	super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ShopService service = new ShopService();
-
-		int cid = Integer.parseInt(request.getParameter("cid"));
-
-		String cName = null;
-		switch(cid) {
-		case 10: cName = "스피커"; break;
-		case 20: cName = "헤드셋"; break;
-		case 30: cName = "헤드폰이어폰"; break;
-		case 40: cName = "블루투스사운드"; break;
-		case 50: cName = "마이크"; break;
-		}
 		
-		int listCount = service.getListCount(cName);
+		int listCount = service.getAllListCount();
 		
 		int currentPage;
 		int limit;
@@ -58,12 +47,10 @@ public class ShopListServlet extends HttpServlet {
 		}
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		
-		ArrayList<Product> list = service.selectList(currentPage, cName);
-
+		ArrayList<Product> list = service.selectAllList(currentPage);
 		String page = null;
 		if (list != null) {
-			page = "views/shop/shopListView.jsp";
+			page = "views/shop/shopMainView.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
@@ -72,6 +59,8 @@ public class ShopListServlet extends HttpServlet {
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

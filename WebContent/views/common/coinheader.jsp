@@ -3,6 +3,8 @@
 <%@ page import="member.model.vo.*"%>
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
+
+		
 %>
 <!DOCTYPE html>
 <html>
@@ -28,7 +30,7 @@
 		<div id="mySidenav" class="sidenav">
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			<a onclick="closeNav();">코인노래방 찾기</a> <a href="#" class="menu2">메뉴2</a>
-			<a href="<%=request.getContextPath()%>/views/shop/shopMainView.jsp">shop</a>
+			<a href="<%=request.getContextPath()%>/shopMain.do">shop</a>
 	
 			<a href="<%=request.getContextPath()%>/list.bo">커뮤니티</a>
 			<a href="<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
