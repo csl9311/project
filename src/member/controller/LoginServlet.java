@@ -34,6 +34,7 @@ public class LoginServlet extends HttpServlet {
 	         session.setMaxInactiveInterval(600);
 	         session.setAttribute("loginUser", loginUser);
 	         response.sendRedirect("index.jsp");
+	         System.out.println("로그인성공");
 	      
 	        
 	      } else {
