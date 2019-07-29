@@ -7,6 +7,12 @@
 <title>마이페이지</title>
 <script src="../../js/jquery-3.4.1.min.js"></script>
 <%@ include file="Form.jsp"%>
+<style>
+	body{
+	min-height:100%;
+	background: rgb(40, 44, 52);
+}
+</style>
 </head>
 <body >
 <div id="mypage">

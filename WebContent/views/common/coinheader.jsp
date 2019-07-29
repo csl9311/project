@@ -33,7 +33,9 @@
 			<a href="<%=request.getContextPath()%>/shopMain.do">shop</a>
 	
 			<a href="<%=request.getContextPath()%>/list.bo">커뮤니티</a>
+			<%if(loginUser!=null) {%>
 			<a href="<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
+			<%} %>
 			<a href="#">고객센터</a>
 			<%-- 관리자 로그인 시 --%>
 			<%-- <% if (loginUser.getGrade().equals("admin")){ %> --%>

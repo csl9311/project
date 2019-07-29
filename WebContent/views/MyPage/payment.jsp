@@ -23,9 +23,10 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/mypage/cart.css">
 <body>
-
+    <div id="Index">
 	<div id="mypage">
 		<!-- 상품목록 -->
+		<div style="text-align:left">
 		<table class="tab-1">
 			<tr>
 				<td>상품</td>
@@ -92,6 +93,7 @@
 					</select></td>
 				</tr>
 			</table>
+			
 
 			<!-- 주문자정보 끝 -->
 			<br> <br>
@@ -180,6 +182,8 @@
 			<button id="payment">결제하기</button>
 		</div>
 		<!-- 결제정보끝 -->
+		</div>
+	</div>
 	</div>
 </body>
 </html>
