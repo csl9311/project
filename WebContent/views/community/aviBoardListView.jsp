@@ -3,8 +3,8 @@
 	import="community.model.vo.*,community.model.dao.* ,java.util.*,common.* "%>
 
 <%
-	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
- PageInfo pi = (PageInfo)request.getAttribute("pi");
+		ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+ 		PageInfo pi = (PageInfo)request.getAttribute("pi");
  		int listCount = pi.getListCount();
 		int currentPage = pi.getCurrentPage();
 		int maxPage = pi.getMaxPage();

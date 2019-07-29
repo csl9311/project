@@ -281,4 +281,34 @@ public class BoardDAO {
 		
 		
 	}
+	
+	public int updateBoard(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			
+			System.out.println(board.getbTitle());
+			pstmt.setString(1, board.getbTitle());
+			pstmt.setString(2, board.getbContent());
+			pstmt.setString(3, board.getbAddress());
+			
+			pstmt.setInt(4, board.getBid());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }
