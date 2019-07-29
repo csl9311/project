@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="product.model.vo.*, java.util.*" %>	
 <%@ include file="/views/common/coinheader.jsp"%>
+<%
+	Product p = (Product)request.getAttribute("p");
+	String option = (String)request.getAttribute("option");
+	String[] opArr = option.split("\\/");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,12 +64,18 @@
 		<div id="content">
 			<!-- 사진, 상품정보 영역 감싸는 div -->
 			<form name="itemForm" method="post" id="itemForm">
-				<input type="hidden" id="itemId" name="itemId" value="">
-				<input type="hidden" id="brandId" name="brandId" value="">
-				<input type="hidden" id="cId" name="cId" value="">
-				<input type="hidden" id="price" name="price" value="">
-				<input type="hidden" id="stock" name="stock" value="">
-				<input type="hidden" id="sellcount" name="sellcount" value="">
+				<input type="hidden" id="pId" name="pId" value="<%=p.getpId() %>">
+				<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>">
+				<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>">
+				<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>">
+				<input type="hidden" id="category" name="category" value="<%=p.getCaegory()%>">
+				<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>">
+				<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>">
+				<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>">
+				<input type="hidden" id="option" name="option" value="">
+				<input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>">
+				<input type="hidden" id="amount" name="amount" value="1">
+				<input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
 			</form>
 			<div id="content_top">
 				<!-- 사진 영역 -->
@@ -76,15 +88,13 @@
 				<!-- // 사진영역 끝 -->
 				<!-- 상품정보 영역 -->
 				<div id="ct_col_rgt">
-					<form action="" name="itemForm" id="itemForm" method="post">
-					</form>
 					<table>
 						<thead>
 							<tr>
-								<td colspan='2' id="title">매드캣츠 CYBORG R.A.T.5</td>
+								<td colspan='2' id="title"><%=p.getpName()%></td>
 							</tr>
 							<tr>
-								<td colspan='2' id="price">161,090원</td>
+								<td colspan='2' id="price"><%=p.getPrice()%>원</td>
 							</tr>
 						</thead>
 						<tbody id="itemTableTbody">
@@ -98,19 +108,26 @@
 								<td>배송비</td>
 								<td>3,000원(xx원 이상 구매시 무료)</td>
 							</tr>
+							<% if(!option.isEmpty()) {
+							%>
 							<tr>
 								<td>OPTION</td>
-								<td><select required id="select">
+								<td><select required id="select" class="group">
 										<option value="" disabled selected>SELECT YOUR OPTION</option>
-										<option value="10">옵션1</option>
-										<option value="20">옵션2</option>
-										<option value="30">옵션3</option>
+										<%
+											for(int i = 0; i < opArr.length; i++) {
+										%>
+											<option value="<%=i%>*10"><%=opArr[i]%></option>
+										<%
+											}
+										%> 
 								</select></td>
 							</tr>
+							<% } %>
 						</tbody>
 						<tr>
 							<td>합계</td>
-							<td id="totPrice">13,000원</td>
+							<td id="totPrice"><%=p.getPrice()%></td>
 						</tr>
 					</table>
 					<div class="ct_btn">
@@ -135,14 +152,14 @@
 								<td colspan="2" class="amount">
 									<div class="amount_div">
 										<div class="amount_name"></div>
-										<div class="amount_dltBtn" onclick="deleteItem();">X</div>
+										<div class="amount_dltBtn group" onclick="deleteItem();">X</div>
 										<div class="amount_Btns">
-											<button class="amount_Btn" type="button" onclick="plus();">▲</button>
+											<button class="amount_Btn group" type="button" onclick="plus(); totalPrice(); selectOp();">▲</button>
 											<input type="text" value="1">
-											<button class="amount_Btn" type="button" onclick="minus();">▼</button>
+											<button class="amount_Btn group" type="button" onclick="minus(); totalPrice(); selectOp();">▼</button>
 										</div>
 										<div class="itemPrice">
-											<span class="itemPrice_span">161,090원</span>
+											<span class="itemPrice_span"><%=p.getPrice()%></span>원
 										</div>
 									</div>
 								</td>
@@ -244,35 +261,7 @@
 								<tr>
 									<td colspan="5">게시글이 없습니다.</td>
 								</tr>
-								<tr>
-									<td colspan="5" class="textTd">
-										<div class="text_box">
-											<blockquote>
-												마이크 정말 좋아요! <br> <br> <br>
-											</blockquote>
-											<span class="update"> <a href="<%=request.getContextPath()%>/views/shop/shopReviewView.jsp">UPDATE</a>
-											</span>
-
-										</div>
-										<div class="text_box_title">
-											<blockquote>
-												<b>관리자</b>&nbsp;&nbsp;2019-07-20
-											</blockquote>
-										</div>
-										<div class="text_box">
-											<blockquote>
-												안녕하세요 '코노차자조'입니다.<br> <br> 저희 쇼핑몰을 이용해주셔서 정말
-												감사드립니다.<br> <br> 소중한 후기 남겨주시어 정말 감사드립니다.<br>
-												앞으로도 좋은 상품과 서비스로 보답해드리겠습니다.<br> <br> 정말 감사합니다. <br>
-												<br> <br>
-											</blockquote>
-											<span class="update"> <a href="#">UPDATE</a>
-											</span>
-
-										</div>
-									</td>
-								</tr>
-								<!-- DB 데이터 수에 따라 추가될 tr 부분 끝 -->
+							<!-- 이렇게 뜸 -->
 							</table>
 						</div>
 					</div>
@@ -350,11 +339,10 @@
 		// puls
 		function plus() {
 			var currVal = parseInt($(event.target).next().val()) + 1;
-			console.log(event.target); /* --> 버튼 태그 전부 호출  */
-			console.log(event.currentTarget);
-
+			
 			if (currVal <= 5) {
 				$(event.target).next().val(currVal);
+				$(event.target).parent().next().children().text(<%=p.getPrice()%>*currVal);
 			} else {
 				alert('최대 주문가능수량은 5개 입니다.');
 			}
@@ -365,9 +353,47 @@
 			var currVal = parseInt($(event.target).prev().val()) - 1;
 			if (currVal > 0) {
 				$(event.target).prev().val(currVal);
+				$(event.target).parent().next().children().text(<%=p.getPrice()%>*currVal);
 			}
 		}
-
+		
+		// 합계금액
+		function totalPrice(){
+			var totalPrice = 0;
+			var eleCount = $('.itemPrice_span').length -1;
+			
+			for(var i = 0; i < eleCount; i++){
+				totalPrice += parseInt($('#itemTableTbody .itemPrice_span').eq(i).text());
+			}
+			$('#totPrice').val(totalPrice);
+			$('#price').val(totalPrice);
+		}
+		
+		$('.group').on('click', function(){
+			totalPrice();
+			selectOp();
+		});
+		
+		// 옵션
+		function selectOp(){
+			var selectOption= "";
+			var eleCount = $('.itemPrice_span').length -1;
+			var amount = 0;
+			for(var i = 0; i < eleCount; i++){
+				if(i == eleCount-1){
+					selectOption += $('.amount_name').eq(i).text() + "," + $('input[type=text]').eq(i+1).val();
+					amount += parseInt($('input[type=text]').eq(i+1).val());
+				} else{
+					selectOption += $('.amount_name').eq(i).text() + "," + $('input[type=text]').eq(i+1).val() + ",";
+					amount += parseInt($('input[type=text]').eq(i+1).val());
+				}
+			}
+			console.log(selectOption);
+			console.log(amount);
+			$('#option').val(selectOption);
+			$('#amount').val(amount);
+		}
+		
 		// 창 사이즈 줄어들면 화면 css변경
 		var windowWidth = $(window).width();
 		function cssResize() {

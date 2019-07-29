@@ -1,14 +1,15 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/views/common/coinheader.jsp"%>
 <%@page import="product.model.vo.*, java.util.*,common.PageInfo"%>
 <%
 	ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("list");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	ArrayList<Product> rankList = (ArrayList<Product>) request.getAttribute("rankList");
-	
+
 	String str = request.getParameter("cid");
 	int cid = Integer.parseInt(str);
+
+	String sort = request.getParameter("sort");
 
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -19,11 +20,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>shopListView</title>
-<link
-	href="<%=request.getContextPath()%>/css/shop/shopListView.css?ver=1"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/shop/shopListView.css?ver=1" rel="stylesheet">
 </head>
 <body>
 
@@ -67,22 +67,19 @@
 					int count = 0;
 					for (Product p : rankList) {
 						count++;
-						if(count > 5) break;
+						if (count > 5)
+							break;
 				%>
 				<li>
 					<div class="item_border flex">
 						<div class="item flex column">
 							<div class="item_top">
-								<a
-									href="<%=request.getContextPath()%>/views/shop/shopDetailView.jsp">
-									<img alt=""
-									src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
+								<a href="<%=request.getContextPath()%>/views/shop/shopDetailView.jsp"> <img alt="" src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
 								</a>
 							</div>
 							<div class="item_bottom">
-								<span class="pointer"><b>[<%=p.getBrand() %>]
-								</b></span><br> <span class="pointer"><%=p.getpName()%></span><br>
-								<br><span class="pointer"><%=p.getPrice()%></span>
+								<span class="pointer"><b>[<%=p.getBrand()%>]
+								</b></span><br> <span class="pointer"><%=p.getpName()%></span><br> <br> <span class="pointer"><%=p.getPrice()%></span>
 							</div>
 						</div>
 					</div>
@@ -105,20 +102,21 @@
 					<li id="highPrice" class="pointer">높은가격</li>
 					<li id="pName" class="pointer">상품명</li>
 				</ul>
-					<script>
+				<script>
 						$('#sortBy li').on('click', function(e){
-							var sortBy = e.target.id;
-							alert(sortBy);
-							location.href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&sort="+sortBy;
+							var sort = e.target.id;
+							alert(sort);
+							location.href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&sort="+sort;
 						});
 					</script>
 			</div>
 			<hr>
 			<div id="search_bar_bottom" class="flex">
-				<input type="text" placeholder="s e a r c h"> <select>
-					<option>8개씩 정렬</option>
-					<option>12개씩 정렬</option>
-					<option>16개씩 정렬</option>
+				<input type="text" placeholder="s e a r c h">
+				<select id="selectBox">
+					<option value="8">8개씩 정렬</option>
+					<option value="12">12개씩 정렬</option>
+					<option value="16">16개씩 정렬</option>
 				</select>
 			</div>
 		</div>
@@ -131,18 +129,14 @@
 					<div class="item_border flex">
 						<div class="item flex column">
 							<div class="item_top">
-								<a
-									href="<%=request.getContextPath()%>/views/shop/shopDetailView.jsp">
-									<img alt=""
-									src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
-								</a>
+								<img alt="" src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg" class="pointer">
 							</div>
 							<div class="item_bottom">
-								<span class="pointer"><b>[<%=p.getBrand()%>]
-								</b></span><br><span class="pointer"><%=p.getpName()%></span><br>
-								<br> <span class="pointer"><%=p.getPrice()%></span>
+								<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>"> 
+								<span class="pointer"><b>[<%=p.getBrand()%>]</b></span><br> 
+								<span class="pointer"><%=p.getpName()%></span><br>
+								<br> <span><%=p.getPrice()%></span>
 							</div>
-
 						</div>
 					</div>
 				</li>
@@ -150,17 +144,23 @@
 					}
 				%>
 			</ul>
+			<script>
+				$('.item .pointer').on('click', function(e){
+					var pId = $(this).parents('.item').children().children('input').val();
+					location.href="<%=request.getContextPath()%>/shopDetail.do?pId="+pId;
+					alert(pId);
+				});
+			</script>
 		</div>
 		<div id="paging" class="flex">
 			<%
 				if (!list.isEmpty()) {
 			%>
 			<p>
-				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=1&sort=<%=request.getParameter("sort")%>">&lt;&lt;</a>
+				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=1&sort=<%=sort%>">&lt;&lt;</a>
 			</p>
 			<p id="bfBtn">
-				<a
-					href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=currentPage - 1%>&sort=<%=request.getParameter("sort")%>">&lt;</a>
+				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=currentPage - 1%>&sort=<%=sort%>">&lt;</a>
 			</p>
 			<script>
 				if (<%=currentPage%> <= 1) {
@@ -169,24 +169,21 @@
 			</script>
 			<%
 				for (int i = startPage; i <= endPage; i++) {
-				if (i == currentPage) {
+						if (i == currentPage) {
 			%>
 			<ol class="flex">
 				<li><a href="#" class="this"><span><%=i%></span></a></li>
 				<%
 					} else {
 				%>
-				<li><a
-					href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=i%>&sort=<%=request.getParameter("sort")%>"
-					class="other"><%=i%></a></li>
+				<li><a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=i%>&sort=<%=sort%>" class="other"><%=i%></a></li>
 			</ol>
 			<%
 				}
 					}
 			%>
 			<p id="afBtn">
-				<a
-					href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=currentPage + 1%>&sort=<%=request.getParameter("sort")%>">&gt;</a>
+				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=currentPage + 1%>&sort=<%=sort%>">&gt;</a>
 			</p>
 			<script>
 				if (<%=currentPage%> >= <%=maxPage%> ) {
@@ -194,7 +191,7 @@
 				}
 			</script>
 			<p>
-				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=maxPage%>&sort=<%=request.getParameter("sort")%>">&gt;&gt;</a>
+				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=maxPage%>&sort=<%=sort%>">&gt;&gt;</a>
 			</p>
 			<%
 				}
@@ -220,13 +217,14 @@
 			cssResize();
 		});
 		$(function(){
-			var str = "<%=request.getParameter("sort")%>";
+			var str = "<%=sort%>";
 			var str2 = "stock";
-			if(str == str2){
+			if (str == str2) {
 				$('#stock').prop('checked', true);
 			}
 		});
 	</script>
+
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>
 </html>
