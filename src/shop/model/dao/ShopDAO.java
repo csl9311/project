@@ -59,7 +59,7 @@ public class ShopDAO {
 		ResultSet rset = null;
 		ArrayList<Product> list = null;
 
-		int posts = 10;
+		int posts = 8;
 
 		int startRow = (currentPage - 1) * posts + 1;
 		int endRow = startRow + posts - 1;
@@ -120,7 +120,7 @@ public class ShopDAO {
 		ResultSet rset = null;
 		ArrayList<Product> pList = null;
 		System.out.println("받은 cName은?:" + cName);
-		int posts = 10;
+		int posts = 8;
 		
 		int startRow = (currentPage - 1) * posts + 1;
 		int endRow = startRow + posts - 1;
@@ -137,8 +137,12 @@ public class ShopDAO {
 			System.out.println("rset : " + rset);
 			pList = new ArrayList<Product>();
 			while (rset.next()) {
-				Product p = new Product(rset.getInt("pId"), rset.getInt("price"), rset.getString("pName"),
-						rset.getString("cName"), rset.getString("sub_cname"), rset.getString("bName"));
+				Product p = new Product(rset.getInt("pId"), 
+										rset.getInt("price"), 
+										rset.getString("pName"),
+										rset.getString("cName"), 
+										rset.getString("sub_cname"), 
+										rset.getString("bName"));
 				pList.add(p);
 			}
 			System.out.println("사이즈는? : " + pList.size());
@@ -158,7 +162,7 @@ public class ShopDAO {
 		ResultSet rset = null;
 		ArrayList<Product> list = new ArrayList<Product>();
 
-		int posts = 10;
+		int posts = 8;
 
 		int startRow = (currentPage - 1) * posts + 1;
 		int endRow = startRow + posts - 1;
@@ -190,6 +194,70 @@ public class ShopDAO {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public Product selectProduct(Connection conn, int pId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Product p = null;
+		
+		String query = prop.getProperty("selectProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, pId);
+			
+			rset = pstmt.executeQuery();
+			System.out.println("rset1:" + rset);
+			if(rset.next()) {
+				p = new Product(rset.getInt("pid"),
+								rset.getInt("price"),
+								rset.getInt("stock"),
+								rset.getInt("sellCount"),
+								rset.getString("pname"),
+								rset.getString("cname"),
+								rset.getString("sub_cname"),
+								rset.getString("bname"),
+								rset.getString("useoption"),
+								rset.getDate("regDate"),
+								rset.getDate("modify_date"));
+						
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
+	}
+
+	public String selectOption(Connection conn, int pId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Product option = null;
+		
+		String query = prop.getProperty("selectOption");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, pId);
+			System.out.println("pId: " + pId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				option = new Product(
+							rset.getString("product_op")); 
+			}
+			System.out.println("option : " + option.getOption());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return option.getOption();
 	}
 
 }
