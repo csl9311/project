@@ -11,8 +11,9 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mypage/cart.css">
 </head>
 <body>
+<div id="index">
 <div id="mypage">
-<section class="result">	
+	
 <div><!-- 상품목록 -->
 	<p>장바구니</p>
 	<table class="tab-1">
@@ -91,9 +92,9 @@
 <p>단, 전체 상품을 주문/결제하실 경우, 상품별 무이자할부 혜택을 받으실 수 없습니다.</p>
 	</div>
 
-</section>
-</div>
 
+</div>
+</div>
 </body>
 <%@ include file="/views/common/coinfooter.jsp"%>
 </html>
