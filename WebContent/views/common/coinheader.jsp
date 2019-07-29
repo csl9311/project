@@ -36,9 +36,10 @@
 			<%} %>
 			<a href="#">고객센터</a>
 			<%-- 관리자 로그인 시 --%>
-			<% if (loginUser.getGrade().equals("admin")) {%> 
+			
+			<% if (loginUser!=null && loginUser.getGrade().equals("admin")) {%> 
 			<a href="<%=request.getContextPath()%>/views/admin/adminMain.jsp">관리자페이지</a>
-			 <% } %> 
+			 <% } else { %> 
 		</div>
 		
 		
@@ -51,9 +52,7 @@
 				<span style="font-size: 30px; cursor: pointer" onclick="openNav()"
 					class=" top left">&#9776; Menu</span>
 				<div class="right">
-					<% if(loginUser==null){ %>
 					<span style="font-size: 20px; cursor: pointer; position: absolute; top: 12px; right: 4px; width: 10vw;" class="login" data-toggle="modal" data-target="#login-modal">로그인</span>
-					<% } else { %>
 					<span style="font-size: 20px; cursor: pointer; position: absolute; top: 12px; right: 50px; width: 10vw;" class="login" onclick="logout();">로그아웃</span>
 					<span style="font-size: 20px; cursor: pointer; margin-top: 4px;" class="login" onclick="profile();">프로필</span>
 					<script>
