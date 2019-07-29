@@ -24,11 +24,12 @@ table {
 	border-spacing: 0px;
 	margin-left: auto;
 	margin-right: auto;
+	
 }
 
 select {
 	color: black;
-	height: 23px;
+	height: 3vh;
 	min-width: 40px;
 }
 
@@ -38,7 +39,7 @@ tr, td, th {
 	padding-left: 10px;
 }
 
-input, button {
+.adminInput, .adminButton {
 	color: black;
 	height: 3vh;
 }
