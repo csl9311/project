@@ -1,7 +1,7 @@
---Ä¿¹Â´ÏÆ¼ Å×ÀÌºí»ý¼º
+--Ä¿ï¿½Â´ï¿½Æ¼ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½
 CREATE TABLE BOARD( 
   BID NUMBER PRIMARY KEY,
-  BTYPE NUMBER, --°Ô½ÃÆÇÅ¸ÀÔ 1 ÀÚÀ¯°Ô½ÃÆÇ 2 ¿µ»ó
+  BTYPE NUMBER, --ï¿½Ô½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½
   CID NUMBER,
   BTITLE VARCHAR2(200),
   BCONTENT CLOB,
@@ -17,25 +17,47 @@ CREATE TABLE BOARD(
 --CREATE SEQUENCE SEQ_BID;
 --drop sequence SEQ_BID;
 commit;
--- BOARD Á¶È¸¿ë Äõ¸®¹® °ü·Ã 
-grant create view to cono -- view »ý¼º±ÇÇÑ ÇØÁà¿¬
+-- BOARD ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+grant create view to cono -- view ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½à¿¬
 CREATE OR REPLACE VIEW BLIST
 AS
-SELECT BID, BTYPE, CID,BTITLE,BCONTENT,BWRITER,BGOOD,BCOUNT,BYOUTUBEADDRESS,CREATE_DATE,MODIFY_DATE,STATUS
+SELECT ROWNUM RNUM,BID, BTYPE, CID,BTITLE,BCONTENT,BWRITER,BGOOD,BCOUNT,BYOUTUBEADDRESS,CREATE_DATE,MODIFY_DATE,STATUS
 FROM BOARD WHERE STATUS = 'Y' AND BTYPE ='2';
 
 
-CREATE TABLE GOOD( --ÁÁ¾Æ¿ä Å×ÀÌºí
+CREATE TABLE GOOD( --ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 
     BID NUMBER NOT NULL PRIMARY KEY,
     USERID VARCHAR2(100) NOT NULL,
     GOOD_CHECK NUMBER DEFAULT 0 NULL
     )
+    
+    
+CREATE TABLE AREPLY(
+    RID NUMBER PRIMARY KEY,
+    RCONTENT CLOB,
+    RWRITER VARCHAR(100),
+    REF_ABID NUMBER,
+    CREATE_DATE DATE,
+    MODIFY_DATE DATE,
+    STATUS VARCHAR(5) default 'Y'
+    );
+    
+    
+    
+    
+DROP TABLE AREPLY;
+drop view arlist;
+
+CREATE  VIEW ARLIST
+AS 
+SELECT ROWNUM RNUM, RID,RCONTENT,RWRITER,REF_ABID,CREATE_DATE,MODIFY_DATE,status
+FROM AREPLY WHERE STATUS ='Y';
 
 
 
 
--- 1. BOARD ¸®½ºÆ® BID ³»¸²Â÷¼ø Á¤·Ä ±âÁØ 
+-- 1. BOARD ï¿½ï¿½ï¿½ï¿½Æ® BID ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 SELECT BID, BTYPE, CNAME, BTITLE, BCONTENT, NICKNAME, BCOUNT, B.CREATE_DATE, B.MODIFY_DATE, B.STATUS
 FROM BOARD B
 JOIN MEMBER M ON(B.BWRITER = M.USER_ID)
@@ -43,7 +65,7 @@ JOIN CATEGORY C ON(B.CID = C.CID)
 WHERE B.STATUS = 'Y'
 ORDER BY BID DESC;
 
--- 2. ÀÎ¶óÀÎ ºä ROWNUM È°¿ë   --> ¸®½ºÆ® Ãâ·Â½Ã ÀÌ¿ë °èÈ¹
+-- 2. ï¿½Î¶ï¿½ï¿½ï¿½ ï¿½ï¿½ ROWNUM È°ï¿½ï¿½   --> ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Â½ï¿½ ï¿½Ì¿ï¿½ ï¿½ï¿½È¹
 SELECT ROWNUM, BID, BTYPE, CNAME, BTITLE, BCONTENT, NICKNAME, BCOUNT, CREATE_DATE, MODIFY_DATE, STATUS
 FROM (SELECT BID, BTYPE, CNAME, BTITLE, BCONTENT, NICKNAME, BCOUNT, B.CREATE_DATE, B.MODIFY_DATE, B.STATUS
       FROM BOARD B

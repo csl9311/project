@@ -18,10 +18,14 @@
 .p {
 	font-size: small;
 }
+#empty{
+	height: 30vh;
+}
+
 </style>
 </head>
 <body>
-	<div id="index">
+	<div id="Index">
 		<div id="mypage">
 			<div>
 				<ul class="nav nav-pills">
@@ -58,6 +62,8 @@
 			</div>
 		</div>
 	</div>
+	
+
 </body>
 </html>
 <%@ include file="/views/common/coinfooter.jsp"%>

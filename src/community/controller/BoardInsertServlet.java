@@ -41,7 +41,7 @@ public class BoardInsertServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
-		String writer = loginUser.getId();
+		String writer = loginUser.getNickName();
 
 		Board b = new Board();
 
