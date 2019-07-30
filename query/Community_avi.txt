@@ -56,7 +56,7 @@ FROM AREPLY WHERE STATUS ='Y';
 
 
 --CREATE SEQUENCE SEQ_RID;  
-
+-----------------------------------------------------------------------------------------------------------------
 -- 1. BOARD ����Ʈ BID �������� ���� ���� 
 SELECT BID, BTYPE, CNAME, BTITLE, BCONTENT, NICKNAME, BCOUNT, B.CREATE_DATE, B.MODIFY_DATE, B.STATUS
 FROM BOARD B

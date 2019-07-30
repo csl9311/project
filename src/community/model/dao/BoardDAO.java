@@ -246,6 +246,7 @@ public class BoardDAO {
 			
 			pstmt.setInt(1, b.getBid());
 			pstmt.setString(2, b.getbWriter());
+			pstmt.setString(3, b.getUserWriter());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

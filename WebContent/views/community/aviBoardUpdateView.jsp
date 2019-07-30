@@ -3,7 +3,8 @@
 	
 	<% 
 	   Member loginInfo = (Member) session.getAttribute("loginUser");
-    
+	String ss = request.getParameter("title");
+	String address = request.getParameter("address");
     System.out.println("체크용"+loginInfo.getId());%>
 <!DOCTYPE html>
 <html>
@@ -29,8 +30,10 @@
 				<tr>
 					<td><input type="text"
 						style="width: 60vw; margin-bottom: 5px; border: 0;"
-						name="title" placeholder="aviBoardName">
-						<hr style="border: 0.7px solid gray"> <br></td>
+						name="title" placeholder="aviBoardName" value="<%=request.getParameter("title")%>">
+						<hr style="border: 0.7px solid gray"> <br>
+						
+						</td>
 
 				</tr>
 
@@ -38,13 +41,17 @@
 					<td>
 						<div style="overflow: hidden">
 							<div class="youtubeInsert" id="youtubeInsert"
-								style="width: 60vw; height: 40vh; display: none;"></div>
+								style="width: 60vw; height: 40vh; display: none; ">
+								
+								
+									
+								</div>
 						</div>
 						<div class="aviBoard"
 							style="width: 60vw; height: 70vh; text-align: left; margin: 5px; display: inline-block;">
-
+						
 							<textarea style="height: 100%; width: 100%"
-								name="content"></textarea>
+								name="content"><%=request.getParameter("content") %></textarea>
 						</div>
 					</td>
 				</tr>
@@ -59,7 +66,7 @@
 							<input type="text"
 								style="float: left; width: 70%; border: 0; margin-right: 30px;"
 								class="inputYoutube" name="inputYoutube"
-								placeholder="youtube 소스코드 붙여넣기">
+								placeholder="youtube 소스코드 붙여넣기" value="<%=request.getParameter("address")%>">
 							<button type="button" style="float: left;width:4vw;height:3vh;display:block; " 
 								class="btn-primary btnYoutube">삽입</button>
 							<hr style="border: 0.7px solid gray; width: 70%">

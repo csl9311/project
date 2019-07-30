@@ -2,7 +2,6 @@ package community.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.PageInfo;
+import admin.controller.common.PageInfo;
 import community.model.service.BoardService;
 import community.model.vo.Board;
 
