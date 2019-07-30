@@ -105,7 +105,6 @@
 				<script>
 						$('#sortBy li').on('click', function(e){
 							var sort = e.target.id;
-							alert(sort);
 							location.href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&sort="+sort;
 						});
 					</script>
@@ -148,7 +147,6 @@
 				$('.item .pointer').on('click', function(e){
 					var pId = $(this).parents('.item').children().children('input').val();
 					location.href="<%=request.getContextPath()%>/shopDetail.do?pId="+pId;
-					alert(pId);
 				});
 			</script>
 		</div>
