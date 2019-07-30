@@ -4,8 +4,9 @@ import java.sql.Date;
 
 public class Product {
 	private int pId,  price, stock, sellCount;
-	private String pName, caegory, subCategory, brand, useOption;
+	private String pName, caegory, subCategory, brand, useOption, option;
 	private Date regDate, modifyDate;
+	
 	public Product(int pId, int price, int stock, int sellCount, String pName, String caegory, String subCategory,
 			String brand, String useOption, Date regDate, Date modifyDate) {
 		super();
@@ -21,6 +22,7 @@ public class Product {
 		this.regDate = regDate;
 		this.modifyDate = modifyDate;
 	}
+
 	public Product(int pId, int price, String pName, String caegory, String subCategory, String brand) {
 		super();
 		this.pId = pId;
@@ -30,6 +32,12 @@ public class Product {
 		this.subCategory = subCategory;
 		this.brand = brand;
 	}
+	
+	public Product(String option) {
+		super();
+		this.option = option;
+	}
+
 	public int getpId() {
 		return pId;
 	}
@@ -95,6 +103,14 @@ public class Product {
 	}
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
+	}
+
+	public String getOption() {
+		return option;
+	}
+
+	public void setOption(String option) {
+		this.option = option;
 	}
 	
 	

@@ -6,7 +6,7 @@
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <style>
 body {
-	background-color: rgb(40, 44, 52) !important;
+	background-color: rgb(40, 44, 52) !important;;
 }
 
 .carousel {
@@ -312,7 +312,7 @@ hr.hr-style {
 	    					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	    						<span aria-hidden="true">x</span>
 	    					</button>
-    				</div>d
+    				</div>
     				<div class="modal-body">
     				<div id="mapdiv"></div>
     				<!-- 지도 스크립트 -->
@@ -339,6 +339,13 @@ hr.hr-style {
 
     				// 이미지 지도를 생성합니다
     				var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+    				
+    				$('#location-button').on('click', function() {
+    					setTimeout(function() {	
+    						staticMap.relayout();
+    					}, 500);
+    				});
+    				
 					</script>
     				
     				
@@ -407,7 +414,11 @@ hr.hr-style {
   				<form>
 	  				<span>
 	  					<select class="form-control">
-	  						<option></option>
+	  						<option>★☆☆☆☆</option>
+	  						<option>★★☆☆☆</option>
+	  						<option>★★★☆☆</option>
+	  						<option>★★★★☆</option>
+	  						<option>★★★★★</option>
 	  					</select>
 	  				</span><br>
   					<span><button class="btn btn-success">리뷰 작성</button></span>
@@ -417,13 +428,6 @@ hr.hr-style {
   	</div>
   </div>
 </div> <!-- /container -->
-
-
-
-
-
-
-
 
 </body>
 <%@ include file="../common/coinfooter.jsp"%>
