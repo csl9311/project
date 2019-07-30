@@ -205,4 +205,27 @@ public class MemberDAO {
 		return loginUser;
 	}
 
+	public boolean pwCheck(Connection conn, String id, String pw) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		boolean pwCheck = false;
+		String query = prop.getProperty("pwCheck");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				pwCheck = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return pwCheck;
+	}
+
 }
