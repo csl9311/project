@@ -1,6 +1,7 @@
 package community.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import community.model.service.BoardService;
 import community.model.vo.Board;
+import community.model.vo.Reply;
 
 
 
@@ -44,14 +46,14 @@ public class BoardDetailServlet extends HttpServlet {
 		
 		Board board =new  BoardService().boardDetail(bid);
 		new BoardService().updateCount(bid);
-
+		ArrayList<Reply> list = new BoardService().selectReplyList(bid);
 		String page = null;
 		if(board!=null) {
 			
 			page = "views/community/aviBoardDetailView.jsp";
 			request.setAttribute("board",board);
 			/******************ajax 추가시 ****************/
-			/* request.setAttribute("list",list); */
+			request.setAttribute("list",list); 
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회에 실패하였습니다");

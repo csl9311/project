@@ -6,6 +6,7 @@
     Member loginInfo = (Member) session.getAttribute("loginUser");
     ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
     
+
    
     %>
 <!DOCTYPE html>
@@ -40,8 +41,7 @@ ul{
 				<tr>
 					<td><input type="text"
 						style="width: 80vw; background: none; color: white;  border:0;focus:outline=none;"
-						placeholder="제목창" value="<%=board.getbTitle() %>" readonly
-						>
+						placeholder="제목창" value="<%=board.getbTitle() %>" readonly>
 						<hr style="border:1px solid gray">
 							<span style="float:right; font-size:14px;margin-top:3px">조회수:<%=board.getbCount()+1 %> </span>
 							<br>
@@ -65,10 +65,10 @@ ul{
 										
 										</div>
 										</div>
-										
-								<div class="updatedeletebtn" style="float:right;display:none">
-									<button onclick="location">수정</button> <button>삭제</button>
-								
+										<div style="margin-bottom:40px;">
+								<div class="updatedeletebtn" style="float:right; display:none; ">
+									<button class="edit boardEdit">수정</button> <button class="edit boardDelete">삭제</button>
+								</div>
 								
 								</div>
 						</div>
@@ -127,9 +127,10 @@ ul{
 								</tr>
 							</table> -->
 		
-			<%-- 				<% if(list.isEmpty()){ %>
-							<span>댓글이없습니다.</span>
-							<% }else{ %>
+					<% if(list.isEmpty()){ %>
+							<span>댓글이없습니다. 댓글을 등록해주세요!</span>
+							
+						 <% }else{ %>
 							<%
 							for (int i = 0; i < list.size(); i++) {
 							%>
@@ -148,21 +149,10 @@ ul{
 							</ul>
 							</div>
 							<%} %>
-							<%} %>  --%>
+							<%} %>  
 							
 							
-								<ul >
-							<li style="display:inline-block">
-								<span style="font-size:13px;font-weight:bolder;">ddd</span>
 							
-								<span style="font-size:10px"> 2019-07-07</span>
-							</li>
-								<li>
-								
-								<span>노래안부름?</span>
-								</li>
-							
-							</ul>
 						</div>
 					</td>
 				</tr>
@@ -216,9 +206,8 @@ ul{
 	$(document).ready(function()
 			{
 			       var tar = document.getElementById('avicontent');
-			       console.log(tar);
-			    
-			    
+			    		
+			 
 			              tar.style.height = tar.scrollHeight+"px";
 			            
 			      
@@ -265,10 +254,12 @@ ul{
 			 
 			 
 				$('#insertReply').click(function(){
+					var content = $('.contentarea').val();
 					
+					if(!($.isEmptyObject(content))){	
 					var bid ='<%=board.getBid()%>';
 					var writer ='<%=loginInfo.getNickName()%>'; 
-					var content = $('.contentarea').val();
+					content = replaceAll(content,"\n", "<br>");
 					console.log(content);
 					console.log(bid);
 					console.log(writer);
@@ -279,17 +270,63 @@ ul{
 						type: "post",
 						data: {writer:writer,content:content,bid:bid},
 						success: function(data){
-							console.log("리플성공");
+						
+							
 							
 					}
 					
 				});
 				
-			
+					location.reload();
+					}else{
+						
+						console.log("댓글없으면 값안넣어줌");
+					}	
+					
 		});
+				
 		<%} %>
 	
 		});
+		
+		function replaceAll(str,searchStr,replaceStr){
+			return str.split(searchStr).join(replaceStr);
+		}
+		
+	
+		$(document).ready(function(){
+			<%if(loginUser != null){ %>
+			<%if(loginUser.getNickName().equals(board.getbWriter())) {%>
+				 $('.updatedeletebtn').css("display","inline-block");
+			<%}%>
+		
+			
+			$('.boardEdit').click(function(){ 
+				var bid = '<%=board.getBid() %>';
+				var title ='<%=board.getbTitle()%>';
+				var content ='<%=board.getbContent()%>';
+				var modifyDate ='<%=board.getModifyDate()%>';
+				var write ='<%=board.getbWriter()%>';
+				var address ='<%=board.getbAddress()%>';
+				
+				$.ajax({
+					url: "aviBoardUpdateView.jsp",
+					type:"post",
+					data:{bid:bid,title:title,content:content,
+						modifyDate:modifyDate,write:write,address:address},
+					success: function(data){
+						console.log("dd");
+						
+					}
+				});
+				
+			});
+			
+			
+			<%}%>
+		});
+		
+	
 
 </script>
 <%@ include file="/views/common/coinfooter.jsp"%>

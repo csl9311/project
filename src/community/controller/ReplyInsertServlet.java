@@ -47,17 +47,18 @@ public class ReplyInsertServlet extends HttpServlet {
 		
 		ArrayList<Reply> list = new BoardService().insertReply(r);
 		
-		System.out.println(list.get(0).getrContent());
+		System.out.println("servlet"+list.get(0));
 		//삽입 하자마자 등록된걸 봐야하기 때문에 서비스에서 조회하는것까지 같이하기 위해서 조회해서 가져오는것까지 같이할것임 그래서 ArrayList 로받아오는것!
 
 		//gson lib에 넣기
+		
 		response.setContentType("application/json,charset = utf-8");
 		//charset =utf-8도 필터에 잇어서 여기서 생략 가능
 //		new Gson().toJson(list,response.getWriter());
-		/*
-		 * Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		 * gson.toJson(list,response.getWriter());
-		 */
+		
+		  Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		  gson.toJson(list,response.getWriter());
+		 
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
