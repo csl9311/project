@@ -68,7 +68,7 @@
 				<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>">
 				<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>">
 				<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>">
-				<input type="hidden" id="category" name="category" value="<%=p.getCaegory()%>">
+				<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>">
 				<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>">
 				<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>">
 				<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>">
@@ -220,7 +220,7 @@
 										<blockquote>
 											마이크 정말 좋아요! <br> <br> <br>
 										</blockquote>
-										<span class="update"> <a href="#">UPDATE</a>
+										<span class="update"> <a href="views/shop/shopReviewView.jsp">UPDATE</a>
 										</span>
 
 									</div>

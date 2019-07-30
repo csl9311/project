@@ -288,7 +288,7 @@ public class BoardDAO {
 		
 		int result = 0;
 		
-		String query = prop.getProperty("updateBoard");
+		String query = prop.getProperty("updateAviBoard");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -298,8 +298,10 @@ public class BoardDAO {
 			pstmt.setString(1, board.getbTitle());
 			pstmt.setString(2, board.getbContent());
 			pstmt.setString(3, board.getbAddress());
-			
+			System.out.println("ewqewqwe"+board.getbAddress());
+			System.out.println("111"+board.getBid());
 			pstmt.setInt(4, board.getBid());
+			
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -309,6 +311,26 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int deleteBoard(Connection conn, int bno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		return result;
 	}
 

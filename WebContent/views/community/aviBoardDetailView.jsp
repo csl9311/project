@@ -5,8 +5,9 @@
     <% Board board = (Board)request.getAttribute("board");
     Member loginInfo = (Member) session.getAttribute("loginUser");
     ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
-    	System.out.println("ㅅㅄㅄㅄㅂ"+board.getbContent());
-
+    
+	String arr = board.getbAddress().replaceAll("\"","\'");
+	System.out.println(arr);
    
     %>
 <!DOCTYPE html>
@@ -59,18 +60,19 @@ ul{
 							style="width: 80vw;text-align:left; margin: 5px; display: inline-block;">
 								<%=board.getbAddress()%>
 							<div class="aviContent mar" style="text-align: left;">
+							<input type="hidden" name="address" value="<%=arr%>">
 							<input type="hidden" name ="content" value="<%=board.getbContent()%>">
 							<textarea id="avicontent"
 								style="width: 100%; height: auto; overflow-y: hidden; margin-top: 8px;  background: none; color: white; border: 0 ; "readonly><%=board.getbContent()%></textarea>
 								<div class="divparent">
 									<div class="good">
-												<button class="goodbtn">추천</button> 
-											<input type="hidden" name="address" value="<%=board.getbAddress()%>">
+												<button class="goodbtn"type="button">추천</button> 
+											
 										</div>
 										</div>
 										<div style="margin-bottom:40px;">
 								<div class="updatedeletebtn" style="float:right; display:none; ">
-									<button class="edit boardEdit" type="submit">수정</button> <button class="edit boardDelete">삭제</button>
+									<button class="edit boardEdit" type="submit">수정</button> <button class="edit boardDelete"type="button" onclick="deleteBoard();">삭제</button>
 								</div>
 								
 								</div>
@@ -333,6 +335,15 @@ ul{
 			
 			<%}%>
 		});
+		
+		function deleteBoard(){
+			var bool = confirm("정말로 삭제하시겠습니가?");
+			
+			if(bool){
+			location.href='<%= request.getContextPath( )%>/delete.bo?no=' + <%=board.getBid() %>;
+			}
+		}
+			
 		
 	
 

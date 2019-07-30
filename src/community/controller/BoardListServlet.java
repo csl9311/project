@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import admin.controller.common.PageInfo;
+import common.PageInfo;
 import community.model.service.BoardService;
 import community.model.vo.Board;
+
+
 
 /**
  * Servlet implementation class BoardListServlet

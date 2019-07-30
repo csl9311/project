@@ -31,8 +31,9 @@
 					<td><input type="text"
 						style="width: 60vw; margin-bottom: 5px; border: 0;"
 						name="title" placeholder="aviBoardName" value="<%=request.getParameter("title")%>">
-						<hr style="border: 0.7px solid gray"> <br>
-						
+						<hr style="border: 0.7px solid gray">
+						<br>
+						<input type="hidden" name="bid" value="<%=request.getParameter("bid") %>" >
 						</td>
 
 				</tr>

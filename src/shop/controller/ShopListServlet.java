@@ -31,21 +31,11 @@ public class ShopListServlet extends HttpServlet {
 		System.out.println("정렬 기준은? : " + sortBy);
 		String cName = null;
 		switch (cid) {
-		case 10:
-			cName = "스피커";
-			break;
-		case 20:
-			cName = "헤드셋";
-			break;
-		case 30:
-			cName = "헤드폰이어폰";
-			break;
-		case 40:
-			cName = "블루투스사운드";
-			break;
-		case 50:
-			cName = "마이크";
-			break;
+		case 10: cName = "스피커"; break;
+		case 20: cName = "헤드셋"; break;
+		case 30: cName = "헤드폰이어폰"; break;
+		case 40: cName = "블루투스사운드"; break;
+		case 50: cName = "마이크"; break;
 		}
 
 		int listCount = service.getListCount(cName);
@@ -75,12 +65,12 @@ public class ShopListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 
 		String rank = "sellCount";
-		ArrayList<Product> rankList = service.selectList(1, cName, rank);
+		ArrayList<Product> rankList = service.selectSortList(1, cName, rank);
 
 		ArrayList<Product> list = null;
 		System.out.println("여기서 sortBy의 값은? : " + sortBy);
 		if (sortBy != null && !sortBy.equals("regdate") && !sortBy.equals("null")) {
-			list = service.selectList(currentPage, cName, sortBy);
+			list = service.selectSortList(currentPage, cName, sortBy);
 			System.out.println("들어왔니?111");
 		} else {
 			System.out.println("들어왔니?222");

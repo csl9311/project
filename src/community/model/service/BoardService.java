@@ -134,6 +134,23 @@ public class BoardService {
 		return result;
 	}
 
+	public int deleteBoard(int bno) {
+		Connection conn = getConnection();
+		BoardDAO dao = new BoardDAO();
+		
+		int result = dao.deleteBoard(conn,bno);
+		
+			     if(result > 0) {
+			         commit(conn);
+			         
+			      } else {
+			         rollback(conn);
+			      }
+			      close(conn);
+			      
+			      return result;
+	}
+
 
 	
 }

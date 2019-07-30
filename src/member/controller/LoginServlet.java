@@ -35,16 +35,11 @@ public class LoginServlet extends HttpServlet {
 	         session.setAttribute("loginUser", loginUser);
 	         response.sendRedirect("index.jsp");
 	         System.out.println("로그인성공");
-	      
-	        
 	      } else {
 	         request.setAttribute("msg", "로그인 실패");
 	         RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 	         view.forward(request, response);
-	        
 	      }
-		 
-		 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

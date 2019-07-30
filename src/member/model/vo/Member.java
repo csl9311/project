@@ -4,28 +4,36 @@ import java.sql.Date;
 
 public class Member {
 	private String id, pw, name, nickName, phone, gender;
-	private String postNum, address, addressDetail, email, grade, status;
+	private String address_code, postNum, address, addressDetail, email, grade_code, grade, status;
 	private Date birth, regDate, modifyDate;
 	private int point, news, sms;
 
 	public Member() {
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Member [id=" + id + ", pw=" + pw + ", name=" + name + ", nickName=" + nickName + ", phone=" + phone
-				+ ", gender=" + gender + ", postNum=" + postNum + ", address=" + address + ", addressDetail="
-				+ addressDetail + ", email=" + email + ", grade=" + grade + ", status=" + status + ", birth=" + birth
-				+ ", regDate=" + regDate + ", modifyDate=" + modifyDate + ", point=" + point + ", news=" + news
-				+ ", sms=" + sms + "]";
-	}
-
 	// 로그인
 	public Member(String id, String pw) {
 		this.id = id;
 		this.pw = pw;
+	}
+
+	// 회원가입
+	public Member(String id, String name, String nickName, String phone, String gender, String email, Date birth,
+			Date regDate, Date modifyDate, int point, int news, int sms, String address_code, String grade_code) {
+		this.id = id;
+		this.name = name;
+		this.nickName = nickName;
+		this.phone = phone;
+		this.gender = gender;
+		this.email = email;
+		this.birth = birth;
+		this.regDate = regDate;
+		this.modifyDate = modifyDate;
+		this.point = point;
+		this.news = news;
+		this.sms = sms;
+		this.address_code = address_code;
+		this.grade_code = grade_code;
 	}
 
 	// 포인트 사용
@@ -35,7 +43,6 @@ public class Member {
 	}
 
 	// 관리자 회원 정보 수정
-
 	public Member(String id, String name, String nickName, String phone, String gender, String postNum, String address,
 			String addressDetail, String email, String grade, int news, int sms) {
 		super();
@@ -49,6 +56,29 @@ public class Member {
 		this.addressDetail = addressDetail;
 		this.email = email;
 		this.grade = grade;
+		this.news = news;
+		this.sms = sms;
+	}
+
+	// 뷰 조회
+	public Member(String id, String name, String nickName, String phone, String gender, String postNum, String address,
+			String addressDetail, String email, String grade, Date birth, Date regDate, Date modifyDate, int point,
+			int news, int sms) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.nickName = nickName;
+		this.phone = phone;
+		this.gender = gender;
+		this.postNum = postNum;
+		this.address = address;
+		this.addressDetail = addressDetail;
+		this.email = email;
+		this.grade = grade;
+		this.birth = birth;
+		this.regDate = regDate;
+		this.modifyDate = modifyDate;
+		this.point = point;
 		this.news = news;
 		this.sms = sms;
 	}
@@ -67,30 +97,6 @@ public class Member {
 		this.addressDetail = addressDetail;
 		this.email = email;
 		this.birth = birth;
-		this.news = news;
-		this.sms = sms;
-	}
-
-	// 전체 생성자
-	public Member(String id, String pw, String name, String nickName, String phone, String gender, String postNum,
-			String address, String addressDetail, String email, String grade, String status, Date birth, Date regDate,
-			Date modifyDate, int point, int news, int sms) {
-		this.id = id;
-		this.pw = pw;
-		this.name = name;
-		this.nickName = nickName;
-		this.phone = phone;
-		this.gender = gender;
-		this.postNum = postNum;
-		this.address = address;
-		this.addressDetail = addressDetail;
-		this.email = email;
-		this.grade = grade;
-		this.status = status;
-		this.birth = birth;
-		this.regDate = regDate;
-		this.modifyDate = modifyDate;
-		this.point = point;
 		this.news = news;
 		this.sms = sms;
 	}
@@ -143,6 +149,14 @@ public class Member {
 		this.gender = gender;
 	}
 
+	public String getAddress_code() {
+		return address_code;
+	}
+
+	public void setAddress_code(String address_code) {
+		this.address_code = address_code;
+	}
+
 	public String getPostNum() {
 		return postNum;
 	}
@@ -173,6 +187,14 @@ public class Member {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getGrade_code() {
+		return grade_code;
+	}
+
+	public void setGrade_code(String grade_code) {
+		this.grade_code = grade_code;
 	}
 
 	public String getGrade() {

@@ -46,7 +46,7 @@ CSS
 					/* String address = null; */
 					for (Board b : list) {
 
-						String adr = b.getbAddress();
+						String adr = b.getbAddress().replaceAll("\'", "\"");
 
 						String[] arr = adr.split("/");
 						String[] arr2 = arr[4].split("\"");
@@ -157,6 +157,8 @@ CSS
 		<button style="margin-top: 15px; color: black;"
 			onclick="location.href='<%=request.getContextPath()%>/views/community/aviBoardInsertView.jsp'">글쓰기</button>
 	</div>
+	
+
 
 	<script>
 		$().each(
