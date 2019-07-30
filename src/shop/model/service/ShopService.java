@@ -24,6 +24,13 @@ public class ShopService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<Product> selectAllList(int currentPage) {
+		Connection conn = getConnection();
+		ArrayList<Product> list = new ShopDAO().selectAllList(conn, currentPage);
+		close(conn);
+		return list;
+	}
 
 	public ArrayList<Product> selectList(int currentPage, String cName) {
 		Connection conn = getConnection();
@@ -32,14 +39,7 @@ public class ShopService {
 		return list;
 	}
 
-	public ArrayList<Product> selectAllList(int currentPage) {
-		Connection conn = getConnection();
-		ArrayList<Product> list = new ShopDAO().selectAllList(conn, currentPage);
-		close(conn);
-		return list;
-	}
-
-	public ArrayList<Product> selectList(int currentPage, String cName, String sortBy) {
+	public ArrayList<Product> selectSortList(int currentPage, String cName, String sortBy) {
 		Connection conn = getConnection();
 		ArrayList<Product> list = new ShopDAO().selectSortList(conn, cName, sortBy, currentPage);
 		close(conn);

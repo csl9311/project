@@ -6,10 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
-body{
-	background-color: rgb(40, 44, 52) !important;
-}
-
 #mainArea{
 	width:100%;
 	margin-left: auto;

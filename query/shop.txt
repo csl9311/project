@@ -6,6 +6,8 @@ drop table brand;
 drop view pdetail;
 drop view plist;
 
+-------------------------------테이블
+
 create table CATEGORY(
     CID number primary key,
     CNAME varchar2(100) check (CNAME in ('스피커','헤드셋','헤드폰이어폰','블루투스사운드','마이크'))
@@ -16,6 +18,11 @@ create table SUBCATEGORY(
     sub_cname varchar2(100) not null,
     cid number not null,
     FOREIGN key (cid) REFERENCES CATEGORY on delete cascade
+);
+
+create table BRAND(
+    BID number primary key,
+    BNAME varchar2(100) not null unique
 );
 
 create table PRODUCT(
@@ -42,11 +49,6 @@ create table PRODUCT_OP(
     pid number primary key,
     PRODUCT_OP varchar2(200) not null,
     foreign key (pid) references product on delete cascade
-);
-
-create table BRAND(
-    BID number primary key,
-    BNAME varchar2(100) not null unique
 );
 
 --- 조회시 사용할 뷰  

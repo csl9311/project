@@ -4,10 +4,10 @@ import java.sql.Date;
 
 public class Product {
 	private int pId,  price, stock, sellCount;
-	private String pName, caegory, subCategory, brand, useOption, option;
+	private String pName, category, subCategory, brand, useOption, option;
 	private Date regDate, modifyDate;
 	
-	public Product(int pId, int price, int stock, int sellCount, String pName, String caegory, String subCategory,
+	public Product(int pId, int price, int stock, int sellCount, String pName, String category, String subCategory,
 			String brand, String useOption, Date regDate, Date modifyDate) {
 		super();
 		this.pId = pId;
@@ -15,7 +15,7 @@ public class Product {
 		this.stock = stock;
 		this.sellCount = sellCount;
 		this.pName = pName;
-		this.caegory = caegory;
+		this.category = category;
 		this.subCategory = subCategory;
 		this.brand = brand;
 		this.useOption = useOption;
@@ -23,12 +23,12 @@ public class Product {
 		this.modifyDate = modifyDate;
 	}
 
-	public Product(int pId, int price, String pName, String caegory, String subCategory, String brand) {
+	public Product(int pId, int price, String pName, String category, String subCategory, String brand) {
 		super();
 		this.pId = pId;
 		this.price = price;
 		this.pName = pName;
-		this.caegory = caegory;
+		this.category = category;
 		this.subCategory = subCategory;
 		this.brand = brand;
 	}
@@ -68,11 +68,11 @@ public class Product {
 	public void setpName(String pName) {
 		this.pName = pName;
 	}
-	public String getCaegory() {
-		return caegory;
+	public String getCategory() {
+		return category;
 	}
-	public void setCaegory(String caegory) {
-		this.caegory = caegory;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	public String getSubCategory() {
 		return subCategory;
