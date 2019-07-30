@@ -26,7 +26,8 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-
+	
+	// 관리자 페이지 멤버 조회
 	public ArrayList<Member> selectAll(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -40,24 +41,22 @@ public class MemberDAO {
 		
 			while (rset.next()) {
 				Member member = new Member(
-						rset.getString("id"),
-						rset.getString("pw"),
-						rset.getString("name"),
-						rset.getString("nickname"),
-						rset.getString("phone"),
-						rset.getString("gender"),
-						rset.getString("postnum"),
-						rset.getString("address"),
-						rset.getString("address_detail"),
-						rset.getString("email"),
-						rset.getString("grade"),
-						rset.getString("status"),
-						rset.getDate("birth"),
-						rset.getDate("regdate"),
-						rset.getDate("modifydate"),
-						rset.getInt("point"),
-						rset.getInt("news"),
-						rset.getInt("sms")
+					rset.getString("id"),
+					rset.getString("name"),
+					rset.getString("nickname"),
+					rset.getString("phone"),
+					rset.getString("gender"),
+					rset.getString("postnum"),
+					rset.getString("address"),
+					rset.getString("address_detail"),
+					rset.getString("email"),
+					rset.getString("grade"),
+					rset.getDate("birth"),
+					rset.getDate("regdate"),
+					rset.getDate("modifydate"),
+					rset.getInt("point"),
+					rset.getInt("news"),
+					rset.getInt("sms")
 				);
 				list.add(member);
 			}
@@ -69,7 +68,7 @@ public class MemberDAO {
 		}
 		return list;
 	}
-
+	// 관리자페이지 상세정보 조회
 	public Member selectMember(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -84,24 +83,22 @@ public class MemberDAO {
 			
 			while(rset.next()) {
 				member = new Member(
-						rset.getString("id"),
-						rset.getString("pw"),
-						rset.getString("name"),
-						rset.getString("nickname"),
-						rset.getString("phone"),
-						rset.getString("gender"),
-						rset.getString("postnum"),
-						rset.getString("address"),
-						rset.getString("address_detail"),
-						rset.getString("email"),
-						rset.getString("grade"),
-						rset.getString("status"),
-						rset.getDate("birth"),
-						rset.getDate("regdate"),
-						rset.getDate("modifydate"),
-						rset.getInt("point"),
-						rset.getInt("news"),
-						rset.getInt("sms")
+					rset.getString("id"),
+					rset.getString("name"),
+					rset.getString("nickname"),
+					rset.getString("phone"),
+					rset.getString("gender"),
+					rset.getString("postnum"),
+					rset.getString("address"),
+					rset.getString("address_detail"),
+					rset.getString("email"),
+					rset.getString("grade"),
+					rset.getDate("birth"),
+					rset.getDate("regdate"),
+					rset.getDate("modifydate"),
+					rset.getInt("point"),
+					rset.getInt("news"),
+					rset.getInt("sms")
 				);
 			}
 		} catch (SQLException e) {
@@ -141,7 +138,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
-
+	// 회원가입
 	public int insertMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -155,13 +152,11 @@ public class MemberDAO {
 			pstmt.setString(4, member.getNickName());
 			pstmt.setString(5, member.getPhone());
 			pstmt.setString(6, member.getGender());
-			pstmt.setString(7, member.getPostNum());
-			pstmt.setString(8, member.getAddress());
-			pstmt.setString(9, member.getAddressDetail());
-			pstmt.setString(10, member.getEmail());
-			pstmt.setDate(11, member.getBirth());
-			pstmt.setInt(12, member.getNews());
-			pstmt.setInt(13, member.getSms());
+			pstmt.setString(7, member.getEmail());
+			pstmt.setDate(8, member.getBirth());
+			pstmt.setInt(9, member.getNews());
+			pstmt.setInt(10, member.getSms());
+			pstmt.setString(11, member.getAddress_code());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -171,7 +166,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
-
+	// 로그인정보 받아오기
 	public Member loginMember(Connection conn, Member member) {
 		PreparedStatement pstmt= null;
 		ResultSet rset = null;
@@ -186,23 +181,20 @@ public class MemberDAO {
 			if(rset.next()) {
 				loginUser = new Member(
 					rset.getString("id"),
-					rset.getString("pw"),
 					rset.getString("name"),
 					rset.getString("nickname"),
 					rset.getString("phone"),
 					rset.getString("gender"),
-					rset.getString("postnum"),
-					rset.getString("address"),
-					rset.getString("address_detail"),
 					rset.getString("email"),
-					rset.getString("grade"),
-					rset.getString("status"),
 					rset.getDate("birth"),
 					rset.getDate("regdate"),
 					rset.getDate("modifydate"),
 					rset.getInt("point"),
 					rset.getInt("news"),
-					rset.getInt("sms"));				
+					rset.getInt("sms"),
+					rset.getString("address_code"),
+					rset.getString("grade_code")
+				);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -210,8 +202,6 @@ public class MemberDAO {
 			close(pstmt);
 			close(rset);
 		}
-	
-		
 		return loginUser;
 	}
 
