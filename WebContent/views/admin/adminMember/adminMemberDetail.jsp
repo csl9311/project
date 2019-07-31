@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="member.model.vo.Member"%>
+<%@ page import="member.model.vo.Member, member.model.vo.Address"%>
 <%@ include file="/views/common/coinheader.jsp"%>
 <%
 	Member member = (Member) request.getAttribute("member");
+	Address address = (Address) request.getAttribute("address");
 	String[] genderChecked = new String[2];
 	String[] smsChecked = new String[2];
 	String[] newsChecked = new String[2];
@@ -52,7 +53,7 @@
 	<div class="emptyHeader"></div>
 	<div id="center">
 		<form action="<%=request.getContextPath()%>/admin.MemberUpdate" method="post">
-			<table border="1"style="border: 1px solid white;">
+			<table border="1" style="border: 1px solid white;">
 				<tr>
 					<td class="rowTitle">아이디</td>
 					<td colspan="2"><input name="id" class="adminInput readonly" type="text" value="<%=member.getId()%>" readonly></td>
@@ -109,17 +110,13 @@
 					<td class="rowTitle">이메일 <!-- 카카오톡 ID? --></td>
 					<td colspan="2"><input class="adminInput" type="email" name="email" value="<%=member.getEmail()%>"></td>
 					
-					<td class="rowTitle" rowspan="2">포인트</td>
-					<td rowspan="2" colspan="2"><input class="adminInput readonly" name="point" type="text" value="<%=member.getPoint()%>" readonly></td>
+					<td class="rowTitle">포인트</td>
+					<td colspan="2"><input class="adminInput readonly" name="point" type="text" value="<%=member.getPoint()%>" readonly></td>
 				</tr>
+				
+				
 				<tr>
-					<td class="rowTitle">우편번호</td>
-					<td colspan="2"><input class="adminInput" type="text" name="postNum" value="<%=member.getPostNum()%>"></td>
 					
-				</tr>
-				<tr>
-					<td class="rowTitle">주소</td>
-					<td colspan="2"><input class="adminInput" type="text" name="address" value="<%=member.getAddress()%>"></td>
 					<td class="rowTitle">sms 수신 여부</td>
 					<td class="center">
 						<input class="adminInput" type="radio" name="sms" <%=smsChecked[0]%> value="0">
@@ -128,10 +125,6 @@
 						<input class="adminInput" type="radio" name="sms" <%=smsChecked[1]%> value="1">
 						<label>동의하지 않음</label>
 					</td>
-				</tr>
-				<tr>
-					<td class="rowTitle">상세주소</td>
-					<td colspan="2"><input class="adminInput" type="text" name="addressDetail" value="<%=member.getAddressDetail()%>"></td>
 					<td class="rowTitle">news 수신 여부</td>
 					<td class="center">
 						<input class="adminInput" type="radio" name="news" <%=newsChecked[0]%> value="0">
@@ -144,6 +137,19 @@
 				<tr class="center">
 					<td colspan="3"><button class="adminButton" type="submit">수정완료</button></td>
 					<td colspan="3"><button class="adminButton" type="button" onclick="location.href='javascript:history.go(-1)'">취소</button></td>
+				</tr>
+			</table>
+		</form>
+		<div class="emptyHeader"></div>
+		<form action="">
+			<table border="1" style="border: 1px solid white;">
+				<tr>
+					<td>우편번호</td>
+					<td><input class="adminInput" type="text" name="postNum" value=""></td>
+					<td>주소</td>
+					<td><input class="adminInput" type="text" name="address" value=""></td>
+					<td>상세주소</td>
+					<td><input class="adminInput" type="text" name="addressDetail" value=""></td>
 				</tr>
 			</table>
 		</form>

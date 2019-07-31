@@ -35,7 +35,7 @@
 			<%if (loginUser != null) {%>
 			<a href="<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
 			<%-- 관리자 로그인 시 --%>
-			<%if (loginUser.getGrade_code().equals("3")) {%>
+			<%if (loginUser.getGrade().equals("관리자")) {%>
 			<a href="<%=request.getContextPath()%>/views/admin/adminMain.jsp">관리자페이지</a>
 			<%}}%>
 		</div>

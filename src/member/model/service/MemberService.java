@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import member.model.dao.MemberDAO;
+import member.model.vo.Address;
 import member.model.vo.Member;
 
 public class MemberService {
@@ -60,6 +61,13 @@ public class MemberService {
 		boolean pwCheck = new MemberDAO().pwCheck(conn, id, pw);
 		close(conn);
 		return pwCheck;
+	}
+
+	public ArrayList<Address> getAddress(String id) {
+		Connection conn = getConnection();
+		ArrayList<Address> addressList = new MemberDAO().getAddress(conn, id);
+		close(conn);
+		return addressList;
 	}
 
 }
