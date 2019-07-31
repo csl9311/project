@@ -140,7 +140,7 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [bid=" + bid + ", bType=" + bType + ", category=" + category + ", bTitle=" + bTitle
+		return "Board [bid=" + bid + ", bType=" + bType + ", bTitle=" + bTitle
 				+ ", bAddress=" + bAddress + ", bContent=" + bContent + ", bWriter=" + bWriter + ", bCount=" + bCount
 				+ ", bGood=" + bGood + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status="
 				+ status + "]";
