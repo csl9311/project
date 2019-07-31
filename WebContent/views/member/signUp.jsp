@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
-	String idCheckMsg = (String)request.getAttribute("idCheck");
-	String nickCheckMsg = (String)request.getAttribute("pwCheck");
+	String idCheckMsg = (String) request.getAttribute("idCheck");
+	String nickCheckMsg = (String) request.getAttribute("pwCheck");
 %>
 
 <%@ include file="/views/common/coinheader.jsp"%>
@@ -11,22 +12,28 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style>
+input[type=password] {
+	width: auto;
+	height: 3vh;
+	font-size: 14px;
+	margin: 0px;
+	border: none;
+}
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/css/admin/admin.css">
 <body>
-<!--
-	input태그 이미지 구한 후 스타일 날리기.(라디오버튼 css 날리고 이미지파일로 대체)
+	<%--
 	우편번호 검색 DB 짜야함. pk : 우편번호, address : text
 	아이디, 비밀번호, 닉네임, 본인인증, 우편번호 DB, 주소 자동 완성, 이메일 중복체크, 뉴스메일 & 이벤트 선택여부
-
- -->
+	--%>
 	<div class="content">
 		<form action="<%=request.getContextPath()%>/member.signUp" method="post">
 			<table class="signUpTable">
 				<tr>
 					<td class="rowTitle">아이디</td>
-					<td><input type="text" name="id" id="id"></td>
+					<td><input type="text" name="id" id="id" onfocus="true"></td>
 				</tr>
 				<tr class="resultLabel" id="idResultTr">
 					<td></td>
@@ -38,7 +45,7 @@
 				</tr>
 				<tr class="resultLabel" id="pwResultTr">
 					<td></td>
-					<td><label class="description small" id="pwResultTd"></label></td>
+					<td colspan="2" id="pwResultTd"></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">비밀번호 확인</td>
@@ -62,13 +69,12 @@
 				</tr>
 				<tr>
 					<td class="rowTitle">연락처</td>
-					<td>
-						<select name="tel">
+					<td><select name="tel">
 							<option value="KT">KT</option>
 							<option value="LG U+">LG U+</option>
 							<option value="SKT">SKT</option>
 						</select>
-						<input type="text" name="phone" class="phone">
+						<input type="text" id="phone" name="phone" class="phone">
 						<label class='description'>-</label>
 						<input type="text" name="phone" class="phone">
 						<label class='description'>-</label>
@@ -78,45 +84,43 @@
 				<tr>
 					<td class="rowTitle">생년월일</td>
 					<td>
-						<script type="text/javascript">
-							var today = new Date();
-							var toyear = parseInt(today.getFullYear());
-							var start = toyear;
-							var end = toyear - 100;
+					<script type="text/javascript">
+						var today = new Date();
+						var toyear = parseInt(today.getFullYear());
+						var start = toyear;
+						var end = toyear - 100;
 
-							document.write("<select name='birth'> ");
-							for (i = start; i >= end; i--){
-								document.write('<option value="' + i + '">' + i + '</option>');
-							}
-							document.write("</select><label class='description'>년 </label>");
+						document.write("<select name='birth'> ");
+						for (i = start; i >= end; i--) {
+							document.write('<option value="' + i + '">' + i + '</option>');
+						}
+						document.write("</select><label class='description'>년 </label>");
 
-							document.write("<select name='birth'>");
-							for (i = 1; i <= 12; i++){
-								document.write('<option value="' + i + '">' + i + '</option>');
-							}
-							document.write("</select><label class='description'>월 </label>  ");
+						document.write("<select name='birth'>");
+						for (i = 1; i <= 12; i++) {
+							document.write('<option value="' + i + '">' + i + '</option>');
+						}
+						document.write("</select><label class='description'>월 </label>  ");
 
-							document.write("<select name='birth'>");
-							for (i = 1; i <= 31; i++){
-								document.write('<option value="' + i + '">' + i + '</option>');
-							}
-							document.write("</select><label class='description'>일</label>");
-						</script>
-					</td>
+						document.write("<select name='birth'>");
+						for (i = 1; i <= 31; i++) {
+							document.write('<option value="' + i + '">' + i + '</option>');
+						}
+						document.write("</select><label class='description'>일</label>");
+					</script></td>
 				</tr>
 				<tr>
-
-				<td class="rowTitle">성별</td>
-				<td>
-					<input type="radio" name="gender" value="M"><label class='description'>남</label>
-					<input type="radio" name="gender" value="W"><label class='description'>여</label>
-				</td>
+					<td class="rowTitle">성별</td>
+					<td>
+						<input class="radioM" type="radio" name="gender" value="M"><label class='description'>남</label>
+						<input class="radioW" type="radio" name="gender" value="W"><label class='description'>여</label>
+					</td>
 				</tr>
 				<tr>
 					<td class="rowTitle">우편번호</td>
 					<td>
 						<input type="text" name="postNum">
-						<button type="button" id="postNum">우편번호 검색</button>
+						<button type="button" id="postNum" onclick="">우편번호 검색</button>
 					</td>
 				</tr>
 				<tr>
@@ -129,9 +133,7 @@
 				</tr>
 				<tr>
 					<td class="rowTitle">이메일</td>
-					<td>
-						<input type="email" name="email">
-					</td>
+					<td><input type="email" name="email"></td>
 				</tr>
 				<tr class="resultLabel">
 					<td></td>
@@ -140,126 +142,204 @@
 				<tr>
 					<td class="rowTitle">뉴스메일</td>
 					<td class="description">
-						<input type="radio" name="news" value="0">
+						<input class="news" type="radio" name="news" value="0">
 						<label>동의</label>
-						<input type="radio" name="news" value="1">
-						<label>동의하지 않음</label>
-					</td>
+						<input class="news" type="radio" name="news" value="1">
+						<label>동의하지 않음</label></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">SMS안내 (이벤트)</td>
 					<td class="description">
-						<input type="radio" name="sms" value="0">
+						<input class="sms" type="radio" name="sms" value="0">
 						<label>동의</label>
-						<input type="radio" name="sms" value="1">
+						<input class="sms" type="radio" name="sms" value="1">
 						<label>동의하지 않음</label>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" class="submit">
-						<button id="submit" type="submit" disabled="disabled">회원가입</button>
+						<button id="submit" type="submit">회원가입</button>
 					</td>
 				</tr>
 			</table>
 		</form>
 	</div>
 	<script>
-		// 아이디 js
+		
+	<%-- 아이디 사용 가능 여부 (정규식 및 중복확인) --%>
 		var $id = $('#id');
 		var idUsable = false;
-		$id.change(function(){
-			var regExpId = /^[0-9a-zA-Z]+$/;
-			var idChecked = false;
-			
-			
-			if(regExpId.test($id)){
+		var idChecked = false;
+
+		$id.focus();
+		$id.change(function() {
+			console.log($id.val());
+			if ($id.val().length == 0) {
+				$('#idResultTd').text('아이디를 입력해주세요.');
+				$('#idResultTr').css({
+					'color' : 'red',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				$id.focus();
+				idUsable = false;
+			} /* else if (!regId.test($id)) {
 				$('#idResultTd').text('아이디에 사용 불가능한 문자가 포함되어있습니다.');
-				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
-			} else if($id.val().length < 6){
+				$('#idResultTr').css({
+					'color' : 'red',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				$id.focus();
+				idUsable = false; 
+			} */ else if ($id.val().length < 6) {
 				$('#idResultTd').text('아이디는 최소 6자리 이상이어야 합니다.');
-				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
-				
-			} else if(idChecked){
+				$('#idResultTr').css({
+					'color' : 'red',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				$id.focus();
+				idUsable = false;
+			} else if (idChecked) {
 				$('#idResultTd').text('이미 사용중인 아이디입니다.');
-				$('#idResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+				$('#idResultTr').css({
+					'color' : 'red',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				$id.focus();
+				idUsable = false;
 			} else {
 				$('#idResultTd').text('사용 가능한 아이디입니다.');
-				$('#idResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
+				$('#idResultTr').css({
+					'color' : 'white',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
 				idUsable = true;
+				buttonActive();
 			}
 		});
-
-		// 비밀번호 js
-		// 참조 : https://hee-kkk.tistory.com/22
+	<%-- 비밀번호 사용 가능 여부 (정규식, 일치) --%>
 		var $pw = $('#pw');
+		var $pwCheck = $('#pwCheck');
+		var regPw = /^.*(?=^.{6,}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+		var pwUsable = false;
 		var pwUsable1 = false;
 		var pwUsable2 = false;
 
-		$pw.on("change paste keyup", function(){
-			if($pw.val().length < 8) {
-				$('#pwResultTd').text('8자리 이상의 비밀번호를 입력해주세요.');
-				$('#pwResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+		$pw.on("change paste keyup", function() {
+			if ($pw.val().length < 6) {
+				$('#pwResultTd').text('6자리 이상의 비밀번호를 입력해주세요.');
+				$('#pwResultTr').css({
+					'color' : 'red',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				pwUsable = false;
 				pwUsable1 = false;
-				
-			} else if(checkNumber < 0 || checkEnglish < 0){
-				$('#pwResultTd').text('숫자와 영문자를 혼용하여야 합니다.');
-				$('#pwResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
+				$pw.focus();
+			} else if (!regPw.test($pw.val())) {
+				$('#pwResultTd').text('영문과 숫자, 특수문자가 각 1회 이상 사용되어야합니다.');
+				$('#pwResultTr').css({
+					'color' : 'red',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				pwUsable = false;
 				pwUsable1 = false;
+				$pw.focus();
 			} else {
 				$('#pwResultTd').text('사용 가능한 비밀번호입니다.');
-				$('#pwResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
+				$('#pwResultTr').css({
+					'color' : 'white',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
 				pwUsable1 = true;
+				if (pwUsable2) {
+					pwUsable = true;
+					buttonActive();
+				}
 			}
 		});
-		
-		// 비밀번호 확인 js
-		var $pwCheck = $('#pwCheck');
-		$pwCheck.on('change paste keyup', function(){
-			if ($pw.val() != $pwCheck.val()){
-				$('#pwCheckResultTd').text('입력하신 두 비밀번호가 같지 않습니다.');
-				$('#pwCheckResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
-				pwUsable2 = false;
-			} else {
+		$pwCheck.on('change paste keyup', function() {
+			if (pwUsable1 == true && $pw.val() == $pwCheck.val()) {
 				$('#pwCheckResultTd').text('사용 가능한 비밀번호입니다.');
-				$('#pwCheckResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
+				$('#pwCheckResultTr').css({
+					'color' : 'white',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
 				pwUsable2 = true;
+				if (pwUsable1) {
+					pwUsable = true;
+					buttonActive();
+				}
+			} else {
+				$('#pwCheckResultTd').text('입력하신 두 비밀번호가 같지 않습니다.');
+				$('#pwCheckResultTr').css({
+					'color' : 'red',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				pwUsable = false;
+				pwUsable2 = false;
+				$pwCheck.focus();
 			}
 		});
-		
-		if(pwUsable1 && pwUsable2){
-			
-		}
-		
-		// 닉네임 js
+	<%-- 닉네임 사용 가능 여부 (중복확인 및 정규식) --%>
 		var $nickName = $('#nickName');
-		$nickName.change(function(){
-			var nickCheck = function(){
-				
-			};
-			var nickUsable = false;
-			var regExpId = /^[0-9a-zA-Z]+$/;
-			
-			if(regExpNick.test($nickName)){
+		var nickUsable = false;
+		var nickCheck = false;
+
+		$nickName.change(function() {
+			if ($nickName.val().length == 0) {
+				$('#idResultTd').text('아이디를 입력해주세요.');
+				$('#idResultTr').css({
+					'color' : 'red',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				$nickName.focus();
+			} /* else if (!regNick.test($nickName)) {
 				$('#nickNameResultTd').text('닉네임에 사용 불가능한 문자가 포함되어있습니다.');
-				$('#nickNameResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
-				var nickUsable = false;
-			} else if(nickCheck){
+				$('#nickNameResultTr').css({
+					'color' : 'red',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				nickUsable = false;
+				$nickName.focus();
+			} */ else if (nickCheck) {
 				$('#nickNameResultTd').text('이미 사용중인 닉네임입니다.');
-				$('#nickNameResultTr').css({'color':'red', 'display':'table-row', 'height' : '1vh'});
-				var nickUsable = false;
+				$('#nickNameResultTr').css({
+					'color' : 'red',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				nickUsable = false;
+				$nickName.focus();
 			} else {
 				$('#nickNameResultTd').text('사용 가능한 아이디입니다.');
-				$('#nickNameResultTr').css({'color':'white', 'display':'table-row', 'height' : '1vh'});
-				idUsable = true;
+				$('#nickNameResultTr').css({
+					'color' : 'white',
+					'display' : 'table-row',
+					'height' : '1vh'
+				});
+				nickUsable = true;
+				buttonActive();
 			}
 		});
-		
-		
-		if(idUsable && pwUseable){
-			$('#submit').removeAttr('disabled');
+	<%-- 모든 조건 충족 시 버튼 활성화 --%>
+		function buttonActive() {
+			if (idUsable && pwUsable && nickUsable) {
+				$('#submit').removeAttr('disabled').css({
+					'background' : 'green'
+				});
+			}
 		}
-		
-		
 	</script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
 </body>

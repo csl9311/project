@@ -5,11 +5,17 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-
+body{
+	background-color: rgb(40, 44, 52) !important;
+}
+.list-group li {
+	background-color: #363645;
+}
 #mainArea{
 	width:100%;
 	margin-left: auto;
 	margin-right: auto;
+	
 }
 
 /* 폼 관련  */ 
@@ -172,15 +178,15 @@ hr.hr-style {
 			<!-- 서치바 영역 -->
 			<div class="searchBar">
 				<form class="form-inline">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			   	 	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					<input class="form-control mr-sm-2" type="search" aria-label="Search">
+			   	 	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 				</form>
 			</div>
 			<!-- 검색 끝 -->
 			
 			<!-- 목록 나타나는 부분 -->
 			<ul class="list-group list-group-flush">
-			  	<a href="#" class="list-group-item">
+				<a href="#">
 			  		<li class="list-group-item">
 			  			<div class="listArea"> <!-- html5 부터 a태그 아래에 블럭태그 사용 가능 -->
 					  		<div class="imgArea">
@@ -202,28 +208,7 @@ hr.hr-style {
       					</div>
       				</li>
       			</a>
-      			<a href="#2" class="list-group-item">
-			  		<li class="list-group-item">
-			  			<div class="listArea"> <!-- html5 부터 a태그 아래에 블럭태그 사용 가능 -->
-					  		<div class="imgArea">
-					  			<div class="thumb">
-					  				<div class="thumbimg" style="background-image: 
-					  				url('photo1.jpg'); background-size: cover;">
-					  				</div>
-					  			</div>
-					  		</div>
-				  			<div class="listTextArea">
-	      						<h3 class="mb-2">노래방 이름 들어갈 곳</h3>
-	      						<span class="fa fa-star checked"></span>
-	      						4.5
-	      						<span class="review-SubTitle">리뷰</span>
-	      						1232개
-	      					</div>
-      					</div>
-      				</li>
-      			</a>
 			</ul>	
-			
 			<!-- 목록 끝 -->
 		</div>
 		<!-- 탭2 -->

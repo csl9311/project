@@ -51,9 +51,15 @@ public class MemberService {
 	public Member loginMember(Member member) {
 		Connection conn = getConnection();
 		Member loginUser = new MemberDAO().loginMember(conn,member);
-		
 		close(conn);
 		return loginUser;
+	}
+
+	public boolean pwCheck(String id, String pw) {
+		Connection conn = getConnection();
+		boolean pwCheck = new MemberDAO().pwCheck(conn, id, pw);
+		close(conn);
+		return pwCheck;
 	}
 
 }
