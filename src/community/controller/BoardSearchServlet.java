@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import community.model.service.BoardService;
 import community.model.vo.Board;
 
 /**
@@ -33,7 +34,7 @@ public class BoardSearchServlet extends HttpServlet {
 		String searchTitle = request.getParameter("search");
 		
 		
-		ArrayList<Board> list = BoardService().searchAviBoard(searchTitle);
+		ArrayList<Board> list = new BoardService().searchAviBoard(searchTitle);
 		
 	}
 
