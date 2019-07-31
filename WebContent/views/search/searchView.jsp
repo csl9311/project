@@ -153,6 +153,7 @@ hr.hr-style {
 }
 </style>
 <meta charset="UTF-8">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2126183a3359f675cc302c8972c00e81&libraries=services,clusterer,drawing"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2126183a3359f675cc302c8972c00e81"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -217,22 +218,56 @@ hr.hr-style {
 	  <div id="mapapi"></div>
 	  <!-- 지도 스크립트 -->
 		<script>
-		var container = document.getElementById('mapapi');
-		var options = { center : new kakao.maps.LatLng(33.450701, 126.570667), level : 3};
-		var map = new kakao.maps.Map(container, options);
-		
+			var mapContainer = document.getElementById('mapapi'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    }; 
 			$('#nav-profile-tab').on('click', function() {
 				setTimeout(function() {	
 					map.relayout();
 				}, 300);
 			});
-			</script>
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		 
+		
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('서울특별시 강남구 역삼1동 테헤란로1길 28', function(result, status) {
+	
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+				console.log("!232");
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+	
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">슈퍼스타코인노래연습장</div>'
+		        });
+		        infowindow.open(map, marker);
+	
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		        
+		    } 
+		});    
+		</script>
 		<!-- 지도 스크립트 끝 -->
 		</div>
 		<!-- 탭2 끝 -->
 	</div>
 	<!-- 내용 끝 -->
 </div>
+
 							<!--  -->
 	<%@ include file="../common/coinfooter.jsp"%>
 	<script type="text/javascript"
