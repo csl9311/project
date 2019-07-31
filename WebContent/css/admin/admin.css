@@ -24,7 +24,6 @@ table {
 	border-spacing: 0px;
 	margin-left: auto;
 	margin-right: auto;
-	
 }
 
 select {
@@ -65,7 +64,6 @@ tr, td, th {
 }
 
 /* 검색 */
-
 .search>input {
 	width: 30vw;
 }
@@ -97,8 +95,11 @@ tr, td, th {
 .rowTitle {
 	width: 10vw;
 	min-width: 110px;
+	color:white;
 }
-
+.content{
+	color:black;
+}
 .small {
 	font-size: 10px;
 }
@@ -107,7 +108,16 @@ tr, td, th {
 	display: none;
 	padding: 0px;
 }
-
+.radioM, .radioW{
+	width: 10px;
+	height: 10px;
+	background: white;
+}
+.news, .sms{
+	width: 10px;
+	height: 10px;
+	background: white;
+}
 .submit {
 	text-align: center;
 }

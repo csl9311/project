@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
-@WebServlet("/LoginServlet")
+@WebServlet("/member.login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,7 +25,8 @@ public class LoginServlet extends HttpServlet {
 		
 		 String userId = request.getParameter("userId");
 		 String userPwd = request.getParameter("userPwd");
-		 
+		 String location = request.getParameter("location");
+		 System.out.println(location);
 		 Member member = new Member(userId,userPwd);
 		 
 		 Member loginUser= new MemberService().loginMember(member);
@@ -34,7 +35,6 @@ public class LoginServlet extends HttpServlet {
 	         session.setMaxInactiveInterval(600);
 	         session.setAttribute("loginUser", loginUser);
 	         response.sendRedirect("index.jsp");
-	         System.out.println("로그인성공");
 	      } else {
 	         request.setAttribute("msg", "로그인 실패");
 	         RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
