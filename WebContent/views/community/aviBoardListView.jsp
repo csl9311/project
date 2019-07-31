@@ -35,7 +35,16 @@ CSS
 <body>
 	<div class="main" style="text-align: center">
 		<span style="padding-right: 10vw">자유게시판</span> <span>영상게시판</span>
-		<div class="aviCommonBoard" style="border: 1px solid white;text-align:center" >
+	
+	
+		<div class="aviCommonBoard" style="text-align:center" >
+		
+			<div class="searchAviArea" align="right" style="width:100%">
+			<div style="width:auto;font-size:14px">
+			<input type="text" style="width:13vw;border:0;border-bottom:1px solid gray;"placeholder="검색창입니다."> 	
+			<span style="cursor:pointer">검색</span>
+			</div>
+			</div>
 			<div style="text-align:center;width:80vw">
 			<div class="aviBoardList" style="text-align: left;height:auto">
 
@@ -46,7 +55,7 @@ CSS
 					/* String address = null; */
 					for (Board b : list) {
 
-						String adr = b.getbAddress();
+						String adr = b.getbAddress().replaceAll("\'", "\"");
 
 						String[] arr = adr.split("/");
 						String[] arr2 = arr[4].split("\"");
@@ -90,7 +99,8 @@ CSS
 
 								<td>
 									<div>
-										<span style="font-size: 9px"><%=b.getbCount()%></span>
+										<span style="font-size: 9px">조회수 :<%=b.getbCount()%>회</span>
+										<span style="font-size: 9px; align:left"> &nbsp;&nbsp; 추천 :<%=b.getbGood()%>회</span>
 									</div>
 								</td>
 							</tr>
@@ -107,10 +117,13 @@ CSS
 				%>
 
 			</div>
+		
 </div>
 
 		</div>
-	 <div class="pagingArea" align="center">
+		
+		
+	 <div class="pagingArea" align="center" >
 		 	<%if(!list.isEmpty()){ %>
 		 	
 		 	<!-- 맨처음으로 -->
@@ -128,7 +141,8 @@ CSS
 		 	<!-- 10개의 페이지목록 -->
 		 	<% for(int p = startPage; p<= endPage; p++) {%>
 		 		<%if(p == currentPage){ %>
-		 			<button id="choosen" disabled><%= p %> </button>
+		 			<button id="choosen" disabled style="color:#34c6eb"><%= p %> </button>
+		 		
 		 			<%} else{ %>
 		 				<button id="numBtn" onclick="location.href ='<%=request.getContextPath()%>/list.bo?currentPage=<%=p%>'"><%= p %></button>
 		 		<%} %>
@@ -147,16 +161,20 @@ CSS
 		 	<button onclick = "location.href = '<%= request.getContextPath() %>/list.bo?currentPage=<%= maxPage %>'">&gt;&gt;</button>
 		 <%} %>
 		 
-		 <div class="searchArea" align="center">
+		
+		 <br>
+		 </div>
+ <div class="searchArea" align="center">
 		 	<% if(loginUser !=null){ %>
-		 	<button onclick="location.href='views/board/boardInsertForm.jsp'">작성하기</button>
+				<button class="btn-primary" style="margin-top: 15px; background:default"
+			onclick="location.href='<%=request.getContextPath()%>/views/community/aviBoardInsertView.jsp'">글쓰기</button>
 		 	
 		 	<% } %>
 		 </div>
-		 </div>
-		<button style="margin-top: 15px; color: black;"
-			onclick="location.href='<%=request.getContextPath()%>/views/community/aviBoardInsertView.jsp'">글쓰기</button>
+		 <br>
 	</div>
+	
+
 
 	<script>
 		$().each(

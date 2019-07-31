@@ -6,7 +6,8 @@
     Member loginInfo = (Member) session.getAttribute("loginUser");
     ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
     
-
+	String arr = board.getbAddress().replaceAll("\"","\'");
+	System.out.println(arr);
    
     %>
 <!DOCTYPE html>
@@ -37,11 +38,16 @@ ul{
 
 	<div class="main">
 		<div class="subpage">
+	<form action="views/community/aviBoardUpdateView.jsp" id="detailForm" method="get">
 			<table>
+				
 				<tr>
-					<td><input type="text"
+				
+					<td>
+						<input type="hidden" name="bid" value="<%=board.getBid() %>">
+					<input type="text"
 						style="width: 80vw; background: none; color: white;  border:0;focus:outline=none;"
-						placeholder="제목창" value="<%=board.getbTitle() %>" readonly>
+						placeholder="제목창" name="title" value="<%=board.getbTitle() %>" readonly>
 						<hr style="border:1px solid gray">
 							<span style="float:right; font-size:14px;margin-top:3px">조회수:<%=board.getbCount()+1 %> </span>
 							<br>
@@ -52,26 +58,27 @@ ul{
 				<tr>
 					<td><div class="aviBoard" 
 							style="width: 80vw;text-align:left; margin: 5px; display: inline-block;">
-								<%=board.getbAddress() %>
-						
-							<div class="aviContent mar" style="text-align: left; ">
+								<%=board.getbAddress()%>
+							<div class="aviContent mar" style="text-align: left;">
+							<input type="hidden" name="address" value="<%=arr%>">
+							<input type="hidden" name ="content" value="<%=board.getbContent()%>">
 							<textarea id="avicontent"
-								style="width: 100%; height: auto; overflow-y: hidden; margin-top: 8px;  background: none; color: white; border: 0 ; "readonly><%=board.getbContent() %>
-								
-								</textarea>
+								style="width: 100%; height: auto; overflow-y: hidden; margin-top: 8px;  background: none; color: white; border: 0 ; "readonly><%=board.getbContent()%></textarea>
 								<div class="divparent">
 									<div class="good">
-												<button class="goodbtn">추천</button> 
-										
+												<button class="goodbtn"type="button">추천</button> 
+											
 										</div>
 										</div>
 										<div style="margin-bottom:40px;">
 								<div class="updatedeletebtn" style="float:right; display:none; ">
-									<button class="edit boardEdit">수정</button> <button class="edit boardDelete">삭제</button>
+									<button class="edit boardEdit" type="submit">수정</button> <button class="edit boardDelete"type="button" onclick="deleteBoard();">삭제</button>
 								</div>
 								
 								</div>
 						</div>
+						
+					
 
 							<hr style="border:1px solid gray">
 							<div style="font-size:14px; margin-top:5px; text-align:left; float:right">
@@ -93,7 +100,7 @@ ul{
 								class="contentarea" style="width: 69.5vw; min-height: 10vh; overflow-y: hidden; resize: none; background: none; color: white;border:0"
 								onkeyup="resize(this)"  placeholder="댓글창입니다."></textarea>
 						
-							<button class="btn-primary" id="insertReply"
+							<button class="btn-primary" id="insertReply" type="button"
 								style="width: 10vw; height: 10vh; vertical-align: top;">등록</button>
 							
 						
@@ -158,7 +165,7 @@ ul{
 				</tr>
 
 			</table>
-
+		</form>
 		</div>
 	</div>
 
@@ -166,7 +173,7 @@ ul{
 
 <script type="text/javascript">
 	//youtube link size 변환
-	
+
 	$(window).resize(function() {
 		resizeYoutube();
 	});
@@ -214,18 +221,18 @@ ul{
 			});
 
 		
-		$('.goodbtn').click(function(){
+		$('.goodbtn').click(function(){ //추천
 			<%if (loginUser != null) {%>
 				
 			var writer = '<%= loginInfo.getId()%>';
 			var bid ='<%=board.getBid()%>'
-		
+			var bwriter = '<%= board.getbWriter()%>'
 			
 			
 			$.ajax({
 				url: "avigood.bo",
 				type: "post",
-				data: {writer:writer,bid:bid},
+				data: {writer:writer,bid:bid,bwriter:bwriter},
 				success: function(data){
 					
 					console.log("성공");
@@ -281,6 +288,7 @@ ul{
 					}else{
 						
 						console.log("댓글없으면 값안넣어줌");
+						
 					}	
 					
 		});
@@ -295,36 +303,47 @@ ul{
 		
 	
 		$(document).ready(function(){
+			
 			<%if(loginUser != null){ %>
 			<%if(loginUser.getNickName().equals(board.getbWriter())) {%>
 				 $('.updatedeletebtn').css("display","inline-block");
 			<%}%>
 		
 			
-			$('.boardEdit').click(function(){ 
+		<%-- 	$('.boardEdit').click(function(){ 
 				var bid = '<%=board.getBid() %>';
 				var title ='<%=board.getbTitle()%>';
-				var content ='<%=board.getbContent()%>';
+				console.log('<%=board.getbContent()%>');
 				var modifyDate ='<%=board.getModifyDate()%>';
 				var write ='<%=board.getbWriter()%>';
 				var address ='<%=board.getbAddress()%>';
 				
 				$.ajax({
-					url: "aviBoardUpdateView.jsp",
+					url: "<%=request.getContextPath()%>/views/community/aviBoardUpdateView.jsp",
 					type:"post",
-					data:{bid:bid,title:title,content:content,
+					data:{bid:bid,title:title,
 						modifyDate:modifyDate,write:write,address:address},
 					success: function(data){
+						location.href="<%=request.getContextPath()%>/views/community/aviBoardUpdateView.jsp";
 						console.log("dd");
 						
 					}
 				});
 				
 			});
-			
+			 --%>
 			
 			<%}%>
 		});
+		
+		function deleteBoard(){
+			var bool = confirm("정말로 삭제하시겠습니가?");
+			
+			if(bool){
+			location.href='<%= request.getContextPath( )%>/delete.bo?no=' + <%=board.getBid() %>;
+			}
+		}
+			
 		
 	
 

@@ -35,6 +35,7 @@ public class LoginServlet extends HttpServlet {
 	         session.setMaxInactiveInterval(600);
 	         session.setAttribute("loginUser", loginUser);
 	         response.sendRedirect("index.jsp");
+
 	      } else {
 	         request.setAttribute("msg", "로그인 실패");
 	         RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");

@@ -35,9 +35,10 @@ public class BoardGoodServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
+		
 		int bid = Integer.parseInt(request.getParameter("bid"));
 		String writer = request.getParameter("writer");
+		String bwriter = request.getParameter("bwriter");
 		System.out.println(bid);
 		System.out.println(writer);
 		
@@ -45,7 +46,7 @@ public class BoardGoodServlet extends HttpServlet {
 		
 		b.setBid(bid);
 		b.setbWriter(writer);
-		
+		b.setUserWriter(bwriter);
 		
 		int result = new BoardService().insertGood(b);
 		

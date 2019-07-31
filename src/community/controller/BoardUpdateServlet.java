@@ -35,25 +35,23 @@ public class BoardUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
 		int bid = Integer.parseInt(request.getParameter("bid"));
 		System.out.println(bid);
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String date = request.getParameter("modifyDate");
 		String writer = request.getParameter("writer");
-		String address = request.getParameter("address");
+		String youtubeaddress = request.getParameter("inputYoutube");
 		System.out.println("날짜"+date);
 		Date sqlDate = null;
 		
-		
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String writer2 = loginUser.getNickName();
+	
+	
 		String page = null;
 		
 		System.out.println("작성1:"+writer);
-		System.out.println("작성2:"+writer2);
+	
 		if(date !=null) {
 			String[] dateArr = date.split("-");
 			int year = Integer.parseInt(dateArr[0]);
@@ -73,21 +71,28 @@ public class BoardUpdateServlet extends HttpServlet {
 		board.setbTitle(title);
 		board.setbContent(content);
 		board.setModifyDate(sqlDate);
-		board.setbAddress(address);
+		board.setbAddress(youtubeaddress);
 		int result = new BoardService().updateBoard(board);
+	
 		
-		
-		
+		System.out.println("체크용result"+result);
 		if(result>0) {
-			page ="/detail.bo?bid=" + bid;
+			page ="/avidetail.bo?bid="+ bid;
+			System.out.println("여기요");
+		
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시글 수정에 실패하였습니다.");
 		}
 		
+		System.out.println("page"+page);
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
 		}
+<<<<<<< HEAD
+	
+=======
+>>>>>>> refs/remotes/origin/master
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

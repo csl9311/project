@@ -96,7 +96,7 @@ span{
 
 
 
-.subpage ,.aviCommonBoard {
+.subpage ,.aviCommonBoard  {
 	
 	text-align: center;
 	margin: 5%;
@@ -188,6 +188,17 @@ body{
 
 hr{
 	margin:0px;
+}
+
+
+.pagingArea button{
+	background:none;
+	color:white;
+	border:0;
+}
+
+.pagingArea button:hover{
+	color:#9042f5;
 }
 
 
