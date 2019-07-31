@@ -43,9 +43,8 @@
 						<div style="overflow: hidden">
 							<div class="youtubeInsert" id="youtubeInsert"
 								style="width: 60vw; height: 40vh; display: none; ">
+							
 								
-								
-									
 								</div>
 						</div>
 						<div class="aviBoard"
@@ -91,6 +90,8 @@
 	</div>
 
 	<script>
+	
+		var count = 0;
 		$('#opendiv').click(function() {
 			if ($(".insertAddress").css("display") == "none") {
 				$('.insertAddress').css("display", "inline-block");
@@ -102,7 +103,7 @@
 		$('.btnYoutube')
 				.click(
 						function() {
-
+							count++;
 							document.getElementById("youtubeInsert").innerHTML = $(
 									'.inputYoutube').val();
 							console.log("ddd" + $('iframe').attr('src'));
@@ -163,6 +164,16 @@
 							
 
 						});
+		
+			$('#insertAviBoard').click(function(){
+			if(count==0){
+				console.log("dd")
+				alert("삽입된 영상이 없습니다.");
+			}else{
+				$('#insertAviBoard').prop("type","submit");
+				
+			}
+			});
 	</script>
 
 

@@ -4,7 +4,7 @@
 	<% 
 	   Member loginInfo = (Member) session.getAttribute("loginUser");
     
-    System.out.println("체크용"+loginInfo.getId());%>
+   %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,8 +69,12 @@
 				</tr>
 
 				<tr>
-					<td><button type="submit" style="width: 10vw; height: 7vh; float: right"
-							class="btn-primary">등록하기</button></td>
+					<td>
+						
+					<button type="button" style="width: 10vw; height: 7vh; float: right"
+							class="btn-primary" id="insertAviBoard">등록하기</button>
+						
+							</td>
 				</tr>
 
 			</table>
@@ -83,6 +87,8 @@
 	</div>
 
 	<script>
+	
+	var count =0;
 		$('#opendiv').click(function() {
 			if ($(".insertAddress").css("display") == "none") {
 				$('.insertAddress').css("display", "inline-block");
@@ -94,7 +100,7 @@
 		$('.btnYoutube')
 				.click(
 						function() {
-
+							count++;
 							document.getElementById("youtubeInsert").innerHTML = $(
 									'.inputYoutube').val();
 							console.log("ddd" + $('iframe').attr('src'));
@@ -155,6 +161,16 @@
 							
 
 						});
+		
+				$('#insertAviBoard').click(function(){
+					if(count==0){
+						console.log("dd")
+						alert("삽입된 영상이 없습니다.");
+					}else{
+						$('#insertAviBoard').prop("type","submit");
+						
+					}
+				});
 	</script>
 
 

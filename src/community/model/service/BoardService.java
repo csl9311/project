@@ -38,9 +38,9 @@ public class BoardService {
 		return result;
 	}
 
-	public ArrayList<Board> selectList(int currentPage) {
+	public ArrayList<Board> selectList(int currentPage,int listCount) {
 		Connection conn = getConnection();
-		ArrayList<Board> list = new BoardDAO().selectList(conn,currentPage);
+		ArrayList<Board> list = new BoardDAO().selectList(conn,currentPage,listCount);
 		close(conn);
 		
 		return list;

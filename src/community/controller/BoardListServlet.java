@@ -67,7 +67,7 @@ public class BoardListServlet extends HttpServlet {
 
 		maxPage = 0;
 
-		maxPage = (int) ((double) listCount / limit + 1); // 페이지수 측정
+		maxPage = (int) ((double) listCount / limit + 0.9); // 페이지수 측정
 		startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
 		System.out.println("스페" + startPage);
 		System.out.println("막페" + maxPage);
@@ -79,7 +79,7 @@ public class BoardListServlet extends HttpServlet {
 
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 
-		ArrayList<Board> list = new BoardService().selectList(currentPage);
+		ArrayList<Board> list = new BoardService().selectList(currentPage,listCount);
 
 		String page = null;
 		if (list != null) {

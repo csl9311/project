@@ -86,7 +86,7 @@ public class BoardDAO {
 		return result;
 	}
 
-	public ArrayList<Board> selectList(Connection conn, int currentPage) {
+	public ArrayList<Board> selectList(Connection conn, int currentPage,int listCount) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -97,12 +97,17 @@ public class BoardDAO {
 		int endRow = startRow + posts - 1;
 		System.out.println("스타트" + startRow);
 		System.out.println("끝" + endRow);
+		
+		
+
+		System.out.println("마지막글"+endRow);
+		System.out.println("총갯수"+listCount);
 		String query = prop.getProperty("selectAVIList");
 
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(2, ((listCount+1)-startRow));
+			pstmt.setInt(1, ((listCount+1)-endRow));
 			rset = pstmt.executeQuery();
 
 			list = new ArrayList<Board>();

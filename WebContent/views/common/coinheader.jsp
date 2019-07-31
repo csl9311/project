@@ -71,12 +71,25 @@
 							<div class="login-help">
 								<a href="<%=request.getContextPath()%>/views/member/signUp.jsp">회원가입</a>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="#">아이디 / 비밀번호 찾기</a>
+								<a href="#" class="login" data-toggle="modal" data-target="#pwd-modal">아이디 / 비밀번호 찾기</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</form>
+			
+			
+				<div class="modal fade" id="pwd-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+					<div class="modal-dialog" style="text-align: center">
+						<div class="pwdmodal-container">
+							
+	
+							<div class="login-help">
+								
+							</div>
+						</div>
+					</div>
+				</div>
 		</header>
 	</div>
 </body>
