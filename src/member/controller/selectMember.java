@@ -1,4 +1,4 @@
-package admin.controller;
+package member.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,23 +14,29 @@ import member.model.vo.Address;
 import member.model.vo.Member;
 
 @WebServlet("/selectMember")
-public class MemberSelect extends HttpServlet {
+public class selectMember extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public MemberSelect() {}
+	public selectMember() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		String id = (String)request.getParameter("id");
 		Member member = new MemberService().selectMember(id);
-		ArrayList<Address> addressList = new MemberService().getAddress(id);
-		
 		String page = "";
 		if (member != null) {
+			// 멤버 객체가 있다면 주소 받으러 다시 접근.
+			ArrayList<Address> addressList = new MemberService().getAddress(id);
+			
+			// 주소 정보가 없어도 멤버는 request에 담겨야 함.
 			page ="views/admin/adminMember/adminMemberDetail.jsp";
 			request.setAttribute("member", member);
-			request.setAttribute("addressList", addressList);
+			
+			// 주소정보가 있다면 request에 담아줌
+			if(addressList != null) {
+				request.setAttribute("addressList", addressList);
+			}
 		} else {
 			page ="views/common/errorPage.jsp";
 			request.setAttribute("msg", "회원정보조회에 실패했습니다.");

@@ -1,6 +1,9 @@
 package member.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -40,7 +43,7 @@ public class MemberService {
 	public int insertMember(Member member) {
 		Connection conn = getConnection();
 		int result = new MemberDAO().insertMember(conn, member);
-		if (result > 0 ) {
+		if (result > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -51,7 +54,7 @@ public class MemberService {
 
 	public Member loginMember(Member member) {
 		Connection conn = getConnection();
-		Member loginUser = new MemberDAO().loginMember(conn,member);
+		Member loginUser = new MemberDAO().loginMember(conn, member);
 		close(conn);
 		return loginUser;
 	}
@@ -65,9 +68,28 @@ public class MemberService {
 
 	public ArrayList<Address> getAddress(String id) {
 		Connection conn = getConnection();
-		ArrayList<Address> addressList = new MemberDAO().getAddress(conn, id);
+		ArrayList<Address> list = new MemberDAO().getAddress(conn, id);
 		close(conn);
-		return addressList;
+		return list;
+	}
+
+	public int getAddressCount(String id) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().getAddressCount(conn, id);
+		close(conn);
+		return result;
+	}
+
+	public int addressUpdate(Address add) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().addressUpdate(conn, add);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 }

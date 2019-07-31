@@ -18,6 +18,33 @@ public class Member {
 	}
 	
 	
+	public Member(String id, String name, String nickName, String phone, String gender, String email, String grade,
+			Date birth, int news, int sms) {
+		this.id = id;
+		this.name = name;
+		this.nickName = nickName;
+		this.phone = phone;
+		this.gender = gender;
+		this.email = email;
+		this.grade = grade;
+		this.birth = birth;
+		this.news = news;
+		this.sms = sms;
+	}
+
+	public Member(String id, String pw, String name, String nickName, String phone, String gender, String email,
+			String grade, int news, int sms) {
+		this.id = id;
+		this.name = name;
+		this.nickName = nickName;
+		this.phone = phone;
+		this.gender = gender;
+		this.email = email;
+		this.grade = grade;
+		this.news = news;
+		this.sms = sms;
+	}
+
 	// 세션등록, 관리자페이지 상세정보 조회
 	public Member(String id, String name, String nickName, String phone, String gender, String email, String grade,
 			Date birth, Date regDate, Date modifyDate, int point, int news, int sms) {

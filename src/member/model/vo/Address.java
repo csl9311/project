@@ -2,25 +2,24 @@ package member.model.vo;
 
 public class Address {
 	private int address_code;
-	private String postNum, address, address_detail, id;
+	private String postNum, address, address_detail;
 
 	public Address() {
 	}
 
-	public Address(int address_code, String postNum, String address, String address_detail, String id) {
+	// 주소 생성 시
+	public Address(String postNum, String address, String address_detail) {
+		super();
+		this.postNum = postNum;
+		this.address = address;
+		this.address_detail = address_detail;
+	}
+
+	public Address(int address_code, String postNum, String address, String address_detail) {
 		this.address_code = address_code;
 		this.postNum = postNum;
 		this.address = address;
 		this.address_detail = address_detail;
-		this.id = id;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public int getAddress_code() {
@@ -54,7 +53,5 @@ public class Address {
 	public void setAddress_detail(String address_detail) {
 		this.address_detail = address_detail;
 	}
-
-	
 
 }

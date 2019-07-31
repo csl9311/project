@@ -3,9 +3,6 @@
 <%@ page import="java.util.ArrayList, product.model.vo.Product"%>
 <%
 	ArrayList<Product> list = new ArrayList<>();
-	Product product = new Product();
-
-	list.add(product);
 %>
 <!DOCTYPE html>
 <html>
@@ -49,7 +46,6 @@
 			<form action="" method="get">
 				<table class="resultList">
 					<tr>
-						<td><%=p.getName()%></td>
 						<td><%=p.getBrand()%></td>
 						<td><%=p.getCategory()%></td>
 						<td><%=p.getPrice()%></td>

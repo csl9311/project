@@ -80,4 +80,5 @@ commit;
 -- SQL 작성시
 INSERT INTO ADDRESS VALUES(SEQ_ADDRESS_CODE.NEXTVAL, ?, ?, ?); -- 주소 업데이트
 UPDATE supervisor_member SET NAME = ?, NICKNAME = ?, PHONE = ?, GENDER = ?, EMAIL = ?, GRADE = ?, MODIFYDATE = ?, NEWS = ?, SMS = ? WHERE ID = ?;
-SELECT * FROM ADDRESS WHERE ID=?; -- 주소 가져올때
+SELECT * FROM ADDRESS WHERE ID='admin'; -- 개인 주소 가져올때
+SELECT count(*) FROM ADDRESS WHERE ID='admin'; -- 개인 주소 가져올때

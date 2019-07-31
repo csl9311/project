@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="member.model.vo.Member, member.model.vo.Address"%>
+<%@ page import="member.model.vo.*, java.util.ArrayList"%>
 <%@ include file="/views/common/coinheader.jsp"%>
 <%
 	Member member = (Member) request.getAttribute("member");
-	Address address = (Address) request.getAttribute("address");
+	ArrayList<Address> addressList = (ArrayList<Address>)request.getAttribute("addressList");
 	String[] genderChecked = new String[2];
 	String[] smsChecked = new String[2];
 	String[] newsChecked = new String[2];
@@ -52,6 +52,14 @@
 <body>
 	<div class="emptyHeader"></div>
 	<div id="center">
+	<% if (loginUser != null) { %>
+		<% String msg = (String)request.getAttribute("msg");
+			if(msg != null) {
+		%>
+			<script>
+				alert('<%=msg%>');
+			</script>
+		<%}%>
 		<form action="<%=request.getContextPath()%>/admin.MemberUpdate" method="post">
 			<table border="1" style="border: 1px solid white;">
 				<tr>
@@ -107,16 +115,13 @@
 					<td colspan="2"><input class="adminInput" type="text" name="nickName" value="<%=member.getNickName()%>"></td>
 				</tr>
 				<tr>
-					<td class="rowTitle">이메일 <!-- 카카오톡 ID? --></td>
+					<td class="rowTitle">이메일</td>
 					<td colspan="2"><input class="adminInput" type="email" name="email" value="<%=member.getEmail()%>"></td>
 					
 					<td class="rowTitle">포인트</td>
 					<td colspan="2"><input class="adminInput readonly" name="point" type="text" value="<%=member.getPoint()%>" readonly></td>
 				</tr>
-				
-				
 				<tr>
-					
 					<td class="rowTitle">sms 수신 여부</td>
 					<td class="center">
 						<input class="adminInput" type="radio" name="sms" <%=smsChecked[0]%> value="0">
@@ -141,18 +146,40 @@
 			</table>
 		</form>
 		<div class="emptyHeader"></div>
-		<form action="">
+		
+		<% 
+			for (int i = 0 ; i < addressList.size(); i ++){ 
+				Address address = addressList.get(i);
+		%>
+		<form action="<%=request.getContextPath()%>/address.update" method="post">
 			<table border="1" style="border: 1px solid white;">
+			
+				<tr>
+					<td colspan="2"><%=i+1 %> 번째 주소
+					<input type="hidden" name="address_code" value="<%=address.getAddress_code()%>">
+					<input type="hidden" name="member_id" value="<%=member.getId()%>">
+					<input type="hidden" name="page" value="/selectMember">
+					</td>
+				</tr>
 				<tr>
 					<td>우편번호</td>
-					<td><input class="adminInput" type="text" name="postNum" value=""></td>
+					<td><input class="adminInput" type="text" name="postNum" value="<%=address.getPostNum()%>"></td>
+				</tr>
+				<tr>
 					<td>주소</td>
-					<td><input class="adminInput" type="text" name="address" value=""></td>
+					<td><input class="adminInput" type="text" name="address" value="<%=address.getAddress()%>"></td>
+				</tr>
+				<tr>
 					<td>상세주소</td>
-					<td><input class="adminInput" type="text" name="addressDetail" value=""></td>
+					<td><input class="adminInput" type="text" name="address_detail" value="<%=address.getAddress_detail()%>"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input class="adminButton" type="submit" value="해당 주소 수정"></td>
 				</tr>
 			</table>
+			<br><br>
 		</form>
+		<%}} %>
 	</div>
 </body>
 </html>
