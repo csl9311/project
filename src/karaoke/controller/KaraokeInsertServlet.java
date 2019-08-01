@@ -26,7 +26,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class BoardUpdateServlet
  */
-@WebServlet("/insert.ik")
+@WebServlet("/insert.ko")
 public class KaraokeInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,7 +47,7 @@ public class KaraokeInsertServlet extends HttpServlet {
 		 if(ServletFileUpload.isMultipartContent(request)) {
 				int maxSize = 1024 * 1024 * 10; // 10Mbyte
 				String root = request.getSession().getServletContext().getRealPath("/");
-				String savePath = root + "img/Karaoke";
+				String savePath = root + "img/Karaoke/";
 				
 				System.out.println(savePath);
 				
@@ -96,7 +96,8 @@ public class KaraokeInsertServlet extends HttpServlet {
 				String otime = multiRequest.getParameter("startTime");
 				String ctime = multiRequest.getParameter("endTime");
 				String time= otime + " ~ " + ctime;
-				String user = ((Member)request.getSession().getAttribute("loginUser")).getId();
+				//String user = ((Member)request.getSession().getAttribute("loginUser")).getId();
+				String user = "id";
 
 				
 				Address a = new Address();
@@ -104,8 +105,10 @@ public class KaraokeInsertServlet extends HttpServlet {
 				a.setAddress(address);
 				a.setAddress_detail(addressDetail);
 				a.setId(user);
+				System.out.println("여기" + a.getAddress() + "ㄴㄴ" + a.getAddress_detail() + "ㄴㄴ" + a.getId()  + "ㄴㄴ" + a.getPostNum());
 				
 				int addressCode = new KaraokeService().insertAddress(a);
+				System.out.println(addressCode);
 				
 				Karaoke k = new Karaoke();
 				k.setKaraokeName(kname);
@@ -115,7 +118,6 @@ public class KaraokeInsertServlet extends HttpServlet {
 				k.setRefId(user);
 				k.setAddressCode(addressCode);
 				
-				System.out.println(originFiles);
 				
 				ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 				for(int i = originFiles.size() -1; i >=0; i--) {
@@ -135,7 +137,7 @@ public class KaraokeInsertServlet extends HttpServlet {
 				int result = new KaraokeService().insertKaroke(k, fileList);
 				
 				if(result > 0) {
-					response.sendRedirect("list.kl");
+					response.sendRedirect("list.ko");
 				} else {
 					for(int i=0;i<saveFiles.size();i++) {
 						File failedFile = new File(savePath + saveFiles.get(i));

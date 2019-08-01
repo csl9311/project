@@ -414,11 +414,11 @@ hr.hr-style {
   				<form>
 	  				<span>
 	  					<select class="form-control">
-	  						<option>★☆☆☆☆</option>
-	  						<option>★★☆☆☆</option>
-	  						<option>★★★☆☆</option>
-	  						<option>★★★★☆</option>
-	  						<option>★★★★★</option>
+	  						<option value=1>★☆☆☆☆</option>
+	  						<option value=2>★★☆☆☆</option>
+	  						<option value=3>★★★☆☆</option>
+	  						<option value=4>★★★★☆</option>
+	  						<option value=5 selected>★★★★★</option>
 	  					</select>
 	  				</span><br>
   					<span><button class="btn btn-success">리뷰 작성</button></span>
