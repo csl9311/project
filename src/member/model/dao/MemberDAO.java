@@ -188,6 +188,30 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	// 주소 입력
+	
+	public int insertAddress(Connection conn, Address add) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAddress");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, add.getPostNum());
+			pstmt.setString(2, add.getAddress());
+			pstmt.setString(3, add.getAddress_detail());
+			pstmt.setString(4, add.getId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);			
+		}
+		return result;
+	}
 
 	// 주소 가져오기
 	public ArrayList<Address> getAddress(Connection conn, String id) {
