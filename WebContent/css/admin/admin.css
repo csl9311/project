@@ -28,19 +28,19 @@ table {
 
 select {
 	color: black;
-	height: 21px;
+	height: 17px;
 	min-width: 40px;
 }
 
 tr, td, th {
-	height: 5vh;
+	height: 4vh;
 	padding-right: 10px;
 	padding-left: 10px;
 }
 
 .adminInput, .adminButton {
 	color: black;
-	height: 3vh;
+	border : none;
 }
 
 .center, .center tr, .center tr td {
@@ -92,6 +92,7 @@ tr, td, th {
 }
 
 /* signUp */
+
 .rowTitle {
 	width: 10vw;
 	min-width: 110px;
@@ -100,24 +101,23 @@ tr, td, th {
 .content{
 	color:black;
 }
-.small {
-	font-size: 10px;
-}
 
 .resultLabel {
 	display: none;
 	padding: 0px;
+	margin: 0px;
+	height: 1px;
 }
-.radioM {
-	background-image: url("../../img/memberImg/M.png");
+.resultLabel>td {
+	padding : 0px;
+	height: 1vh;
+}
+
+.gender {
 	width : 30px; height: 30px;
 }
-.radioW {
-	background-image: url("../../img/memberImg/W.png");
-	width : 30px; height: 30px;
-}
-.radioM, .radioW{
-}
+
+
 .news, .sms{
 	width: 10px;
 	height: 10px;

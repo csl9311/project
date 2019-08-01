@@ -12,30 +12,47 @@
 <title>회원가입</title>
 <style>
 input[type=password] {
-	width: auto;
-	height: 21px;
-	font-size: 14px;
+	width: 147px;
+	height: 17px;
+	font-size: 17px;
 	margin: 0px;
 	border: none;
 }
 input {
 	border: none;
 }
+
+.agree{
+	background-image: url("../../img/memberImg/V.png");
+	width : 20px; height: 20px;
+	
+}
+.disagree{
+	background-image: url("../../img/memberImg/X.png");
+	width : 20px; height: 20px;
+}
+
+.input[type=radio]{
+	margin-top: 6px;
+}
+.genderTd{
+	display:flex;
+}
+.gender label{
+	padding-top : 100px;
+}
+
 </style>
 </head>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/admin/admin.css">
 <body>
-	<%--
-	우편번호 검색 DB 짜야함. pk : 우편번호, address : text
-	아이디, 비밀번호, 닉네임, 본인인증, 우편번호 DB, 주소 자동 완성, 이메일 중복체크, 뉴스메일 & 이벤트 선택여부
-	--%>
 	<div class="content">
 		<form action="<%=request.getContextPath()%>/member.signUp" method="post">
 			<table class="signUpTable">
 				<tr>
 					<td class="rowTitle">아이디</td>
-					<td><input type="text" name="id" id="id" onfocus="true"></td>
+					<td><input type="text" name="id" id="id"></td>
 				</tr>
 				<tr class="resultLabel" id="idResultTr">
 					<td></td>
@@ -77,9 +94,9 @@ input {
 							<option value="SKT">SKT</option>
 						</select>
 						<input type="text" id="phone" name="phone" class="phone">
-						<label class='description'>-</label>
+						<label>-</label>
 						<input type="text" name="phone" class="phone">
-						<label class='description'>-</label>
+						<label>-</label>
 						<input type="text" name="phone" class="phone">
 					</td>
 				</tr>
@@ -96,26 +113,26 @@ input {
 						for (i = start; i >= end; i--) {
 							document.write('<option value="' + i + '">' + i + '</option>');
 						}
-						document.write("</select><label class='description'>년 </label>");
+						document.write("</select><label>년 </label>");
 
 						document.write("<select name='birth'>");
 						for (i = 1; i <= 12; i++) {
 							document.write('<option value="' + i + '">' + i + '</option>');
 						}
-						document.write("</select><label class='description'>월 </label>  ");
+						document.write("</select><label>월 </label>  ");
 
 						document.write("<select name='birth'>");
 						for (i = 1; i <= 31; i++) {
 							document.write('<option value="' + i + '">' + i + '</option>');
 						}
-						document.write("</select><label class='description'>일</label>");
+						document.write("</select><label>일</label>");
 					</script></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">성별</td>
-					<td>
-						<input class="radioM" type="radio" name="gender" value="M"><label class='description'>남</label>
-						<input class="radioW" type="radio" name="gender" value="W"><label class='description'>여</label>
+					<td class="genderTd">
+						<input id="genderM" class="gender" type="radio" name="gender" value="M" style="background-image: url('../../img/memberImg/M.png');"><label>남</label>
+						<input id="genderW" class="gender" type="radio" name="gender" value="W" style="background-image: url('../../img/memberImg/W.png');"><label>여</label>
 					</td>
 				</tr>
 				<tr>
@@ -143,18 +160,19 @@ input {
 				</tr>
 				<tr>
 					<td class="rowTitle">뉴스메일</td>
-					<td class="description">
-						<input class="news" type="radio" name="news" value="0">
+					<td>
+						<input class="agree" type="radio" name="news" value="0">
 						<label>동의</label>
-						<input class="news" type="radio" name="news" value="1">
-						<label>동의하지 않음</label></td>
+						<input class="disagree" type="radio" name="news" value="1">
+						<label>동의하지 않음</label>
+					</td>
 				</tr>
 				<tr>
 					<td class="rowTitle">SMS안내 (이벤트)</td>
-					<td class="description">
-						<input class="sms" type="radio" name="sms" value="0">
+					<td>
+						<input class="agree" type="radio" name="sms" value="0">
 						<label>동의</label>
-						<input class="sms" type="radio" name="sms" value="1">
+						<input class="disagree" type="radio" name="sms" value="1">
 						<label>동의하지 않음</label>
 					</td>
 				</tr>
@@ -167,6 +185,16 @@ input {
 		</form>
 	</div>
 	<script>
+	// 라디오 버튼 이미지  css 변경
+	$('#genderM').click(function(){
+		$('#genderM').selected
+		css("background", "url('<%=request.getContextPath()%>/img/memberImg/MChecked.png')")
+	});
+	
+	
+	
+	
+	
 	<%-- 모든 조건 충족 시 버튼 활성화 --%>
 	function buttonActive() {
 		if (idUsable && pwUsable && nickUsable) {
@@ -195,7 +223,7 @@ input {
 			// 둘 중 하나라도 false 라면
 			if(!idUsable || !idChecked){
 				// 에러메시지 띄울 tr css 변경
-				$('#idResultTr').css({ 'color' : 'red', 'display' : 'table-row', 'height' : '1vh' });
+				$('#idResultTr').css({ 'color' : 'red', 'display' : 'table-row' });
 				if($id.val().length == 0){
 					$('#idResultTd').text('아이디를 입력해주세요.');
 					idUsable = false;
@@ -231,7 +259,7 @@ input {
 							} else {
 								idChecked = true;
 								idUsable = true;
-								$('#idResultTr').css({ 'color' : 'white', 'display' : 'table-row', 'height' : '1vh'});
+								$('#idResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
 								$('#idResultTd').text('사용 가능한 아이디입니다.');
 								buttonActive();
 							}
@@ -252,7 +280,7 @@ input {
 			if (!pwUsable1 || !pwUsable) {
 				pwUsable = false;
 				pwUsable1 = false;
-				$('#pwResultTr').css({ 'color' : 'red', 'display' : 'table-row', 'height' : '1vh' });
+				$('#pwResultTr').css({ 'color' : 'red', 'display' : 'table-row'});
 				if($pw.val().length == 0) {
 					$('#pwResultTd').text('비밀번호를 입력해주세요.');
 					$pw.focus();
@@ -263,7 +291,7 @@ input {
 					$('#pwResultTd').text('영문과 숫자, 특수문자가 각 1회 이상 사용되어야합니다.');
 					$pw.focus();
 				} else {
-					$('#pwResultTr').css({ 'color' : 'white', 'display' : 'table-row', 'height' : '1vh' });
+					$('#pwResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
 					$('#pwResultTd').text('사용 가능한 비밀번호입니다.');
 					pwUsable1 = true;
 					if (pwUsable2) {
@@ -277,7 +305,7 @@ input {
 		$pwCheck.on('change paste keyup', function() {
 			if (pwUsable1 == true && $pw.val() == $pwCheck.val()) {
 				$('#pwCheckResultTd').text('사용 가능한 비밀번호입니다.');
-				$('#pwCheckResultTr').css({ 'color' : 'white', 'display' : 'table-row', 'height' : '1vh'});
+				$('#pwCheckResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
 				pwUsable2 = true;
 				if (pwUsable1) {
 					pwUsable = true;
@@ -285,7 +313,7 @@ input {
 				}
 			} else {
 				$('#pwCheckResultTd').text('입력하신 두 비밀번호가 같지 않습니다.');
-				$('#pwCheckResultTr').css({ 'color' : 'red', 'display' : 'table-row', 'height' : '1vh' });
+				$('#pwCheckResultTr').css({ 'color' : 'red', 'display' : 'table-row'});
 				pwUsable = false;
 				pwUsable2 = false;
 				$pwCheck.focus();
@@ -309,7 +337,7 @@ input {
 			if(!nickUsable || !nickChecked){
 				$nickName.focus();
 				// 에러메시지 띄울 tr css 변경
-				$('#nickResultTr').css({ 'color' : 'red', 'display' : 'table-row', 'height' : '1vh' });
+				$('#nickResultTr').css({ 'color' : 'red', 'display' : 'table-row'});
 				if($nickName.val().length == 0){
 					$('#nickResultTd').text('닉네임을 입력해주세요.');
 					nickUsable = false;
@@ -340,7 +368,7 @@ input {
 							} else {
 								nickChecked = true;
 								nickUsable = true;
-								$('#nickResultTr').css({ 'color' : 'white', 'display' : 'table-row', 'height' : '1vh'});
+								$('#nickResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
 								$('#nickResultTd').text('사용 가능한 닉네임입니다.');
 								buttonActive();
 							}

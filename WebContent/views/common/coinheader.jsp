@@ -33,6 +33,7 @@
 			<a href="#">Q&#38;A</a>
 			<%-- 로그인 시 --%>
 			<%if (loginUser != null) {%>
+			
 			<a href="<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
 			<%-- 관리자 로그인 시 --%>
 			<%if (loginUser.getGrade().equals("관리자")) {%>
