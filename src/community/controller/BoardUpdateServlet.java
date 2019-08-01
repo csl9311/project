@@ -89,10 +89,8 @@ public class BoardUpdateServlet extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
 		}
-<<<<<<< HEAD
-	
-=======
->>>>>>> refs/remotes/origin/master
+
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

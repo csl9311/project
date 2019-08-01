@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Member;
 import shop.model.service.ShopService;
 
 /**
@@ -34,15 +35,18 @@ public class SelectCartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");		
-		HttpSession session = request.getSession();		
-		String userId = session.getId();
-		
+		HttpSession session = request.getSession(); //세션호출
+		Member sessionMember = (Member)session.getAttribute("loginUser");
+		String userId= sessionMember.getId();
 		ArrayList<String> info = new ShopService().selectCart(userId);
 		
 		String page= null;
 		
 		if(info!=null) {
 			page= "views/MyPage/cart.jsp";
+			for(int i=0; i<info.size();i++) {
+			System.out.println("info"+ info.get(i));
+			}
 			request.setAttribute("info",info);					
 		}else {
 			page = "views/common/errorPage.jsp";
