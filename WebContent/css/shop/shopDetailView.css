@@ -343,6 +343,7 @@ blockquote {
 .cb_table .text_box{
 	padding-top: 2%;
 	min-height: 150px;
+	display: inline-block;
 }
 .update {
 	background: none;

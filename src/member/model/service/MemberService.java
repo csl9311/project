@@ -80,6 +80,18 @@ public class MemberService {
 		close(conn);
 		return list;
 	}
+	
+	public int addressInsert(Address add) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().insertAddress(conn, add);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 	public int getAddressCount(String id) {
 		Connection conn = getConnection();
