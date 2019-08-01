@@ -5,15 +5,12 @@
 <%
 		ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
  		PageInfo pi = (PageInfo)request.getAttribute("pi");
- 		Board search = (Board)request.getAttribute("search");
  		int listCount = pi.getListCount();
 		int currentPage = pi.getCurrentPage();
 		int maxPage = pi.getMaxPage();
 		int startPage = pi.getStartPage();
 		int endPage = pi.getEndPage(); 
 		
-		String inputsearch = search.getbContent(); 
-		System.out.println("인풋"+inputsearch);
 		
 %>
 <!DOCTYPE html>
@@ -44,16 +41,8 @@ CSS
 		
 			<div class="searchAviArea" align="right" style="width:100%">
 			<div style="width:auto;font-size:14px">
-			<form action="list.bo" id="search" method="post">
-			
-			<!-- <input type="text" id="searchList" name="search" style="width:13vw;border:0;border-bottom:1px solid gray;"placeholder="검색창입니다." >  -->
-	 <%if(inputsearch =="" ||inputsearch ==null){ %> 
-			<input type="text" id="searchList" name="search" style="width:13vw;border:0;border-bottom:1px solid gray;"placeholder="검색창입니다." >
-				<%}else{ %>
-			<input type="text" id="searchList" name="search" style="width:13vw;border:0;border-bottom:1px solid gray;"placeholder="검색창입니다." value=<%=inputsearch %>>	
-				<%} %>
-			<span  style="cursor:pointer" id="goSearch" >검색</span>
-			</form>
+			<input type="text" style="width:13vw;border:0;border-bottom:1px solid gray;"placeholder="검색창입니다."> 	
+			<span style="cursor:pointer">검색</span>
 			</div>
 			</div>
 			<div style="text-align:center;width:80vw">
@@ -63,6 +52,7 @@ CSS
 					//youtube 주소  id값따오기
 					String address = "A5AmE_b68cg";
 
+					/* String address = null; */
 					for (Board b : list) {
 
 						String adr = b.getbAddress().replaceAll("\'", "\"");
@@ -137,12 +127,12 @@ CSS
 		 	<%if(!list.isEmpty()){ %>
 		 	
 		 	<!-- 맨처음으로 -->
-		 	<button onclick="location.href ='<%= request.getContextPath() %>/list.bo?currentPage=1&search=<%=inputsearch%>'">
+		 	<button onclick="location.href ='<%= request.getContextPath() %>/list.bo?currentPage=1'">
 		 		&lt;&lt;
 		 	</button>
 		 	
 		 	<!-- 이전페이지로 -->
-		 	<button id="beforeBtn" onclick ="location.href='<%= request.getContextPath()%>/list.bo?currentPage=<%= currentPage -1%>&search=<%=inputsearch%>'">&lt;</button>
+		 	<button id="beforeBtn" onclick ="location.href='<%= request.getContextPath()%>/list.bo?currentPage=<%= currentPage -1%>'">&lt;</button>
 		 	<script>
 		 		if(<%= currentPage%><=1){
 		 			$('#beforeBtn').attr("disabled","true");
@@ -154,13 +144,13 @@ CSS
 		 			<button id="choosen" disabled style="color:#34c6eb"><%= p %> </button>
 		 		
 		 			<%} else{ %>
-		 				<button id="numBtn" onclick="location.href ='<%=request.getContextPath()%>/list.bo?currentPage=<%=p%>&search=<%=inputsearch%>'"><%= p %></button>
+		 				<button id="numBtn" onclick="location.href ='<%=request.getContextPath()%>/list.bo?currentPage=<%=p%>'"><%= p %></button>
 		 		<%} %>
 		 	<%} %>
 		 	
 		 	<!-- 다음 페이지로 -->
 		 	
-		 	<button id="afterBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%=currentPage+1%>&search=<%=inputsearch%>'">&gt;</button>
+		 	<button id="afterBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%=currentPage+1%>'">&gt;</button>
 		 	<!-- 맥스 페이지일때 다음페이지 활성화 하지않게하기위한 script -->
 		 	<script>
 		 		if(<%= currentPage%> >= <%= maxPage%>){
@@ -168,7 +158,7 @@ CSS
 		 		}
 		 	</script>
 		 	<!-- 맨 끝으로 -->
-		 	<button onclick = "location.href = '<%= request.getContextPath() %>/list.bo?currentPage=<%= maxPage %>&search=<%=inputsearch%>'">&gt;&gt;</button>
+		 	<button onclick = "location.href = '<%= request.getContextPath() %>/list.bo?currentPage=<%= maxPage %>'">&gt;&gt;</button>
 		 <%} %>
 		 
 		
@@ -212,28 +202,6 @@ CSS
 					alert("회원만 이용할 수 있는 서비스 입니다");
 				<%}%> --%>
 			});
-		});
-		
-		$('#goSearch').click(function(){
-			$(this).closest('#search').submit();
-			console.log("검색");
-			var search = $('#searchList').val();
-			
-			
-	/* 		$.ajax({
-				
-				url:"list.bo",
-				type:"post",
-				data:{search:search},
-				success: function(data){
-				
-					
-					
-					
-				}
-	});*/
-	
-			
 		});
 	</script>
 </body>

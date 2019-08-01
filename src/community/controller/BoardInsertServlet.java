@@ -38,7 +38,7 @@ public class BoardInsertServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String youtubeaddress = request.getParameter("inputYoutube");
-		
+
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String writer = loginUser.getNickName();

@@ -32,29 +32,15 @@ public class BoardService {
 
 	public int getListCount() {
 		Connection conn = getConnection();
-		int result =0;
+		int result = new BoardDAO().getListCount(conn);
 		
-		result= new BoardDAO().getListCount(conn);
-		System.out.println("총카운트"+result);
-
-		close(conn);
-		return result;
-	}
-	
-	public int getListCount2(Board b) {
-		Connection conn = getConnection();
-		int result =0;
-		
-		result= new BoardDAO().getListCount2(conn,b);
-		System.out.println("카운트 서치"+b.getbContent());
-
 		close(conn);
 		return result;
 	}
 
-	public ArrayList<Board> selectList(int currentPage,int listCount,Board b) {
+	public ArrayList<Board> selectList(int currentPage,int listCount) {
 		Connection conn = getConnection();
-		ArrayList<Board> list = new BoardDAO().selectList(conn,currentPage,listCount,b);
+		ArrayList<Board> list = new BoardDAO().selectList(conn,currentPage,listCount);
 		close(conn);
 		
 		return list;

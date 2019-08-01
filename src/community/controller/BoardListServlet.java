@@ -37,30 +37,13 @@ public class BoardListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		String search = request.getParameter("search");
-		Board b  =new Board();
-		b.setbContent(search);
-		
-		System.out.println("검색이요"+search);
-		
-		
 		BoardService service = new BoardService();
-		int listCount = 0; // 총 개시글 갯수
-		
-		if(search == null || search =="") {
-		 listCount = service.getListCount();
-		}else {
-		listCount = service.getListCount2(b);
-		System.out.println(listCount);
-		}
-		System.out.println("게시글갯수" + listCount);
+
+		int listCount = service.getListCount(); // 총 개시글 갯수
+		System.out.println("dd" + listCount);
 
 		/****************** 페이지처리 ***********************/
 
-		
-		
 		int currentPage; // 현재 페이지
 		int limit; // 한 페이지에 표시될 페이징 수
 		int maxPage; // 전체 페이지 중에서 가장 마지막 페이지
@@ -95,14 +78,12 @@ public class BoardListServlet extends HttpServlet {
 		}
 
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
-		
-		
-		ArrayList<Board> list = new BoardService().selectList(currentPage,listCount,b);
-		
+
+		ArrayList<Board> list = new BoardService().selectList(currentPage,listCount);
+
 		String page = null;
 		if (list != null) {
 			page = "views/community/aviBoardListView.jsp";
-			request.setAttribute("search",b);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
@@ -114,7 +95,6 @@ public class BoardListServlet extends HttpServlet {
 		view.forward(request, response);
 
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
