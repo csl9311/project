@@ -5,6 +5,7 @@ import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import product.model.vo.Product;
 import shop.model.dao.ShopDAO;
@@ -165,6 +166,13 @@ public class ShopService {
 		
 		
 		return result;
+	}
+
+	public ArrayList<String> selectCart(String userId) {
+		Connection conn= getConnection();
+		ArrayList<String> info = new ShopDAO().selectCart(conn, userId);
+		close(conn);
+		return info;
 	}
 
 }

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import member.model.dao.MemberDAO;
@@ -703,5 +704,32 @@ public class ShopDAO {
 		
 		
 		return result;
+	}
+
+	public ArrayList<String> selectCart(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectCart");
+		
+		ArrayList<String> info = new ArrayList<>();
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				info.add(rset.getString("PRODUCT_DATA"));
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return info;
 	}
 }
