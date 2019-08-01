@@ -1,6 +1,6 @@
 package shop.model.service;
 
-import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.*;
 import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -152,5 +152,20 @@ public class ShopService {
 		close(conn);
 		return list;
 	}
+	public int insertCart(String userId, String info) {
+		Connection conn = getConnection();
+		int result= new ShopDAO().insertCart(conn, userId, info);
+		
+				
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		
+		return result;
+	}
 
 }
+

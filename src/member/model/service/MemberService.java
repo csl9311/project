@@ -45,6 +45,14 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	// 닉네임 중복체크
+	public int nickCheck(String nickName) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().nickCheck(conn, nickName);
+		close(conn);
+		return result;
+	}
+
 
 	
 	public int insertMember(Member member) {
@@ -80,6 +88,18 @@ public class MemberService {
 		close(conn);
 		return list;
 	}
+	
+	public int addressInsert(Address add) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().insertAddress(conn, add);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 	public int getAddressCount(String id) {
 		Connection conn = getConnection();
@@ -99,6 +119,7 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
 
 
 }

@@ -188,6 +188,30 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	// 주소 입력
+	
+	public int insertAddress(Connection conn, Address add) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAddress");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, add.getPostNum());
+			pstmt.setString(2, add.getAddress());
+			pstmt.setString(3, add.getAddress_detail());
+			pstmt.setString(4, add.getId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);			
+		}
+		return result;
+	}
 
 	// 주소 가져오기
 	public ArrayList<Address> getAddress(Connection conn, String id) {
@@ -272,7 +296,6 @@ public class MemberDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, id);
-			System.out.println(query);
 			rset = pstmt.executeQuery();
 			
 			if (rset.next()) {
@@ -286,4 +309,28 @@ public class MemberDAO {
 		}
 		return result;
 	}
+
+	public int nickCheck(Connection conn, String nickName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("nickCheck");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, nickName);
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 }

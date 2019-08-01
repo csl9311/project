@@ -1,5 +1,7 @@
 package karaoke.model.dao;
 
+import static common.JDBCTemplate.*;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -32,23 +34,24 @@ public class KaraokeDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertAddress");
+		String query1 = prop.getProperty("insertAddress");
+		String query2 = prop.getProperty("selectAddress");
 		
 		try {
-			pstmt = conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(query1);
 			pstmt.setString(1, a.getPostNum());
 			pstmt.setString(2, a.getAddress());
 			pstmt.setString(3, a.getAddress_detail());
-			pstmt.setString(4, a.getId());
+			pstmt.executeUpdate();
 			
+			pstmt			
 			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);			
 		}
-		return 0;
+		return result;
 	}
 	
 	public int insertKaraoke(Connection conn, Karaoke k) {

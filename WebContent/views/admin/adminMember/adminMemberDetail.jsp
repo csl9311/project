@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="member.model.vo.*, java.util.ArrayList"%>
 <%@ include file="/views/common/coinheader.jsp"%>
 <%

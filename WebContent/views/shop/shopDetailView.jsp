@@ -117,17 +117,17 @@
 						</tr>
 					</table>
 					<!-- 장바구니/구매 -->
-					<div class="ct_btn">
+				<div class="ct_btn">
 						<ul id="ct_btn_ul">
 							<li>
 								<form name="itemForm" method="post" id="itemForm">
-									<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>"> 
-									<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>"> 
-									<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>"> 
-									<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>"> 
-									<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>"> 
-									<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>"> 
-									<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>"> 
+									<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>">
+									<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>">
+									<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>">
+									<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>">
+									<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>">
+									<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>">
+									<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>">
 									<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>"> <input type="hidden" id="option" name="option" value=""> <input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> <input type="hidden" id="amount" name="amount" value="1"> <input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
 									<div id="ct_btn_cart">
 										<button style="width: 100%; height: 100%;">CART</button>
@@ -413,7 +413,7 @@
 		function totalPrice() {
 			var totalPrice = 0;
 			var eleCount = $('.itemPrice_span').length - 1;
-			
+
 			<%if (!option.isEmpty()) {%>
 			for (var i = 0; i < eleCount; i++) {
 				totalPrice += parseInt($('#itemTableTbody .itemPrice_span').eq(i).text());
@@ -450,26 +450,26 @@
 				}
 			}
 			<%} else {%>
-				amount = $('#noOption input[type=text]').val(); 
+				amount = $('#noOption input[type=text]').val();
 			<%}%>
 			console.log(selectOption);
 			console.log(amount);
 			$('#option').val(selectOption);
 			$('#amount').val(amount);
 		}
-		
+
 		// update popUp
 		$('.update').on('click', function(){
 			window.open("views/shop/shopReviewView.jsp", "상품평 수정", 'width=600px, height=700px, left=0, top=0, toolbar=0, location=0, resizable=0, status=0, menubar=0, scrollbars=0');
 			System.out.println("바뀜?");
 		});
-		
-		
+
+
 		// 리뷰 제목 누르면 펼쳐지는 이벤트
 		$('.reviewTitle').on('click', function() {
 			$(event.target).parents('.reviewTitle').next().toggle();
 		});
-		
+
 		// review와 QnA에서 로그인 유저의 아이디와 일치하면 수정하는 버튼 보이기
 		 $(function(){
 			for(var i = 0; i < <%=rList.size()%>; i++) {

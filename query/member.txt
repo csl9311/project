@@ -62,7 +62,6 @@ SELECT * FROM GRADE;
 SELECT * FROM MEMBER;
 commit;
 
-
 -- 관리자 회원정보조회 뷰
 CREATE OR REPLACE VIEW MEMBER_VIEW
 AS
@@ -72,10 +71,6 @@ FROM MEMBER
 WHERE STATUS = 'Y';
 select * from MEMBER_VIEW;
 commit;
-
-
-
-
 
 -- SQL 작성시
 INSERT INTO ADDRESS VALUES(SEQ_ADDRESS_CODE.NEXTVAL, ?, ?, ?); -- 주소 업데이트
