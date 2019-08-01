@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		
@@ -31,9 +31,9 @@ public class LoginServlet extends HttpServlet {
 		// 각 페이지에서 페이지 정보 받아온 후
 		String page ="";
 		if (loginUser != null) {
-			HttpSession session = request.getSession();
+			
 			session.setMaxInactiveInterval(600);
-			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("loginUser", loginUser);			
 			response.sendRedirect(request.getHeader("referer"));
 		} else {
 			request.setAttribute("msg", "로그인 실패");

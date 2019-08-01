@@ -1,7 +1,6 @@
 package shop.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Member;
 import shop.model.service.ShopService;
 
 /**
@@ -33,9 +33,9 @@ public class CartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		HttpSession session = request.getSession();		
-		String userId = session.getId();
+		HttpSession session = request.getSession(); //세션호출해서
+		Member sessionMember = (Member)session.getAttribute("loginUser");
+		String userId= sessionMember.getId();
 		String pid = request.getParameter("pId");
 		String pname = request.getParameter("pName");
 		String price = request.getParameter("price");
@@ -44,22 +44,19 @@ public class CartServlet extends HttpServlet {
 		String sellcount =request.getParameter("sellCount");
 		String option = request.getParameter("option");
 		String amount = request.getParameter("amount");
-		String ur= request.getParameter("ur");
 		String info=null;
 		System.out.println("user="+option);
 		System.out.println("user="+userId);
-		String st=request.getHeader("referer");
+		
 		if(!option.equals("")) {
 		info= pid +"/"+pname +"/"+ price +"/"+ brand +"/"+ stock +"/"+ sellcount +"/"+ option +"/"+ amount;
-		System.out.println("info= "+info);
 		}else {
 			info= pid +"/"+pname +"/"+ price +"/"+ brand +"/"+ stock +"/"+ sellcount +"/"+ amount;
-			System.out.println("info= "+info);
 		}	
 		int result= new ShopService().insertCart(userId,info);
 		
 		if(result>0) {
-			response.setContentType("text/html; charset=UTF-8");
+			
 			response.sendRedirect(request.getHeader("referer"));
 	
 		} else {

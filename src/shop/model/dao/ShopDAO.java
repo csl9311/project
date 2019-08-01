@@ -721,7 +721,10 @@ public class ShopDAO {
 			
 			while(rset.next()) {
 				info.add(rset.getString("PRODUCT_DATA"));
+				
+				
 			}
+			System.out.println("info="+info.get(0));
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
