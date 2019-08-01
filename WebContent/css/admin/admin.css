@@ -28,7 +28,7 @@ table {
 
 select {
 	color: black;
-	height: 3vh;
+	height: 21px;
 	min-width: 40px;
 }
 
@@ -108,10 +108,15 @@ tr, td, th {
 	display: none;
 	padding: 0px;
 }
+.radioM {
+	background-image: url("../../img/memberImg/M.png");
+	width : 30px; height: 30px;
+}
+.radioW {
+	background-image: url("../../img/memberImg/W.png");
+	width : 30px; height: 30px;
+}
 .radioM, .radioW{
-	width: 10px;
-	height: 10px;
-	background: white;
 }
 .news, .sms{
 	width: 10px;
