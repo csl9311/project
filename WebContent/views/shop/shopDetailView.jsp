@@ -8,7 +8,6 @@
 
 	ArrayList<Review> rList = (ArrayList<Review>) request.getAttribute("rList"); // 유저의 리뷰와 QnA질문
 	ArrayList<Answer> aList = (ArrayList<Answer>) request.getAttribute("aList"); // 관리자의 리뷰 답변과 QnA질문 답변
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -63,7 +62,8 @@
 								<td colspan='2' id="title"><%=p.getpName()%></td>
 							</tr>
 							<tr>
-								<td colspan='2' id="oneOrdPrice"><%=p.getPrice()%>원</td>
+								<td colspan='2' id="oneOrdPrice"><%=p.getPrice()%>원
+								</td>
 							</tr>
 						</thead>
 						<tbody id="itemTableTbody">
@@ -73,12 +73,7 @@
 									<span>택배배송</span> 평균 2일 이내 배송(토,일,공휴일제외) <img alt="안내창" src="<%=request.getContextPath()%>/img/shopImg/question-mark.png">
 								</td>
 							</tr>
-							<!-- 							<tr>
-								<td>배송비</td>
-								<td>3,000원(xx원 이상 구매시 무료)</td>
-							</tr>
- -->
- 							<!-- 옵션이 있을 시/ -->
+							<!-- 옵션이 있을 시 -->
 							<%
 								if (!option.isEmpty()) {
 							%>
@@ -97,10 +92,24 @@
 									</select>
 								</td>
 							</tr>
+							<!-- 옵션이 없을 시 -->
+							<%
+								} else {
+							%>
+							<tr>
+								<td>수량</td>
+								<td>
+									<div id="noOption" class="amount_Btns">
+										<button class="amount_Btn group" type="button" onclick="plus(); totalPrice(); selectOp();">▲</button>
+										<input type="text" value="1">
+										<button class="amount_Btn group" type="button" onclick="minus(); totalPrice(); selectOp();">▼</button>
+									</div>
+								</td>
+							</tr>
+
 							<%
 								}
 							%>
-							<!-- 옵션이 있을 시/ -->
 						</tbody>
 						<tr>
 							<td>합계</td>
@@ -111,28 +120,24 @@
 				<div class="ct_btn">
 						<ul id="ct_btn_ul">
 							<li>
-							<form action ="<%=request.getContextPath()%>/cart.ca" name="itemForm" method="post" id="itemForm">
-								<input type="hidden" id="pId" name="pId" value="<%=p.getpId() %>">
-								<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>">
-								<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>">
-								<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>">
-								<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>">
-								<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>">
-								<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>">
-								<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>">
-								<input type="hidden" id="option" name="option" value="">
-								<input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>">
-								<input type="hidden" id="amount" name="amount" value="1">
-								<input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
-								<input type="hidden" id= "ur" name="ur" value="<%=request.getRequestURL()%>">
- 								<div id="ct_btn_cart">
-									<input type="submit" class="color1" style="background:inherit; border:none; width: 12vw; height:100%; font-weight: 600 !important;" value="CART">
-								</div>
-							</form>
+									<div id="ct_btn_cart">
+								<form action="" id="itemform" name="itemForm" method="get">
+									<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>">
+									<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>">
+									<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>">
+									<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>">
+									<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>">
+									<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>">
+									<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>">
+									<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>">
+									<input type="hidden" id="option" name="option" value=""> <input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> <input type="hidden" id="amount" name="amount" value="1"> <input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
+										<button id="cartbtn" style="width: 100%; height: 100%;">CART</button>
+								</form>
+									</div>
 							</li>
 							<li>
 								<div id="ct_btn_buy">
-									<input type="submit" class="color1" style="background:inherit; border:none; width: 12vw; height:100%; font-weight: 600 !important;" value="BUY">
+									<button id="buybtn" style="width: 100%; height: 100%;" form="itemForm">BUY</button>
 								</div>
 							</li>
 						</ul>
@@ -210,7 +215,7 @@
 
 							<!-- DB 데이터 수에 따라 추가될 tr 부분 시작 -->
 							<tr class="reviewTitle">
-								<td id="rId<%=i%>"><%=rList.get(i).getrId()%></td> 
+								<td id="rId<%=i%>"><%=rList.get(i).getrId()%></td>
 								<td id="rtitle<%=i%>"><%=rList.get(i).getrTitle()%></td>
 								<td id="rWriter<%=i%>" class="writer"><%=rList.get(i).getrWriter()%></td>
 								<td id="modifyDate<%=i%>"><%=rList.get(i).getModifyDate()%></td>
@@ -228,7 +233,7 @@
 
 									</div>
 									<%
-										if (!aList.isEmpty() && rList.get(i).getrId()==aList.get(i).getaRId()) {
+										if (!aList.isEmpty() && rList.get(i).getrId() == aList.get(i).getaRId()) {
 									%>
 									<div class="text_box_title">
 										<blockquote>
@@ -244,10 +249,13 @@
 									</div>
 								</td>
 							</tr>
-									<%
-										}}}}
-									%>
-									
+							<%
+								}
+										}
+									}
+								}
+							%>
+
 							<!-- DB 데이터 수에 따라 추가될 tr 부분 끝 -->
 						</table>
 					</div>
@@ -279,7 +287,7 @@
 							<%
 								} else {
 									for (int i = 0; i < rList.size(); i++) {
-									if (rList.get(i).getrType() == 2) {
+										if (rList.get(i).getrType() == 2) {
 							%>
 
 							<!-- DB 데이터 수에 따라 추가될 tr 부분 시작 -->
@@ -295,14 +303,14 @@
 									<div class="text_box">
 										<blockquote id="rContent<%=i%>">
 											<%=rList.get(i).getrContent()%>
-											<br> <br> <br>	
+											<br> <br> <br>
 										</blockquote>
 										<span id="updateQ<%=i%>" class="update"> <a href="views/shop/shopReviewView.jsp">UPDATE</a>
 										</span>
 
 									</div>
 									<%
-									if (!aList.isEmpty() && rList.get(i).getrId()==aList.get(i).getaRId()) {
+										if (!aList.isEmpty() && rList.get(i).getrId() == aList.get(i).getaRId()) {
 									%>
 									<div class="text_box_title">
 										<blockquote>
@@ -319,7 +327,10 @@
 								</td>
 							</tr>
 							<%
-							}}}}
+								}
+										}
+									}
+								}
 							%>
 						</table>
 						<!-- DB 데이터 수에 따라 추가될 tr 부분 끝 -->
@@ -404,9 +415,13 @@
 			var totalPrice = 0;
 			var eleCount = $('.itemPrice_span').length - 1;
 
+			<%if (!option.isEmpty()) {%>
 			for (var i = 0; i < eleCount; i++) {
 				totalPrice += parseInt($('#itemTableTbody .itemPrice_span').eq(i).text());
 			}
+			<%} else {%>
+				totalPrice = <%=p.getPrice()%> * $('#noOption input[type=text]').val();
+			<%}%>
 			$('#totPrice').text(totalPrice);
 			$('#price').val(totalPrice);
 			console.log(totalPrice);
@@ -420,51 +435,63 @@
 		// 옵션
 		function selectOp() {
 			var selectOption = "";
+			console.log(1234);
 			var eleCount = $('.itemPrice_span').length - 1;
 			var amount = 0;
+			<%if (!option.isEmpty()) {%>
 			for (var i = 0; i < eleCount; i++) {
 				if (i == eleCount - 1) {
 					selectOption += $('.amount_name').eq(i).text() + ","
 							+ $('input[type=text]').eq(i + 1).val();
-					amount += parseInt($('input[type=text]').eq(i + 1).val());
+					amount += parseInt($('#Index input[type=text]').eq(i).val());
 				} else {
 					selectOption += $('.amount_name').eq(i).text() + ","
 							+ $('input[type=text]').eq(i + 1).val() + ",";
-					amount += parseInt($('input[type=text]').eq(i + 1).val());
+					amount += parseInt($('#Index input[type=text]').eq(i).val());
 				}
 			}
+			<%} else {%>
+				amount = $('#noOption input[type=text]').val();
+			<%}%>
 			console.log(selectOption);
 			console.log(amount);
 			$('#option').val(selectOption);
 			$('#amount').val(amount);
 		}
 
+		// update popUp
+		$('.update').on('click', function(){
+			window.open("views/shop/shopReviewView.jsp", "상품평 수정", 'width=600px, height=700px, left=0, top=0, toolbar=0, location=0, resizable=0, status=0, menubar=0, scrollbars=0');
+			System.out.println("바뀜?");
+		});
+
+
 		// 리뷰 제목 누르면 펼쳐지는 이벤트
 		$('.reviewTitle').on('click', function() {
 			$(event.target).parents('.reviewTitle').next().toggle();
 		});
-		
+
 		// review와 QnA에서 로그인 유저의 아이디와 일치하면 수정하는 버튼 보이기
 		 $(function(){
 			for(var i = 0; i < <%=rList.size()%>; i++) {
-	 			<%if(loginUser != null){%>
+	 			<%if (loginUser != null) {%>
 	 			var rWriter = $('#rWriter'+i); /* 리뷰 작성자 */
 	 			var aWriter = $('#aWriter'+i); /* 리뷰 답변인 */
 	 			var qWriter = $('#qWriter'+i); /* QnA 작성자 */
 	 			var qnaWriter = $('#qnaWriter'+i); /* QnA 답변인 */
-				var userId = "<%=loginUser.getId()%>"; 
-			 	if(userId == $('#rWriter'+i).text()) {
-					$('#updateR'+i).toggle();
-				} else if(userId == $('#aWriter'+i).text()){
-					$('#updateA'+i).toggle();	
-				} else if(userId == $('#qWriter'+i).text()){
-					$('#updateQ'+i).toggle();
-				} else if(userId == $('#qnaWriter'+i).text()){
-					$('#updateQna'+i).toggle();
+				var userId = "<%=loginUser.getId()%>";
+				if (userId == $('#rWriter' + i).text()) {
+					$('#updateR' + i).toggle();
+				} else if (userId == $('#aWriter' + i).text()) {
+					$('#updateA' + i).toggle();
+				} else if (userId == $('#qWriter' + i).text()) {
+					$('#updateQ' + i).toggle();
+				} else if (userId == $('#qnaWriter' + i).text()) {
+					$('#updateQna' + i).toggle();
 				}
-			<%}%>
-				}
-		}); 
+	<%}%>
+		}
+		});
 		// 창 사이즈 줄어들면 화면 css변경
 		var windowWidth = $(window).width();
 		function cssResize() {
@@ -492,6 +519,15 @@
 			windowWidth = $(window).width();
 			cssResize();
 		});
+		
+		$('#cartbtn').click(function(){
+		   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
+		   $('#itemform').submit();
+		});
+         
+   
+		
+		
 	</script>
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>

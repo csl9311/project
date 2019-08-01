@@ -46,7 +46,7 @@
          location.href="<%= request.getContextPath()%>/views/MyPage/check.jsp";
       }
       function cart(){
-         location.href="<%= request.getContextPath()%>/views/MyPage/cart.jsp"
+         location.href="<%= request.getContextPath()%>/selectcart.ca"
       }
   		function purchase(){
 		location.href="<%= request.getContextPath()%>/views/MyPage/purchase.jsp";

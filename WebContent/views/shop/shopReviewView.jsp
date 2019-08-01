@@ -6,12 +6,17 @@
 <meta charset="UTF-8">
 <title>shopReviewView</title>
 <style type="text/css">
+body{
+	margin: 0;
+	padding: 0;
+	width: 600px;
+	height: 700px;
+}
 *:focus {
 	outline: none;
 }
 
 #index {
-	
 }
 
 .pointer {
@@ -21,11 +26,13 @@
 #wrap {
 	/* width: 50vw; */
 	max-width: 600px;
-	background-color: rgb(42, 45, 52);
+	/* background-color: rgb(42, 45, 52); */
+	background-color: pink;
 	color: rgb(210, 210, 210);
 	position: relative;
 	display: flex;
 	justify-content: center;
+	
 }
 
 #upper {
