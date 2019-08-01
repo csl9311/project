@@ -49,20 +49,19 @@ public class CartServlet extends HttpServlet {
 		System.out.println("user="+option);
 		System.out.println("user="+userId);
 		String st=request.getHeader("referer");
-	
+		if(!option.equals("")) {
 		info= pid +"/"+pname +"/"+ price +"/"+ brand +"/"+ stock +"/"+ sellcount +"/"+ option +"/"+ amount;
 		System.out.println("info= "+info);
+		}else {
+			info= pid +"/"+pname +"/"+ price +"/"+ brand +"/"+ stock +"/"+ sellcount +"/"+ amount;
+			System.out.println("info= "+info);
+		}
 		
 		
 		int result= new ShopService().insertCart(userId,info);
 		
 		if(result>0) {
 			response.setContentType("text/html; charset=UTF-8");
-
-			PrintWriter out= response.getWriter();
-			out.println("<script>");
-			out.println("alert('장바구니에 추가되었습니다.');");
-			out.println("</script>");
 			response.sendRedirect(request.getHeader("referer"));
 			
 		
