@@ -1,6 +1,7 @@
 package shop.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import product.model.vo.Product;
 import shop.model.service.ShopService;
+import shop.model.vo.Answer;
+import shop.model.vo.Review;
 
 @WebServlet("/shopDetail.do")
 public class ShopDetailServlet extends HttpServlet {
@@ -26,6 +29,13 @@ public class ShopDetailServlet extends HttpServlet {
 		
 		ShopService service = new ShopService();
 		Product p = service.selectProduct(pId);
+		
+		ArrayList<Review> rList = service.selectReviewList(pId);
+		ArrayList<Answer> aList = service.selectAnswerList(pId);
+		
+		System.out.println("rList: " + rList);
+		System.out.println("aList: " + aList);
+		
 		String option = "";
 		
 		String page = null;
@@ -37,6 +47,8 @@ public class ShopDetailServlet extends HttpServlet {
 				System.out.println(option);
 			}
 			request.setAttribute("option", option);
+			request.setAttribute("rList", rList); 
+			request.setAttribute("aList", aList);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "상품 상세페이지 조회에 실패했습니다.");

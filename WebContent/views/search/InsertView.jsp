@@ -161,7 +161,7 @@ body{
 					    <span>3곡</span><input type="number" class="form-control" style="width:200px;" step="100" id="three">
 					  </div>
 					  <div class="form-group inline1">
-					  	<strong>영업시간</strong><input type="time" class="form-control sm" name="startTime" id="startTime">~<input type="time" class="form-control sm" name="endTime" id="endTime">
+					  	<strong>영업시간</strong><input type="time" class="form-control sm" name="startTime" id="startTime"><input type="time" class="form-control sm" name="endTime" id="endTime">
 					  </div>
 					  <div class="form-group">
 					  	<p><strong>타이틀 사진 첨부</strong><span class="subfont">(선택된 사진이 대표 사진이 됩니다.)</span></p>
