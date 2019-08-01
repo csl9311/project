@@ -1,6 +1,5 @@
 package karaoke.model.dao;
 
-
 import static common.JDBCTemplate.*;
 
 import java.io.FileNotFoundException;
