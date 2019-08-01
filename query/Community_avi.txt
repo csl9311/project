@@ -15,11 +15,8 @@ CREATE TABLE BOARD(
   STATUS VARCHAR2(1) DEFAULT 'Y' CHECK (STATUS IN('Y', 'N')),
 
   );
---CREATE SEQUENCE SEQ_BID;
---drop sequence SEQ_BID;
-commit;
--- BOARD ��ȸ�� ������ ���� 
-grant create view to cono -- view �������� ���࿬
+CREATE SEQUENCE SEQ_BID;
+--grant create view to cono -- view 생성안될때 이거쓰세요
 
 
 --영상 게시판 뷰
@@ -50,8 +47,7 @@ CREATE TABLE AREPLY(
     
   
     
-DROP TABLE AREPLY;
-drop view arlist;
+
 
 CREATE  VIEW ARLIST
 AS 
@@ -89,3 +85,11 @@ FROM (SELECT BID, BTYPE, CNAME, BTITLE, BCONTENT, NICKNAME, BCOUNT, B.CREATE_DAT
       JOIN CATEGORY C ON(B.CID = C.CID)
       WHERE B.STATUS = 'Y'
       ORDER BY BID DESC);
+      
+      
+ DROP TABLE AREPLY;
+drop view arlist;
+
+--drop sequence SEQ_BID;
+commit;
+-- BOARD ��ȸ�� ������ ���� 
