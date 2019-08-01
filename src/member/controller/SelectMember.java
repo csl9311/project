@@ -14,10 +14,10 @@ import member.model.vo.Address;
 import member.model.vo.Member;
 
 @WebServlet("/selectMember")
-public class selectMember extends HttpServlet {
+public class SelectMember extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public selectMember() {}
+	public SelectMember() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

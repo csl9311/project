@@ -13,7 +13,6 @@ import member.model.vo.Address;
 import member.model.vo.Member;
 
 public class MemberService {
-
 	public ArrayList<Member> selectAll() {
 		Connection conn = getConnection();
 		ArrayList<Member> list = new MemberDAO().selectAll(conn);
@@ -39,7 +38,15 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	// 아이디 중복체크
+	public int idCheck(String id) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().idCheck(conn, id);
+		close(conn);
+		return result;
+	}
 
+	
 	public int insertMember(Member member) {
 		Connection conn = getConnection();
 		int result = new MemberDAO().insertMember(conn, member);
@@ -51,6 +58,7 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	
 
 	public Member loginMember(Member member) {
 		Connection conn = getConnection();
@@ -91,5 +99,6 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
 
 }

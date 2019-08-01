@@ -83,6 +83,7 @@ public class MemberDAO {
 		return member;
 	}
 
+	// 마이페이지에서 개인정보수정 접근 시
 	public boolean pwCheck(Connection conn, String id, String pw) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -160,7 +161,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	
+
 	// 관리자페이지에서 회원정보 수정
 	public int adminUpdateMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
@@ -187,13 +188,13 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	
+
 	// 주소 가져오기
 	public ArrayList<Address> getAddress(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Address> addressList = null;
-		
+
 		String query = prop.getProperty("getAddress");
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -214,12 +215,13 @@ public class MemberDAO {
 		}
 		return addressList;
 	}
+
 	// 해당 아이디의 주소 가져오기
 	public int getAddressCount(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("getAddressCount");
 
 		try {
@@ -237,7 +239,8 @@ public class MemberDAO {
 		}
 		return result;
 	}
-
+	
+	// 주소 수정
 	public int addressUpdate(Connection conn, Address add) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -249,11 +252,36 @@ public class MemberDAO {
 			pstmt.setString(2, add.getAddress());
 			pstmt.setString(3, add.getAddress_detail());
 			pstmt.setInt(4, add.getAddress_code());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	// 아이디 중복확인
+	public int idCheck(Connection conn, String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("idCheck");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			System.out.println(query);
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		return result;

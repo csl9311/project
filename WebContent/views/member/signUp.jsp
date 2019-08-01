@@ -4,7 +4,6 @@
 	String idCheckMsg = (String) request.getAttribute("idCheck");
 	String nickCheckMsg = (String) request.getAttribute("pwCheck");
 %>
-
 <%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -165,59 +164,66 @@ input[type=password] {
 		</form>
 	</div>
 	<script>
-		
+	<%-- 모든 조건 충족 시 버튼 활성화 --%>
+	function buttonActive() {
+		if (idUsable && pwUsable && nickUsable) {
+			$('#submit').removeAttr('disabled').css({'background' : 'green'});
+		}
+	}
+	
 	<%-- 아이디 사용 가능 여부 (정규식 및 중복확인) --%>
 		var $id = $('#id');
-		var idUsable = false;
-		var idChecked = false;
-
+		// 페이지 입장 시 id태그에 focus
 		$id.focus();
+		// 사용가능여부 : 사용 가능 할 때 true 반환
+		var idUsable = false;
+		// 중복체크 : 사용 가능 할 때 true 반환
+		var idChecked = false;
+		
+		// 정규식
+		// 첫 글자는 [a-zA-Z0-9]로 시작하고
+		// 문장 내에 [a-zA-Z0-9_]를 사용 가능하다
+		// 4자리 이상, 11자리 이하
+		var regId = /^{a-zA-Z0-9_}+$/;
 		$id.change(function() {
-			console.log($id.val());
-			if ($id.val().length == 0) {
-				$('#idResultTd').text('아이디를 입력해주세요.');
-				$('#idResultTr').css({
-					'color' : 'red',
-					'display' : 'table-row',
-					'height' : '1vh'
-				});
+			if(!idUsable || !idChecked){
 				$id.focus();
+				// 둘 중 하나만 false여도 둘 다 false
 				idUsable = false;
-			} /* else if (!regId.test($id)) {
-				$('#idResultTd').text('아이디에 사용 불가능한 문자가 포함되어있습니다.');
-				$('#idResultTr').css({
-					'color' : 'red',
-					'display' : 'table-row',
-					'height' : '1vh'
-				});
-				$id.focus();
-				idUsable = false; 
-			} */ else if ($id.val().length < 6) {
-				$('#idResultTd').text('아이디는 최소 6자리 이상이어야 합니다.');
-				$('#idResultTr').css({
-					'color' : 'red',
-					'display' : 'table-row',
-					'height' : '1vh'
-				});
-				$id.focus();
-				idUsable = false;
-			} else if (idChecked) {
-				$('#idResultTd').text('이미 사용중인 아이디입니다.');
-				$('#idResultTr').css({
-					'color' : 'red',
-					'display' : 'table-row',
-					'height' : '1vh'
-				});
-				$id.focus();
-				idUsable = false;
+				idChecked = false;
+				// 에러메시지 띄울 tr css 변경
+				$('#idResultTr').css({ 'color' : 'red', 'display' : 'table-row', 'height' : '1vh' });
+				
+				if($id.val().length == 0){
+					$('#idResultTd').text('아이디를 입력해주세요.');
+				} else if ($id.val().length < 6) {
+					$('#idResultTd').text('아이디는 최소 6자리 이상이어야 합니다.');
+				} else if (!regId.test($id.val())){
+					console.log($id.val().length);
+					$('#idResultTd').text('아이디에 사용 불가능한 문자가 포함되어 있습니다.');
+				} else if(!idChecked) {
+					// 중복확인 ajax
+					$.ajax({
+						url: "<%=request.getContextPath()%>/member.idCheck",
+						type: 'post',
+						data:{id:$id.val()},
+						success: function(data){
+							if(data == "success"){
+								idChecked = true;
+							} else {
+								isUsable = false;
+								isIdChecked = false;
+								$('#idResultTd').text('이미 사용중인 아이디입니다.');
+							}
+						}
+					});
+				} else {
+					idUsable = true;
+					idChecked = true;
+				}
 			} else {
 				$('#idResultTd').text('사용 가능한 아이디입니다.');
-				$('#idResultTr').css({
-					'color' : 'white',
-					'display' : 'table-row',
-					'height' : '1vh'
-				});
-				idUsable = true;
+				$('#idResultTr').css({ 'color' : 'white', 'display' : 'table-row', 'height' : '1vh'});
 				buttonActive();
 			}
 		});
@@ -230,38 +236,32 @@ input[type=password] {
 		var pwUsable2 = false;
 
 		$pw.on("change paste keyup", function() {
-			if ($pw.val().length < 6) {
-				$('#pwResultTd').text('6자리 이상의 비밀번호를 입력해주세요.');
-				$('#pwResultTr').css({
-					'color' : 'red',
-					'display' : 'table-row',
-					'height' : '1vh'
-				});
-				pwUsable = false;
-				pwUsable1 = false;
-				$pw.focus();
-			} else if (!regPw.test($pw.val())) {
-				$('#pwResultTd').text('영문과 숫자, 특수문자가 각 1회 이상 사용되어야합니다.');
-				$('#pwResultTr').css({
-					'color' : 'red',
-					'display' : 'table-row',
-					'height' : '1vh'
-				});
-				pwUsable = false;
-				pwUsable1 = false;
-				$pw.focus();
+			if (!pwUsable1 || !pwUsable) {
+				$('#pwResultTr').css({ 'color' : 'white', 'display' : 'table-row', 'height' : '1vh' });
 			} else {
 				$('#pwResultTd').text('사용 가능한 비밀번호입니다.');
-				$('#pwResultTr').css({
-					'color' : 'white',
-					'display' : 'table-row',
-					'height' : '1vh'
-				});
 				pwUsable1 = true;
 				if (pwUsable2) {
 					pwUsable = true;
 					buttonActive();
 				}
+			}
+			
+			
+			if ($pw.val().length < 6) {
+				$('#pwResultTd').text('6자리 이상의 비밀번호를 입력해주세요.');
+				
+				pwUsable = false;
+				pwUsable1 = false;
+				$pw.focus();
+			} else if (!regPw.test($pw.val())) {
+				$('#pwResultTd').text('영문과 숫자, 특수문자가 각 1회 이상 사용되어야합니다.');
+				
+				pwUsable = false;
+				pwUsable1 = false;
+				$pw.focus();
+			} else {
+				
 			}
 		});
 		$pwCheck.on('change paste keyup', function() {
@@ -312,16 +312,25 @@ input[type=password] {
 				});
 				nickUsable = false;
 				$nickName.focus();
-			} */ else if (nickCheck) {
-				$('#nickNameResultTd').text('이미 사용중인 닉네임입니다.');
-				$('#nickNameResultTr').css({
-					'color' : 'red',
-					'display' : 'table-row',
-					'height' : '1vh'
-				});
-				nickUsable = false;
-				$nickName.focus();
-			} else {
+			} */
+				else if(!nickChecked) {
+					// 중복확인 ajax
+					$.ajax({
+						url: "<%=request.getContextPath()%>/member.nickCheck",
+						type: 'post',
+						data:{nickName:$nickName.val()},
+						success: function(data){
+							if(data == "success"){
+								idChecked = true;
+							} else {
+								isUsable = false;
+								isIdChecked = false;
+								$('#idResultTd').text('이미 사용중인 아이디입니다.');
+							}
+						}
+					});
+				}
+			 else {
 				$('#nickNameResultTd').text('사용 가능한 아이디입니다.');
 				$('#nickNameResultTr').css({
 					'color' : 'white',
@@ -332,14 +341,7 @@ input[type=password] {
 				buttonActive();
 			}
 		});
-	<%-- 모든 조건 충족 시 버튼 활성화 --%>
-		function buttonActive() {
-			if (idUsable && pwUsable && nickUsable) {
-				$('#submit').removeAttr('disabled').css({
-					'background' : 'green'
-				});
-			}
-		}
+	
 	</script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
 </body>
