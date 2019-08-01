@@ -38,7 +38,7 @@
 }
 
 #Index li div, #Index li img, #Index select, #Index button,
-	.amount_dltBtn {
+	.amount_dltBtn, .reviewTitle {
 	cursor: pointer;
 }
 
@@ -47,7 +47,7 @@
 	color: rgb(210, 210, 210);
 }
 
-#Index, .text_box_title, .amount_name, #ct_col_rgt td:nth-child(2n+1) {
+#Index, .amount_name, #ct_col_rgt td:nth-child(2n+1) {
 	text-align: left;
 }
 
@@ -140,7 +140,7 @@ input[type="text"], .amount_Btn, .amount_dltBtn, .sct_btn, select {
 	border-bottom: none !important;
 }
 
-#ct_col_rgt #price {
+#ct_col_rgt #oneOrdPrice {
 	font-size: 2.5rem;
 	padding: 0% 0% 3% 0%;
 }
@@ -340,11 +340,16 @@ blockquote {
 .cb_table .text_box:nth-child(2n) {
 	margin-top: 2%;
 }
-
+.cb_table .text_box{
+	padding-top: 2%;
+	min-height: 150px;
+	display: inline-block;
+}
 .update {
 	background: none;
 	margin-top: auto;
 	margin-left: auto;
+	display: none;
 }
 
 .update a {

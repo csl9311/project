@@ -158,7 +158,6 @@
 					<td colspan="2"><%=i+1 %> 번째 주소
 					<input type="hidden" name="address_code" value="<%=address.getAddress_code()%>">
 					<input type="hidden" name="member_id" value="<%=member.getId()%>">
-					<input type="hidden" name="page" value="/selectMember">
 					</td>
 				</tr>
 				<tr>
