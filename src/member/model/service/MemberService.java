@@ -45,6 +45,14 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	// 닉네임 중복체크
+	public int nickCheck(String nickName) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().nickCheck(conn, nickName);
+		close(conn);
+		return result;
+	}
+
 
 	
 	public int insertMember(Member member) {
@@ -111,6 +119,7 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
 
 
 }
