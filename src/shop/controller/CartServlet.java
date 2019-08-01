@@ -55,25 +55,20 @@ public class CartServlet extends HttpServlet {
 		}else {
 			info= pid +"/"+pname +"/"+ price +"/"+ brand +"/"+ stock +"/"+ sellcount +"/"+ amount;
 			System.out.println("info= "+info);
-		}
-		
-		
+		}	
 		int result= new ShopService().insertCart(userId,info);
 		
 		if(result>0) {
 			response.setContentType("text/html; charset=UTF-8");
 			response.sendRedirect(request.getHeader("referer"));
-			
-		
+	
 		} else {
 	         request.setAttribute("msg", "장바구니에 넣지 못하였습니다.");
 	         RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 	 		view.forward(request, response);
 	 		
 	      }
-		
-		
-		
+
 	}
 
 	/**
