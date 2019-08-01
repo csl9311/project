@@ -2,7 +2,6 @@ package member.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,20 +29,16 @@ public class LoginServlet extends HttpServlet {
 		Member member = new Member(userId, userPwd);
 		Member loginUser = new MemberService().loginMember(member);
 		// 각 페이지에서 페이지 정보 받아온 후
-		String page = request.getParameter("page");
-		if(page==null) {
-			// null이라면 메인으로
-			page = "views/index.jsp";
-		}
+		String page ="";
 		if (loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setMaxInactiveInterval(600);
 			session.setAttribute("loginUser", loginUser);
-			request.setAttribute("msg", "로그인 되었습니다.");
+			response.sendRedirect(request.getHeader("referer"));
 		} else {
 			request.setAttribute("msg", "로그인 실패");
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
