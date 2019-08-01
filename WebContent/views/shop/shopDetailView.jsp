@@ -111,16 +111,31 @@
 						</tr>
 					</table>
 					<!-- 장바구니/구매 -->
-					<div class="ct_btn">
+				<div class="ct_btn">
 						<ul id="ct_btn_ul">
 							<li>
-								<div id="ct_btn_cart">
-									<a href="" class="color1"><span>CART</span></a>
+						 	<form action ="<%=request.getContextPath()%>/cart.ca" name="itemForm" method="post" id="itemForm">
+								<input type="hidden" id="pId" name="pId" value="<%=p.getpId() %>">
+								<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>">
+								<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>">
+								<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>">
+								<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>">
+								<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>">
+								<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>">
+								<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>">
+								<input type="hidden" id="option" name="option" value="">
+								<input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>">
+								<input type="hidden" id="amount" name="amount" value="1">
+								<input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
+								<input type="hidden" id= "ur" name="ur" value="<%=request.getRequestURL()%>">
+ 								<div id="ct_btn_cart">
+									<input type="submit" class="color1" style="background:inherit; border:none; width: 12vw; height:100%; font-weight: 600 !important;" value="CART">
 								</div>
+							</form>
 							</li>
 							<li>
 								<div id="ct_btn_buy">
-									<a href="" class="color1"><span>BUY</span></a>
+									<input type="submit" class="color1" style="background:inherit; border:none; width: 12vw; height:100%; font-weight: 600 !important;" value="BUY">
 								</div>
 							</li>
 						</ul>
@@ -484,3 +499,4 @@
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>
 </html>
+

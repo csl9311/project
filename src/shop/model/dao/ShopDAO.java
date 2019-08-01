@@ -681,4 +681,27 @@ public class ShopDAO {
 		}
 		return list;
 	}
+	public int insertCart(Connection conn, String userId, String info) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		
+		String query =prop.getProperty("insertCart");
+		
+		try {
+			pstmt =conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, info);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 }
