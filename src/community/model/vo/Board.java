@@ -18,6 +18,7 @@ public class Board {
 	private Date createDate; // 게시판 작성일
 	private Date modifyDate; // 게시판 수정일
 	private String status; // 게시판 상태
+	private String userWriter;// 로그인한 댓글 작성자
 
 	public Board() {
 
@@ -28,7 +29,6 @@ public class Board {
 		super();
 		this.bid = bid;
 		this.bType = bType;
-
 		this.bTitle = bTitle;
 		this.bAddress = bAddress;
 		this.bContent = bContent;
@@ -42,14 +42,22 @@ public class Board {
 	
 	
 
-	public Board(int bid, String bWriter, int bGood) {
+	public Board(int bid, String bWriter,String userWriter) {
 		super();
 		this.bid = bid;
 		this.bWriter = bWriter;
-		this.bGood = bGood;
+		this.userWriter = userWriter;
 	}
 
 	
+	public String getUserWriter() {
+		return userWriter;
+	}
+
+	public void setUserWriter(String userWriter) {
+		this.userWriter = userWriter;
+	}
+
 	public int getBid() {
 		return bid;
 	}
@@ -140,7 +148,7 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [bid=" + bid + ", bType=" + bType + ", category=" + category + ", bTitle=" + bTitle
+		return "Board [bid=" + bid + ", bType=" + bType + ", bTitle=" + bTitle
 				+ ", bAddress=" + bAddress + ", bContent=" + bContent + ", bWriter=" + bWriter + ", bCount=" + bCount
 				+ ", bGood=" + bGood + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status="
 				+ status + "]";

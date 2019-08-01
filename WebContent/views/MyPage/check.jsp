@@ -42,7 +42,7 @@
 </section>
 <script>
 	function check(){
-		location.href="<%= request.getContextPath()%>/checkpwd.me";
+		location.href="javascript:history.go(-1);";
 	}
 
 	

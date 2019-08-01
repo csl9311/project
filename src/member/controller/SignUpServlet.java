@@ -14,10 +14,10 @@ import member.model.service.MemberService;
 import member.model.vo.Member;
 
 @WebServlet("/member.signUp")
-public class SignUpServlet extends HttpServlet {
+public class signUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public SignUpServlet() {
+	public signUpServlet() {
 		super();
 	}
 

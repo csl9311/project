@@ -86,7 +86,7 @@ public class BoardDAO {
 		return result;
 	}
 
-	public ArrayList<Board> selectList(Connection conn, int currentPage) {
+	public ArrayList<Board> selectList(Connection conn, int currentPage,int listCount) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -97,12 +97,17 @@ public class BoardDAO {
 		int endRow = startRow + posts - 1;
 		System.out.println("스타트" + startRow);
 		System.out.println("끝" + endRow);
+		
+		
+
+		System.out.println("마지막글"+endRow);
+		System.out.println("총갯수"+listCount);
 		String query = prop.getProperty("selectAVIList");
 
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(2, ((listCount+1)-startRow));
+			pstmt.setInt(1, ((listCount+1)-endRow));
 			rset = pstmt.executeQuery();
 
 			list = new ArrayList<Board>();
@@ -246,6 +251,7 @@ public class BoardDAO {
 			
 			pstmt.setInt(1, b.getBid());
 			pstmt.setString(2, b.getbWriter());
+			pstmt.setString(3, b.getUserWriter());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -287,7 +293,7 @@ public class BoardDAO {
 		
 		int result = 0;
 		
-		String query = prop.getProperty("updateBoard");
+		String query = prop.getProperty("updateAviBoard");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -297,8 +303,10 @@ public class BoardDAO {
 			pstmt.setString(1, board.getbTitle());
 			pstmt.setString(2, board.getbContent());
 			pstmt.setString(3, board.getbAddress());
-			
+			System.out.println("ewqewqwe"+board.getbAddress());
+			System.out.println("111"+board.getBid());
 			pstmt.setInt(4, board.getBid());
+			
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -308,6 +316,26 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int deleteBoard(Connection conn, int bno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		return result;
 	}
 
