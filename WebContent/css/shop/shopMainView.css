@@ -6,6 +6,9 @@
 .flex{
 	display: flex;
 }
+.pointer {
+	cursor: pointer;
+}
 .column{
 	flex-direction: column;
 }
@@ -121,14 +124,14 @@
 	margin-top: 1vh;
 	justify-content: space-between;
 }
-#range li{
+#sortBy li{
 	display: inline-flex;
 }
-#range li::after{
+#sortBy li::after{
 	margin: 0 0.5vw 0 0.5vw;
 	content: " | ";
 }
-#range li:last-of-type::after{
+#sortBy li:last-of-type::after{
 	padding: 0;
 	margin: 0;
 	content: "";

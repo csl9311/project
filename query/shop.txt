@@ -54,7 +54,7 @@ create table PRODUCT_OP(
 --- 조회시 사용할 뷰  
            
 create or replace view "CONO"."PLIST"("PID", "PNAME", "CNAME", "SUB_CNAME", 
-                        "BNAME", "PRICE", "STOCK", "SELLCOUNT", "REGDATE", "MODIFT_DATE", "DESCRIPTION", "USEOPTION")
+                        "BNAME", "PRICE", "STOCK", "SELLCOUNT", "REGDATE", "MODIFY_DATE", "DESCRIPTION", "USEOPTION")
 as
 select pid, pname, cname, sub_cname, bname, price, stock, sellcount, regdate, modify_date, description, useoption
 from(select pid, pname, cname, sub_cname, bname, price, stock, sellcount, regdate, modify_date, description, useoption

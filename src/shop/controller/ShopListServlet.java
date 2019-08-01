@@ -26,20 +26,40 @@ public class ShopListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		ShopService service = new ShopService();
 
-		int cid = Integer.parseInt(request.getParameter("cid"));
+		String key = request.getParameter("key");
 		String sortBy = request.getParameter("sort");
-		System.out.println("정렬 기준은? : " + sortBy);
+		int cid = Integer.parseInt(request.getParameter("cid"));
 		String cName = null;
 		switch (cid) {
-		case 10: cName = "스피커"; break;
-		case 20: cName = "헤드셋"; break;
-		case 30: cName = "헤드폰이어폰"; break;
-		case 40: cName = "블루투스사운드"; break;
-		case 50: cName = "마이크"; break;
+		case 10:
+			cName = "스피커";
+			break;
+		case 20:
+			cName = "헤드셋";
+			break;
+		case 30:
+			cName = "헤드폰이어폰";
+			break;
+		case 40:
+			cName = "블루투스사운드";
+			break;
+		case 50:
+			cName = "마이크";
+			break;
 		}
 
 		int listCount = service.getListCount(cName);
-
+		if (key != null && !key.equals("null")) {
+			if(sortBy.equals("stock")) {
+				listCount = service.getKeyNStockListCount(cName, key);
+			} else {
+				listCount = service.getKeyListCount(cName, key);
+			}
+		}
+		if (sortBy != null && !sortBy.equals("null") && sortBy.equals("stock")) {
+			listCount = service.getStockListCount(cName);
+		}
+		
 		int currentPage;
 		int limit;
 		int maxPage;
@@ -49,12 +69,9 @@ public class ShopListServlet extends HttpServlet {
 		currentPage = 1;
 		if (request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-			System.out.println("페이지는? : " + currentPage);
 		}
 
 		limit = 8;
-
-		System.out.println(limit);
 
 		maxPage = (int) ((double) listCount / limit + 0.9);
 		startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
@@ -68,13 +85,16 @@ public class ShopListServlet extends HttpServlet {
 		ArrayList<Product> rankList = service.selectSortList(1, cName, rank);
 
 		ArrayList<Product> list = null;
-		System.out.println("여기서 sortBy의 값은? : " + sortBy);
-		if (sortBy != null && !sortBy.equals("regdate") && !sortBy.equals("null")) {
+		if (sortBy != null && !sortBy.equals("regdate") && !sortBy.equals("null") && key != null
+				&& !key.equals("null")) {
+			list = service.selectKeySortList(currentPage, cName, sortBy, key);
+		} else if (sortBy != null && !sortBy.equals("regdate") && !sortBy.equals("null")) {
 			list = service.selectSortList(currentPage, cName, sortBy);
-			System.out.println("들어왔니?111");
+		} else if (key != null && !key.equals("null")) {
+			list = service.selectkeyList(currentPage, cName, key);
 		} else {
-			System.out.println("들어왔니?222");
 			list = service.selectList(currentPage, cName);
+
 		}
 
 		String page = null;
