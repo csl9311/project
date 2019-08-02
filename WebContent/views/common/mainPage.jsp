@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@ include file="/views/common/coinheader.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -157,6 +156,8 @@
 			var autoSlider = setInterval(function() {
 				plusSlides(1);
 			}, 3000);
+			
+			
 		</script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/main/header.js"> </script>
 	</div>

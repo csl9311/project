@@ -31,7 +31,6 @@ public class LoginServlet extends HttpServlet {
 		// 각 페이지에서 페이지 정보 받아온 후
 		String page ="";
 		if (loginUser != null) {
-
 			session.setMaxInactiveInterval(600);
 			session.setAttribute("loginUser", loginUser);
 			response.sendRedirect(request.getHeader("referer"));

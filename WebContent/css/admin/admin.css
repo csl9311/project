@@ -113,15 +113,8 @@ tr, td, th {
 	height: 1vh;
 }
 
-.gender {
+.newsAgree, .newsDisagree, .smsAgree, .smsDisagree, .gender{
 	width : 30px; height: 30px;
-}
-
-
-.news, .sms{
-	width: 10px;
-	height: 10px;
-	background: white;
 }
 .submit {
 	text-align: center;
