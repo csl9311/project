@@ -7,7 +7,8 @@
     ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
     
 	String arr = board.getbAddress().replaceAll("\"","\'");
-	System.out.println(arr);
+	System.out.println(loginInfo.getNickName());
+	
    
     %>
 <!DOCTYPE html>
@@ -72,7 +73,7 @@ ul{
 										</div>
 										<div style="margin-bottom:40px;">
 								<div class="updatedeletebtn" style="float:right; display:none; ">
-									<button class="edit boardEdit" type="submit">수정</button> <button class="edit boardDelete"type="button" onclick="deleteBoard();">삭제</button>
+									<button class="edit boardEdit" type="submit">수정</button> ||<button class="edit boardDelete"type="button" onclick="deleteBoard();">삭제</button>
 								</div>
 								
 								</div>
@@ -114,7 +115,7 @@ ul{
 					<td><br>
 						<hr style="border:1px solid gray"> <br>
 						<div class="readAviReview"
-							style="width: 80vw; height: auto; text-align:left; border: 1px solid black; display: inline-block; margin: 5px;
+							style="width: 80vw; height: auto; text-align:left; display: inline-block; margin: 5px;
 							padding:5px;">
 					<!-- 		<table>
 								<tr>
@@ -141,25 +142,31 @@ ul{
 							<%
 							for (int i = 0; i < list.size(); i++) {
 							%>
-							<div id="replycontent" >
+							<div id="replycontent" style="border-bottom:0.1px solid gray;" >
 							<ul >
 							<li style="display:inline-block">
 								<span style="font-size:13px;font-weight:bolder;"><%=list.get(i).getrWriter() %></span>
 							
 								<span style="font-size:10px"><%=list.get(i).getModifyDate() %></span>
-								<%if(loginUser!=null){ %>
-								<%if(loginInfo.getNickName().equals(list.get(i).getrWriter()))  {%>
-								<span style="font-size:12px;" class="deleteReply" onclick=deleteReply(<%=list.get(i).getrId() %>)>삭제</span>
+								<%if(loginUser!=null) { %>
+								<%if(loginInfo.getNickName().equals(list.get(i).getrWriter()) || loginInfo.getNickName().equals("관리자"))  {%>
+							
+								<span style="font-size:12px;margin-left:70vw" class="deleteReply" onclick=deleteReply(<%=list.get(i).getrId() %>)>삭제</span>
+							
 								<%} %>
 								<%} %>
 							</li>
 								<li>
 								
 								<span><%=list.get(i).getrContent()%></span>
+							
 								</li>
 							
 							</ul>
+							
+								
 							</div>
+							
 							<%} %>
 							<%} %>  
 							
@@ -316,10 +323,14 @@ ul{
 		$(document).ready(function(){
 			
 			<%if(loginUser != null){ %>
-			<%if(loginUser.getNickName().equals(board.getbWriter())) {%>
+			<%if(loginUser.getNickName().equals(board.getbWriter())){%>
 				 $('.updatedeletebtn').css("display","inline-block");
+			
 			<%}%>
-		
+			 <%if(loginInfo.getNickName().equals("관리자")){%>
+			 $('.updatedeletebtn').css("display","inline-block");
+			 $('.boardEdit').css("display","none");
+			 <%}%>
 			
 		<%-- 	$('.boardEdit').click(function(){ 
 				var bid = '<%=board.getBid() %>';
