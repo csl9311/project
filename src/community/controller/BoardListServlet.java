@@ -59,7 +59,7 @@ public class BoardListServlet extends HttpServlet {
 		}
 		System.out.println("게시글갯수" + listCount);
 			
-		if(listCount==0) {
+		if(listCount==0 && b.getbContent()!=null) {
 			request.setAttribute("error",'1');
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "검색 결과가 없습니다.");
@@ -115,7 +115,7 @@ public class BoardListServlet extends HttpServlet {
 		catch (IndexOutOfBoundsException e) {
 			
 		}
-		if(listCount>0) {
+		if(listCount>=0) {
 		if (list != null) {
 			page = "views/community/aviBoardListView.jsp";
 			request.setAttribute("search",b);
