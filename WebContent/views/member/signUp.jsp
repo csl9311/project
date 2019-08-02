@@ -49,7 +49,7 @@ input {
 		}
 	</script>
 	<div class="content">
-		<form action="<%=request.getContextPath()%>/member.signUp" method="post">
+		<form action="<%=request.getContextPath()%>/member.signUp" method="post" onsubmit="checkAttr">
 			<table class="signUpTable">
 				<tr>
 					<td class="rowTitle">아이디</td>
@@ -89,17 +89,17 @@ input {
 				</tr>
 				<tr>
 					<td class="rowTitle">연락처</td>
-					<td><select name="tel">
-							<option value="KT">KT</option>
-							<option value="LG U+">LG U+</option>
-							<option value="SKT">SKT</option>
-						</select>
-						<input type="text" id="phone" name="phone" class="phone">
+					<td>
+						<input type="text" id="phone1" name="phone" class="phone">
 						<label>-</label>
-						<input type="text" name="phone" class="phone">
+						<input type="text" id="phone2" name="phone" class="phone">
 						<label>-</label>
-						<input type="text" name="phone" class="phone">
+						<input type="text" id="phone3" name="phone" class="phone">
 					</td>
+				</tr>
+				<tr class="resultLabel" id="phoneResultTr">
+					<td></td>
+					<td id="phoneResultTd"></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">생년월일</td>
@@ -139,17 +139,17 @@ input {
 				<tr>
 					<td class="rowTitle">우편번호</td>
 					<td>
-						<input type="text" name="postNum">
+						<input type="text" name="postNum" readonly>
 						<button type="button" id="postNum" onclick="">우편번호 검색</button>
 					</td>
 				</tr>
 				<tr>
 					<td class="rowTitle">주소</td>
-					<td><input type="text" name="address"></td>
+					<td><input type="text" name="address" readonly></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">상세주소</td>
-					<td><input type="text" name="addressDetail"></td>
+					<td><input type="text" name="addressDetail" readonly></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">이메일</td>
@@ -214,16 +214,24 @@ input {
 	});
 	
 	
-	
-	
-	
 	<%-- 모든 조건 충족 시 버튼 활성화 --%>
 	function buttonActive() {
-		if (idUsable && pwUsable && nickUsable) {
+		if (idUsable && pwUsable && nickUsable && phoneUsable) {
 			$('#submit').removeAttr('disabled').css({'background' : 'green'});
 		} else {
 			$('#submit').prop('disabled', 'disabled').css({'background' : 'gray'});
 			
+		}
+	}
+	
+	<%-- submit시 radio버튼 체크여부 확인 --%>
+	function checkAttr(){
+		if(!$('input:radio[name=gender]').is(':checked')){
+			alert('성별을 체크해주세요');
+		} else if(!$('input:radio[name=news]').is(':checked')){
+			alert('뉴스메일 수신여부를 체크해주세요');
+		} else if(!$('input:radio[name=sms]').is(':checked')){
+			alert('sms 수신여부를 체크해주세요');
 		}
 	}
 	
@@ -239,58 +247,47 @@ input {
 	// 4자리 이상, 11자리 이하
 	var regId = /^[a-zA-Z]/
 	var regId2 = /[a-zA-Z0-9_]+$/;
+	// 사용가능여부 : 사용 가능 할 때 true 반환
 	var idUsable = false;
+	// 중복체크 : 사용 가능 할 때 true 반환
+	var idChecked = false;
 	$id.change(function() {
-		
-		// 사용가능여부 : 사용 가능 할 때 true 반환
-		var idChecked = false;
-		// 중복체크 : 사용 가능 할 때 true 반환
-		// 둘 중 하나라도 false 라면
-		if(!idUsable || !idChecked){
-			// 에러메시지 띄울 tr css 변경
-			$('#idResultTr').css({ 'color' : 'red', 'display' : 'table-row' });
-			if($id.val().length == 0){
-				$('#idResultTd').text('아이디를 입력해주세요.');
-				idUsable = false;
-				idChecked = false;
-				$id.focus();
-			} else if ($id.val().length < 6) {
-				$('#idResultTd').text('아이디는 최소 6자리 이상이어야 합니다.');
-				idUsable = false;
-				idChecked = false;
-				$id.focus();
-			} else if (!regId.test($id.val())){
-				$('#idResultTd').text('아이디는 숫자로 시작 할 수 없습니다.');
-				idUsable = false;
-				idChecked = false;
-				$id.focus();
-			} else if (!regId2.test($id.val())){
-				$('#idResultTd').text('아이디에 사용 불가능한 문자가 포함되어 있습니다.');
-				idUsable = false;
-				idChecked = false;
-				$id.focus();
-			} else if(!idChecked) {
-				// 중복확인 ajax
-				$.ajax({
-					url: "<%=request.getContextPath()%>/member.idCheck",
-					type: 'post',
-					data:{id:$id.val()},
-					success: function(data){
-						if(data != "success"){
-							isUsable = false;
-							isIdChecked = false;
-							$('#idResultTd').text('이미 사용중인 아이디입니다.');
-							$id.focus();
-						} else {
-							idChecked = true;
-							idUsable = true;
-							$('#idResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
-							$('#idResultTd').text('사용 가능한 아이디입니다.');
-							buttonActive();
-						}
+		// 태그에서 벗어날 때마다 전부 false로 변환
+		idUsable = false;
+		idChecked = false;
+		// 에러메시지 띄울 tr css 변경
+		$('#idResultTr').css({ 'color' : 'red', 'display' : 'table-row' });
+		if($id.val().length == 0){
+			$('#idResultTd').text('아이디를 입력해주세요.');
+			$id.focus();
+		} else if ($id.val().length < 6) {
+			$('#idResultTd').text('아이디는 최소 6자리 이상이어야 합니다.');
+			$id.focus();
+		} else if (!regId.test($id.val())){
+			$('#idResultTd').text('아이디는 숫자로 시작 할 수 없습니다.');
+			$id.focus();
+		} else if (!regId2.test($id.val())){
+			$('#idResultTd').text('아이디에 사용 불가능한 문자가 포함되어 있습니다.');
+			$id.focus();
+		} else if(!idChecked) {
+			// 중복확인 ajax
+			$.ajax({
+				url: "<%=request.getContextPath()%>/member.idCheck",
+				type: 'post',
+				data:{id:$id.val()},
+				success: function(data){
+					if(data != "success"){
+						$('#idResultTd').text('이미 사용중인 아이디입니다.');
+						$id.focus();
+					} else {
+						idChecked = true;
+						idUsable = true;
+						$('#idResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
+						$('#idResultTd').text('사용 가능한 아이디입니다.');
+						buttonActive();
 					}
-				});
-			}
+				}
+			});
 		}
 	});
 	<%-- 아이디 끝--%>
@@ -298,39 +295,48 @@ input {
 	var $pw = $('#pw');
 	var $pwCheck = $('#pwCheck');
 	var regPw = /^.*(?=^.{6,}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+	
 	var pwUsable = false;
 	var pwUsable1 = false;
 	var pwUsable2 = false;
 
 	$pw.on("change paste keyup", function() {
-		if (!pwUsable1 || !pwUsable) {
-			pwUsable = false;
-			pwUsable1 = false;
-			$('#pwResultTr').css({'color' : 'red', 'display' : 'table-row'});
-			if ($pw.val().length == 0) {
-				$('#pwResultTd').text('비밀번호를 입력해주세요.');
-				$pw.focus();
-			} else if ($pw.val().length < 6) {
-				$('#pwResultTd').text('6자리 이상의 비밀번호를 입력해주세요.');
-				$pw.focus();
-			} else if (!regPw.test($pw.val())) {
-				$('#pwResultTd').text('영문과 숫자, 특수문자가 각 1회 이상 사용되어야합니다.');
-				$pw.focus();
-			} else {
-				$('#pwResultTr').css({'color' : 'white','display' : 'table-row'
-				});
-				$('#pwResultTd').text('사용 가능한 비밀번호입니다.');
-				pwUsable1 = true;
-				if (pwUsable2) {
-					pwUsable = true;
-					buttonActive();
-				}
+		pwUsable = false;
+		pwUsable1 = false;
+		$('#pwResultTr').css({'color' : 'red', 'display' : 'table-row'});
+		if ($pw.val().length == 0) {
+			$('#pwResultTd').text('비밀번호를 입력해주세요.');
+			$pw.focus();
+		} else if ($pw.val().length < 6) {
+			$('#pwResultTd').text('6자리 이상의 비밀번호를 입력해주세요.');
+			$pw.focus();
+		} else if (!regPw.test($pw.val())) {
+			$('#pwResultTd').text('영문과 숫자, 특수문자가 각 1회 이상 사용되어야합니다.');
+			$pw.focus();
+		} else {
+			$('#pwResultTr').css({'color' : 'white','display' : 'table-row'
+			});
+			$('#pwResultTd').text('사용 가능한 비밀번호입니다.');
+			pwUsable1 = true;
+			if (pwUsable2) {
+				pwUsable = true;
+				buttonActive();
 			}
 		}
 	});
 	// 두 입력 비밀번호가 같은지 확인
 	$pwCheck.on('change paste keyup', function() {
-		if (pwUsable1 == true && $pw.val() == $pwCheck.val()) {
+		pwUsable = false;
+		pwUsable2 = false;
+		if (!pwUsable1 == true && $pw.val() != $pwCheck.val()) {
+			$('#pwCheckResultTd').text('입력하신 두 비밀번호가 같지 않습니다.');
+			$('#pwCheckResultTr').css({ 'color' : 'red', 'display' : 'table-row'});
+			$pwCheck.focus();
+		} else if($pw.val().length < 1) {
+			$('#pwCheckResultTd').text('비밀번호를 입력해주세요.');
+			$('#pwCheckResultTr').css({ 'color' : 'red', 'display' : 'table-row'});
+			$pwCheck.focus();
+		} else {
 			$('#pwCheckResultTd').text('사용 가능한 비밀번호입니다.');
 			$('#pwCheckResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
 			pwUsable2 = true;
@@ -338,77 +344,121 @@ input {
 				pwUsable = true;
 				buttonActive();
 			}
-		} else {
-			$('#pwCheckResultTd').text('입력하신 두 비밀번호가 같지 않습니다.');
-			$('#pwCheckResultTr').css({ 'color' : 'red', 'display' : 'table-row'});
-			pwUsable = false;
-			pwUsable2 = false;
-			$pwCheck.focus();
 		}
 	});
 	<%-- 비밀번호 끝 --%>
+	
 	<%-- 닉네임 사용 가능 여부 (중복확인 및 정규식) --%>
 	var $nickName = $('#nickName');
 	// 정규식
 	// 첫 글자는 [a-zA-Z0-9]로 시작하고
 	// 문장 내에 [a-zA-Z0-9_]를 사용 가능하다
 	// 4자리 이상, 11자리 이하
-	var regNick = /^[a-zA-Z]/
-	var regNick2 = /[a-zA-Z0-9_]+$/;
+	var regNick = /^[a-zA-Z가-힣]/
+	var regNick2 = /[a-zA-Z가-힣0-9_]+$/;
 	var nickUsable = false;
 	$nickName.change(function() {
 		// 사용가능여부 : 사용 가능 할 때 true 반환
 		var nickChecked = false;
+		nickUsable = false;
 		// 중복체크 : 사용 가능 할 때 true 반환
 		// 둘 중 하나라도 false 라면
-		if(!nickUsable || !nickChecked){
 			// 에러메시지 띄울 tr css 변경
-			$('#nickResultTr').css({ 'color' : 'red', 'display' : 'table-row'});
-			if($nickName.val().length == 0){
-				$('#nickResultTd').text('닉네임을 입력해주세요.');
-				nickUsable = false;
-				nickChecked = false;
-				$nickName.focus();
-			} else if ($nickName.val().length < 6) {
-				$('#nickResultTd').text('닉네임은 최소 6자리 이상이어야 합니다.');
-				nickUsable = false;
-				nickChecked = false;
-				$nickName.focus();
-			} else if (!regNick.test($nickName.val())){
-				$('#nickResultTd').text('닉네임은 숫자로 시작 할 수 없습니다.');
-				nickUsable = false;
-				nickChecked = false;
-				$nickName.focus();
-			} else if (!regNick2.test($nickName.val())){
-				$('#nickResultTd').text('닉네임에 사용 불가능한 문자가 포함되어 있습니다.');
-				nickUsable = false;
-				nickChecked = false;
-				$nickName.focus();
-			} else if(!nickChecked) {
-				// 중복확인 ajax
-				$.ajax({
-					url: "<%=request.getContextPath()%>/member.nickCheck",
-					type: 'post',
-					data:{nickName:$nickName.val()},
-					success: function(data){
-						if(data != "success"){
-							nickUsable = false;
-							nickChecked = false;
-							$('#nickResultTd').text('이미 사용중인 닉네임입니다.');
-							$nickName.focus();
-						} else {
-							nickChecked = true;
-							nickUsable = true;
-							$('#nickResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
-							$('#nickResultTd').text('사용 가능한 닉네임입니다.');
-							buttonActive();
-						}
+		$('#nickResultTr').css({ 'color' : 'red', 'display' : 'table-row'});
+		if($nickName.val().length == 0){
+			$('#nickResultTd').text('닉네임을 입력해주세요.');
+			$nickName.focus();
+		} else if ($nickName.val().length < 6) {
+			$('#nickResultTd').text('닉네임은 최소 6자리 이상이어야 합니다.');
+			$nickName.focus();
+		} else if (!regNick.test($nickName.val())){
+			$('#nickResultTd').text('닉네임은 숫자로 시작 할 수 없습니다.');
+			$nickName.focus();
+		} else if (!regNick2.test($nickName.val())){
+			$('#nickResultTd').text('닉네임에 사용 불가능한 문자가 포함되어 있습니다.');
+			$nickName.focus();
+		} else if(!nickChecked) {
+			// 중복확인 ajax
+			$.ajax({
+				url: "<%=request.getContextPath()%>/member.nickCheck",
+				type: 'post',
+				data:{nickName:$nickName.val()},
+				success: function(data){
+					if(data != "success"){
+						nickUsable = false;
+						nickChecked = false;
+						$('#nickResultTd').text('이미 사용중인 닉네임입니다.');
+						$nickName.focus();
+					} else {
+						nickChecked = true;
+						nickUsable = true;
+						$('#nickResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
+						$('#nickResultTd').text('사용 가능한 닉네임입니다.');
+						buttonActive();
 					}
-				});
-			}
+				}
+			});
 		}
 	});
 	<%-- 닉네임 끝 --%>
+	
+	<%-- 연락처 --%>
+	var $phone1 = $('#phone1');
+	var $phone2 = $('#phone2');
+	var $phone3 = $('#phone3');
+	
+	var regPhone1 = /(01[0-9])/;
+	var regPhone2 = /\d{3,4}/;
+	var regPhone3 = /\d{4}/;
+	
+	var phoneUsable = false;
+	var phoneUsable1 = false;
+	var phoneUsable2 = false;
+	var phoneUsable3 = false;
+	
+	$phone1.change(function() {
+		phoneUsable1 = false;
+		if (!regPhone1.test($phone1.val())) {
+			$('#phoneResultTr').css({'color' : 'red', 'display' : 'table-row'});
+			$('#phoneResultTd').text('연락처를 확인해주세요.');
+			$phone1.focus();
+		} else {
+			phoneUsable1 = true;
+			phoneUsable();
+		}
+	});
+	$phone2.change(function() {
+		phoneUsable2 = false;
+		if (!regPhone2.test($phone2.val())) {
+			$('#phoneResultTr').css({'color' : 'red', 'display' : 'table-row'});
+			$('#phoneResultTd').text('연락처를 확인해주세요.');
+			$phone2.focus();
+		} else {
+			phoneUsable2 = true;
+			phoneUsable();
+		}
+	});
+	$phone3.change(function() {
+		phoneUsable3 = false;
+		if (!regPhone3.test($phone3.val())) {
+			$('#phoneResultTr').css({'color' : 'red', 'display' : 'table-row'});
+			$('#phoneResultTd').text('연락처를 확인해주세요.');
+			$phone3.focus();
+		} else {
+			phoneUsable3 = true;
+			phoneUsable();
+		}
+	});
+	function phoneUsable(){
+		if(phoneUsable1 && phoneUsable2 && phoneUsable3) {
+			$('#phoneResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
+			$('#phoneResultTd').text('사용 가능한 연락처입니다.');
+			phoneUsable = true;
+		}
+	}
+	<%-- 연락처 끝 --%>
+	   
+	   
 	
 		
 	</script>

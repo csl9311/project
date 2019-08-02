@@ -95,11 +95,6 @@
 				<tr>
 					<td class="rowTitle">연락처</td>
 					<td colspan="2">
-						<select name="tel">
-							<option value="KT">KT</option>
-							<option value="LG U+">LG U+</option>
-							<option value="SKT">SKT</option>
-						</select>
 						<input class="adminInput phone" name="phone" type="text" value="<%=phone[0]%>">
 						<label class="dash">-</label>
 						<input class="adminInput phone" name="phone" type="text" value="<%=phone[1]%>">
