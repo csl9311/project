@@ -10,6 +10,7 @@ import java.util.List;
 import product.model.vo.Product;
 import shop.model.dao.ShopDAO;
 import shop.model.vo.Answer;
+import shop.model.vo.Payment;
 import shop.model.vo.Review;
 
 public class ShopService {
@@ -153,9 +154,9 @@ public class ShopService {
 		close(conn);
 		return list;
 	}
-	public int insertCart(String userId, String info) {
+	public int insertCart(String userId, Product product) {
 		Connection conn = getConnection();
-		int result= new ShopDAO().insertCart(conn, userId, info);
+		int result= new ShopDAO().insertCart(conn, userId, product);
 		
 				
 		if (result > 0) {
@@ -168,9 +169,9 @@ public class ShopService {
 		return result;
 	}
 
-	public ArrayList<String> selectCart(String userId) {
+	public ArrayList<Payment> selectCart(String userId) {
 		Connection conn= getConnection();
-		ArrayList<String> info = new ShopDAO().selectCart(conn, userId);
+		ArrayList<Payment> info = new ShopDAO().selectCart(conn, userId);
 		close(conn);
 		return info;
 	}

@@ -2,7 +2,6 @@ package shop.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
 import shop.model.service.ShopService;
+import shop.model.vo.Payment;
 
 /**
  * Servlet implementation class SelectCartServlet
@@ -38,14 +38,14 @@ public class SelectCartServlet extends HttpServlet {
 		HttpSession session = request.getSession(); //세션호출
 		Member sessionMember = (Member)session.getAttribute("loginUser");
 		String userId= sessionMember.getId();
-		ArrayList<String> info = new ShopService().selectCart(userId);
+		ArrayList<Payment> info = new ShopService().selectCart(userId);
 		
 		String page= null;
 		
 		if(info!=null) {
 			page= "views/MyPage/cart.jsp";
 			for(int i=0; i<info.size();i++) {
-			System.out.println("info"+ info.get(i));
+			System.out.println("info"+ info.get(i).getCrId());
 			}
 			request.setAttribute("info",info);					
 		}else {
