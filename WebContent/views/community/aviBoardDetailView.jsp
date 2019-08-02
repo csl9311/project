@@ -141,12 +141,17 @@ ul{
 							<%
 							for (int i = 0; i < list.size(); i++) {
 							%>
-							<div id="replycontent">
+							<div id="replycontent" >
 							<ul >
 							<li style="display:inline-block">
 								<span style="font-size:13px;font-weight:bolder;"><%=list.get(i).getrWriter() %></span>
 							
 								<span style="font-size:10px"><%=list.get(i).getModifyDate() %></span>
+								<%if(loginUser!=null){ %>
+								<%if(loginInfo.getNickName().equals(list.get(i).getrWriter()))  {%>
+								<span style="font-size:12px;" class="deleteReply" onclick=deleteReply(<%=list.get(i).getrId() %>)>삭제</span>
+								<%} %>
+								<%} %>
 							</li>
 								<li>
 								
@@ -228,6 +233,7 @@ ul{
 			var bid ='<%=board.getBid()%>'
 			var bwriter = '<%= board.getbWriter()%>'
 			
+				<% if(!loginInfo.getNickName().equals(board.getbWriter())){%>
 			
 			$.ajax({
 				url: "avigood.bo",
@@ -246,6 +252,11 @@ ul{
 				}
 				
 			});
+			
+			<%}else{%>
+				alert("본인글에는 추천 할 수 없습니다.");
+				<%}%>
+				
 				<%}else{%>
 				 $("#login-modal").modal();
 				<%}%>
@@ -337,12 +348,26 @@ ul{
 		});
 		
 		function deleteBoard(){
-			var bool = confirm("정말로 삭제하시겠습니가?");
+			var bool = confirm("정말로 삭제하시겠습니까?");
 			
 			if(bool){
 			location.href='<%= request.getContextPath( )%>/delete.bo?no=' + <%=board.getBid() %>;
 			}
-		}
+		};
+		
+		function deleteReply(number){
+			console.log("댓삭"+number);
+			var num = number;
+			console.log("숫자체크"+num);
+			var bool = confirm("해당 댓글을 삭제하시겠습니까?");
+			
+			if(bool){
+				location.href='<%= request.getContextPath( )%>/deletereply.bo?bid=<%=board.getBid() %>&no='+num;
+				<%-- location.href='<%= request.getContextPath( )%>/deletereply.bo?no='+number+&bid=<%=board.getBid() %>; --%>	
+			}
+		};
+		
+	
 			
 		
 	

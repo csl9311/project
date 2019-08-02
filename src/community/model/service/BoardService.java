@@ -120,6 +120,7 @@ public class BoardService {
 		
 		if(result>0) {
 			dao.insertGoodDB(conn,b);
+			dao.insertGoodMember(conn,b);
 			commit(conn);
 			
 		}else {
@@ -153,6 +154,23 @@ public class BoardService {
 		BoardDAO dao = new BoardDAO();
 		
 		int result = dao.deleteBoard(conn,bno);
+		
+			     if(result > 0) {
+			         commit(conn);
+			         
+			      } else {
+			         rollback(conn);
+			      }
+			      close(conn);
+			      
+			      return result;
+	}
+
+	public int deleteReply(int rno) {
+		Connection conn = getConnection();
+		BoardDAO dao = new BoardDAO();
+		
+		int result = dao.deleteReply(conn,rno);
 		
 			     if(result > 0) {
 			         commit(conn);

@@ -13,6 +13,9 @@
 		int endPage = pi.getEndPage(); 
 		
 		String inputsearch = search.getbContent(); 
+		if(inputsearch == null){
+			inputsearch="";
+		}
 		System.out.println("인풋"+inputsearch);
 		
 %>
@@ -218,7 +221,14 @@ CSS
 			$(this).closest('#search').submit();
 			console.log("검색");
 			var search = $('#searchList').val();
-			
+			var error = <%=request.getAttribute("error")%>;
+			console.log("에러0"+error);
+			if(error==1){
+				alert("없는 검색어입니다.");
+				$('.aviCommonBoard').append(document.createTextNode(search));
+			}else{
+				
+			}
 			
 	/* 		$.ajax({
 				

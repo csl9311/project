@@ -1,6 +1,7 @@
 package community.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -42,6 +43,7 @@ public class BoardListServlet extends HttpServlet {
 		String search = request.getParameter("search");
 		Board b  =new Board();
 		b.setbContent(search);
+		String page = null;
 		
 		System.out.println("검색이요"+search);
 		
@@ -56,7 +58,13 @@ public class BoardListServlet extends HttpServlet {
 		System.out.println(listCount);
 		}
 		System.out.println("게시글갯수" + listCount);
-
+			
+		if(listCount==0) {
+			request.setAttribute("error",'1');
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "검색 결과가 없습니다.");
+			
+		}
 		/****************** 페이지처리 ***********************/
 
 		
@@ -98,8 +106,16 @@ public class BoardListServlet extends HttpServlet {
 		
 		
 		ArrayList<Board> list = new BoardService().selectList(currentPage,listCount,b);
+
+	
+		try {
+	
+		}
 		
-		String page = null;
+		catch (IndexOutOfBoundsException e) {
+			
+		}
+		if(listCount>0) {
 		if (list != null) {
 			page = "views/community/aviBoardListView.jsp";
 			request.setAttribute("search",b);
@@ -109,10 +125,10 @@ public class BoardListServlet extends HttpServlet {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회에 실패하였습니다");
 		}
-
+	
+		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-
 	}
 	
 

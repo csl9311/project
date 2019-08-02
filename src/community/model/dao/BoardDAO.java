@@ -146,10 +146,10 @@ public class BoardDAO {
 				pstmt.setInt(1, ((listCount + 1) - endRow));
 
 			} else {
-				
-				  pstmt.setInt(1, startRow); 
-				  pstmt.setInt(2,endRow);
-				  pstmt.setString(3, '%' + bb.getbContent() + '%');
+				pstmt.setString(1, '%' + bb.getbContent() + '%');
+				pstmt.setInt(3, ((listCount + 1) - startRow));
+				pstmt.setInt(2, ((listCount + 1) - endRow));
+				  
 				  System.out.println("처음검색:"+startRow);
 				  System.out.println("마지막:"+endRow);
 				System.out.println("검색결과" + bb.getbContent());
@@ -374,6 +374,48 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int deleteReply(Connection conn, int rno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("deleteReply");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rno);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public void insertGoodMember(Connection conn,Board b) {
+		PreparedStatement pstmt = null;
+	
+		
+		String query = prop.getProperty("insertgoodtomember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, b.getUserWriter());
+			pstmt.setString(2, b.getUserWriter());
+			
+			 pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
 	}
 
 }

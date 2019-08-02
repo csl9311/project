@@ -37,8 +37,8 @@ public class BoardGoodServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int bid = Integer.parseInt(request.getParameter("bid"));
-		String writer = request.getParameter("writer");
-		String bwriter = request.getParameter("bwriter");
+		String writer = request.getParameter("writer"); 
+		String bwriter = request.getParameter("bwriter"); //게글
 		System.out.println(bid);
 		System.out.println(writer);
 		
