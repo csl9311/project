@@ -5,10 +5,10 @@
 	ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("list");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	ArrayList<Product> rankList = (ArrayList<Product>) request.getAttribute("rankList");
+	
+	int cid = Integer.parseInt(request.getParameter("cid"));
 
-	String str = request.getParameter("cid");
-	int cid = Integer.parseInt(str);
-
+	String key = request.getParameter("key");
 	String sort = request.getParameter("sort");
 
 	int listCount = pi.getListCount();
@@ -74,18 +74,18 @@
 					<div class="item_border flex">
 						<div class="item flex column">
 							<div class="item_top">
-								<a href="<%=request.getContextPath()%>/views/shop/shopDetailView.jsp"> <img alt="" src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
-								</a>
+								<img class="pointer" alt="" src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
 							</div>
 							<div class="item_bottom">
+								<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>">
 								<span class="pointer"><b>[<%=p.getBrand()%>]
-								</b></span><br> <span class="pointer"><%=p.getpName()%></span><br> <br> <span class="pointer"><%=p.getPrice()%></span>
+								</b></span><br> <span class="pointer"><%=p.getpName()%></span><br> <br> 
+								<span class="pointer"><%=p.getPrice()%></span>
 							</div>
 						</div>
 					</div>
 				</li>
 				<%
-					System.out.println(count);
 					}
 				%>
 			</ul>
@@ -94,8 +94,11 @@
 			<div id="search_bar_top">
 				<span>Total: <b><%=listCount%></b> items
 				</span>
+				<div style="text-align: right; flex:1;">
+					품절포함&nbsp;
+					</div>
 				<ul class="flex" id="sortBy">
-					<li>품절포함&nbsp;<input type="checkbox" id="stock"></li>
+					<li id="stock"><input type="checkbox" id="stock" class="pointer"></li>
 					<li id="regdate" class="pointer">신상품순</li>
 					<li id="sellCount" class="pointer">판매순</li>
 					<li id="lowPrice" class="pointer">낮은가격</li>
@@ -105,13 +108,22 @@
 				<script>
 						$('#sortBy li').on('click', function(e){
 							var sort = e.target.id;
-							location.href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&sort="+sort;
+							location.href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&key=<%=key%>&sort="+sort;
 						});
-					</script>
+				</script>
 			</div>
 			<hr>
 			<div id="search_bar_bottom" class="flex">
-				<input type="text" placeholder="s e a r c h">
+				<input type="text" placeholder="s e a r c h" onkeydown="Enter_Check();">
+				<script>
+					function Enter_Check(){
+			    		if(event.keyCode == 13){
+			    			var key = $(event.target).val();
+			    			console.log(key);
+			    			location.href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&sort=<%=sort%>&key="+key;
+			    		}
+					}	
+				</script>
 				<select id="selectBox">
 					<option value="8">8개씩 정렬</option>
 					<option value="12">12개씩 정렬</option>
@@ -133,8 +145,8 @@
 							<div class="item_bottom">
 								<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>"> 
 								<span class="pointer"><b>[<%=p.getBrand()%>]</b></span><br> 
-								<span class="pointer"><%=p.getpName()%></span><br>
-								<br> <span><%=p.getPrice()%></span>
+								<span class="pointer"><%=p.getpName()%></span><br> <br> 
+								<span><%=p.getPrice()%></span>
 							</div>
 						</div>
 					</div>
@@ -144,7 +156,7 @@
 				%>
 			</ul>
 			<script>
-				$('.item .pointer').on('click', function(e){
+				$('.item .pointer').on('click', function(){
 					var pId = $(this).parents('.item').children().children('input').val();
 					location.href="<%=request.getContextPath()%>/shopDetail.do?pId="+pId;
 				});
@@ -155,10 +167,10 @@
 				if (!list.isEmpty()) {
 			%>
 			<p>
-				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=1&sort=<%=sort%>">&lt;&lt;</a>
+				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=1&sort=<%=sort%>&key=<%=key%>">&lt;&lt;</a>
 			</p>
 			<p id="bfBtn">
-				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=currentPage - 1%>&sort=<%=sort%>">&lt;</a>
+				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=currentPage - 1%>&sort=<%=sort%>&key=<%=key%>">&lt;</a>
 			</p>
 			<script>
 				if (<%=currentPage%> <= 1) {
@@ -174,14 +186,14 @@
 				<%
 					} else {
 				%>
-				<li><a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=i%>&sort=<%=sort%>" class="other"><%=i%></a></li>
+				<li><a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=i%>&sort=<%=sort%>&key=<%=key%>" class="other"><%=i%></a></li>
 			</ol>
 			<%
 				}
 					}
 			%>
 			<p id="afBtn">
-				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=currentPage + 1%>&sort=<%=sort%>">&gt;</a>
+				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=currentPage + 1%>&sort=<%=sort%>&key=<%=key%>">&gt;</a>
 			</p>
 			<script>
 				if (<%=currentPage%> >= <%=maxPage%> ) {
@@ -189,7 +201,7 @@
 				}
 			</script>
 			<p>
-				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=maxPage%>&sort=<%=sort%>">&gt;&gt;</a>
+				<a href="<%=request.getContextPath()%>/shopList.do?cid=<%=cid%>&currentPage=<%=maxPage%>&sort=<%=sort%>&key=<%=key%>">&gt;&gt;</a>
 			</p>
 			<%
 				}

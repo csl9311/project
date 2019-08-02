@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="product.model.vo.*, java.util.*, shop.model.vo.*" %>
+    <%
+    ArrayList<Payment> info = (ArrayList<Payment>)request.getAttribute("info");
+
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,10 +31,14 @@
 			<td>합계</td>
 			<td>선택</td>
 		</tr>
+		<% for(int i=0; i<info.size();i++){ 
+			Payment p = info.get(i);
+		%>
 		<tr>
 			<td><input type="checkbox">
 			<td></td>
-			<td colspan="3">z</td>
+			<td colspan="3"><%=p.getpName() %></td>
+			<td><%=p.getpOption()%></td>
 			<td><input type="Number" min="1" id="quantity"></td>
 			<td>10000원</td>			
 			<td>3000원</td>
@@ -40,6 +48,7 @@
 				<button class="cartBtn">삭제</button>
 			</td>
 		</tr>
+		<%} %>
 		<tr>
 		<td colspan="5" style="text-align:left">ㅋㅋㅋ</td>
 		<td colspan="5">상품구매가격</td>

@@ -92,16 +92,16 @@ body{
 	    </div>
 	    	<div class="st">
 		      	<div class="formArea">
-			      	<form action="<%= request.getContextPath() %>/insert.ik" method="get" encType="multipart/form-data">
+			      	<form action="<%= request.getContextPath() %>/insert.ko" method="post" encType="multipart/form-data">
 					  <div class="form-group">
 					    <label><strong>업체명</strong></label>
-					    <input type="text" class="form-control" id="kname">
+					    <input type="text" class="form-control" id="kname" name="kname">
 					  </div>
 					  <div class="form-group">
 					    <input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="주소 검색"/>
-					    <br><span class="s1">우편번호<input type="text" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly></span>
-					    <br><span class="s1">주소<input type="text" class="form-control" id="sample6_address"  name="roadAddrPart1" readonly/></span>
-					    <br><span class="s1">상세 주소<input type="text" class="form-control" id="sample6_detailAddress"  name="addrDetail" /></span>
+					    <br><span class="s1">우편번호<input type="text" class="form-control" id="sample6_postcode" name="sample6_postcode" placeholder="우편번호" readonly></span>
+					    <br><span class="s1">주소<input type="text" class="form-control" id="sample6_address"  name="sample6_address" readonly/></span>
+					    <br><span class="s1">상세 주소<input type="text" class="form-control" id="sample6_detailAddress"  name="sample6_detailAddress" /></span>
 					    <input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 					   <!-- 주소 API -->
 					    <script>
@@ -157,11 +157,14 @@ body{
 					  </div>
 					  <div class="form-group">
 					  	<label style="width:100%"><strong>가격 정보</strong></label>
-					    <span>1곡</span><input type="number" class="form-control" style="width:200px;" step="100" id="one">
-					    <span>3곡</span><input type="number" class="form-control" style="width:200px;" step="100" id="three">
+					    <span>1곡</span><input type="number" class="form-control" style="width:200px;" min="0" step="100" id="one" name="one">
+					    <span>3곡</span><input type="number" class="form-control" style="width:200px;" min="0" step="100" id="three" name="three">
 					  </div>
 					  <div class="form-group inline1">
-					  	<strong>영업시간</strong><input type="time" class="form-control sm" name="startTime" id="startTime">~<input type="time" class="form-control sm" name="endTime" id="endTime">
+					  	<strong>영업시간</strong><input type="time" class="form-control sm" name="startTime" id="startTime"><input type="time" class="form-control sm" name="endTime" id="endTime">
+					  	 <script type="text/javascript">
+						    $("input[name='startTime']").timeInput({min: "0:00", max: "24:00"}); // 15 min intervals from 6:00 am to 3:00 pm
+						</script>
 					  </div>
 					  <div class="form-group">
 					  	<p><strong>타이틀 사진 첨부</strong><span class="subfont">(선택된 사진이 대표 사진이 됩니다.)</span></p>

@@ -2,6 +2,7 @@ package admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,18 +13,29 @@ import javax.servlet.http.HttpServletResponse;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
-@WebServlet("/admin.memberList")
+@WebServlet("/admin.allMemberList")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public MemberController() {}
+	public MemberController() {
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<Member> list = new MemberService().selectAll();
-		
-		if (list != null) {
-			request.setAttribute("memberList", list);
+
+		// 전체 멤버 ArrayList 가져오기
+		ArrayList<Member> memberList = new MemberService().selectAll();
+		if (memberList != null) {
+			// addressCount의 사이즈를 담을 HashMap 선언
+			HashMap<String, Integer> addressCountMap = new HashMap<String, Integer>();
+			// memberList의 크기만큼 반복
+			for (int i = 0; i < memberList.size(); i++) {
+				String id = memberList.get(i).getId();
+				int addressCount = new MemberService().getAddressCount(id);
+				addressCountMap.put(id, addressCount);
+			}
+			request.setAttribute("memberList", memberList);
+			request.setAttribute("addressCountMap", addressCountMap);
 		} else {
 			request.setAttribute("msg", "회원정보조회에 실패했습니다.");
 		}

@@ -6,27 +6,34 @@ public class Karaoke {
 	private String karaokeName;
 	private int oneCoin;
 	private int threeCoin;
-	private String openTime;
+	private String time;
 	private String status;
-	private int address_code;
-	private String address;
-	private String address_detail;
+	private String postNum;
+	private int addressCode;
 	
 	public Karaoke() {}
 
-	public Karaoke(int kid, String refId, String karaokeName, int oneCoin, int threeCoin, String openTime,
-			String status, int address_code, String address, String address_detail) {
+	public Karaoke(int kid, String refId, String karaokeName, int oneCoin, int threeCoin, String time,
+			String status, String postNum, int addressCode) {
 		super();
 		this.kid = kid;
 		this.refId = refId;
 		this.karaokeName = karaokeName;
 		this.oneCoin = oneCoin;
 		this.threeCoin = threeCoin;
-		this.openTime = openTime;
+		this.time = time;
 		this.status = status;
-		this.address_code = address_code;
-		this.address = address;
-		this.address_detail = address_detail;
+		this.postNum = postNum;
+		this.addressCode = addressCode;
+	}
+
+	public Karaoke(int kid, String karaokeName, String status, String postNum, int addressCode) {
+		super();
+		this.kid = kid;
+		this.karaokeName = karaokeName;
+		this.status = status;
+		this.postNum = postNum;
+		this.addressCode = addressCode;
 	}
 
 	public int getKid() {
@@ -69,12 +76,12 @@ public class Karaoke {
 		this.threeCoin = threeCoin;
 	}
 
-	public String getOpenTime() {
-		return openTime;
+	public String getTime() {
+		return time;
 	}
 
-	public void setOpenTime(String openTime) {
-		this.openTime = openTime;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public String getStatus() {
@@ -85,28 +92,19 @@ public class Karaoke {
 		this.status = status;
 	}
 
-	public int getAddress_code() {
-		return address_code;
+	public String getpostNum() {
+		return postNum;
 	}
 
-	public void setAddress_code(int address_code) {
-		this.address_code = address_code;
+	public void setpostNum(String postNum) {
+		this.postNum = postNum;
 	}
 
-	public String getAddress() {
-		return address;
+	public int getAddressCode() {
+		return addressCode;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAddressCode(int addressCode) {
+		this.addressCode = addressCode;
 	}
-
-	public String getAddress_detail() {
-		return address_detail;
-	}
-
-	public void setAddress_detail(String address_detail) {
-		this.address_detail = address_detail;
-	}
-	
 }

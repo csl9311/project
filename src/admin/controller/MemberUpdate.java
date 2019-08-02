@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
+import member.model.vo.Address;
 import member.model.vo.Member;
 
 @WebServlet("/admin.MemberUpdate")
@@ -23,29 +24,23 @@ public class MemberUpdate extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String nickName = request.getParameter("nickName");
-	
-		
 		String[] phoneArr = request.getParameterValues("phone");
 		String phone = "";
 		if (phoneArr != null) {
 			phone = String.join("-", phoneArr);
 		}
-
 		String gender = request.getParameter("gender");
-		String postNum = request.getParameter("postNum");
-		String address = request.getParameter("address");
-		String addressDetail = request.getParameter("addressDetail");
+		String birth = request.getParameter("birth");
 		String email = request.getParameter("email");
 		String grade = request.getParameter("grade");
-		
+
 		int news = Integer.parseInt(request.getParameter("news"));
 		int sms = Integer.parseInt(request.getParameter("sms"));
 
-		Member member = new Member(id, name, nickName, phone, gender, postNum, address, addressDetail, email, grade, news, sms);
+		Member member = new Member(id, name, nickName, phone, gender, email, grade, birth, news, sms);
 		int result = new MemberService().adminUpdateMember(member);
 
 		String msg = "";
@@ -54,7 +49,7 @@ public class MemberUpdate extends HttpServlet {
 		} else {
 			msg = "정보 수정에 실패했습니다.";
 		}
-		
+
 		ArrayList<Member> list = new MemberService().selectAll();
 		request.setAttribute("memberList", list);
 		request.setAttribute("msg", msg);

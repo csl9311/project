@@ -3,8 +3,8 @@ package member.model.vo;
 import java.sql.Date;
 
 public class Member {
-	private String id, pw, name, nickName, phone, gender;
-	private String address_code, postNum, address, addressDetail, email, grade_code, grade, status;
+	private String id, pw, name, nickName, phone, gender; // 필수정보
+	private String email, grade; // 선택정보
 	private Date birth, regDate, modifyDate;
 	private int point, news, sms;
 
@@ -16,10 +16,9 @@ public class Member {
 		this.id = id;
 		this.pw = pw;
 	}
-
-	// 회원가입
-	public Member(String id, String name, String nickName, String phone, String gender, String email, Date birth,
-			Date regDate, Date modifyDate, int point, int news, int sms, String address_code, String grade_code) {
+	// 회원가입. 회원정보 수정하고 생성자 형식 같아서 pw 맨 뒤로 뺌.
+	public Member(String id, String name, String nickName, String phone, String gender, String email,
+			Date birth, int news, int sms, String pw) {
 		this.id = id;
 		this.name = name;
 		this.nickName = nickName;
@@ -27,76 +26,41 @@ public class Member {
 		this.gender = gender;
 		this.email = email;
 		this.birth = birth;
-		this.regDate = regDate;
-		this.modifyDate = modifyDate;
-		this.point = point;
 		this.news = news;
 		this.sms = sms;
-		this.address_code = address_code;
-		this.grade_code = grade_code;
-	}
-
-	// 포인트 사용
-	public Member(String id, int point) {
-		this.id = id;
-		this.point = point;
-	}
-
-	// 관리자 회원 정보 수정
-	public Member(String id, String name, String nickName, String phone, String gender, String postNum, String address,
-			String addressDetail, String email, String grade, int news, int sms) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.nickName = nickName;
-		this.phone = phone;
-		this.gender = gender;
-		this.postNum = postNum;
-		this.address = address;
-		this.addressDetail = addressDetail;
-		this.email = email;
-		this.grade = grade;
-		this.news = news;
-		this.sms = sms;
-	}
-
-	// 뷰 조회
-	public Member(String id, String name, String nickName, String phone, String gender, String postNum, String address,
-			String addressDetail, String email, String grade, Date birth, Date regDate, Date modifyDate, int point,
-			int news, int sms) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.nickName = nickName;
-		this.phone = phone;
-		this.gender = gender;
-		this.postNum = postNum;
-		this.address = address;
-		this.addressDetail = addressDetail;
-		this.email = email;
-		this.grade = grade;
-		this.birth = birth;
-		this.regDate = regDate;
-		this.modifyDate = modifyDate;
-		this.point = point;
-		this.news = news;
-		this.sms = sms;
-	}
-
-	// 회원정보수정
-	public Member(String id, String pw, String name, String nickName, String phone, String gender, String postNum,
-			String address, String addressDetail, String email, Date birth, int news, int sms) {
-		this.id = id;
 		this.pw = pw;
+	}
+
+	// 회원정보 수정
+	public Member(String id, String name, String nickName, String phone, String gender, String email, String grade,
+			Date birth, int news, int sms) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.nickName = nickName;
 		this.phone = phone;
 		this.gender = gender;
-		this.postNum = postNum;
-		this.address = address;
-		this.addressDetail = addressDetail;
 		this.email = email;
+		this.grade = grade;
 		this.birth = birth;
+		this.news = news;
+		this.sms = sms;
+	}
+
+	// 세션등록, 관리자페이지 상세정보 조회
+	public Member(String id, String name, String nickName, String phone, String gender, String email, String grade,
+			Date birth, Date regDate, Date modifyDate, int point, int news, int sms) {
+		this.id = id;
+		this.name = name;
+		this.nickName = nickName;
+		this.phone = phone;
+		this.gender = gender;
+		this.email = email;
+		this.grade = grade;
+		this.birth = birth;
+		this.regDate = regDate;
+		this.modifyDate = modifyDate;
+		this.point = point;
 		this.news = news;
 		this.sms = sms;
 	}
@@ -149,38 +113,6 @@ public class Member {
 		this.gender = gender;
 	}
 
-	public String getAddress_code() {
-		return address_code;
-	}
-
-	public void setAddress_code(String address_code) {
-		this.address_code = address_code;
-	}
-
-	public String getPostNum() {
-		return postNum;
-	}
-
-	public void setPostNum(String postNum) {
-		this.postNum = postNum;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getAddressDetail() {
-		return addressDetail;
-	}
-
-	public void setAddressDetail(String addressDetail) {
-		this.addressDetail = addressDetail;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -189,28 +121,12 @@ public class Member {
 		this.email = email;
 	}
 
-	public String getGrade_code() {
-		return grade_code;
-	}
-
-	public void setGrade_code(String grade_code) {
-		this.grade_code = grade_code;
-	}
-
 	public String getGrade() {
 		return grade;
 	}
 
 	public void setGrade(String grade) {
 		this.grade = grade;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public Date getBirth() {

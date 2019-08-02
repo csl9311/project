@@ -3,7 +3,7 @@ package product.model.vo;
 import java.sql.Date;
 
 public class Product {
-	private int pId,  price, stock, sellCount;
+	private int pId,  price, stock, sellCount, amount;
 	private String pName, category, subCategory, brand, useOption, option;
 	private Date regDate, modifyDate;
 	
@@ -33,6 +33,23 @@ public class Product {
 		this.brand = brand;
 	}
 	
+	public Product(int pId, int price, int amount, String pName, String option) {
+		super();
+		this.pId = pId;
+		this.price = price;
+		this.amount = amount;
+		this.pName = pName;
+		this.option = option;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
 	public Product(String option) {
 		super();
 		this.option = option;

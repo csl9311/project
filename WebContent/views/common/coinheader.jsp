@@ -28,14 +28,14 @@
 		<div id="mySidenav" class="sidenav">
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			<a href="<%=request.getContextPath()%>/views/search/searchView.jsp">코인노래방 찾기</a>
-			<a href="<%=request.getContextPath()%>/shopMain.do">shop</a> 
+			<a href="<%=request.getContextPath()%>/shopMain.do">shop</a>
 			<a href="<%=request.getContextPath()%>/list.bo">커뮤니티</a>
 			<a href="#">Q&#38;A</a>
 			<%-- 로그인 시 --%>
 			<%if (loginUser != null) {%>
 			<a href="<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp">마이페이지</a>
 			<%-- 관리자 로그인 시 --%>
-			<%if (loginUser.getGrade_code().equals("3")) {%>
+			<%if (loginUser.getGrade().equals("관리자")) {%>
 			<a href="<%=request.getContextPath()%>/views/admin/adminMain.jsp">관리자페이지</a>
 			<%}}%>
 		</div>
@@ -54,7 +54,7 @@
 								type : 'get',
 								success : function(data) {
 									alert("로그아웃되었습니다.");
-									location.reload();
+									location.href = "index.jsp";
 								}
 							});
 						}
@@ -79,26 +79,22 @@
 							<input type="submit" name="login" class="button loginmodal-submit" value="로그인">
 							<div class="login-help">
 								<a href="<%=request.getContextPath()%>/views/member/signUp.jsp">회원가입</a>
-
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<a href="#" class="login" data-toggle="modal" data-target="#pwd-modal">아이디 / 비밀번호 찾기</a>
-
-								
-
 							</div>
 						</div>
 					</div>
 				</div>
 			</form>
-			
-			
+
+
 				<div class="modal fade" id="pwd-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 					<div class="modal-dialog" style="text-align: center">
 						<div class="pwdmodal-container">
-							
-	
+
+
 							<div class="login-help">
-								
+
 							</div>
 						</div>
 					</div>
@@ -108,4 +104,3 @@
 </body>
 
 </html>
-

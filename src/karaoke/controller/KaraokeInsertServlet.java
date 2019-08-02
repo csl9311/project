@@ -16,16 +16,17 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 
 import common.MyFileRenamePolicy;
-import community.model.service.BoardService;
-import community.model.vo.Board;
+import karaoke.model.service.KaraokeService;
 import karaoke.model.vo.Attachment;
+import karaoke.model.vo.Karaoke;
+import member.model.vo.Address;
 import member.model.vo.Member;
 
 
 /**
  * Servlet implementation class BoardUpdateServlet
  */
-@WebServlet("/insert.ik")
+@WebServlet("/insert.ko")
 public class KaraokeInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -46,7 +47,8 @@ public class KaraokeInsertServlet extends HttpServlet {
 		 if(ServletFileUpload.isMultipartContent(request)) {
 				int maxSize = 1024 * 1024 * 10; // 10Mbyte
 				String root = request.getSession().getServletContext().getRealPath("/");
-				String savePath = root + "img/Karaoke";
+				String savePath = root + "img/Karaoke/";
+				
 				System.out.println(savePath);
 				
 			
@@ -86,15 +88,36 @@ public class KaraokeInsertServlet extends HttpServlet {
 				System.out.println(originFiles.size());
 				
 				String kname = multiRequest.getParameter("kname");
-				String content = multiRequest.getParameter("content");
-				String bWriter = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+				String postnum = multiRequest.getParameter("sample6_postcode");
+				String address = multiRequest.getParameter("sample6_address");
+				String addressDetail = multiRequest.getParameter("sample6_detailAddress");
+				int one = Integer.parseInt(multiRequest.getParameter("one"));
+				int three = Integer.parseInt(multiRequest.getParameter("three"));
+				String otime = multiRequest.getParameter("startTime");
+				String ctime = multiRequest.getParameter("endTime");
+				String time= otime + " ~ " + ctime;
+				//String user = ((Member)request.getSession().getAttribute("loginUser")).getId();
+				String user = "id";
+
 				
-				Board b = new Board();
-				b.setbTitle(title);
-				b.setbContent(content);
-				b.setbWriter(bWriter);
+				Address a = new Address();
+				a.setPostNum(postnum);
+				a.setAddress(address);
+				a.setAddress_detail(addressDetail);
+				a.setId(user);
+				System.out.println("여기" + a.getAddress() + "ㄴㄴ" + a.getAddress_detail() + "ㄴㄴ" + a.getId()  + "ㄴㄴ" + a.getPostNum());
 				
-				System.out.println(originFiles);
+				int addressCode = new KaraokeService().insertAddress(a);
+				System.out.println(addressCode);
+				
+				Karaoke k = new Karaoke();
+				k.setKaraokeName(kname);
+				k.setOneCoin(one);
+				k.setThreeCoin(three);
+				k.setTime(time);
+				k.setRefId(user);
+				k.setAddressCode(addressCode);
+				
 				
 				ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 				for(int i = originFiles.size() -1; i >=0; i--) {
@@ -111,17 +134,17 @@ public class KaraokeInsertServlet extends HttpServlet {
 					
 					fileList.add(at);
 				}
-				int result = new BoardService().insertThumbnail(b, fileList);
+				int result = new KaraokeService().insertKaroke(k, fileList);
 				
 				if(result > 0) {
-					response.sendRedirect("list.th");
+					response.sendRedirect("list.ko");
 				} else {
 					for(int i=0;i<saveFiles.size();i++) {
 						File failedFile = new File(savePath + saveFiles.get(i));
 						failedFile.delete();
 					}
-					request.setAttribute("msg", "사진 게시판 등록에 실패했습니다.");
-					request.getRequestDispatcher("views/common.errorPage.jsp").forward(request, response);
+					request.setAttribute("msg", "노래방 정보 입력에 실패했습니다.");
+					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 				}
 			}
 	}
