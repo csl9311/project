@@ -90,8 +90,6 @@ public class BoardUpdateServlet extends HttpServlet {
 		view.forward(request, response);
 		}
 
-
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

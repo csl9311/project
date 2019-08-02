@@ -201,4 +201,22 @@ hr{
 	color:#9042f5;
 }
 
+.deleteReply {
+	color:gray;
+	cursor:pointer;
+}
+.deleteReply:hover{
+	color:white;
+}
+
+.updatedeletebtn, .updatedeletebtn button{
+	background:none;
+	color:gray;
+	border:0;
+}
+
+.updatedeletebtn button:hover{
+	color:white;
+}
+
 
