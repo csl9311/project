@@ -1,13 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="product.model.vo.*, java.util.*, shop.model.vo.*" %>
     <%
-    ArrayList<String> info = (ArrayList<String>)request.getAttribute("info");
- 
-    for(int i=0; i<info.size();i++){
-    	info.get(i).split("/");
-    	
-    }
-    
+    ArrayList<Payment> info = (ArrayList<Payment>)request.getAttribute("info");
+
     %>
 <!DOCTYPE html>
 <html>
@@ -30,18 +25,20 @@
 			<td width="100px">전체선택&nbsp;<input type="checkbox"></td>
 			<td>이미지</td>
 			<td colspan="3">상품정보</td>
-			<td>옵션</td>
 			<td width="50px">수량</td>
 			<td>상품 금액</td>			
 			<td>배송비</td>
 			<td>합계</td>
 			<td>선택</td>
 		</tr>
-		<% for(int i=0; i<info.size();i++){ %>
+		<% for(int i=0; i<info.size();i++){ 
+			Payment p = info.get(i);
+		%>
 		<tr>
 			<td><input type="checkbox">
 			<td></td>
-			<td colspan="3">z</td>
+			<td colspan="3"><%=p.getpName() %></td>
+			<td><%=p.getpOption()%></td>
 			<td><input type="Number" min="1" id="quantity"></td>
 			<td>10000원</td>			
 			<td>3000원</td>

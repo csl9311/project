@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
+import product.model.vo.Product;
 import shop.model.service.ShopService;
 
 /**
@@ -36,24 +37,21 @@ public class CartServlet extends HttpServlet {
 		HttpSession session = request.getSession(); //세션호출해서
 		Member sessionMember = (Member)session.getAttribute("loginUser");
 		String userId= sessionMember.getId();
-		String pid = request.getParameter("pId");
+		int pid = Integer.parseInt(request.getParameter("pId"));
 		String pname = request.getParameter("pName");
-		String price = request.getParameter("price");
-		String brand = request.getParameter("brand");
-		String stock = request.getParameter("stock");
-		String sellcount =request.getParameter("sellCount");
+		int price = Integer.parseInt(request.getParameter("price"));
 		String option = request.getParameter("option");
-		String amount = request.getParameter("amount");
+		int amount = Integer.parseInt(request.getParameter("amount"));
 		String info=null;
 		System.out.println("user="+option);
 		System.out.println("user="+userId);
 		
-		if(!option.equals("")) {
-		info= pid +"/"+pname +"/"+ price +"/"+ brand +"/"+ stock +"/"+ sellcount +"/"+ option +"/"+ amount;
-		}else {
-			info= pid +"/"+pname +"/"+ price +"/"+ brand +"/"+ stock +"/"+ sellcount +"/"+ amount;
-		}	
-		int result= new ShopService().insertCart(userId,info);
+		
+		if(option.equals("")) {	
+			option="없음";
+		}
+		Product product= new Product(pid, price, amount, pname,option);
+		int result= new ShopService().insertCart(userId,product);
 		
 		if(result>0) {
 			
