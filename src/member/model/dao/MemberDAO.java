@@ -175,9 +175,9 @@ public class MemberDAO {
 			pstmt.setString(3, member.getPhone());
 			pstmt.setString(4, member.getGender());
 			pstmt.setString(5, member.getEmail());
-			pstmt.setString(6, member.getGrade());
-			pstmt.setInt(7, member.getNews());
-			pstmt.setInt(8, member.getSms());
+			pstmt.setInt(6, member.getNews());
+			pstmt.setInt(7, member.getSms());
+			pstmt.setInt(8, member.getGrade_code());
 			pstmt.setString(9, member.getId());
 
 			result = pstmt.executeUpdate();
@@ -196,13 +196,15 @@ public class MemberDAO {
 		int result = 0;
 		
 		String query = prop.getProperty("insertAddress");
-		
+		System.out.println(query);
+		System.out.println(add.toString());
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, add.getPostNum());
-			pstmt.setString(2, add.getAddress());
-			pstmt.setString(3, add.getAddress_detail());
-			pstmt.setString(4, add.getId());
+			pstmt.setString(2, add.getRoadAddress());
+			pstmt.setString(3, add.getJibunAddress());
+			pstmt.setString(4, add.getAddress_detail());
+			pstmt.setString(5, add.getId());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -227,8 +229,13 @@ public class MemberDAO {
 
 			addressList = new ArrayList<>();
 			while (rset.next()) {
-				Address address = new Address(rset.getInt("address_code"), rset.getString("postnum"),
-						rset.getString("address"), rset.getString("address_detail"));
+				Address address = new Address(
+					rset.getInt("address_code"),
+					rset.getString("postnum"),
+					rset.getString("roadaddress"),
+					rset.getString("jibunaddress"),
+					rset.getString("address_detail")
+					);
 				addressList.add(address);
 			}
 		} catch (SQLException e) {
@@ -273,9 +280,10 @@ public class MemberDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, add.getPostNum());
-			pstmt.setString(2, add.getAddress());
-			pstmt.setString(3, add.getAddress_detail());
-			pstmt.setInt(4, add.getAddress_code());
+			pstmt.setString(2, add.getRoadAddress());
+			pstmt.setString(3, add.getJibunAddress());
+			pstmt.setString(4, add.getAddress_detail());
+			pstmt.setInt(5, add.getAddress_code());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

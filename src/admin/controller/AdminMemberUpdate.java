@@ -1,7 +1,8 @@
 package admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,14 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
-import member.model.vo.Address;
 import member.model.vo.Member;
 
 @WebServlet("/admin.MemberUpdate")
-public class MemberUpdate extends HttpServlet {
+public class AdminMemberUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public MemberUpdate() {
+	public AdminMemberUpdate() {
 		super();
 	}
 
@@ -33,14 +33,19 @@ public class MemberUpdate extends HttpServlet {
 			phone = String.join("-", phoneArr);
 		}
 		String gender = request.getParameter("gender");
-		String birth = request.getParameter("birth");
+		String[] birthArr = request.getParameter("birth").split("-");
+			Date birth = null;
+			int year = Integer.parseInt(birthArr[0]);
+			int month = Integer.parseInt(birthArr[1])-1;
+			int day = Integer.parseInt(birthArr[2]);
+			birth = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
+		
 		String email = request.getParameter("email");
-		String grade = request.getParameter("grade");
-
+		int grade_code = Integer.parseInt(request.getParameter("grade"));
 		int news = Integer.parseInt(request.getParameter("news"));
 		int sms = Integer.parseInt(request.getParameter("sms"));
 
-		Member member = new Member(id, name, nickName, phone, gender, email, grade, birth, news, sms);
+		Member member = new Member(id, name, nickName, phone, gender, email, birth, news, sms, grade_code);
 		int result = new MemberService().adminUpdateMember(member);
 
 		String msg = "";
@@ -50,10 +55,8 @@ public class MemberUpdate extends HttpServlet {
 			msg = "정보 수정에 실패했습니다.";
 		}
 
-		ArrayList<Member> list = new MemberService().selectAll();
-		request.setAttribute("memberList", list);
 		request.setAttribute("msg", msg);
-		request.getRequestDispatcher("views/admin/adminMember/adminMemberView.jsp").forward(request, response);
+		request.getRequestDispatcher("/selectMember?id=" + id).forward(request, response);
 
 	}
 

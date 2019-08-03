@@ -14,10 +14,10 @@ import member.model.service.MemberService;
 import member.model.vo.Member;
 
 @WebServlet("/admin.allMemberList")
-public class MemberController extends HttpServlet {
+public class AdminGetMemberList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public MemberController() {
+	public AdminGetMemberList() {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -7,11 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Address;
-import member.model.vo.Member;
 
 @WebServlet("/address.insert")
 public class AddressInsert extends HttpServlet {
@@ -23,22 +21,20 @@ public class AddressInsert extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		String id = request.getParameter("id");
 		String postNum = request.getParameter("postNum");
-		String address = request.getParameter("address");
+		String roadAddress = request.getParameter("roadAddress");
+		String jibunAddress = request.getParameter("jibunAddress");
 		String address_detail = request.getParameter("address_detail");
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String id = loginUser.getId();
 		
-		Address add = new Address(postNum, address, address_detail, id);
-		
-		int result = new MemberService().addressInsert(add);
-		
-		String page = request.getParameter("page") + "?id=" + id;
+		Address address = new Address(postNum, roadAddress, jibunAddress, address_detail, id);
+		int result = new MemberService().addressInsert(address);
+		System.out.println(result);
+		String page = request.getParameter("page");
 		if(result > 0) {
-			request.setAttribute("msg", "수정되었습니다.");
 		} else {
 			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "주소 등록에 실패했습니다.");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
 	}
