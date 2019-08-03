@@ -190,7 +190,7 @@
 					<td><input class="adminInput" type="text" name="address_detail" value="<%=address.getAddress_detail()%>"></td>
 				</tr>
 				<tr>
-					<td><input class="adminButton" type="button" onclick="deleteAddress();" value="삭제"></td>
+					<td><input id="deleteButton" class="adminButton" type="button" onclick="deleteAddress();" value="삭제"></td>
 					<td><input class="adminButton" type="submit" value="수정"></td>
 				</tr>
 			</table>
@@ -215,24 +215,9 @@
 
 <%-- 주소 delete --%>
 	function deleteAddress(){
-		
-		$.ajax({
-			url: "/address.delete",
-			type: 'post',
-			data:{id:$id.val()},
-			success: function(data){
-				if(data != "success"){
-					$('#idResultTd').text('이미 사용중인 아이디입니다.');
-					$id.focus();
-				} else {
-					idChecked = true;
-					idUsable = true;
-					$('#idResultTr').css({ 'color' : 'white', 'display' : 'table-row'});
-					$('#idResultTd').text('사용 가능한 아이디입니다.');
-					buttonActive();
-				}
-			}
-		});
+		var form = $("#deleteButton").parents("form");
+		form.attr('action', '<%=request.getContextPath()%>/address.delete');
+		form.submit();
 	}
 	
 <%-- 라디오버튼이 checked라면 스타일 변경 --%>

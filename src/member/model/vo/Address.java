@@ -30,6 +30,12 @@ public class Address {
 		this.address_detail = address_detail;
 		this.id = id;
 	}
+	
+	// 주소 delete
+	public Address(int address_code) {
+		this.address_code = address_code;
+	}
+
 	public int getAddress_code() {
 		return address_code;
 	}

@@ -28,9 +28,9 @@ public class MemberDAO {
 		}
 	}
 
-	// 로그인정보 받아오기
-	// 세션에 개인정보를 전부 담아두는게 맞는건지 모르겠다.
-	// 보안 고려해서 id만 올려두고 각 기능 사용 할 때 마다 selectMember를 실행해줘야 하는건가?
+// 로그인정보 받아오기
+// 세션에 개인정보를 전부 담아두는게 맞는건지 모르겠다.
+// 보안 고려해서 id만 올려두고 각 페이지에서 사용 할 때 마다 selectMember를 실행해줘야 하는건가?
 	public Member loginMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -55,7 +55,7 @@ public class MemberDAO {
 		return loginUser;
 	}
 
-	// 세션에 로그인 정보등록, 관리자페이지 상세정보 조회
+// 세션에 로그인 정보등록, 관리자페이지 상세정보 조회
 	public Member selectMember(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -83,7 +83,7 @@ public class MemberDAO {
 		return member;
 	}
 
-	// 마이페이지에서 개인정보수정 접근 시
+// 마이페이지에서 개인정보수정 접근 시
 	public boolean pwCheck(Connection conn, String id, String pw) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -107,7 +107,7 @@ public class MemberDAO {
 		return pwCheck;
 	}
 
-	// 관리자 페이지 멤버 조회
+// 관리자 페이지 멤버 조회
 	public ArrayList<Member> selectAll(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -135,7 +135,7 @@ public class MemberDAO {
 		return list;
 	}
 
-	// 회원가입
+// 회원가입
 	public int insertMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -161,8 +161,56 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+// 아이디 중복확인
+	public int idCheck(Connection conn, String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
 
-	// 관리자페이지에서 회원정보 수정
+		String query = prop.getProperty("idCheck");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+// 닉네임 중복확인
+	public int nickCheck(Connection conn, String nickName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("nickCheck");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, nickName);
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+// 관리자페이지에서 회원정보 수정
 	public int adminUpdateMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -189,8 +237,7 @@ public class MemberDAO {
 		return result;
 	}
 	
-	// 주소 입력
-	
+// 주소 입력
 	public int insertAddress(Connection conn, Address add) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -215,7 +262,7 @@ public class MemberDAO {
 		return result;
 	}
 
-	// 주소 가져오기
+// 주소 가져오기
 	public ArrayList<Address> getAddress(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -247,7 +294,7 @@ public class MemberDAO {
 		return addressList;
 	}
 
-	// 해당 아이디의 주소 가져오기
+// 해당 아이디의 주소 가져오기
 	public int getAddressCount(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -271,7 +318,7 @@ public class MemberDAO {
 		return result;
 	}
 	
-	// 주소 수정
+// 주소 수정
 	public int addressUpdate(Connection conn, Address add) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -294,48 +341,19 @@ public class MemberDAO {
 		return result;
 	}
 
-	// 아이디 중복확인
-	public int idCheck(Connection conn, String id) {
+	public int addressDelete(Connection conn, Address address) {
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
 		int result = 0;
 
-		String query = prop.getProperty("idCheck");
+		String query = prop.getProperty("addressDelete");
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, id);
-			rset = pstmt.executeQuery();
-			
-			if (rset.next()) {
-				result = rset.getInt(1);
-			}
+			pstmt.setInt(1, address.getAddress_code());
+
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return result;
-	}
-
-	public int nickCheck(Connection conn, String nickName) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int result = 0;
-
-		String query = prop.getProperty("nickCheck");
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, nickName);
-			rset = pstmt.executeQuery();
-			
-			if (rset.next()) {
-				result = rset.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
 			close(pstmt);
 		}
 		return result;
