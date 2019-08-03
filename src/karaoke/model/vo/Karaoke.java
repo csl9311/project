@@ -27,6 +27,15 @@ public class Karaoke {
 		this.addressCode = addressCode;
 	}
 
+	public Karaoke(int kid, String karaokeName, String status, String postNum, int addressCode) {
+		super();
+		this.kid = kid;
+		this.karaokeName = karaokeName;
+		this.status = status;
+		this.postNum = postNum;
+		this.addressCode = addressCode;
+	}
+
 	public int getKid() {
 		return kid;
 	}

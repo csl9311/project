@@ -16,10 +16,25 @@ public class Member {
 		this.id = id;
 		this.pw = pw;
 	}
-	
-	
+	// 회원가입. 회원정보 수정하고 생성자 형식 같아서 pw 맨 뒤로 뺌.
+	public Member(String id, String name, String nickName, String phone, String gender, String email,
+			Date birth, int news, int sms, String pw) {
+		this.id = id;
+		this.name = name;
+		this.nickName = nickName;
+		this.phone = phone;
+		this.gender = gender;
+		this.email = email;
+		this.birth = birth;
+		this.news = news;
+		this.sms = sms;
+		this.pw = pw;
+	}
+
+	// 회원정보 수정
 	public Member(String id, String name, String nickName, String phone, String gender, String email, String grade,
 			Date birth, int news, int sms) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.nickName = nickName;
@@ -28,19 +43,6 @@ public class Member {
 		this.email = email;
 		this.grade = grade;
 		this.birth = birth;
-		this.news = news;
-		this.sms = sms;
-	}
-
-	public Member(String id, String pw, String name, String nickName, String phone, String gender, String email,
-			String grade, int news, int sms) {
-		this.id = id;
-		this.name = name;
-		this.nickName = nickName;
-		this.phone = phone;
-		this.gender = gender;
-		this.email = email;
-		this.grade = grade;
 		this.news = news;
 		this.sms = sms;
 	}

@@ -78,6 +78,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		System.out.println("체크용result"+result);
 		if(result>0) {
 			page ="/avidetail.bo?bid="+ bid;
+			
 			System.out.println("여기요");
 		
 		}else {
@@ -89,10 +90,6 @@ public class BoardUpdateServlet extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
 		}
-<<<<<<< HEAD
-	
-=======
->>>>>>> refs/remotes/origin/master
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

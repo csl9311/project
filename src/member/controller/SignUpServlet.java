@@ -14,10 +14,10 @@ import member.model.service.MemberService;
 import member.model.vo.Member;
 
 @WebServlet("/member.signUp")
-public class signUpServlet extends HttpServlet {
+public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public signUpServlet() {
+	public SignUpServlet() {
 		super();
 	}
 
@@ -31,23 +31,9 @@ public class signUpServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		// 핸드폰 번호
 		String[] phoneArr = request.getParameterValues("phone");
-		String phone = "";
-			if (phoneArr != null) {
-				phone = String.join("-", phoneArr);
-			}
-		
+		String phone = String.join("-", phoneArr);
 		String gender = request.getParameter("gender");
-		
-		// 주소 : 데이터베이스 구상해야함.
-		String postNum = request.getParameter("postNum");
-		if(postNum == "") {
-			
-		}
-		String address = request.getParameter("address");
-		String addressDetail = request.getParameter("addressDetail");
-		
 		String email = request.getParameter("email");
-		
 		// 생년월일
 		String[] birthArr = request.getParameterValues("birth");
 			Date birth = null;
@@ -59,17 +45,13 @@ public class signUpServlet extends HttpServlet {
 		int news = Integer.parseInt(request.getParameter("news"));
 		int sms =  Integer.parseInt(request.getParameter("sms"));
 		
-		Member member = new Member(id, pw, name, nickName, phone, gender, postNum, address, addressDetail, email, birth, news, sms);
-		
-		System.out.println(member.toString());
-		
-		
+		Member member = new Member(id, name, nickName, phone, gender, email, birth, news, sms, pw);
 		int result = new MemberService().insertMember(member);
 		
 		String page = "";
 		if(result > 0) {
 			request.setAttribute("msg", "회원가입에 성공했습니다.");
-			page = "views/common/mainPage.jsp";
+			page = "views/member/signUp.jsp";
 		} else {
 			request.setAttribute("msg", "회원가입에 실패했습니다.");
 			page = "views/common/errorPage.jsp";

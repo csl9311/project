@@ -1,7 +1,6 @@
 package shop.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Member;
+import product.model.vo.Product;
 import shop.model.service.ShopService;
 
 /**
@@ -33,47 +34,36 @@ public class CartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		HttpSession session = request.getSession();		
-		String userId = session.getId();
-		String pid = request.getParameter("pId");
+		HttpSession session = request.getSession(); //세션호출해서
+		Member sessionMember = (Member)session.getAttribute("loginUser");
+		String userId= sessionMember.getId();
+		int pid = Integer.parseInt(request.getParameter("pId"));
 		String pname = request.getParameter("pName");
-		String price = request.getParameter("price");
-		String brand = request.getParameter("brand");
-		String stock = request.getParameter("stock");
-		String sellcount =request.getParameter("sellCount");
+		int price = Integer.parseInt(request.getParameter("price"));
 		String option = request.getParameter("option");
-		String amount = request.getParameter("amount");
-		String ur= request.getParameter("ur");
+		int amount = Integer.parseInt(request.getParameter("amount"));
 		String info=null;
 		System.out.println("user="+option);
 		System.out.println("user="+userId);
-		String st=request.getHeader("referer");
-		if(!option.equals("")) {
-		info= pid +"/"+pname +"/"+ price +"/"+ brand +"/"+ stock +"/"+ sellcount +"/"+ option +"/"+ amount;
-		System.out.println("info= "+info);
-		}else {
-			info= pid +"/"+pname +"/"+ price +"/"+ brand +"/"+ stock +"/"+ sellcount +"/"+ amount;
-			System.out.println("info= "+info);
+		
+		
+		if(option.equals("")) {	
+			option="없음";
 		}
-		
-		
-		int result= new ShopService().insertCart(userId,info);
+		Product product= new Product(pid, price, amount, pname,option);
+		int result= new ShopService().insertCart(userId,product);
 		
 		if(result>0) {
-			response.setContentType("text/html; charset=UTF-8");
-			response.sendRedirect(request.getHeader("referer"));
 			
-		
+			response.sendRedirect(request.getHeader("referer"));
+	
 		} else {
 	         request.setAttribute("msg", "장바구니에 넣지 못하였습니다.");
 	         RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 	 		view.forward(request, response);
 	 		
 	      }
-		
-		
-		
+
 	}
 
 	/**

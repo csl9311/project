@@ -1,6 +1,7 @@
 package community.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -37,13 +38,37 @@ public class BoardListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
+		String search = request.getParameter("search");
+		Board b  =new Board();
+		b.setbContent(search);
+		String page = null;
+		
+		System.out.println("검색이요"+search);
+		
+		
 		BoardService service = new BoardService();
-
-		int listCount = service.getListCount(); // 총 개시글 갯수
-		System.out.println("dd" + listCount);
-
+		int listCount = 0; // 총 개시글 갯수
+		
+		if(search == null || search =="") {
+		 listCount = service.getListCount();
+		}else {
+		listCount = service.getListCount2(b);
+		System.out.println(listCount);
+		}
+		System.out.println("게시글갯수" + listCount);
+			
+		if(listCount==0 && b.getbContent()!=null) {
+			request.setAttribute("error",'1');
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "검색 결과가 없습니다.");
+			
+		}
 		/****************** 페이지처리 ***********************/
 
+		
+		
 		int currentPage; // 현재 페이지
 		int limit; // 한 페이지에 표시될 페이징 수
 		int maxPage; // 전체 페이지 중에서 가장 마지막 페이지
@@ -78,23 +103,34 @@ public class BoardListServlet extends HttpServlet {
 		}
 
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+		
+		
+		ArrayList<Board> list = new BoardService().selectList(currentPage,listCount,b);
 
-		ArrayList<Board> list = new BoardService().selectList(currentPage,listCount);
-
-		String page = null;
+	
+		try {
+	
+		}
+		
+		catch (IndexOutOfBoundsException e) {
+			
+		}
+		if(listCount>=0) {
 		if (list != null) {
 			page = "views/community/aviBoardListView.jsp";
+			request.setAttribute("search",b);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회에 실패하였습니다");
 		}
-
+	
+		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

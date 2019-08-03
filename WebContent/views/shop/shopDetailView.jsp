@@ -124,15 +124,24 @@
 						<ul id="ct_btn_ul">
 							<li>
 								<div id="ct_btn_cart">
-									<form name="itemForm" method="post" id="itemForm">
-										<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>"> <input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>"> <input type="hidden" id="price" name="price" value="<%=p.getPrice()%>"> <input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>"> <input type="hidden" id="category" name="category" value="<%=p.getCategory()%>"> <input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>"> <input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>"> <input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>"> <input type="hidden" id="option" name="option" value=""> <input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> <input type="hidden" id="amount" name="amount" value="1"> <input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
-										<button style="width: 100%; height: 100%;">CART</button>
-									</form>
+								<form action="" id="itemform" name="itemForm" method="get">
+									<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>">
+									<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>">
+									<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>">
+									<input type="hidden" id="totalPrice" name="price" value="<%=p.getPrice()%>">
+									<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>">
+									<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>">
+									<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>">
+									<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>">
+									<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>">
+									<input type="hidden" id="option" name="option" value=""> <input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> <input type="hidden" id="amount" name="amount" value="1"> <input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
+										<button id="cartbtn" style="width: 100%; height: 100%;">CART</button>
+								</form>
 								</div>
 							</li>
 							<li>
 								<div id="ct_btn_buy">
-									<button style="width: 100%; height: 100%;" form="itemForm">BUY</button>
+									<button id="buybtn" style="width: 100%; height: 100%;" form="itemForm">BUY</button>
 								</div>
 							</li>
 						</ul>
@@ -346,7 +355,7 @@
 				totalPrice = <%=p.getPrice()%> * $('#noOption input[type=text]').val();
 			<%}%>
 			$('#totPrice').text(totalPrice);
-			$('#price').val(totalPrice);
+			$('#totalPrice').val(totalPrice);
 			console.log(totalPrice);
 		}
 
@@ -597,6 +606,15 @@
 			windowWidth = $(window).width();
 			cssResize();
 		});
+		
+		$('#cartbtn').click(function(){
+		   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
+		   $('#itemform').submit();
+		});
+         
+   
+		
+		
 	</script>
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>

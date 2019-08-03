@@ -7,7 +7,8 @@
     ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
     
 	String arr = board.getbAddress().replaceAll("\"","\'");
-	System.out.println(arr);
+
+	
    
     %>
 <!DOCTYPE html>
@@ -39,7 +40,7 @@ ul{
 	<div class="main">
 		<div class="subpage">
 	<form action="views/community/aviBoardUpdateView.jsp" id="detailForm" method="get">
-			<table>
+			<table >
 				
 				<tr>
 				
@@ -56,9 +57,9 @@ ul{
 				</tr>
 
 				<tr>
-					<td><div class="aviBoard" 
+					<td><div class="aviBoard"  
 							style="width: 80vw;text-align:left; margin: 5px; display: inline-block;">
-								<%=board.getbAddress()%>
+								<div id="aviBoard"></div>
 							<div class="aviContent mar" style="text-align: left;">
 							<input type="hidden" name="address" value="<%=arr%>">
 							<input type="hidden" name ="content" value="<%=board.getbContent()%>">
@@ -72,7 +73,7 @@ ul{
 										</div>
 										<div style="margin-bottom:40px;">
 								<div class="updatedeletebtn" style="float:right; display:none; ">
-									<button class="edit boardEdit" type="submit">수정</button> <button class="edit boardDelete"type="button" onclick="deleteBoard();">삭제</button>
+									<button class="edit boardEdit" type="submit">수정</button> ||<button class="edit boardDelete"type="button" onclick="deleteBoard();">삭제</button>
 								</div>
 								
 								</div>
@@ -114,7 +115,7 @@ ul{
 					<td><br>
 						<hr style="border:1px solid gray"> <br>
 						<div class="readAviReview"
-							style="width: 80vw; height: auto; text-align:left; border: 1px solid black; display: inline-block; margin: 5px;
+							style="width: 80vw; height: auto; text-align:left; display: inline-block; margin: 5px;
 							padding:5px;">
 					<!-- 		<table>
 								<tr>
@@ -141,20 +142,31 @@ ul{
 							<%
 							for (int i = 0; i < list.size(); i++) {
 							%>
-							<div id="replycontent">
+							<div id="replycontent" style="border-bottom:0.1px solid gray;" >
 							<ul >
-							<li style="display:inline-block">
-								<span style="font-size:13px;font-weight:bolder;"><%=list.get(i).getrWriter() %></span>
+							<li style="display:inline-block" id="setTable">
+								<span style="font-size:13px;font-weight:bolder;"id="rWriter"><%=list.get(i).getrWriter() %></span>
 							
-								<span style="font-size:10px"><%=list.get(i).getModifyDate() %></span>
+								<span style="font-size:10px"id="rCreateDate"><%=list.get(i).getModifyDate() %></span>
+								<%if(loginUser!=null) { %>
+								<%if(loginInfo.getNickName().equals(list.get(i).getrWriter()) || loginInfo.getNickName().equals("관리자"))  {%>
+							
+								<span style="font-size:12px;margin-left:70vw" class="deleteReply" onclick=deleteReply(<%=list.get(i).getrId() %>)>삭제</span>
+							
+								<%} %>
+								<%} %>
 							</li>
 								<li>
 								
-								<span><%=list.get(i).getrContent()%></span>
+								<span id="rContent"><%=list.get(i).getrContent()%></span>
+							
 								</li>
 							
 							</ul>
+							
+								
 							</div>
+							
 							<%} %>
 							<%} %>  
 							
@@ -173,6 +185,12 @@ ul{
 
 <script type="text/javascript">
 	//youtube link size 변환
+	
+		$(function(){
+			var inputyoutube = document.getElementById('aviBoard');
+			inputyoutube.innerHTML  = "<%=arr%>";
+		
+		}); // The XSS Auditor refused 방지용 ㅇㅇ
 
 	$(window).resize(function() {
 		resizeYoutube();
@@ -228,6 +246,7 @@ ul{
 			var bid ='<%=board.getBid()%>'
 			var bwriter = '<%= board.getbWriter()%>'
 			
+				<% if(!loginInfo.getNickName().equals(board.getbWriter())){%>
 			
 			$.ajax({
 				url: "avigood.bo",
@@ -246,6 +265,11 @@ ul{
 				}
 				
 			});
+			
+			<%}else{%>
+				alert("본인글에는 추천 할 수 없습니다.");
+				<%}%>
+				
 				<%}else{%>
 				 $("#login-modal").modal();
 				<%}%>
@@ -277,14 +301,32 @@ ul{
 						type: "post",
 						data: {writer:writer,content:content,bid:bid},
 						success: function(data){
-						
+						/* 	$replyTable = $('.readAviReview');
+							$replyTable.html="";
+					
+				
+							for(var key in data){
+								var $tr = $('#replyContent');
+								//메소드체인
+								var $writerTd = $('#rWriter').text(data[key].rWriter);
+								var $dataTd = $('#rCreateDate').text(data[key].createDate);
+								var $contentTd = $('#rContent').text(data[key].rContent); 
+								console.log("댓글작성자:"+data[key].rWriter);
 							
+							
+								$tr.append($writerTd);
+								$tr.append($dataTd);
+								$tr.append($contentTd);
+								$replyTable.append($tr);
+							} */
+							
+							$(".contentarea").val("");
 							
 					}
 					
 				});
-				
 					location.reload();
+					
 					}else{
 						
 						console.log("댓글없으면 값안넣어줌");
@@ -305,10 +347,14 @@ ul{
 		$(document).ready(function(){
 			
 			<%if(loginUser != null){ %>
-			<%if(loginUser.getNickName().equals(board.getbWriter())) {%>
+			<%if(loginUser.getNickName().equals(board.getbWriter())){%>
 				 $('.updatedeletebtn').css("display","inline-block");
+			
 			<%}%>
-		
+			 <%if((loginInfo.getNickName().equals("관리자"))&& !board.getbWriter().equals("관리자")) {%>
+			 $('.updatedeletebtn').css("display","inline-block");
+			 $('.boardEdit').css("display","none");
+			 <%}%>
 			
 		<%-- 	$('.boardEdit').click(function(){ 
 				var bid = '<%=board.getBid() %>';
@@ -337,12 +383,27 @@ ul{
 		});
 		
 		function deleteBoard(){
-			var bool = confirm("정말로 삭제하시겠습니가?");
+			var bool = confirm("정말로 삭제하시겠습니까?");
 			
 			if(bool){
 			location.href='<%= request.getContextPath( )%>/delete.bo?no=' + <%=board.getBid() %>;
 			}
-		}
+		};
+		
+		function deleteReply(number){
+			console.log("댓삭"+number);
+			var num = number;
+			console.log("숫자체크"+num);
+			var bool = confirm("해당 댓글을 삭제하시겠습니까?");
+			
+			if(bool){
+				location.href='<%= request.getContextPath( )%>/deletereply.bo?bid=<%=board.getBid() %>&no='+num;
+				<%-- location.href='<%= request.getContextPath( )%>/deletereply.bo?no='+number+&bid=<%=board.getBid() %>; --%>	
+			}
+		};
+		
+	
+	
 			
 		
 	

@@ -28,7 +28,7 @@
 		<div id="mySidenav" class="sidenav">
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			<a href="<%=request.getContextPath()%>/views/search/searchView.jsp">코인노래방 찾기</a>
-			<a href="<%=request.getContextPath()%>/shopMain.do">shop</a> 
+			<a href="<%=request.getContextPath()%>/shopMain.do">shop</a>
 			<a href="<%=request.getContextPath()%>/list.bo">커뮤니티</a>
 			<a href="#">Q&#38;A</a>
 			<%-- 로그인 시 --%>
@@ -86,15 +86,15 @@
 					</div>
 				</div>
 			</form>
-			
-			
+
+
 				<div class="modal fade" id="pwd-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 					<div class="modal-dialog" style="text-align: center">
 						<div class="pwdmodal-container">
-							
-	
+
+
 							<div class="login-help">
-								
+
 							</div>
 						</div>
 					</div>
@@ -104,4 +104,3 @@
 </body>
 
 </html>
-

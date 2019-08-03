@@ -20,16 +20,17 @@ public class KaraokeService {
 		
 		KaraokeDAO dao = new KaraokeDAO();
 		
-		int result = dao.insertAddress(conn, a);
+		int result1 = dao.insertAddress(conn, a);
+		int result2 = dao.selectAddress(conn, a);
 		
-		if(result < 0) {
+		if(result1 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
-		
 		close(conn);
-		return  result;
+		
+		return  result2;
 
 		}
 
@@ -51,4 +52,19 @@ public class KaraokeService {
 		return  result1;
 
 		}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		int result = new KaraokeDAO().getListCount(conn);
+		close(conn);
+				
+		return result;
+	}
+
+	public ArrayList<Karaoke> selectList(int currentPage) {
+		Connection conn = getConnection();
+		ArrayList<Karaoke> list = new KaraokeDAO().selectList(conn, currentPage);
+		close(conn);
+		return list;
+	}
 }
