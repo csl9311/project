@@ -45,6 +45,14 @@ public class Answer {
 		this.aCount = aCount;
 		this.modifyDate = modifyDate;
 	}
+	
+	
+
+	public Answer(String aContent, Date modifyDate) {
+		super();
+		this.aContent = aContent;
+		this.modifyDate = modifyDate;
+	}
 
 	public int getaId() {
 		return aId;
@@ -111,6 +119,13 @@ public class Answer {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Answer [aId=" + aId + ", aType=" + aType + ", pId=" + pId + ", aRId=" + aRId + ", aWriter=" + aWriter
+				+ ", aTitle=" + aTitle + ", aContent=" + aContent + ", aCount=" + aCount + ", createDate=" + createDate
+				+ ", modifyDate=" + modifyDate + ", status=" + status + "]";
 	}
 	
 	

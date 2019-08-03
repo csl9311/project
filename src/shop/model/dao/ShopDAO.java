@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import member.model.dao.MemberDAO;
@@ -612,17 +611,23 @@ public class ShopDAO {
 	}
 	
 	// 사용자의 상품평과 QnA 리스트 
-	public ArrayList<Review> selectReviewList(Connection conn, int pId) {
+	public ArrayList<Review> selectReviewList(Connection conn, int pId, int type) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> list = null;
 		
 		String query = prop.getProperty("selectReviewList");
+		System.out.println(2);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			System.out.println(3);
+			System.out.println(query);
 			pstmt.setInt(1, pId);
+			pstmt.setInt(2, type);
 			rset = pstmt.executeQuery();
+			
+			System.out.println("rset : " + rset);
 			
 			list = new ArrayList<Review>();
 			while(rset.next()) {
@@ -649,7 +654,7 @@ public class ShopDAO {
 	}
 	
 	// 관리자의 리뷰답변과 QnA 리스트
-	public ArrayList<Answer> selectAnswerList(Connection conn, int pId) {
+	public ArrayList<Answer> selectAnswerList(Connection conn, int pId, int type) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Answer> list = null;
@@ -659,6 +664,7 @@ public class ShopDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, pId);
+			pstmt.setInt(2, type);
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Answer>();
@@ -731,5 +737,98 @@ public class ShopDAO {
 		}
 		
 		return info;
+	}
+
+	public int selectWriter(Connection conn, String userId, int rId, String str) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("select" + str + "Writer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rId);
+			pstmt.setString(2, userId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateReview(Connection conn, int rId, String rContent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, rContent);
+			pstmt.setInt(2, rId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateAnswer(Connection conn, int a_rId, String aContent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, aContent);
+			pstmt.setInt(2, a_rId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Answer selectAnswer(Connection conn, String userId, int aId) {
+		PreparedStatement pstmt = null;
+		ResultSet r = null;
+		Answer a = null;
+		
+		String query = prop.getProperty("selectAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, aId);
+			
+			r = pstmt.executeQuery();
+			
+			if(r.next()) {
+				a = new Answer(r.getString("aContent"),
+								r.getDate("modify_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(r);
+			close(pstmt);
+		}
+		return a;
 	}
 }
