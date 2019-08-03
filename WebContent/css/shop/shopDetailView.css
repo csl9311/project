@@ -15,7 +15,9 @@
 	flex-direction: column;
 	color: rgb(210, 210, 210);
 }
-
+#Index *:focus {
+	outline: none;
+}
 #Index ul {
 	padding: 0;
 }
@@ -39,7 +41,7 @@
 }
 
 #Index li div, #Index li img, #Index select, #Index button,
-	.amount_dltBtn, .reviewTitle {
+	.amount_dltBtn, .reviewTitle, .update {
 	cursor: pointer;
 }
 
@@ -102,7 +104,7 @@ input[type="text"], .amount_Btn, .amount_dltBtn, .sct_btn, select {
 	justify-content: center;
 	align-items: center;
 	width: 50%;
-	height: auto;
+	/* height: auto; */
 	max-height: 40vh;
 	overflow: visivle;
 	flex-wrap: wrap;
@@ -256,6 +258,7 @@ option[value=""][disabled] {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	margin-bottom: 10vh;
 }
 
 .cb_cate {
@@ -295,7 +298,9 @@ option[value=""][disabled] {
 	.cb_info_inner, .cb_cate a {
 	width: 100%;
 }
-
+#cb_review, #cb_qna{
+	margin-bottom: 10vh;
+}
 .cb_review_inner {
 	display: flex;
 }
@@ -308,7 +313,7 @@ option[value=""][disabled] {
 	display: table;
 }
 
-.cb_table div, .cb_table tr:last-child {
+.from_user, .cb_table tr:last-child {
 	border-bottom: none;
 }
 
@@ -328,6 +333,15 @@ option[value=""][disabled] {
 #cb_review .text_box, #cb_qna .text_box, blockquote {
 	display: flex;
 	text-align: justify !important;
+	width: 100%;
+}
+
+.tArea{
+	background: none;
+	border: none;
+	resize: none;
+	width: 90%;
+	height: 100%;
 }
 
 blockquote {
@@ -365,9 +379,17 @@ blockquote {
 #cb_qna {
 	width: 100%;
 }
-
 #cb_info {
 	margin-bottom: 5vh;
+}
+
+#cb_info_wrap{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.cb_info_inner{
+	width: 30%;
 }
 
 #cb_info .text_box {

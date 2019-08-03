@@ -78,6 +78,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		System.out.println("체크용result"+result);
 		if(result>0) {
 			page ="/avidetail.bo?bid="+ bid;
+			
 			System.out.println("여기요");
 		
 		}else {

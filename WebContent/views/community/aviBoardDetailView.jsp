@@ -7,7 +7,7 @@
     ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
     
 	String arr = board.getbAddress().replaceAll("\"","\'");
-	System.out.println(loginInfo.getNickName());
+
 	
    
     %>
@@ -40,7 +40,7 @@ ul{
 	<div class="main">
 		<div class="subpage">
 	<form action="views/community/aviBoardUpdateView.jsp" id="detailForm" method="get">
-			<table>
+			<table >
 				
 				<tr>
 				
@@ -57,9 +57,9 @@ ul{
 				</tr>
 
 				<tr>
-					<td><div class="aviBoard" 
+					<td><div class="aviBoard"  
 							style="width: 80vw;text-align:left; margin: 5px; display: inline-block;">
-								<%=board.getbAddress()%>
+								<div id="aviBoard"></div>
 							<div class="aviContent mar" style="text-align: left;">
 							<input type="hidden" name="address" value="<%=arr%>">
 							<input type="hidden" name ="content" value="<%=board.getbContent()%>">
@@ -144,10 +144,10 @@ ul{
 							%>
 							<div id="replycontent" style="border-bottom:0.1px solid gray;" >
 							<ul >
-							<li style="display:inline-block">
-								<span style="font-size:13px;font-weight:bolder;"><%=list.get(i).getrWriter() %></span>
+							<li style="display:inline-block" id="setTable">
+								<span style="font-size:13px;font-weight:bolder;"id="rWriter"><%=list.get(i).getrWriter() %></span>
 							
-								<span style="font-size:10px"><%=list.get(i).getModifyDate() %></span>
+								<span style="font-size:10px"id="rCreateDate"><%=list.get(i).getModifyDate() %></span>
 								<%if(loginUser!=null) { %>
 								<%if(loginInfo.getNickName().equals(list.get(i).getrWriter()) || loginInfo.getNickName().equals("관리자"))  {%>
 							
@@ -158,7 +158,7 @@ ul{
 							</li>
 								<li>
 								
-								<span><%=list.get(i).getrContent()%></span>
+								<span id="rContent"><%=list.get(i).getrContent()%></span>
 							
 								</li>
 							
@@ -185,6 +185,12 @@ ul{
 
 <script type="text/javascript">
 	//youtube link size 변환
+	
+		$(function(){
+			var inputyoutube = document.getElementById('aviBoard');
+			inputyoutube.innerHTML  = "<%=arr%>";
+		
+		}); // The XSS Auditor refused 방지용 ㅇㅇ
 
 	$(window).resize(function() {
 		resizeYoutube();
@@ -295,14 +301,32 @@ ul{
 						type: "post",
 						data: {writer:writer,content:content,bid:bid},
 						success: function(data){
-						
+						/* 	$replyTable = $('.readAviReview');
+							$replyTable.html="";
+					
+				
+							for(var key in data){
+								var $tr = $('#replyContent');
+								//메소드체인
+								var $writerTd = $('#rWriter').text(data[key].rWriter);
+								var $dataTd = $('#rCreateDate').text(data[key].createDate);
+								var $contentTd = $('#rContent').text(data[key].rContent); 
+								console.log("댓글작성자:"+data[key].rWriter);
 							
+							
+								$tr.append($writerTd);
+								$tr.append($dataTd);
+								$tr.append($contentTd);
+								$replyTable.append($tr);
+							} */
+							
+							$(".contentarea").val("");
 							
 					}
 					
 				});
-				
 					location.reload();
+					
 					}else{
 						
 						console.log("댓글없으면 값안넣어줌");
@@ -327,7 +351,7 @@ ul{
 				 $('.updatedeletebtn').css("display","inline-block");
 			
 			<%}%>
-			 <%if(loginInfo.getNickName().equals("관리자")){%>
+			 <%if((loginInfo.getNickName().equals("관리자"))&& !board.getbWriter().equals("관리자")) {%>
 			 $('.updatedeletebtn').css("display","inline-block");
 			 $('.boardEdit').css("display","none");
 			 <%}%>
@@ -378,6 +402,7 @@ ul{
 			}
 		};
 		
+	
 	
 			
 		

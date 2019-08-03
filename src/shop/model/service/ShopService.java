@@ -141,16 +141,17 @@ public class ShopService {
 		return result;
 	}
 
-	public ArrayList<Review> selectReviewList(int pId) {
+	public ArrayList<Review> selectReviewList(int pId, int type) {
+		System.out.println(1);
 		Connection conn = getConnection();
-		ArrayList<Review> list = new ShopDAO().selectReviewList(conn, pId);
+		ArrayList<Review> list = new ShopDAO().selectReviewList(conn, pId, type);
 		close(conn);
 		return list;
 	}
 
-	public ArrayList<Answer> selectAnswerList(int pId) {
+	public ArrayList<Answer> selectAnswerList(int pId, int type) {
 		Connection conn = getConnection();
-		ArrayList<Answer> list = new ShopDAO().selectAnswerList(conn, pId);
+		ArrayList<Answer> list = new ShopDAO().selectAnswerList(conn, pId, type);
 		close(conn);
 		return list;
 	}
@@ -174,6 +175,34 @@ public class ShopService {
 		ArrayList<Payment> info = new ShopDAO().selectCart(conn, userId);
 		close(conn);
 		return info;
+	}
+
+	public int selectWriter(String userId, int rId, String str) {
+		Connection conn = getConnection();
+		int result = new ShopDAO().selectWriter(conn, userId, rId, str);
+		close(conn);
+		return result;
+	}
+
+	public int updateReview(int rId, String rContent) {
+		Connection conn = getConnection();
+		int result = new ShopDAO().updateReview(conn, rId, rContent);
+		close(conn);
+		return result;
+	}
+
+	public int updateAnswer(int a_rId, String aContent) {
+		Connection conn = getConnection();
+		int result = new ShopDAO().updateAnswer(conn, a_rId, aContent);
+		close(conn);
+		return result;
+	}
+
+	public Answer selectAnswer(String userId, int aId) {
+		Connection conn = getConnection();
+		Answer a = new ShopDAO().selectAnswer(conn, userId, aId);
+		close(conn);
+		return a;
 	}
 
 }
