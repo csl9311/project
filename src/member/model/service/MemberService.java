@@ -89,9 +89,9 @@ public class MemberService {
 		return list;
 	}
 	
-	public int addressInsert(Address add) {
+	public int addressInsert(Address address) {
 		Connection conn = getConnection();
-		int result = new MemberDAO().insertAddress(conn, add);
+		int result = new MemberDAO().insertAddress(conn, address);
 		if(result > 0) {
 			commit(conn);
 		} else {
@@ -108,9 +108,21 @@ public class MemberService {
 		return result;
 	}
 
-	public int addressUpdate(Address add) {
+	public int addressUpdate(Address address) {
 		Connection conn = getConnection();
-		int result = new MemberDAO().addressUpdate(conn, add);
+		int result = new MemberDAO().addressUpdate(conn, address);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int addressDelete(Address address) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().addressDelete(conn, address);
 		if (result > 0) {
 			commit(conn);
 		} else {

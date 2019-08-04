@@ -4,6 +4,7 @@
 <%@ include file="/views/common/coinheader.jsp"%>
 
 <%
+	
 	ArrayList<Member> list = (ArrayList<Member>) request.getAttribute("memberList");
 	HashMap<String, Integer> addressCountMap = (HashMap<String, Integer>) request.getAttribute("addressCountMap");
 	String msg = (String) request.getAttribute("msg");
@@ -25,21 +26,20 @@
 </head>
 <body>
 	<div>
-
-		<%-- 헤더 여백 --%>
+<%-- 헤더 여백 --%>
 		<div class="emptyHeader"></div>
 
-		<%-- 검색 영역 --%>
-		<form class="center" action="<%=request.getContextPath()%>/searchMem.admin" method="get">
+<%-- 검색 영역 --%>
+		<form class="center search" action="<%=request.getContextPath()%>/searchMem.admin" method="get">
 			<input type="search" name="search">
 			<button type="submit">검색</button>
 		</form>
 
-		<br> <br>
-
-		<%-- 회원정보조회, 등급 수정, 관리자 권한부여 --%>
+		<div class="emptyHeader"></div>
+<%-- 회원정보조회, 등급 수정, 관리자 권한부여 --%>
 		<div>
-			<%-- 회원정보조회 --%>
+		<% if(loginUser.getGrade().equals("관리자")) {%>
+<%-- 회원정보조회 --%>
 			<% if (list.isEmpty()) { %>
 			<h3>조회 결과가 없습니다.</h3>
 			<% } else { %>
@@ -63,7 +63,7 @@
 					Member member = list.get(i);
 			%>
 			<hr>
-			<form action="<%=request.getContextPath()%>/selectMember" method="post">
+			<form action="<%=request.getContextPath()%>/selectMember" method="get">
 				<table class="resultList">
 					<tr>
 						<td>
@@ -82,13 +82,15 @@
 						<%} else {%>
 						<td><%=addressCountMap.getOrDefault(member.getId(), 0) %></td>
 						<%}%>
-						<td><input type="submit" value="상세정보"></td>
+						<td><input class="adminButton" type="submit" value="상세정보"></td>
 						
 						<%-- 클릭 시 상세정보조회, 회원정보수정, 등급변경, 관리자 권한부여 --%>
 					</tr>
 				</table>
 			</form>
-			<% }} %>
+			<% }}} else {%>
+				<h2 class="center">관리자 계정으로 로그인해주세요.</h2>
+			<%} %>
 		</div>
 	<script>
 		if(<%=msg != null%>){

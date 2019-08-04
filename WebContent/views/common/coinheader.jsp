@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>메인페이지</title>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/main/header.js?v=<%=System.currentTimeMillis()%>"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/main/header.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/main/loginForm.css">
@@ -45,8 +45,8 @@
 				<span style="font-size: 30px; cursor: pointer" onclick="openNav()" class=" top left">&#9776; Menu</span>
 				<div class="right">
 					<%if (loginUser != null) {%>
-					<span style="font-size: 20px; cursor: pointer; position: absolute; top: 12px; right: 50px; width: 10vw;" class="login" onclick="logout();">로그아웃</span>
-					<span style="font-size: 20px; cursor: pointer; margin-top: 4px;" class="login" onclick="profile();">프로필</span>
+					<span style="font-size: 20px; cursor: pointer; position: absolute; right: 50px; top: 12px; width: 10vw;" class="login" onclick="logout();">로그아웃</span>
+					<div class="profile" onclick='location.href="<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp"'></div>
 					<script>
 						function logout(){
 							$.ajax({

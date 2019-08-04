@@ -27,10 +27,12 @@ public class LoginServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 
 		Member member = new Member(userId, userPwd);
-		Member loginUser = new MemberService().loginMember(member);
+		Member login = new MemberService().loginMember(member);
+		Member loginUser = new MemberService().selectMember(login.getId());
 		// 각 페이지에서 페이지 정보 받아온 후
 		String page ="";
 		if (loginUser != null) {
+			System.out.println(loginUser.toString());
 			session.setAttribute("loginUser", loginUser);
 			response.sendRedirect(request.getHeader("referer"));
 		} else {
