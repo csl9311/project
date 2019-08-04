@@ -220,3 +220,34 @@ hr{
 }
 
 
+.reword2 span , .rewordmodal-container span{
+	color:white;
+	cursor:pointer;
+	
+}
+
+
+
+.rewordmodal-container{
+	position:relative;
+	
+}
+.rewordmodal-container:after {
+	
+	position:absolute;
+	 content:"";
+	top:0;
+	left:0;
+/*  background: url("https://i.pinimg.com/736x/c4/e8/99/c4e8997e6229a20d8b2ab6ac8c6015fb.jpg") center center;  */
+	background: url("https://i.pinimg.com/736x/43/3d/dc/433ddc3d50601ed92c6eba3f073445c2.jpg") center center; 
+	/* background: url("http://blogfiles.naver.net/MjAxNzA2MjJfMTIw/MDAxNDk4MTIzNTk1NTEz.AB9LoB6dOHZFkwVhoQZIIOxo6OwaXl6FUtm8wXZ10_Ig.w3VX4ipFL9eAv_XEmI1_BLxA4C7qxROKQd0h4fAZKhQg.JPEG.u352601u/41.750.1334.jpg") center center; */
+	width: 100%;
+    height: 100%;
+    opacity : 0.7;
+    z-index: -1;
+
+
+}
+
+
+

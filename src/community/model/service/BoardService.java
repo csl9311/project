@@ -35,6 +35,7 @@ public class BoardService {
 		int result =0;
 		
 		result= new BoardDAO().getListCount(conn);
+		
 		System.out.println("총카운트"+result);
 
 		close(conn);
@@ -181,6 +182,24 @@ public class BoardService {
 			      close(conn);
 			      
 			      return result;
+	}
+
+	public ArrayList<Board> selectRewordUser() {
+		Connection conn = getConnection();
+		ArrayList<Board> Board  = new BoardDAO().selectRewordUser(conn);
+		close(conn);
+		
+		
+		return Board;
+	}
+
+	public ArrayList<Board> selectRewordBoard() {
+		Connection conn = getConnection();
+		ArrayList<Board> Board  = new BoardDAO().selectRewordBoard(conn);
+		close(conn);
+		
+		
+		return Board;
 	}
 
 
