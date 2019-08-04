@@ -5,6 +5,7 @@ import static common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import member.model.dao.MemberDAO;
 import product.model.vo.Product;
 import shop.model.vo.Answer;
 import shop.model.vo.Payment;
+import shop.model.vo.RAttachment;
 import shop.model.vo.Review;
 
 public class ShopDAO {
@@ -612,17 +614,23 @@ public class ShopDAO {
 	}
 	
 	// 사용자의 상품평과 QnA 리스트 
-	public ArrayList<Review> selectReviewList(Connection conn, int pId) {
+	public ArrayList<Review> selectReviewList(Connection conn, int pId, int type) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> list = null;
 		
 		String query = prop.getProperty("selectReviewList");
+		System.out.println(2);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			System.out.println(3);
+			System.out.println(query);
 			pstmt.setInt(1, pId);
+			pstmt.setInt(2, type);
 			rset = pstmt.executeQuery();
+			
+			System.out.println("rset : " + rset);
 			
 			list = new ArrayList<Review>();
 			while(rset.next()) {
@@ -649,7 +657,7 @@ public class ShopDAO {
 	}
 	
 	// 관리자의 리뷰답변과 QnA 리스트
-	public ArrayList<Answer> selectAnswerList(Connection conn, int pId) {
+	public ArrayList<Answer> selectAnswerList(Connection conn, int pId, int type) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Answer> list = null;
@@ -659,6 +667,7 @@ public class ShopDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, pId);
+			pstmt.setInt(2, type);
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Answer>();
@@ -745,5 +754,126 @@ public class ShopDAO {
 		}
 		
 		return info;
+	}
+
+	public int selectWriter(Connection conn, String userId, int rId, String str) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("select" + str + "Writer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rId);
+			pstmt.setString(2, userId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateReview(Connection conn, Review r) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, r.getrContent());
+			pstmt.setDate(2, r.getModifyDate());
+			pstmt.setInt(3, r.getrId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateAnswer(Connection conn, int a_rId, String aContent, Date date) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, aContent);
+			pstmt.setDate(2, date);
+			pstmt.setInt(3, a_rId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Answer selectAnswer(Connection conn, String userId, int aId) {
+		PreparedStatement pstmt = null;
+		ResultSet r = null;
+		Answer a = null;
+		
+		String query = prop.getProperty("selectAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, aId);
+			
+			r = pstmt.executeQuery();
+			
+			if(r.next()) {
+				a = new Answer(r.getString("aContent"),
+								r.getDate("modify_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(r);
+			close(pstmt);
+		}
+		return a;
+	}
+
+	public int updateRAttachment(Connection conn, ArrayList<RAttachment> fileList, int rId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateRAttachment");
+
+		try {
+			for (int i = 0; i < fileList.size(); i++) {
+				RAttachment at = fileList.get(i);
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePAth());
+				pstmt.setInt(4, rId);
+
+				result += pstmt.executeUpdate(); // 계속 더해줄것
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

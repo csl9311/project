@@ -25,13 +25,15 @@ public class ShopDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		
 		int pId = Integer.parseInt(request.getParameter("pId"));
 		
 		ShopService service = new ShopService();
 		Product p = service.selectProduct(pId);
 		
-		ArrayList<Review> rList = service.selectReviewList(pId);
-		ArrayList<Answer> aList = service.selectAnswerList(pId);
+		ArrayList<Review> rList = service.selectReviewList(pId, 1);
+		ArrayList<Answer> aList = service.selectAnswerList(pId, 1);
 		
 		System.out.println("rList: " + rList);
 		System.out.println("aList: " + aList);
@@ -47,8 +49,9 @@ public class ShopDetailServlet extends HttpServlet {
 				System.out.println(option);
 			}
 			request.setAttribute("option", option);
-			request.setAttribute("rList", rList); 
+			request.setAttribute("rList", rList);
 			request.setAttribute("aList", aList);
+			
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "상품 상세페이지 조회에 실패했습니다.");
@@ -56,7 +59,7 @@ public class ShopDetailServlet extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
