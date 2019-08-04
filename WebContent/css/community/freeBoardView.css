@@ -226,7 +226,10 @@ hr{
 	
 }
 
-
+.reword2 span:hover{
+	color:red;
+	
+}
 
 .rewordmodal-container{
 	position:relative;

@@ -206,13 +206,13 @@ CSS
 					 	
 					 		<input type="hidden" value="<%=reword.getBid()%>">
 					 		<div style="flex-basis:100px">
-							<span><%=reword.getbType() %>위)</span>
+							<span><%=reword.getbType() %>위</span>
 							</div>
 							<div style="flex-basis:250px">
-							<span><%=reword.getbWriter()%></span>
+							<span style="width:250px;display:inline-block"><%=reword.getbWriter()%></span>
 							</div>
-							<div style="flex-basis:100px; justify-content: left;"> 
-							<span>추천수:<%=reword.getbGood()%></span>
+							<div style="flex-basis:100px; text-align:left;margin-left:20px"> 
+							<span>추천수: <%=reword.getbGood()%></span>
 							</div>
 							</div>
 							
@@ -227,13 +227,13 @@ CSS
 					 	
 					 		<input type="hidden" value="<%=reword.getBid()%>">
 					 		<div style="flex-basis:100px">
-							<span><%=reword.getbType() %>위)</span>
+							<span><%=reword.getbType() %>위</span>
 							</div>
 							<div style="flex-basis:250px">
 							<span style=" width:250px;text-overflow:ellipsis;overflow : hidden; white-space :nowrap; display:inline-block"><%=reword.getbTitle()%></span>
 							</div>
-							<div style="flex-basis:100px; justify-content: left;"> 
-							<span>추천수:<%=reword.getbGood()%></span>
+							<div style="flex-basis:100px; text-align: left; margin-left:20px"> 
+							<span>추천수: <%=reword.getbGood()%></span>
 							</div>
 							</div>
 							
