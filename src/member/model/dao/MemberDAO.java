@@ -243,8 +243,6 @@ public class MemberDAO {
 		int result = 0;
 		
 		String query = prop.getProperty("insertAddress");
-		System.out.println(query);
-		System.out.println(add.toString());
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, add.getPostNum());
