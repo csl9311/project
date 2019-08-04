@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
+import member.model.vo.Address;
 import member.model.vo.Member;
 
 @WebServlet("/member.signUp")
@@ -24,7 +25,6 @@ public class SignUpServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		// 중복확인
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		String nickName = request.getParameter("nickName");
@@ -36,20 +36,36 @@ public class SignUpServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		// 생년월일
 		String[] birthArr = request.getParameterValues("birth");
-			Date birth = null;
-			int year = Integer.parseInt(birthArr[0]);
-			int month = Integer.parseInt(birthArr[1])-1;
-			int day = Integer.parseInt(birthArr[2]);
-			birth = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
-			
+		Date birth = null;
+		int year = Integer.parseInt(birthArr[0]);
+		int month = Integer.parseInt(birthArr[1]) - 1;
+		int day = Integer.parseInt(birthArr[2]);
+		birth = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
+
 		int news = Integer.parseInt(request.getParameter("news"));
-		int sms =  Integer.parseInt(request.getParameter("sms"));
-		
+		int sms = Integer.parseInt(request.getParameter("sms"));
+
+		String postNum = request.getParameter("postNum");
+		String roadAddress = request.getParameter("roadAddress");
+		String jibunAddress = request.getParameter("jibunAddress");
+		String address_detail = request.getParameter("address_detail");
+
+		MemberService ms = new MemberService();
+
 		Member member = new Member(id, name, nickName, phone, gender, email, birth, news, sms, pw);
-		int result = new MemberService().insertMember(member);
-		
+		int mResult = ms.insertMember(member);
+
+		if (!postNum.equals("")) {
+			Address address = new Address(postNum, roadAddress, jibunAddress, address_detail, id);
+			int aResult = ms.addressInsert(address);
+			if (aResult > 0) {
+				System.out.println("주소 등록 성공");
+			} else {
+				System.out.println("주소 등록 실패");
+			}
+		}
 		String page = "";
-		if(result > 0) {
+		if (mResult > 0) {
 			request.setAttribute("msg", "회원가입에 성공했습니다.");
 			page = "views/member/signUp.jsp";
 		} else {

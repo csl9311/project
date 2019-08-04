@@ -146,7 +146,7 @@
 			<form action="<%=request.getContextPath()%>/address.insert" method="post">
 				<input name="id" type="hidden" value="<%=member.getId()%>">
 				<input name="page" type="hidden" value="/selectMember?id=<%=member.getId()%>">
-				<input class="adminButton" type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br><br>
+				<input class="adminButton" type="button" onclick="sample4_execDaumPostcode()" value="주소 찾기"><br><br>
 				<input type="text" style="background: none; color: white;" name="postNum" id="sample4_postcode" placeholder="우편번호" readonly><br><br>
 				<input type="text" name="roadAddress" id="sample4_roadAddress" placeholder="도로명주소"><br><br>
 				<input type="text" name="jibunAddress" id="sample4_jibunAddress" placeholder="지번주소"><br><br>

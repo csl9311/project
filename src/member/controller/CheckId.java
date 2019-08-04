@@ -11,17 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
 
-@WebServlet("/member.nickCheck")
-public class nickCheck extends HttpServlet {
+@WebServlet("/member.idCheck")
+public class CheckId extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public nickCheck() {
+	public CheckId() {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String nickName = request.getParameter("nickName");
-		int result = new MemberService().nickCheck(nickName);
+		String id = request.getParameter("id");
+		int result = new MemberService().checkId(id);
 		PrintWriter out = response.getWriter();
 		if (result  > 0) {
 			out.append("fail");
