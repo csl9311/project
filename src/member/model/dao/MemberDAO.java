@@ -84,7 +84,7 @@ public class MemberDAO {
 	}
 
 // 마이페이지에서 개인정보수정 접근 시
-	public boolean pwCheck(Connection conn, String id, String pw) {
+	public boolean checkPw(Connection conn, String id, String pw) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
@@ -163,7 +163,7 @@ public class MemberDAO {
 	}
 	
 // 아이디 중복확인
-	public int idCheck(Connection conn, String id) {
+	public int checkId(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -187,7 +187,7 @@ public class MemberDAO {
 	}
 	
 // 닉네임 중복확인
-	public int nickCheck(Connection conn, String nickName) {
+	public int checkNick(Connection conn, String nickName) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -209,6 +209,30 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	public int checkEmail(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("emailCheck");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, email);
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
 
 // 관리자페이지에서 회원정보 수정
 	public int adminUpdateMember(Connection conn, Member member) {
@@ -238,24 +262,65 @@ public class MemberDAO {
 	}
 	
 // 주소 입력
-	public int insertAddress(Connection conn, Address add) {
+	public int addressInsert(Connection conn, Address address) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertAddress");
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, add.getPostNum());
-			pstmt.setString(2, add.getRoadAddress());
-			pstmt.setString(3, add.getJibunAddress());
-			pstmt.setString(4, add.getAddress_detail());
-			pstmt.setString(5, add.getId());
+			pstmt.setString(1, address.getPostNum());
+			pstmt.setString(2, address.getRoadAddress());
+			pstmt.setString(3, address.getJibunAddress());
+			pstmt.setString(4, address.getAddress_detail());
+			pstmt.setString(5, address.getId());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);			
+		}
+		return result;
+	}
+// 주소 수정
+	public int addressUpdate(Connection conn, Address add) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("addressUpdate");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, add.getPostNum());
+			pstmt.setString(2, add.getRoadAddress());
+			pstmt.setString(3, add.getJibunAddress());
+			pstmt.setString(4, add.getAddress_detail());
+			pstmt.setInt(5, add.getAddress_code());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+// 주소 삭제
+	public int addressDelete(Connection conn, Address address) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("addressDelete");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, address.getAddress_code());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
@@ -315,46 +380,5 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	
-// 주소 수정
-	public int addressUpdate(Connection conn, Address add) {
-		PreparedStatement pstmt = null;
-		int result = 0;
 
-		String query = prop.getProperty("addressUpdate");
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, add.getPostNum());
-			pstmt.setString(2, add.getRoadAddress());
-			pstmt.setString(3, add.getJibunAddress());
-			pstmt.setString(4, add.getAddress_detail());
-			pstmt.setInt(5, add.getAddress_code());
-
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-
-	public int addressDelete(Connection conn, Address address) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-
-		String query = prop.getProperty("addressDelete");
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, address.getAddress_code());
-
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
 }

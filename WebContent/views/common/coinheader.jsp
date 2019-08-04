@@ -87,18 +87,23 @@
 				</div>
 			</form>
 
-
+			<form action="<%=request.getContextPath()%>/member.find" method="post">
 				<div class="modal fade" id="pwd-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 					<div class="modal-dialog" style="text-align: center">
 						<div class="pwdmodal-container">
-
-
-							<div class="login-help">
-
-							</div>
+							<h1>아이디 / 비밀번호 찾기</h1>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<input type="text" name="email" id="email" style="line-height: 30px;"placeholder="이메일">
+							<input type="submit" class="button" style="font-size: 12px; line-height: 30px;" value="이메일 인증">
 						</div>
 					</div>
 				</div>
+			</form>
 		</header>
 	</div>
 </body>
