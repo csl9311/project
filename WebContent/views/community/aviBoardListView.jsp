@@ -187,7 +187,7 @@ CSS
 		 </div>
  <div class="searchArea" align="center">
 		 	<% if(loginUser !=null){ %>
-				<button class="btn-primary" style="margin-top: 15px; background:default"
+				<button class="btn-primary" style="margin-top: 15px; background:default;"
 			onclick="location.href='<%=request.getContextPath()%>/views/community/aviBoardInsertView.jsp'">글쓰기</button>
 		 	
 		 	<% } %>
