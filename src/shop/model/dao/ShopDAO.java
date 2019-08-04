@@ -5,6 +5,7 @@ import static common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -780,7 +781,7 @@ public class ShopDAO {
 		return result;
 	}
 
-	public int updateReview(Connection conn, int rId, String rContent) {
+	public int updateReview(Connection conn, int rId, String rContent, Date date) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -789,7 +790,8 @@ public class ShopDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, rContent);
-			pstmt.setInt(2, rId);
+			pstmt.setDate(2, date);
+			pstmt.setInt(3, rId);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -800,7 +802,7 @@ public class ShopDAO {
 		return result;
 	}
 
-	public int updateAnswer(Connection conn, int a_rId, String aContent) {
+	public int updateAnswer(Connection conn, int a_rId, String aContent, Date date) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -809,7 +811,8 @@ public class ShopDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, aContent);
-			pstmt.setInt(2, a_rId);
+			pstmt.setDate(2, date);
+			pstmt.setInt(3, a_rId);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

@@ -1,6 +1,8 @@
 package shop.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,16 +36,17 @@ public class updateAnswerServlet extends HttpServlet {
 		int a_rId = Integer.parseInt(request.getParameter("a_rId"));
 		String aContent = request.getParameter("aContent");
 		int aId = Integer.parseInt(request.getParameter("aId"));
+		Date date = new Date(new GregorianCalendar().getTimeInMillis());
 		
 		ShopService service = new ShopService();
 		
 		String str = "Answer";
 		
-		int result = service.selectWriter(userId, a_rId, str); 
+		int result = service.selectWriter(userId, a_rId, str); // 글 작성자와 세션의 유저를 비교하고 
 		if(result > 0) {
-			result = service.updateAnswer(a_rId, aContent);
+			result = service.updateAnswer(a_rId, aContent, date); // 글을 수정 후
 			if (result > 0) {
-				a = service.selectAnswer(userId, aId);
+				a = service.selectAnswer(userId, aId); // ajax로 뿌릴 데이터를 바로 받아옴
 			}
 		}
 		

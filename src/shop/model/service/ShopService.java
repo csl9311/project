@@ -1,11 +1,13 @@
 package shop.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 import product.model.vo.Product;
 import shop.model.dao.ShopDAO;
@@ -184,16 +186,16 @@ public class ShopService {
 		return result;
 	}
 
-	public int updateReview(int rId, String rContent) {
+	public int updateReview(int rId, String rContent, Date date) {
 		Connection conn = getConnection();
-		int result = new ShopDAO().updateReview(conn, rId, rContent);
+		int result = new ShopDAO().updateReview(conn, rId, rContent, date);
 		close(conn);
 		return result;
 	}
 
-	public int updateAnswer(int a_rId, String aContent) {
+	public int updateAnswer(int a_rId, String aContent, Date date) {
 		Connection conn = getConnection();
-		int result = new ShopDAO().updateAnswer(conn, a_rId, aContent);
+		int result = new ShopDAO().updateAnswer(conn, a_rId, aContent, date);
 		close(conn);
 		return result;
 	}

@@ -1,6 +1,8 @@
 package shop.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +35,7 @@ public class UpdateReviewServlet extends HttpServlet {
 		
 		int rId = Integer.parseInt(request.getParameter("rId"));
 		String rContent = request.getParameter("rContent");
+		Date date = new Date(new GregorianCalendar().getTimeInMillis());
 		
 		ShopService service = new ShopService();
 		
@@ -40,7 +43,7 @@ public class UpdateReviewServlet extends HttpServlet {
 		
 		int result = service.selectWriter(userId, rId, str); 
 		if(result > 0) {
-			result = service.updateReview(rId, rContent);
+			result = service.updateReview(rId, rContent, date);
 		}
 		
 		JsonObject jObj = new JsonObject();

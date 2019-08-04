@@ -53,6 +53,15 @@ public class Answer {
 		this.aContent = aContent;
 		this.modifyDate = modifyDate;
 	}
+	
+	
+
+	public Answer(int aId, String aWriter, Date modifyDate) {
+		super();
+		this.aId = aId;
+		this.aWriter = aWriter;
+		this.modifyDate = modifyDate;
+	}
 
 	public int getaId() {
 		return aId;
