@@ -14,6 +14,8 @@ public class Review {
 	private Date modifyDate;
 	private String status;
 	
+	public Review() {}
+	
 	public Review(int rId, int rType, int pId, String rWriter, String rTitle, String rContent, int rCount,
 			Date createDate, Date modifyDate, String status) {
 		super();
@@ -44,10 +46,11 @@ public class Review {
 		this.modifyDate = modifyDate;
 	}
 	
-	public Review(int rId, String rContent) {
+	public Review(int rId, String rContent, Date modifyDate) {
 		super();
 		this.rId = rId;
 		this.rContent = rContent;
+		this.modifyDate = modifyDate;
 	}
 
 	public int getrId() {

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "shop.model.vo.*, product.model.vo.*, java.util.*" %>
+<%@ page import="shop.model.vo.*, product.model.vo.*, java.util.*"%>
 <%
 	String pId = request.getParameter("pId");
-	String pName = (String)(request.getParameter("pName"));
+	String pName = (String) (request.getParameter("pName"));
 	String rId = request.getParameter("rId");
-	String rContent = (String)(request.getParameter("rContent"));
+	String rContent = (String) (request.getParameter("rContent"));
 	System.out.println(pId);
 	System.out.println(rId);
 %>
@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
 <head>
- <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta charset="UTF-8">
 <title>shopReviewView</title>
 <style type="text/css">
@@ -20,11 +20,12 @@
 	outline: none;
 }
 
-body{
+body {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 }
+
 #Index {
 	width: 600px;
 	display: flex;
@@ -46,10 +47,11 @@ body{
 	height: 700px;
 }
 
-#submitForm{
+#submitForm {
 	width: 90%;
 	height: 100%;
 }
+
 #upper {
 	margin-top: -3%;
 	width: 100%;
@@ -88,7 +90,7 @@ img {
 }
 
 #item_info {
-	margin-left: 2	%;
+	margin-left: 2%;
 	font-size: 0.9rem;
 }
 
@@ -118,7 +120,6 @@ img {
 	display: block;
 	width: 100%;
 	height: 100%;
-	background-color: rgb(75, 75, 75);
 	padding: 2%;
 	background-color: rgb(75, 75, 75);
 }
@@ -137,42 +138,53 @@ img {
 #review_attach {
 	width: 100%;
 	display: flex;
-	justify-content: center;	
+	justify-content: center;
 	align-content: center;
 	margin-bottom: 5%;
-	margin-top: 10%;
+	margin-top: 7%;
 }
-#review_attach_inner{
+
+#review_attach_inner {
 	width: 100%;
 	display: inline-flex;
 }
 
 #review_attach #thumUl {
-margin: 0; padding: 0;
+	margin: 0;
+	padding: 0;
 	display: flex;
 	width: 59%;
 }
 
 #review_attach #submitUl {
-margin: 0; padding: 0;
-	display: flex;
+	margin: 0;
+	padding: 0;
+	display: flex; align-items : center;
 	width: 41%;
+	align-items: center;
 }
 
-#review_attach #thumUl li{
-	display: inline-flex;
-	width: 100%;
-}
-#review_attach #submitUl li{
+#review_attach #thumUl li, #review_attach #submitUl li {
 	display: inline-flex;
 	width: 100%;
 }
 
 .add_thmb {
-	width: 95%;
-	height: 50px;
-	/* background: none; */
-	border: none;
+	width: 90%;
+	height: 60px;
+	background-color: #9e9b9b;
+	display: flex;
+	border: 1px solid black;
+	cursor: pointer;
+	align-items: center;
+	justify-content: center;
+}
+
+.add_thmb img {
+	width: 90%;
+	height: 90%;
+	margin: 0;
+	padding: 0;
 }
 
 #submitBtn, #cencleBtn {
@@ -184,35 +196,34 @@ margin: 0; padding: 0;
 	margin-left: 1vw;
 	cursor: pointer;
 }
+
 #cencleBtn {
 	background-color: rgb(75, 75, 75);
 }
-
 </style>
 </head>
 <body>
 	<div id="Index">
 		<div id="wrap">
-			<!-- <form id="submitForm" name="submitForm" action="/updateReview.do" onsubmit="return cfmSubmit();"> -->
-				<input type="hidden" id="pId" name="pId"> <input type="hidden"> <input type="hidden"> <input type="hidden"> <input type="hidden"> <input type="hidden"> <input type="hidden"> <input type="hidden"> <input type="hidden"> <input type="hidden">
-				<div id="upper">
-					<p>상품평 작성</p>
-					<button class="button_close" type="button" onclick="self.close();">X</button>
+			<form id="file_form" method="post" enctype="multipart/form-data">
+			<input type="hidden" id="pId" name="pId"> 
+			<div id="upper">
+				<p>상품평 작성</p>
+				<button class="button_close" type="button" onclick="self.close();">X</button>
+			</div>
+			<div id="selected_info">
+				<div id="selecetd_img">
+					<img alt="상품명" src="../../img/shopImg/photo2.jpg">
 				</div>
-				<div id="selected_info">
-					<div id="selecetd_img">
-						<img alt="상품명" src="../../img/shopImg/photo2.jpg">
-					</div>
-					<div id="item_info">
-						<p id="item"><%=pName%></p>
-						<span id="decs"></span>
-					</div>
+				<div id="item_info">
+					<p id="item"><%=pName%></p>
 				</div>
-				<div class="review">
-					<div id="review_textarea">
-						<textArea id="textArea" placeholder="상품평 내용(최대 2000자)을 입력해 주세요."><%=rContent%></textArea>
-						<span id="byteCheck">0</span>
-						<script>
+			</div>
+			<div class="review">
+				<div id="review_textarea">
+					<textArea id="textArea" placeholder="상품평 내용(최대 2000자)을 입력해 주세요."><%=rContent%></textArea>
+					<span id="byteCheck">0</span>
+					<script>
 							String.prototype.bytes = function() {
 							 var msg = this;
 							 var cnt = 0;
@@ -236,55 +247,113 @@ margin: 0; padding: 0;
 							 }
 							});
 						</script>
-					</div>
 				</div>
-			
-				<div id="review_attach">
+			</div>
+
+			<div id="review_attach">
 				<div id="review_attach_inner">
-						<ul id="thumUl">
-							<li>
-								<button type="button" class="add_thmb" onclick="">PHOTO<br>UPLOAD</button>
-							</li>
-							<li>
-								<button type="button" class="add_thmb" onclick="">PHOTO<br>UPLOAD</button>
-							</li>
-							<li>
-								<button type="button" class="add_thmb" onclick="">PHOTO<br>UPLOAD</button>
-							</li>
-						</ul>
-						<ul id="submitUl">
-							<li><button type="button" id="submitBtn">등록</button></li>
-							<li><button type="button" id="cencleBtn" onclick="self.close();">취소</button></li>
-						</ul>
-					</div>
+					<ul id="thumUl">
+						<li>
+							<div class="add_thmb" id="contentImgArea1">
+								<img id="contentImg1" src="../../img/shopImg/picture_WH.png">
+							</div>
+						</li>
+						<li>
+							<div class="add_thmb" id="contentImgArea2">
+								<img id="contentImg2" src="../../img/shopImg/picture_WH.png">
+							</div>
+						</li>
+						<li>
+							<div class="add_thmb" id="contentImgArea3">
+								<img id="contentImg3" src="../../img/shopImg/picture_WH.png">
+							</div>
+						</li>
+					</ul>
+					<ul id="submitUl">
+						<li><button type="button" id="submitBtn">등록</button></li>
+						<li><button type="button" id="cencleBtn" onclick="self.close();">취소</button></li>
+					</ul>
 				</div>
-		<!-- 	</form> -->
+			</div>
+
+		<div id="fileArea">
+			<input type="file" id="thumbnailImg1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)"> 
+			<input type="file" id="thumbnailImg2" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,2)"> 
+			<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,3)">
+		</div>
+	</form>
 		</div>
 	</div>
 	<script>
+		$(function(){
+			$("#fileArea").hide();
+			
+			$("#contentImgArea1").click(function(){
+				$("#thumbnailImg1").click();
+			});
+			$("#contentImgArea2").click(function(){
+				$("#thumbnailImg2").click();
+			});
+			$("#contentImgArea3").click(function(){
+				$("#thumbnailImg3").click();
+			});
+		});
+		
+		function LoadImg(value, num){
+			if(value.files && value.files[0]){
+				var reader = new FileReader();
+				
+				reader.onload = function(e){								
+					switch(num){
+					case 1:
+						$("#contentImg1").attr("src", e.target.result);
+						break;
+					case 2: 
+						$("#contentImg2").attr("src", e.target.result);
+						break;
+					case 3:
+						$("#contentImg3").attr("src", e.target.result);
+						break;
+					}
+				}
+				reader.readAsDataURL(value.files[0]);
+			}
+		}
+		
 		$('#submitBtn').on('click', function(){
 			if(confirm("정말 수정하시겠습니까?")){
 			var rId = '<%=rId%>';
 			var content = $("#textArea").val();
 			var rContent = content.trim();
+			var form = $('#file_form');
 			
+			var fileData = new FormData();
+			fileData.append("file1", $("#thumbnailImg1")[0].files[0]);
+			fileData.append("file2", $("#thumbnailImg2")[0].files[0]);
+			fileData.append("file3", $("#thumbnailImg3")[0].files[0]);
+			fileData.append("rId", rId);
+			fileData.append("rContent", rContent);
+			
+
 			$.ajax({
 				url: "<%=request.getContextPath()%>/updateReview.do",
-				type: "post",
-				data: {rId:rId, rContent:rContent},
-				success:function(data){
-					if(data.result > 0) {
-						alert("수정에 성공했습니다!");
-						window.opener.location.reload();
-						self.close();
-					} else {
-						alert("수정에 실패했습니다.");	
-					}
-				}
-			})
+					type : "post",
+					contentType:false,
+				    processData:false,
+					data : fileData,	
+					success : function(data) {
+						if (data.result > 0) { // 수정 성공시
+									alert("수정에 성공했습니다!");
+									window.opener.location.reload();
+									self.close();
+						} else {
+							alert("수정에 실패했습니다.");
+						}
+				
+			}
+			});
 			}
 		});
-		
-	</script> 
+	</script>
 </body>
 </html>

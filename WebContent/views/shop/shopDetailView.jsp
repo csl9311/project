@@ -398,7 +398,7 @@
 				rContent = $('#rContent'+i).text();
 				window.open("views/shop/shopReviewView.jsp?pId="+pId+"&rId="+rId+"&rContent="+rContent+"&pName=<%=p.getpName()%>&",
 							"상품평 수정", 
-							"width=600px, height=680px, left=0, top=0, toolbar=0, resizable=0, status=0, menubar=0, scrollbars=0");
+							"width=600px, height=680px, left=500, top=50, toolbar=0, resizable=0, status=0, menubar=0, scrollbars=0");
 							
 			} else {						// 관리자글이면
 				$('#tArea'+i).attr('readonly', false);

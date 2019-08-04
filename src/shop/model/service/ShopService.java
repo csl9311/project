@@ -13,6 +13,7 @@ import product.model.vo.Product;
 import shop.model.dao.ShopDAO;
 import shop.model.vo.Answer;
 import shop.model.vo.Payment;
+import shop.model.vo.RAttachment;
 import shop.model.vo.Review;
 
 public class ShopService {
@@ -186,13 +187,11 @@ public class ShopService {
 		return result;
 	}
 
-	public int updateReview(int rId, String rContent, Date date) {
-		Connection conn = getConnection();
-		int result = new ShopDAO().updateReview(conn, rId, rContent, date);
-		close(conn);
-		return result;
-	}
-
+	/*
+	 * public int updateReview(int rId, String rContent, Date date) { Connection
+	 * conn = getConnection(); int result = new ShopDAO().updateReview(conn, rId,
+	 * rContent, date); close(conn); return result; }
+	 */
 	public int updateAnswer(int a_rId, String aContent, Date date) {
 		Connection conn = getConnection();
 		int result = new ShopDAO().updateAnswer(conn, a_rId, aContent, date);
@@ -205,6 +204,22 @@ public class ShopService {
 		Answer a = new ShopDAO().selectAnswer(conn, userId, aId);
 		close(conn);
 		return a;
+	}
+
+	public int updateReview(Review r, ArrayList<RAttachment> fileList) {
+		Connection conn = getConnection();
+		ShopDAO dao = new ShopDAO();
+		
+		int result1 = dao.updateReview(conn, r);
+		int result2 = dao.updateRAttachment(conn, fileList, r.getrId());
+		
+		if (result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1;
 	}
 
 }
