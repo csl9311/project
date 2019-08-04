@@ -180,7 +180,7 @@ img {
 
 /*********************************** */
 .pwdmodal-container {
-<<<<<<< HEAD
+
   padding: 30px;
   max-width: 500px;
   height: 60vh;
@@ -201,7 +201,7 @@ img {
   padding: 30px;
   max-width: 500px;
   height: 50vh;
-  width: 100% 
+  width: 100% ;
   
   font-color:black;
   margin: 0 auto;
@@ -210,12 +210,11 @@ img {
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   font-family: roboto;
-=======
-	padding: 30px;
+padding: 30px;
 	max-width: 500px;
 	height: 60vh;
 	width: 100% !important;
-	background-color: #F7F7F7;
+	
 	color: black;
 	margin: 0 auto;
 	margin-top: 100px;
@@ -223,5 +222,5 @@ img {
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	overflow: hidden;
 	font-family: roboto;
->>>>>>> 32cee1aca40ea05452c2efa36ba61b7665dd463f
+
 }
