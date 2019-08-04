@@ -224,6 +224,7 @@ img {
 					<textArea id="textArea" placeholder="상품평 내용(최대 2000자)을 입력해 주세요."><%=rContent%></textArea>
 					<span id="byteCheck">0</span>
 					<script>
+							// 글자수 체크
 							String.prototype.bytes = function() {
 							 var msg = this;
 							 var cnt = 0;
@@ -249,7 +250,7 @@ img {
 						</script>
 				</div>
 			</div>
-
+			<!-- 사진 등록 부분 -->
 			<div id="review_attach">
 				<div id="review_attach_inner">
 					<ul id="thumUl">
@@ -285,6 +286,7 @@ img {
 		</div>
 	</div>
 	<script>
+		// div누르면 input type file 클릭되는 펑션
 		$(function(){
 			$("#fileArea").hide();
 			
@@ -299,6 +301,7 @@ img {
 			});
 		});
 		
+		// 등록한 이미지 썸네일 보이는 펑션
 		function LoadImg(value, num){
 			if(value.files && value.files[0]){
 				var reader = new FileReader();
@@ -320,6 +323,7 @@ img {
 			}
 		}
 		
+		// 리뷰 등록 ajax
 		$('#submitBtn').on('click', function(){
 			if(confirm("정말 수정하시겠습니까?")){
 			var rId = '<%=rId%>';
@@ -334,22 +338,22 @@ img {
 			fileData.append("rId", rId);
 			fileData.append("rContent", rContent);
 			
-
+			/* 여기 url 바꾸시고 필요한 정보 append 하시면 될 것 같아요 */
+			
 			$.ajax({
-				url: "<%=request.getContextPath()%>/updateReview.do",
+				url: "<%=request.getContextPath()%>/updateReview.do", 
 					type : "post",
 					contentType:false,
 				    processData:false,
 					data : fileData,	
 					success : function(data) {
-						if (data.result > 0) { // 수정 성공시
+						if (data.result > 1) { // 수정 성공시
 									alert("수정에 성공했습니다!");
 									window.opener.location.reload();
 									self.close();
 						} else {
 							alert("수정에 실패했습니다.");
 						}
-				
 			}
 			});
 			}

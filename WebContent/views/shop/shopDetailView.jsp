@@ -396,7 +396,7 @@
 			if(letter == 'R') { // 유저글이면 
 				rId = $('#rId'+i).text(); // 글번호(테이블 시퀀스넘버)
 				rContent = $('#rContent'+i).text();
-				window.open("views/shop/shopReviewView.jsp?pId="+pId+"&rId="+rId+"&rContent="+rContent+"&pName=<%=p.getpName()%>&",
+				window.open("views/shop/shopReviewUpdateView.jsp?pId="+pId+"&rId="+rId+"&rContent="+rContent+"&pName=<%=p.getpName()%>&",
 							"상품평 수정", 
 							"width=600px, height=680px, left=500, top=50, toolbar=0, resizable=0, status=0, menubar=0, scrollbars=0");
 							

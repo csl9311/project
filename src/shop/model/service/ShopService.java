@@ -219,7 +219,7 @@ public class ShopService {
 			rollback(conn);
 		}
 		close(conn);
-		return result1;
+		return result1+result2;
 	}
 
 }
