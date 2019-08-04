@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="product.model.vo.*, java.util.*,common.PageInfo"%>
+<%@ include file="/views/common/coinheader.jsp"%>
 <%
 	ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("list");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
@@ -16,7 +17,6 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 %>
-<%@ include file="/views/common/coinheader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
