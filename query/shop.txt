@@ -1,12 +1,14 @@
-drop table product;
-drop table category;
-drop table subcategory;
-drop table product_op;
-drop table brand;
-drop table rattachment;
-drop table pattachment;
-drop view pdetail;
-drop view plist;
+﻿drop table product cascade constraints;
+drop table category cascade constraints;
+drop table subcategory cascade constraints;
+drop table product_op cascade constraints;
+drop table brand cascade constraints;
+drop table rattachment cascade constraints;
+drop table pattachment cascade constraints;
+drop table review cascade constraints;
+drop table ANSWER  cascade constraints;
+drop view pdetail cascade constraints;
+drop view plist cascade constraints;
 drop sequence SEQ_PID;
 drop sequence SEQ_AID;
 drop sequence SEQ_RID;
@@ -34,8 +36,6 @@ create table BRAND(
     BID number primary key,
     BNAME varchar2(100) not null unique
 );   
-
-
 -- 상품
 create table PRODUCT(
     PID NUMBER PRIMARY KEY,
@@ -63,7 +63,6 @@ create table PRODUCT_OP(
     PRODUCT_OP varchar2(200) not null,
     foreign key (pid) references product on delete cascade
 );
-
 
 -- 유저의 리뷰와 QnA글        
 CREATE TABLE REVIEW( 
@@ -112,6 +111,7 @@ create table RATTACHMENT(
     RID NUMBER NOT NULL, -- 리뷰글번호
     PID NUMBER NOT NULL, -- 상품번호
     UPLOAD_DATE DATE DEFAULT SYSDATE,  
+    STATUS varchar2(1) default 'Y',
     FOREIGN KEY(RID) REFERENCES REVIEW(RID) on delete cascade,
     FOREIGN KEY(PID) REFERENCES PRODUCT(PID) on delete cascade
 );

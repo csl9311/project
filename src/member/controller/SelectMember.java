@@ -26,10 +26,10 @@ public class SelectMember extends HttpServlet {
 		Member member = new MemberService().selectMember(id);
 		String page = "";
 		if (member != null) {
+			page ="views/admin/adminMember/adminMemberDetail.jsp";
 			// 멤버 객체가 있다면 주소 받으러 다시 접근.
 			ArrayList<Address> addressList = new MemberService().getAddress(id);
 			// 주소 정보가 없어도 멤버는 request에 담겨야 함.
-			page ="views/admin/adminMember/adminMemberDetail.jsp";
 			request.setAttribute("member", member);
 			// 주소정보가 있다면 request에 담아줌
 			if(addressList != null) {
