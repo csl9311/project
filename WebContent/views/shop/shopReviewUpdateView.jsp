@@ -6,8 +6,8 @@
 	String rId = request.getParameter("rId");
 	String rContent = (String) (request.getParameter("rContent"));
 	String imgName = (String)(request.getParameter("imgName"));
-	String[] arr = imgName.split("\\/");
-
+	String[] arr = imgName.split("\\/"); // "", "", "", ""
+	
 	System.out.println(pId);
 	System.out.println(rId);
 %>
@@ -257,7 +257,7 @@ img {
 				<div id="review_attach_inner">
 					<ul id="thumUl">
 					<% int i = 0;
-					for(i = 1; i < arr.length+1; i++){ %>
+					for(i = 1; i <= arr.length+1; i++){ %>
 						<li>
 							<div class="add_thmb" id="contentImgArea<%=i%>">
 								<img id="contentImg<%=i%>" class="notEmpty" src="<%=request.getContextPath()%>/review_uploadFiles/<%=arr[i-1]%>">

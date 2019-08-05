@@ -18,8 +18,7 @@
 </head>
 <body>
 	<div id="index">
-		<div id="mypage">
-			<%if(info!=null) {%>		
+		<div id="mypage">	
 			<div>
 				<!-- 상품목록 -->
 				<p>장바구니</p>
@@ -113,13 +112,7 @@
 				<br>
 				
 				<div>
-				<form action="<%=request.getContextPath()%>/paylist.ca" method="post">
-				<% String ar = ""; 
-				for(int i =0; i<info.size();i++){
-						Payment p = info.get(i);
-						ar += p.getpId()+",";
-						}	%>
-				<input type="hidden" id="pId" name="pId" value="<%=ar%>">			
+				<form action="<%=request.getContextPath()%>/paylist.ca" method="post">		
 				<input type="submit" value="전체상품주문">
 				</form>				
 				</div>
@@ -136,10 +129,6 @@
 				<p>[전체 상품 주문] 버튼을 누르시면 장바구니의 구분없이 선택된 모든 상품에 대한 주문/결제가 이루어집니다.</p>
 				<p>단, 전체 상품을 주문/결제하실 경우, 상품별 무이자할부 혜택을 받으실 수 없습니다.</p>
 			</div>
-			<%} else{ %>
-				<h1>장바구니가 비어있습니다.</h1>
-			
-			<%} %>
 			
 		
 		</div>

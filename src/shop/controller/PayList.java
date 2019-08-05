@@ -38,14 +38,15 @@ public class PayList extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member sessionMember = (Member)session.getAttribute("loginUser");
 		String userId= sessionMember.getId();
+		System.out.println("userid"+ userId);
 		
-		ArrayList<Payment> pay = new ShopService().selectCart(userId);
+		ArrayList<Payment> pay = new ShopService().selectpay(userId);
 		
 		String page= null;
 		
 		if(pay!=null) {
 			page= "views/MyPage/payment.jsp";
-			request.setAttribute("info",pay);					
+			request.setAttribute("pay",pay);					
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "장바구니 조회에 실패했습니다.");

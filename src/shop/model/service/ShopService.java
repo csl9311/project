@@ -158,27 +158,7 @@ public class ShopService {
 		close(conn);
 		return list;
 	}
-	public int insertCart(String userId, Product product) {
-		Connection conn = getConnection();
-		int result= new ShopDAO().insertCart(conn, userId, product);
-		
-				
-		if (result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		
-		
-		return result;
-	}
-
-	public ArrayList<Payment> selectCart(String userId) {
-		Connection conn= getConnection();
-		ArrayList<Payment> info = new ShopDAO().selectCart(conn, userId);
-		close(conn);
-		return info;
-	}
+	
 
 	public int selectWriter(String userId, int rId, String str) {
 		Connection conn = getConnection();
@@ -237,11 +217,40 @@ public class ShopService {
 		close(conn);
 		return result;
 	}
+	public int insertCart(String userId, Product product) {
+		Connection conn = getConnection();
+		int result= new ShopDAO().insertCart(conn, userId, product);
+		
+				
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<Payment> selectCart(String userId) {
+		Connection conn= getConnection();
+		ArrayList<Payment> info = new ShopDAO().selectCart(conn, userId);
+		close(conn);
+		return info;
+	}
+	
 	public ArrayList<Payment> selectPurchase(String userId) {
 		Connection conn= getConnection();
 		ArrayList<Payment> info = new ShopDAO().selectPurchase(conn, userId);
 		
 		return null;
+	}
+
+	public ArrayList<Payment> selectpay(String userId) {
+		Connection conn= getConnection();
+		ArrayList<Payment> pay = new ShopDAO().selectpay(conn, userId);
+		close(conn);
+		return pay;
 	}
 
 }
