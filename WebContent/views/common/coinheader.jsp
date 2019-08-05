@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>메인페이지</title>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/main/header.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/main/header.js?v=<%=System.currentTimeMillis()%>"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/main/loginForm.css">
@@ -45,8 +45,8 @@
 				<span style="font-size: 30px; cursor: pointer" onclick="openNav()" class=" top left">&#9776; Menu</span>
 				<div class="right">
 					<%if (loginUser != null) {%>
-					<span style="font-size: 20px; cursor: pointer; position: absolute; right: 50px; top: 12px; width: 10vw;" class="login" onclick="logout();">로그아웃</span>
-					<div class="profile" onclick='location.href="<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp"'></div>
+					<span style="font-size: 20px; cursor: pointer; position: absolute; top: 12px; right: 50px; width: 10vw;" class="login" onclick="logout();">로그아웃</span>
+					<span style="font-size: 20px; cursor: pointer; margin-top: 4px;" class="login" onclick="profile();">프로필</span>
 					<script>
 						function logout(){
 							$.ajax({
@@ -54,7 +54,7 @@
 								type : 'get',
 								success : function(data) {
 									alert("로그아웃되었습니다.");
-									location.href = "<%=request.getContextPath()%>/index.jsp";
+									location.href = "index.jsp";
 								}
 							});
 						}
@@ -87,23 +87,18 @@
 				</div>
 			</form>
 
-			<form action="<%=request.getContextPath()%>/member.find" method="post">
+
 				<div class="modal fade" id="pwd-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 					<div class="modal-dialog" style="text-align: center">
 						<div class="pwdmodal-container">
-							<h1>아이디 / 비밀번호 찾기</h1>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<input type="text" name="email" id="email" style="line-height: 30px;"placeholder="이메일">
-							<input type="submit" class="button" style="font-size: 12px; line-height: 30px;" value="이메일 인증">
+
+
+							<div class="login-help">
+
+							</div>
 						</div>
 					</div>
 				</div>
-			</form>
 		</header>
 	</div>
 </body>

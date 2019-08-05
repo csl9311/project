@@ -26,10 +26,6 @@ table {
 	margin-right: auto;
 }
 
-input {
-	color: black;
-}
-
 select {
 	color: black;
 	height: 17px;
@@ -38,24 +34,13 @@ select {
 
 tr, td, th {
 	height: 4vh;
-	padding: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
-.adminInput {
+.adminInput, .adminButton {
 	color: black;
-	border: none;
-}
-
-.adminButton {
-	color: black;
-	border: none;
-	padding: 10px;
-}
-
-.adminRadio {
-	width: 12px;
-	height: 12px;
-	background: white;
+	border : none;
 }
 
 .center, .center tr, .center tr td {
@@ -85,7 +70,6 @@ tr, td, th {
 
 .search>button {
 	width: 10vw;
-	color: black;
 }
 
 /* memberDetailView */
@@ -107,19 +91,15 @@ tr, td, th {
 	color: white;
 }
 
-.updateAddress {
-	display: inline-block;
-}
-
 /* signUp */
+
 .rowTitle {
 	width: 10vw;
 	min-width: 110px;
-	color: white;
+	color:white;
 }
-
-.content {
-	color: black;
+.content{
+	color:black;
 }
 
 .resultLabel {
@@ -128,21 +108,14 @@ tr, td, th {
 	margin: 0px;
 	height: 1px;
 }
-
 .resultLabel>td {
-	padding: 0px;
+	padding : 0px;
 	height: 1vh;
 }
 
-.updateAddress {
+.newsAgree, .newsDisagree, .smsAgree, .smsDisagree, .gender{
+	width : 30px; height: 30px;
+}
+.submit {
 	text-align: center;
-	display:inline-block;
-	padding: 30px;
-	padding-bottom: 0px;
 }
-
-.newsAgree, .newsDisagree, .smsAgree, .smsDisagree, .gender {
-	width: 30px;
-	height: 30px;
-}
-

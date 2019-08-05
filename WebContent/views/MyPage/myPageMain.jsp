@@ -43,7 +43,7 @@
    
    <script>
       function update(){
-         location.href="<%= request.getContextPath()%>/views/MyPagePcheck.jsp";
+         location.href="<%= request.getContextPath()%>/views/MyPage/check.jsp";
       }
       function cart(){
          location.href="<%= request.getContextPath()%>/selectcart.ca"

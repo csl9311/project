@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/views/common/coinheader.jsp"%>
-<% System.out.println(loginUser.getGrade()); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +8,13 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/admin/admin.css" />
 </head>
 <body>
-<% if(loginUser.getGrade().equals("관리자")){ %>
 	<div class="emptyHeader"></div>
 	<div class="center">
 		<nav>
 			<%-- 회원관리 : 회원정보 RUD, 등급 설정, 블랙리스트 등록 및 해제 --%>
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/admin.allMemberList'">회원관리</div>
 			<%-- 상픔목록 CRUD --%>
-			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/admin.allProductList'">상품관리</div>
+			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/adminProduct/admin_productView.jsp'">상품관리</div>
 			<br>
 			<%-- 배송관리 --%>
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_deliveryView.jsp'">배송관리</div>
@@ -32,10 +30,5 @@
 	</div>
 <%-- jQuery --%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<%} else {%>
-	<div class="center">
-		<h3>관리자계정으로 로그인해주세요.</h3>
-	</div>
-<%}%>
 </body>
 </html>

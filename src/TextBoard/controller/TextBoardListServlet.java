@@ -61,6 +61,7 @@ public class TextBoardListServlet extends HttpServlet {
 		
 		ArrayList<TextBoard> list = service.selectList(currentPage);
 		
+		
 		String page = null;
 		if(list != null) {
 			page = "views/community/textBoardListView.jsp";

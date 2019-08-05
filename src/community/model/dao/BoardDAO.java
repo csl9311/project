@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
+import TextBoard.model.vo.TextBoard;
 import community.model.vo.Board;
 import community.model.vo.Reply;
 
@@ -99,7 +100,6 @@ public class BoardDAO {
 		try {
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, '%' + b.getbContent() + '%');
-			stmt.setString(2, '%' + b.getbContent() + '%');
 			rset = stmt.executeQuery();
 
 			if (rset.next()) {
@@ -148,9 +148,8 @@ public class BoardDAO {
 
 			} else {
 				pstmt.setString(1, '%' + bb.getbContent() + '%');
-				pstmt.setString(2, '%' + bb.getbContent() + '%');
-				pstmt.setInt(4, ((listCount + 1) - startRow));
-				pstmt.setInt(3, ((listCount + 1) - endRow));
+				pstmt.setInt(3, ((listCount + 1) - startRow));
+				pstmt.setInt(2, ((listCount + 1) - endRow));
 				  
 				  System.out.println("처음검색:"+startRow);
 				  System.out.println("마지막:"+endRow);
@@ -339,7 +338,6 @@ public class BoardDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 
-			System.out.println(board.getbTitle());
 			pstmt.setString(1, board.getbTitle());
 			pstmt.setString(2, board.getbContent());
 			pstmt.setString(3, board.getbAddress());
@@ -420,64 +418,25 @@ public class BoardDAO {
 		
 	}
 
-	public void getReword(Connection conn) {
-		
-		
-	}
-
-	public ArrayList<Board> selectRewordUser(Connection conn) {
-		
+	public int updateTextBoard(Connection conn, TextBoard tb) {
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> list = null;
-		String query = prop.getProperty("rewordUser");
+		int result = 0;
+		
+		String query = prop.getProperty("updateTextBoard");
+		
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			rset = pstmt.executeQuery();
-			list = new ArrayList<Board>();
-			
-			while (rset.next()) {
-				Board b = new Board(rset.getInt("rownum"), 
-					rset.getString("bwriter"),rset.getInt("good"));
-					
-				list.add(b);
-			}
+			result = pstmt.executeUpdate();
+			System.out.println(result);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
-		return list;
-	}
-
-	public ArrayList<Board> selectRewordBoard(Connection conn) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> list = null;
-		String query = prop.getProperty("rewordBoard");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			
-			rset = pstmt.executeQuery();
-			list = new ArrayList<Board>();
-			System.out.println(query);
-			while (rset.next()) {
-				Board b = new Board(rset.getInt("rownum"),rset.getInt("bid"),rset.getString("btitle"),
-					rset.getString("bwriter"),rset.getInt("bgood"));
-					
-				list.add(b);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return list;
+		} finally {
+			close(pstmt);
+		}		
+		System.out.println("asdsa" + result);
+		return result;
 	}
 
 }

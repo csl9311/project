@@ -42,11 +42,15 @@ public class CartServlet extends HttpServlet {
 		int price = Integer.parseInt(request.getParameter("price"));
 		String option = request.getParameter("option");
 		int amount = Integer.parseInt(request.getParameter("amount"));
+		String info=null;
+		System.out.println("user="+option);
+		System.out.println("user="+userId);
+		
 		
 		if(option.equals("")) {	
 			option="없음";
 		}
-		Product product= new Product(pid, price, amount, pname, option);
+		Product product= new Product(pid, price, amount, pname,option);
 		int result= new ShopService().insertCart(userId,product);
 		
 		if(result>0) {

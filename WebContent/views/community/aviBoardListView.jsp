@@ -4,8 +4,6 @@
 
 <%
 		ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
-		ArrayList<Board> rewordUser = (ArrayList<Board>) request.getAttribute("rewordUser");
-		ArrayList<Board> rewordBoard = (ArrayList<Board>) request.getAttribute("rewordBoard");
  		PageInfo pi = (PageInfo)request.getAttribute("pi");
  		Board search = (Board)request.getAttribute("search");
  		int listCount = pi.getListCount();
@@ -18,7 +16,7 @@
 		if(inputsearch == null){
 			inputsearch="";
 		}
-		System.out.println("인풋"+rewordUser);
+		System.out.println("인풋"+inputsearch);
 		
 %>
 <!DOCTYPE html>
@@ -42,11 +40,11 @@ CSS
 </head>
 <body>
 	<div class="main" style="text-align: center">
-		
+		<span style="padding-right: 10vw"><a href="<%= request.getContextPath() %>/list.tb">자유게시판</a></span> <span>영상게시판</span>
 	
 	
 		<div class="aviCommonBoard" style="text-align:center" >
-				
+		
 			<div class="searchAviArea" align="right" style="width:100%">
 			<div style="width:auto;font-size:14px">
 			<form action="list.bo" id="search" method="post">
@@ -63,33 +61,28 @@ CSS
 			</div>
 			<div style="text-align:center;width:80vw">
 			<div class="aviBoardList" style="text-align: left;height:auto">
-				<div class="reword" align="left">
-				<span id="reword" style="cursor:pointer" data-toggle="modal" data-target="#reword-modal">8월의 추천TOP</span>
-				</div>
-				
+
 				<%
 					//youtube 주소  id값따오기
 					String address = "A5AmE_b68cg";
 
 					for (Board b : list) {
-						
-						if(b.getbAddress()!=null){
+
 						String adr = b.getbAddress().replaceAll("\'", "\"");
-						
+
 						String[] arr = adr.split("/");
 						String[] arr2 = arr[4].split("\"");
 						System.out.println(arr2[0]);
-					
 						
 						
 				%>
 				<div class="aviList"
 					style="width: 20vw; height: 10vh; display: inline-block; margin: 3.5%; text-align: left;">
-				<input type="hidden" value="<%=b.getBid()%>">
+				
 						<table id="avilistSelect">
 							<tr>
 								<td >
-								
+								<input type="hidden" value="<%=b.getBid()%>">
 									<div class="aviThumbnail"
 										style="width: 100%; height: 50%; margin: auto; display: inline-block">
 										<img src="https://img.youtube.com/vi/<%=arr2[0]%>/0.jpg">
@@ -99,9 +92,9 @@ CSS
 
 							<tr>
 								<td>
-									<div class="aviTitle" style="">
+									<div class="aviTitle">
 										 <span
-											style="width:20vw;text-align: left ;text-overflow:ellipsis;overflow : hidden; white-space : nowrap; display:inline-block" ><%=b.getbTitle()%> </span>
+											style="text-align: left"><%=b.getbTitle()%> </span>
 									</div>
 								</td>
 							</tr>
@@ -133,7 +126,6 @@ CSS
 				</div>
 
 				<%
-					}
 					}
 				%>
 
@@ -187,62 +179,13 @@ CSS
 		 </div>
  <div class="searchArea" align="center">
 		 	<% if(loginUser !=null){ %>
-				<button class="btn-primary" style="margin-top: 15px; background:default;"
+				<button class="btn-primary" style="margin-top: 15px; background:default"
 			onclick="location.href='<%=request.getContextPath()%>/views/community/aviBoardInsertView.jsp'">글쓰기</button>
 		 	
 		 	<% } %>
 		 </div>
 		 <br>
 	</div>
-	
-	
-			<div class="modal fade " id="reword-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-					<div class="modal-dialog" style="text-align: center">
-						<div class="rewordmodal-container"  >
-							<h3 style="color:white">추천TOP 사용자<br></h3>
-							<div class="reword1" style="height:30%">
-							<%for(Board reword: rewordUser){ %>
-						<div id="selectRw" style=" display:flex; align-items: center; justify-content: center; ">
-					 	
-					 		<input type="hidden" value="<%=reword.getBid()%>">
-					 		<div style="flex-basis:100px">
-							<span><%=reword.getbType() %>위</span>
-							</div>
-							<div style="flex-basis:250px">
-							<span style="width:250px;display:inline-block"><%=reword.getbWriter()%></span>
-							</div>
-							<div style="flex-basis:100px; text-align:left;margin-left:20px"> 
-							<span>추천수: <%=reword.getbGood()%></span>
-							</div>
-							</div>
-							
-							
-							<%} %>
-							</div>
-							<div class="reword2" style="height:50%;text-align:center">
-							<h3  style="color:white">추천TOP 게시글<br></h3>
-							
-					 	<%for(Board reword: rewordBoard){ %>
-					 		<div id="selectReword" style=" display:flex; align-items: center; justify-content: center; ">
-					 	
-					 		<input type="hidden" value="<%=reword.getBid()%>">
-					 		<div style="flex-basis:100px">
-							<span><%=reword.getbType() %>위</span>
-							</div>
-							<div style="flex-basis:250px">
-							<span style=" width:250px;text-overflow:ellipsis;overflow : hidden; white-space :nowrap; display:inline-block"><%=reword.getbTitle()%></span>
-							</div>
-							<div style="flex-basis:100px; text-align: left; margin-left:20px"> 
-							<span>추천수: <%=reword.getbGood()%></span>
-							</div>
-							</div>
-							
-						
-							<%} %> 
-							</div>
-						</div>
-					</div>
-				</div>
 	
 
 
@@ -260,7 +203,7 @@ CSS
 		
 		
 		$(function(){
-			$('.aviList ').mouseenter(function(){
+			$('#avilistSelect td').mouseenter(function(){
 		
 			}).click(function(){
 				console.log("ㅅㅂ");
@@ -301,17 +244,6 @@ CSS
 	});*/
 	
 			
-		});
-		
-		$('#reword').click(function(){
-			
-		})
-		
-		$('#selectReword ').click(function(){
-			var bid = $(this).children('input').val();
-			console.log("수상자"+bid);
-			
-			 location.href="<%= request.getContextPath() %>/avidetail.bo?bid="+bid; 
 		});
 	</script>
 </body>
