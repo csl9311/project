@@ -100,7 +100,7 @@
 		$('.btnYoutube')
 				.click(
 						function() {
-							count++;
+						
 							document.getElementById("youtubeInsert").innerHTML = $(
 									'.inputYoutube').val();
 							console.log("ddd" + $('iframe').attr('src'));
@@ -108,7 +108,7 @@
 							if (/^https?:\/\/www.youtube.com\/embed\//g.test($(
 									'iframe').attr("src"))) {
 								console.log("성공");
-						
+								count++;
 
 							if ($(".youtubeInsert").css("display") == "none") {
 

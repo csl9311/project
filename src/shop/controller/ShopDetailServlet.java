@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import product.model.vo.Product;
 import shop.model.service.ShopService;
 import shop.model.vo.Answer;
+import shop.model.vo.RAttachment;
 import shop.model.vo.Review;
 
 @WebServlet("/shopDetail.do")
@@ -25,16 +26,20 @@ public class ShopDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		
 		int pId = Integer.parseInt(request.getParameter("pId"));
 		
 		ShopService service = new ShopService();
 		Product p = service.selectProduct(pId);
 		
-		ArrayList<Review> rList = service.selectReviewList(pId);
-		ArrayList<Answer> aList = service.selectAnswerList(pId);
+		ArrayList<Review> rList = service.selectReviewList(pId, 1);
+		ArrayList<Answer> aList = service.selectAnswerList(pId, 1);
+		ArrayList<RAttachment> attList = service.selectRAttachmentList(pId);
 		
 		System.out.println("rList: " + rList);
 		System.out.println("aList: " + aList);
+		System.out.println("attList: " + attList);
 		
 		String option = "";
 		
@@ -47,8 +52,10 @@ public class ShopDetailServlet extends HttpServlet {
 				System.out.println(option);
 			}
 			request.setAttribute("option", option);
-			request.setAttribute("rList", rList); 
+			request.setAttribute("rList", rList);
 			request.setAttribute("aList", aList);
+			request.setAttribute("attList", attList);
+			
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "상품 상세페이지 조회에 실패했습니다.");
@@ -56,7 +63,7 @@ public class ShopDetailServlet extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

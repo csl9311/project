@@ -49,6 +49,7 @@
 						<td width="50px">수량</td>
 						<td>상품 금액</td>
 						<td>주문처리상태</td>
+						<td>상품평등록</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -57,11 +58,17 @@
 						<td>1</td>
 						<td>10000원</td>
 						<td></td>
+						<td><button onclick="review();">상품평 등록</button></td>
 					</tr>
 				</table>
 			</div>
 		</div>
 	</div>
+	<script>
+	function review(){
+		window.open("shopReviewInsertView.jsp","ReviewInsertView","width=600, height=1000");
+	}
+	</script>
 	
 
 </body>

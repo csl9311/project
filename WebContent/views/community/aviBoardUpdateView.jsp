@@ -79,7 +79,7 @@
 					</tr>
 
 					<tr>
-						<td><button type="submit"
+						<td><button type="button" id="insertAviBoard"
 								style="width: 10vw; height: 7vh; float: right"
 								class="btn-primary">등록하기</button></td>
 					</tr>
@@ -94,7 +94,7 @@
 	</div>
 
 	<script>
-	
+	var count = 1;
 
 	$(function(){
 		var inputyoutube = document.getElementById('youtubeInsert');
@@ -103,7 +103,7 @@
 
 		});
 
-		var count = 0;
+	
 		$('#opendiv').click(function() {
 			if ($(".insertAddress").css("display") == "none") {
 				$('.insertAddress').css("display", "inline-block");
@@ -111,12 +111,15 @@
 				$('.insertAddress').css("display", "none");
 			}
 		});
+		
+	
 
 		$('.btnYoutube')
 				.click(
 						function() {
+							
 							$('.youtubeInsert').css("display", "none");
-							count++;
+						
 							document.getElementById("youtubeInsert").innerHTML = $(
 									'.inputYoutube').val();
 							console.log("ddd" + $('iframe').attr('src'));
@@ -124,7 +127,7 @@
 							if (/^https?:\/\/www.youtube.com\/embed\//g.test($(
 									'iframe').attr("src"))) {
 								console.log("성공");
-
+								count++;
 								if ($(".youtubeInsert").css("display") == "none") {
 
 									$(window).resize(function() {
@@ -144,6 +147,8 @@
 								console.log("실패");
 								document.getElementById("youtubeInsert").innerHTML = "";
 								alert("올바른 유튜브 소스코드를 입력해주세요.");
+								count=0;
+								console.log(count);
 								$('.inputYoutube').val("");
 								$('.inputYoutube').focus();
 
@@ -152,6 +157,7 @@
 						});
 
 		$('#insertAviBoard').click(function() {
+			console.log("여긴몇"+count);
 			if (count == 0) {
 				console.log("dd")
 				alert("삽입된 영상이 없습니다.");

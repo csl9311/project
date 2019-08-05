@@ -14,6 +14,8 @@ public class Review {
 	private Date modifyDate;
 	private String status;
 	
+	public Review() {}
+	
 	public Review(int rId, int rType, int pId, String rWriter, String rTitle, String rContent, int rCount,
 			Date createDate, Date modifyDate, String status) {
 		super();
@@ -43,8 +45,29 @@ public class Review {
 		this.rCount = rCount;
 		this.modifyDate = modifyDate;
 	}
+	
+	public Review(int rId, String rContent, Date modifyDate) {
+		super();
+		this.rId = rId;
+		this.rContent = rContent;
+		this.modifyDate = modifyDate;
+	}
+	
+	
+	
+	public Review(String rContent, Date modifyDate) {
+		super();
+		this.rContent = rContent;
+		this.modifyDate = modifyDate;
+	}
 
-
+	public Review(int rId, int pId, String rContent, Date modifyDate) {
+		super();
+		this.rId = rId;
+		this.pId = pId;
+		this.rContent = rContent;
+		this.modifyDate = modifyDate;
+	}
 
 	public int getrId() {
 		return rId;
@@ -124,6 +147,13 @@ public class Review {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Review [rId=" + rId + ", rType=" + rType + ", pId=" + pId + ", rWriter=" + rWriter + ", rTitle="
+				+ rTitle + ", rContent=" + rContent + ", rCount=" + rCount + ", createDate=" + createDate
+				+ ", modifyDate=" + modifyDate + ", status=" + status + "]";
 	}
 	
 	

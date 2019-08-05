@@ -26,7 +26,7 @@ public class MemberService {
 		close(conn);
 		return member;
 	}
-
+// 관리자 회원정보 수정
 	public int adminUpdateMember(Member member) {
 		Connection conn = getConnection();
 		int result = new MemberDAO().adminUpdateMember(conn, member);
@@ -39,22 +39,27 @@ public class MemberService {
 		return result;
 	}
 	// 아이디 중복체크
-	public int idCheck(String id) {
+	public int checkId(String id) {
 		Connection conn = getConnection();
-		int result = new MemberDAO().idCheck(conn, id);
+		int result = new MemberDAO().checkId(conn, id);
 		close(conn);
 		return result;
 	}
 	// 닉네임 중복체크
-	public int nickCheck(String nickName) {
+	public int checkNick(String nickName) {
 		Connection conn = getConnection();
-		int result = new MemberDAO().nickCheck(conn, nickName);
+		int result = new MemberDAO().checkNick(conn, nickName);
 		close(conn);
 		return result;
 	}
-
-
-	
+	// 이메일 중복체크
+	public int checkEmail(String email) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().checkEmail(conn, email);
+		close(conn);
+		return result;
+	}
+	// 회원가입
 	public int insertMember(Member member) {
 		Connection conn = getConnection();
 		int result = new MemberDAO().insertMember(conn, member);
@@ -75,9 +80,9 @@ public class MemberService {
 		return loginUser;
 	}
 
-	public boolean pwCheck(String id, String pw) {
+	public boolean checkPw(String id, String pw) {
 		Connection conn = getConnection();
-		boolean pwCheck = new MemberDAO().pwCheck(conn, id, pw);
+		boolean pwCheck = new MemberDAO().checkPw(conn, id, pw);
 		close(conn);
 		return pwCheck;
 	}
@@ -89,9 +94,9 @@ public class MemberService {
 		return list;
 	}
 	
-	public int addressInsert(Address add) {
+	public int addressInsert(Address address) {
 		Connection conn = getConnection();
-		int result = new MemberDAO().insertAddress(conn, add);
+		int result = new MemberDAO().addressInsert(conn, address);
 		if(result > 0) {
 			commit(conn);
 		} else {
@@ -108,9 +113,9 @@ public class MemberService {
 		return result;
 	}
 
-	public int addressUpdate(Address add) {
+	public int addressUpdate(Address address) {
 		Connection conn = getConnection();
-		int result = new MemberDAO().addressUpdate(conn, add);
+		int result = new MemberDAO().addressUpdate(conn, address);
 		if (result > 0) {
 			commit(conn);
 		} else {
@@ -120,6 +125,18 @@ public class MemberService {
 		return result;
 	}
 
+	public int addressDelete(Address address) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().addressDelete(conn, address);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
+	
 
 }

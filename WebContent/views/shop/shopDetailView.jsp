@@ -3,11 +3,14 @@
 <%@ include file="/views/common/coinheader.jsp"%>
 <%
 	Product p = (Product) request.getAttribute("p"); // 상품
+	int pId = p.getpId();
+
 	String option = (String) request.getAttribute("option"); // 옵션
 	String[] opArr = option.split("\\/"); // 옵션 배열로 나눔
 
 	ArrayList<Review> rList = (ArrayList<Review>) request.getAttribute("rList"); // 유저의 리뷰와 QnA질문
 	ArrayList<Answer> aList = (ArrayList<Answer>) request.getAttribute("aList"); // 관리자의 리뷰 답변과 QnA질문 답변
+	ArrayList<RAttachment> attList = (ArrayList<RAttachment>) request.getAttribute("attList"); // 리뷰 사진 리스트
 %>
 <!DOCTYPE html>
 <html>
@@ -20,9 +23,10 @@
 <body>
 	<!--
       해야할 것 :
-
-         1) 사진 왼쪽 오른쪽 버튼에 따라 바뀌는거
-         3) 배송정보 칸의 안내창(물음표) 이미지 hover이벤트(시간남으면)
+		
+		1) 상품평 ROWNUM 있는 VIEW 만들어서 컬럼 교체
+		2) input [type=text]로 건 CSS 고치기 	
+        3) 배송정보 칸의 안내창(물음표) 이미지 hover이벤트(시간남으면)
    -->
 	<!-- 상세 페이지 전체 감싸는 div -->
 	<div id="Index" class="flex column">
@@ -117,27 +121,30 @@
 						</tr>
 					</table>
 					<!-- 장바구니/구매 -->
-				<div class="ct_btn">
+					<div class="ct_btn">
 						<ul id="ct_btn_ul">
 							<li>
-									<div id="ct_btn_cart">
-								<form action="" id="itemform" name="itemForm" method="get">
-									<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>">
-									<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>">
-									<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>">
-									<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>">
-									<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>">
-									<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>">
-									<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>">
-									<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>">
-									<input type="hidden" id="option" name="option" value=""> <input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> <input type="hidden" id="amount" name="amount" value="1"> <input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
-										<button id="cartbtn" style="width: 100%; height: 100%;">CART</button>
-								</form>
-									</div>
+								<div id="ct_btn_cart">
+									<form name="itemForm" method="post" id="itemForm">
+										<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>"> 
+										<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>"> 
+										<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>"> 
+										<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>"> 
+										<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>"> 
+										<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>"> 
+										<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>"> 
+										<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>"> 
+										<input type="hidden" id="option" name="option" value=""> 
+										<input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> 
+										<input type="hidden" id="amount" name="amount" value="1"> 
+										<input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
+										<button style="width: 100%; height: 100%;">CART</button>
+									</form>
+								</div>
 							</li>
 							<li>
 								<div id="ct_btn_buy">
-									<button id="buybtn" style="width: 100%; height: 100%;" form="itemForm">BUY</button>
+									<button style="width: 100%; height: 100%;" form="itemForm">BUY</button>
 								</div>
 							</li>
 						</ul>
@@ -170,25 +177,57 @@
 			<!-- 사진, 상품정보 감싸는 top영역 끝 -->
 			<!-- 하단영역 시작 -->
 			<div id="content_bottom">
-
 				<div id="cb_detail">
 					<div class="cb_cate">
 						<ul>
-							<li class="clicked_category"><a href="#cb_detail" class="clicked_category">DETAIL</a></li>
-							<li><a href="#cb_review">REVIEW </a></li>
-							<li><a href="#cb_qna">Q&#38;A </a></li>
+							<li><a href="#cb_detail" class="clicked_category">DETAIL</a></li>
 							<li><a href="#cb_info">INFO</a></li>
+							<li><a href="#cb_review">REVIEW </a></li>
+							<li><a href="#cb_review">Q&#38;A </a></li>
 						</ul>
 					</div>
 					<img alt="상세정보" src="<%=request.getContextPath()%>/img/shopImg/photo2.jpg">
+				</div>
+				<div id="cb_info">
+					<div class="cb_cate">
+						<ul>
+							<li><a href="#cb_detail">DETAIL</a></li>
+							<li><a href="#cb_info" class="clicked_category">INFO</a></li>
+							<li><a href="#cb_review">REVIEW </a></li>
+							<li><a href="#cb_review">Q&#38;A </a></li>
+						</ul>
+					</div>
+					<div id="cb_info_wrap">
+						<div class="cb_info_inner">
+							<h3 class="h3_title">상품결제정보</h3>
+							<br>
+							<div class="text_box">
+								고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다.<br> 확인 과정에서 도난 카드의 사용이나 타인 명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.<br> 무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.<br> 주문시 입력한 입금자명과 실제 입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.<br>
+							</div>
+						</div>
+						<div class="cb_info_inner">
+							<h3 class="h3_title">배송정보</h3>
+							<br>
+							<div class="text_box">
+								배송 방법: 택배<br> 배송 지역: 전국지역<br> 배송 비용: 3,000원<br> 배송 기간: 2일 ~ 5일<br> 배송 안내: 산간 벽지나 도서지방은 별도의 추가금액을 지불하셔야 하는 경우가 있습니다<br> 고객님께서 주문하신 상품은 입금 확인 후 배송해 드립니다. 다만, 상품 종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
+							</div>
+						</div>
+						<div class="cb_info_inner">
+							<h3 class="h3_title">교환 및 반품정보</h3>
+							<br>
+							<div class="text_box">
+								<b>교환 및 반품정보 교환 및 반품이 가능한 경우</b> <br> - 상품을 공급 받으신 날로부터 10일이내 교환 및 반품이 가능합니다. <br>- 공급받으신 상품 및 용역의 내용이 표시.광고 내용과 다르거나 다르게 이행된 경우에는 공급받은 날로부터 3월이내, 그사실을 알게 된 날로부터 30일이내 <br> <br> <b>교환 및 반품이 불가능한 경우</b> <br> - 고객님의 책임있는 사유로 상품등이 멸실 또는 훼손된 경우. 단, 상품의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외 <br>- 포장된 상품의 일부를 소모하거나 훼손되어 상품가치가 하락된 경우(주문하신 상품 외 기타 동봉된 내용물은 해당사항 없음) <br>- 고객님의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우 <br>- 시간의 경과에 의하여 재판매가 곤란할 정도로 상품등의 가치가 현저히 감소한 경우 <br>- 복제가 가능한 상품등의 포장을 훼손한 경우 (자세한 내용은 카카오톡 1:1 / E-MAIL / 전화 상담을 이용해 주시기 바랍니다.) <br> <br>※ 고객님의 마음이 바뀌어 교환, 반품을 하실 경우 상품반송 비용은 고객님께서 부담하셔야 합니다.
+							</div>
+						</div>
+					</div>
 				</div>
 				<div id="cb_review">
 					<div class="cb_cate">
 						<ul>
 							<li><a href="#cb_detail">DETAIL</a></li>
-							<li class="clicked_category"><a href="#cb_review" class="clicked_category">REVIEW </a></li>
-							<li><a href="#cb_qna">Q&#38;A </a></li>
 							<li><a href="#cb_info">INFO</a></li>
+							<li class="switch"><a href="#cb_review" class="clicked_category">REVIEW </a></li>
+							<li class="switch"><a href="#cb_qna">Q&#38;A </a></li>
 						</ul>
 					</div>
 
@@ -207,16 +246,16 @@
 							<tr>
 								<td colspan="5">게시글이 없습니다.</td>
 							</tr>
+							<!-- DB 데이터 수에 따라 추가될 tr 부분 시작 
+								// 유저글	-->
 							<%
 								} else {
 									for (int i = 0; i < rList.size(); i++) {
 										if (rList.get(i).getrType() == 1) {
 							%>
-
-							<!-- DB 데이터 수에 따라 추가될 tr 부분 시작 -->
 							<tr class="reviewTitle">
 								<td id="rId<%=i%>"><%=rList.get(i).getrId()%></td>
-								<td id="rtitle<%=i%>"><%=rList.get(i).getrTitle()%></td>
+								<td id="rTitle<%=i%>"><%=rList.get(i).getrTitle()%></td>
 								<td id="rWriter<%=i%>" class="writer"><%=rList.get(i).getrWriter()%></td>
 								<td id="modifyDate<%=i%>"><%=rList.get(i).getModifyDate()%></td>
 								<td id="rcount<%=i%>"><%=rList.get(i).getrCount()%></td>
@@ -224,153 +263,70 @@
 							<tr class="reviewContent" style="display: none;">
 								<td colspan="5">
 									<div class="text_box">
-										<blockquote id="rContent<%=i%>">
-											<%=rList.get(i).getrContent()%>
-											<br> <br> <br>
+										<blockquote id="rContent<%=i%>" class="fromUser">
+											<div class="fromUserImg">
+												<%
+													// 리뷰 이미지가 있을 시 
+																for (int k = 0; k < attList.size(); k++) {
+																	if (!attList.isEmpty() && rList.get(i).getrId() == attList.get(k).getrId()) {
+												%>
+												<div id="hidden<%=k%>" class="hidden" style="display: none;"><%=attList.get(k).getChangeName()%></div>
+												<div id="reviewImg_div<%=k%>" class="reviewImg_div">
+													<img id="reviewImg<%=k%>" class="reviewImg" src="<%=request.getContextPath()%>/review_uploadFiles/<%=attList.get(k).getChangeName()%>">
+												</div>
+												<%
+													}
+																}
+												%>
+											</div>
+											<%-- <div id="text_under_img<%=i%>" class="text_under_img"><%=rList.get(i).getrContent()%></div> --%>
+											<textArea id="rtArea<%=i%>" class="tArea" readonly="readonly"><%=rList.get(i).getrContent()%></textArea>
 										</blockquote>
-										<span id="updateR<%=i%>" class="update" style="display: none"> <a href="views/shop/shopReviewView.jsp">UPDATE</a>
+										<span id="updateR<%=i%>" class="update" style="display: none"> <a>UPDATE</a>
 										</span>
 
 									</div>
+
 									<%
-										if (!aList.isEmpty() && rList.get(i).getrId() == aList.get(i).getaRId()) {
+										// 관리자 답변
+													for (int j = 0; j < aList.size(); j++) {
+														if (!aList.isEmpty() && rList.get(i).getrId() == aList.get(j).getaRId()) {
 									%>
+									<input type="hidden" id="aId<%=j%>" value="<%=aList.get(j).getaId()%>"> 
+									<input type="hidden" id="a_rId<%=j%>" value="<%=aList.get(j).getaRId()%>">
 									<div class="text_box_title">
 										<blockquote>
-											<b id="aWriter<%=i%>" class="writer"><%=aList.get(i).getaWriter()%></b>&nbsp;&nbsp;<%=aList.get(i).getModifyDate()%>
+											<b id="aWriter<%=j%>" class="writer"><%=aList.get(j).getaWriter()%></b>&nbsp;&nbsp;
+											<p id="aModifyDate<%=j%>"><%=aList.get(j).getModifyDate()%></p>
 										</blockquote>
 									</div>
 									<div class="text_box">
-										<blockquote id="aContent<%=i%>">
-											<%=aList.get(i).getaContent()%>
+										<blockquote id="aContent<%=j%>">
+											<textArea id="tArea<%=j%>" class="tArea" readonly="readonly"><%=aList.get(j).getaContent()%></textArea>
 										</blockquote>
-										<span id="updateA<%=i%>" class="update" style="display: none"> <a href="#">UPDATE</a>
+										<span id="updateA<%=j%>" class="update" style="display: none"> <a>UPDATE</a>
 										</span>
 									</div>
+									<%
+										}
+													}
+									%>
 								</td>
 							</tr>
 							<%
 								}
-										}
 									}
 								}
 							%>
-
 							<!-- DB 데이터 수에 따라 추가될 tr 부분 끝 -->
 						</table>
-					</div>
-				</div>
-				<div id="cb_qna">
-					<div class="cb_cate">
-						<ul>
-							<li><a href="#cb_detail">DETAIL</a></li>
-							<li><a href="#cb_review">REVIEW </a></li>
-							<li class="clicked_category"><a href="#cb_qna" class="clicked_category">Q&#38;A </a></li>
-							<li><a href="#cb_info">INFO</a></li>
-						</ul>
-					</div>
-					<div class="cb_review_inner">
-						<table class="cb_table">
-							<tr class="table_header">
-								<td>No</td>
-								<td>TITLE</td>
-								<td>WRITER</td>
-								<td>DATE</td>
-								<td>VIEW</td>
-							</tr>
-							<%
-								if (rList.isEmpty()) {
-							%>
-							<tr>
-								<td colspan="5">게시글이 없습니다.</td>
-							</tr>
-							<%
-								} else {
-									for (int i = 0; i < rList.size(); i++) {
-										if (rList.get(i).getrType() == 2) {
-							%>
-
-							<!-- DB 데이터 수에 따라 추가될 tr 부분 시작 -->
-							<tr class="reviewTitle">
-								<td id="qId<%=i%>"><%=rList.get(i).getrId()%></td>
-								<td id="qTitle<%=i%>"><%=rList.get(i).getrTitle()%></td>
-								<td id="qWriter<%=i%>" class="writer"><%=rList.get(i).getrWriter()%></td>
-								<td id="qModifyDate<%=i%>"><%=rList.get(i).getModifyDate()%></td>
-								<td id="qCount<%=i%>"><%=rList.get(i).getrCount()%></td>
-							</tr>
-							<tr class="reviewContent" style="display: none;">
-								<td colspan="5">
-									<div class="text_box">
-										<blockquote id="rContent<%=i%>">
-											<%=rList.get(i).getrContent()%>
-											<br> <br> <br>
-										</blockquote>
-										<span id="updateQ<%=i%>" class="update"> <a href="views/shop/shopReviewView.jsp">UPDATE</a>
-										</span>
-
-									</div>
-									<%
-										if (!aList.isEmpty() && rList.get(i).getrId() == aList.get(i).getaRId()) {
-									%>
-									<div class="text_box_title">
-										<blockquote>
-											<b id="qnaWriter<%=i%>" class="writer"><%=aList.get(i).getaWriter()%></b>&nbsp;&nbsp;<%=aList.get(i).getModifyDate()%>
-										</blockquote>
-									</div>
-									<div class="text_box">
-										<blockquote id="qnaContent<%=i%>">
-											<%=aList.get(i).getaContent()%>
-										</blockquote>
-										<span id="updateQna<%=i%>" class="update"> <a href="#">UPDATE</a>
-										</span>
-									</div>
-								</td>
-							</tr>
-							<%
-								}
-										}
-									}
-								}
-							%>
-						</table>
-						<!-- DB 데이터 수에 따라 추가될 tr 부분 끝 -->
-					</div>
-				</div>
-				<div id="cb_info">
-					<div class="cb_cate">
-						<ul>
-							<li><a href="#cb_detail">DETAIL</a></li>
-							<li><a href="#cb_review">REVIEW </a></li>
-							<li><a href="#cb_qna">Q&#38;A </a></li>
-							<li class="clicked_category"><a href="#cb_info" class="clicked_category">INFO</a></li>
-						</ul>
-					</div>
-					<div class="cb_info_inner">
-						<h3 class="h3_title">상품결제정보</h3>
-						<br>
-						<div class="text_box">
-							고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다.<br> 확인 과정에서 도난 카드의 사용이나 타인 명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.<br> 무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.<br> 주문시 입력한 입금자명과 실제 입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.<br>
-						</div>
-					</div>
-					<div class="cb_info_inner">
-						<h3 class="h3_title">배송정보</h3>
-						<br>
-						<div class="text_box">
-							배송 방법: 택배<br> 배송 지역: 전국지역<br> 배송 비용: 3,000원<br> 배송 기간: 2일 ~ 5일<br> 배송 안내: 산간 벽지나 도서지방은 별도의 추가금액을 지불하셔야 하는 경우가 있습니다<br> 고객님께서 주문하신 상품은 입금 확인 후 배송해 드립니다. 다만, 상품 종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
-						</div>
-					</div>
-					<div class="cb_info_inner">
-						<h3 class="h3_title">교환 및 반품정보</h3>
-						<br>
-						<div class="text_box">
-							<b>교환 및 반품정보 교환 및 반품이 가능한 경우</b> <br> - 상품을 공급 받으신 날로부터 10일이내 교환 및 반품이 가능합니다. <br>- 공급받으신 상품 및 용역의 내용이 표시.광고 내용과 다르거나 다르게 이행된 경우에는 공급받은 날로부터 3월이내, 그사실을 알게 된 날로부터 30일이내 <br> <br> <b>교환 및 반품이 불가능한 경우</b> <br> - 고객님의 책임있는 사유로 상품등이 멸실 또는 훼손된 경우. 단, 상품의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외 <br>- 포장된 상품의 일부를 소모하거나 훼손되어 상품가치가 하락된 경우(주문하신 상품 외 기타 동봉된 내용물은 해당사항 없음) <br>- 고객님의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우 <br>- 시간의 경과에 의하여 재판매가 곤란할 정도로 상품등의 가치가 현저히 감소한 경우 <br>- 복제가 가능한 상품등의 포장을 훼손한 경우 (자세한 내용은 카카오톡 1:1 / E-MAIL / 전화 상담을 이용해 주시기 바랍니다.) <br> <br>※ 고객님의 마음이 바뀌어 교환, 반품을 하실 경우 상품반송 비용은 고객님께서 부담하셔야 합니다.
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
+		
 		// 옵션이 선택되면 td추가
 		$('#select').on("change", function() {
 			var item = $(this).children('option:selected').text();
@@ -458,40 +414,241 @@
 			$('#option').val(selectOption);
 			$('#amount').val(amount);
 		}
+		
+		// 리뷰 수정
+			$(document).on('click', '.update', function(e){
+			<%if (loginUser != null) {%>
+			var pId = "<%=p.getpId()%>";
+			var i = e.currentTarget.id.match(/\d+/); // 몇번째인지 구해오기
+			var letter = e.currentTarget.id.substr(6,1); // 리뷰글인지 qna인지 구분하기 위해서
+			var rContent; // 글내용
+			var rId; // 글번호
+			var a_rId;
+			var imgName = "";
+			console.log(letter);
+			var pName = "<%=p.getpName()%>";
+			
+			if(letter == 'R') { // 유저글이면 
+				/* rId = $('#rId'+i).text(); // 글번호(테이블 시퀀스넘버)
+				rContent = $('#text_under_img'+i).text();
+				rr = $('#rContent'+i);
+				rrr = $('#rContent'+i).children().children('.hidden').eq(0).text();
+				alert(rrr); */
+/* 				var k = 0;
+					while(k < 3){
+						imgName += $('#rContent'+i).children().children('.hidden').eq(k).text()+"/";
+						k++;
+					}
+					alert(imgName) */;
+				/* window.open("views/shop/shopReviewUpdateView.jsp?pId="+pId+"&rId="+rId+"&rContent="+rContent+"&imgName="+imgName+"&pName="+pName,
+							"상품평 수정", 
+							"width=600px, height=680px, left=500, top=50, toolbar=0, resizable=0, status=0, menubar=0, scrollbars=0"); */
+					$('#rtArea'+i).attr('readonly', false);
+					$('#updateR'+i).children('a').css('color', '#E55451')
+				
+					$(this).on('click', function(){
+						var rId = $('#rId'+i).text(); // 글번호(테이블 시퀀스넘버)
+						var content = $('#rtArea'+i).val();
+						var rContent = content.trim();
 
-		// update popUp
-		$('.update').on('click', function(){
-			window.open("views/shop/shopReviewView.jsp", "상품평 수정", 'width=600px, height=700px, left=0, top=0, toolbar=0, location=0, resizable=0, status=0, menubar=0, scrollbars=0');
-			System.out.println("바뀜?");
+						$.ajax({
+							url: "updateReview.do",
+							type: "post",
+							data: {rId:rId, rContent:rContent},
+							success:function(data){
+								console.log(data.result);
+								if(data.result>0){
+									$('#updateR'+i).children('a').css('color', '');
+									$('#rtArea'+i).text(data.rContent);
+									$('#rModifyDate'+i).text(data.modify_date);
+								} else {
+									alert("수정에 실패했습니다.");
+								}
+									updateBtn();
+							}
+						});
+					});	
+							
+			} else {						// 관리자글이면
+				$('#tArea'+i).attr('readonly', false);
+				$('#updateA'+i).children('a').css('color', '#E55451')
+			
+				$(this).on('click', function(){
+					var a_rId = $('#a_rId'+i).val(); // 글번호(테이블 시퀀스넘버)
+					var content = $('#tArea'+i).val();
+					var aContent = content.trim();
+					var aId = $('#aId'+i).val(); 
+
+					$.ajax({
+						url: "updateAnswer.do",
+						type: "post",
+						data: {a_rId:a_rId, aContent:aContent, aId:aId},
+						success:function(data){
+							console.log(data.result);
+							if(data.result>0){
+								$('#updateA'+i).children('a').css('color', '');
+								$('#tArea'+i).text(data.aContent);
+								$('#aModifyDate'+i).text(data.modify_date);
+							} else {
+								alert("수정에 실패했습니다.");
+							}
+								updateBtn();
+						}
+					});
+				});	
+			}
+			<%}%>
 		});
-
+		console.log( $('.table_header'));
+		
+		// review <=> qna switch
+		// qna랑 review ajax로 가져오는거
+		$('.switch').on('click', function(){
+			var pId = '<%=pId%>';
+			var type;
+			var str = $(event.target).text().length;
+			var str2 = "QNA".length + 1;
+			if(str != str2){
+				type = 1;
+				$(event.currentTarget).next().children().attr('class', '');
+				$(event.target).attr('class', 'clicked_category');
+			} else{
+				type = 2;
+				$(event.currentTarget).prev().children().attr('class', '');
+				$(event.target).attr('class', 'clicked_category');
+			}
+			console.log(str);
+			console.log(str2);
+			console.log("type : " + type);
+			$.ajax({
+				url: "shopReview.do",
+				type: "post",
+				data: {pId:pId, type:type},
+				success:function(data){
+					console.log("헤더 찍힘");
+					$cb_table = $(".cb_table");
+					$table_header = $('.table_header').html();
+					$cb_table.html("");
+					var $headerTr = $("<tr>").attr('class','table_header');
+					$headerTr.append($table_header);
+					$cb_table.append($headerTr);
+					
+					// 사용자 글이 있을 시 찍어내는 for문
+					for(var i = 0; i < data.rList.length; i++) {
+						var $tr = $("<tr>").attr('class','reviewTitle');
+						var $rIdTd = $("<td>").text(data.rList[i].rId).attr({'class':'rId','id':'rId'+i});
+						var $rtitleTd = $("<td>").text(data.rList[i].rTitle).attr({'class':'rTitle','id':'rTitle'+i});
+						var $rWriterTd = $("<td>").text(data.rList[i].rWriter).attr({'class':'rWriter','id':'rWriter'+i});
+						var $rModityDateTd = $("<td>").text(data.rList[i].rModifyDate).attr({'class':'rModifyDate','id':'rModifyDate'+i});
+						var $rCountTd = $("<td>").text(data.rList[i].rCount).attr({'class':'rCount','id':'rCount'+i});
+ 						
+					 	$tr.append($rIdTd);
+						$tr.append($rtitleTd);
+						$tr.append($rWriterTd);
+						$tr.append($rModityDateTd);
+						$tr.append($rCountTd); 
+						$cb_table.append($tr);
+						
+						var $tr2 = $('<tr>').attr('class', 'reviewContent').css('display', 'none');
+						var $td = $('<td>').attr('colspan', '5');
+						var $div = $('<div>').attr('class','text_box');
+						var $blockquote = $('<blockquote>').attr({'id':'rContent'+i,'class':'fromUser'});
+						var $fromUserImgDiv = $('<div>').attr('class', 'fromUserImg');
+						// 리뷰 사진이 있다면 찍는 for문
+						for(var k = 0; k < data.attList.length; k++){
+							if(data.attList[k].rId == data.rList[i].rId) {
+								var $hiddenDiv = $('<div>').attr('id','hidden'+k).css('display','none').text(data.attList[k].changeName);
+								var $div2 = $('<div>').attr({'id':'reviewImg_div'+k,'class':'reviewImg_div'});
+								var $img = $('<img>').attr({'id':'reviewImg'+k, 'class':'reviewImg', 'src':'<%=request.getContextPath()%>/review_uploadFiles/'+data.attList[k].changeName});
+								$div2.append($img);
+								$fromUserImgDiv.append($hiddenDiv);
+								$fromUserImgDiv.append($div2);
+							}
+							if(k >= 2) break;
+						}
+						var $textDiv = $('<textArea>').attr({'class':'tArea','readonly':'true','id':'rtArea'+i}).val(data.rList[i].rContent); 
+						var $span = $('<span>').css('display', 'none').attr({'class':'update','id':'updateR'+i});
+						var $a = $('<a>').text('update');
+						
+						$span.append($a);
+						$blockquote.append($fromUserImgDiv);
+						$blockquote.append($textDiv);
+						$div.append($blockquote);
+						$div.append($span);
+						$td.append($div);
+						
+							// 사용자 글 하나 끝
+							// 관리자 답변이 있을 시에 대한 for문 시작
+							for(var j = 0; j < data.aList.length; j++ ){
+									console.log('들어옴?2');
+									console.log(data.rList[i].rId);
+									console.log(data.aList.length);
+								if(data.rList[i].rId == data.aList[j].aRId) {
+									var $div3 = $('<div>').attr('class', 'text_box_title');
+									var $hidden = $('<input type=hidden>').attr('id', 'aId'+i).val(data.aList[j].aId);
+									var $hidden2 = $('<input type=hidden>').attr('id', 'a_rId'+i).val(data.aList[j].aRId);
+									var $blockquote2 = $('<blockquote>');
+									var $b = $('<b>').attr({'class':'writer','id':'aWriter'+j}).text(data.aList[j].aWriter);
+									var $p = $('<p>').attr('id', 'aModifyDate'+j).text(data.aList[j].aModifyDate);
+									var $div4 = $('<div>').attr('class', 'text_box');
+									var $blockquote3 = $('<blockquote>').attr('id', 'aContent'+j);
+									var $textArea = $('<textArea>').attr({'class':'tArea','readonly':'true','id':'tArea'+j}).val(data.aList[j].aContent);
+									var $span2 = $('<span>').attr({'class':'update','id':'updateA'+j}).css('display', 'none');
+									var $a2 = $('<a>').text('update');
+									
+									$blockquote2.append($b);
+									$blockquote2.append('&nbsp;&nbsp;');
+									$blockquote2.append($p);
+									$div3.append($hidden);
+									$div3.append($hidden2);
+									$div3.append($blockquote2);
+									
+									$span2.append($a2);
+									$blockquote3.append($textArea);
+									$div4.append($blockquote3);
+									$div4.append($span2);
+									
+									$td.append($div3);
+									$td.append($div4);
+								}
+							}
+						
+						$tr2.append($td);
+						$cb_table.append($tr2);
+						
+					}
+				}	
+			});
+		}); 
 
 		// 리뷰 제목 누르면 펼쳐지는 이벤트
-		$('.reviewTitle').on('click', function() {
-			$(event.target).parents('.reviewTitle').next().toggle();
+		$(document).on("click",".reviewTitle",function() {
+			$(this).next().toggle();
 		});
-
+		
 		// review와 QnA에서 로그인 유저의 아이디와 일치하면 수정하는 버튼 보이기
 		 $(function(){
+			 updateBtn();
+		 });
+		 $(window).ajaxComplete(function(){
+			 updateBtn();
+		 });
+		 
+		function updateBtn(){
+			console.log("updateBtn");
 			for(var i = 0; i < <%=rList.size()%>; i++) {
-	 			<%if (loginUser != null) {%>
-	 			var rWriter = $('#rWriter'+i); /* 리뷰 작성자 */
-	 			var aWriter = $('#aWriter'+i); /* 리뷰 답변인 */
-	 			var qWriter = $('#qWriter'+i); /* QnA 작성자 */
-	 			var qnaWriter = $('#qnaWriter'+i); /* QnA 답변인 */
-				var userId = "<%=loginUser.getId()%>";
+				<%if (loginUser != null) {%>
+					var rWriter = $('#rWriter'+i); /* 리뷰 작성자 */
+					var aWriter = $('#aWriter'+i); /* 리뷰 답변인 */
+					var userId = "<%=loginUser.getId()%>";
 				if (userId == $('#rWriter' + i).text()) {
 					$('#updateR' + i).toggle();
 				} else if (userId == $('#aWriter' + i).text()) {
 					$('#updateA' + i).toggle();
-				} else if (userId == $('#qWriter' + i).text()) {
-					$('#updateQ' + i).toggle();
-				} else if (userId == $('#qnaWriter' + i).text()) {
-					$('#updateQna' + i).toggle();
 				}
 	<%}%>
 		}
-		});
+		}
 		// 창 사이즈 줄어들면 화면 css변경
 		var windowWidth = $(window).width();
 		function cssResize() {
@@ -504,7 +661,9 @@
 				$('#ct_col_rgt').css('width', '100%')
 						.css('font-size', '1.2rem');
 			} else {
-				$('#content_top').css('flex-direction', '');
+				$('#content_top').css({
+					'flex-direction' : '',
+				});
 				$('#ct_col_lft').css({
 					'width' : '',
 					'margin-bottom' : ''
@@ -519,15 +678,14 @@
 			windowWidth = $(window).width();
 			cssResize();
 		});
-		
 		$('#cartbtn').click(function(){
-		   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
-		   $('#itemform').submit();
-		});
-         
-   
-		
-		
+			   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
+			   $('#itemform').submit();
+			});
+		$('#buybtn').click(function(){
+			   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
+			   $('#itemform').submit();
+			});
 	</script>
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>

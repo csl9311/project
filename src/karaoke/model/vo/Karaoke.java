@@ -8,9 +8,8 @@ public class Karaoke {
 	private int threeCoin;
 	private String time;
 	private String status;
+	private String postNum;
 	private int addressCode;
-	private String address;
-	private String addressDetail;
 	
 	public Karaoke() {}
 
@@ -24,36 +23,17 @@ public class Karaoke {
 		this.threeCoin = threeCoin;
 		this.time = time;
 		this.status = status;
+		this.postNum = postNum;
 		this.addressCode = addressCode;
 	}
 
-	
-	public Karaoke(String karaokeName, int oneCoin, int threeCoin, String time, String status, String address,
-			String addressDetail) {
+	public Karaoke(int kid, String karaokeName, String status, String postNum, int addressCode) {
 		super();
+		this.kid = kid;
 		this.karaokeName = karaokeName;
-		this.oneCoin = oneCoin;
-		this.threeCoin = threeCoin;
-		this.time = time;
 		this.status = status;
-		this.address = address;
-		this.addressDetail = addressDetail;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getAddressDetail() {
-		return addressDetail;
-	}
-
-	public void setAddressDetail(String addressDetail) {
-		this.addressDetail = addressDetail;
+		this.postNum = postNum;
+		this.addressCode = addressCode;
 	}
 
 	public int getKid() {
@@ -110,6 +90,14 @@ public class Karaoke {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getpostNum() {
+		return postNum;
+	}
+
+	public void setpostNum(String postNum) {
+		this.postNum = postNum;
 	}
 
 	public int getAddressCode() {

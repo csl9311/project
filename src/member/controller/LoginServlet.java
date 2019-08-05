@@ -27,14 +27,18 @@ public class LoginServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 
 		Member member = new Member(userId, userPwd);
-		Member loginUser = new MemberService().loginMember(member);
+		Member login = new MemberService().loginMember(member);
+		Member loginUser = null;
 		// 각 페이지에서 페이지 정보 받아온 후
 		String page ="";
-		if (loginUser != null) {
+		
+		if (login != null) {
+			loginUser = new MemberService().selectMember(login.getId());
 			session.setAttribute("loginUser", loginUser);
 			response.sendRedirect(request.getHeader("referer"));
 		} else {
-			request.setAttribute("msg", "로그인 실패");
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "아이디와 비밀번호를 확인해주세요.");
 			request.getRequestDispatcher(page).forward(request, response);
 		}
 	}

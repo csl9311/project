@@ -16,6 +16,8 @@ public class Answer {
 	private Date modifyDate;
 	private String status;
 	
+	public Answer() {}
+	
 	public Answer(int aId, int aType, int pId, int aRId, String aWriter, String aTitle, String aContent, int aCount,
 			Date createDate, Date modifyDate, String status) {
 		super();
@@ -43,6 +45,23 @@ public class Answer {
 		this.aTitle = aTitle;
 		this.aContent = aContent;
 		this.aCount = aCount;
+		this.modifyDate = modifyDate;
+	}
+	
+	
+
+	public Answer(String aContent, Date modifyDate) {
+		super();
+		this.aContent = aContent;
+		this.modifyDate = modifyDate;
+	}
+	
+	
+
+	public Answer(int aId, String aWriter, Date modifyDate) {
+		super();
+		this.aId = aId;
+		this.aWriter = aWriter;
 		this.modifyDate = modifyDate;
 	}
 
@@ -111,6 +130,13 @@ public class Answer {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Answer [aId=" + aId + ", aType=" + aType + ", pId=" + pId + ", aRId=" + aRId + ", aWriter=" + aWriter
+				+ ", aTitle=" + aTitle + ", aContent=" + aContent + ", aCount=" + aCount + ", createDate=" + createDate
+				+ ", modifyDate=" + modifyDate + ", status=" + status + "]";
 	}
 	
 	
