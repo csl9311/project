@@ -23,6 +23,8 @@ public class AdminGetMemberList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		
+		
 		// 전체 멤버 ArrayList 가져오기
 		ArrayList<Member> memberList = new MemberService().selectAll();
 		if (memberList != null) {
