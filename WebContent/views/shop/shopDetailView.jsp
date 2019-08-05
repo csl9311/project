@@ -346,7 +346,6 @@
 			var tr = $('#addTr').html();
 			$('#itemTableTbody').append(tr);
 		});
-
 		// X누르면 td 제거
 		function deleteItem() {
 			$(event.target).closest('.amountTr').remove();
@@ -385,7 +384,7 @@
 				totalPrice = <%=p.getPrice()%> * $('#noOption input[type=text]').val();
 			<%}%>
 			$('#totPrice').text(totalPrice);
-			$('#price').val(totalPrice);
+			$('#totalPrice').val(totalPrice);
 			console.log(totalPrice);
 		}
 
