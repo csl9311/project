@@ -195,14 +195,14 @@ CSS
 		 <br>
 	</div>
 	
-	
+		<%if(rewordUser!=null){ %>
 			<div class="modal fade " id="reword-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 					<div class="modal-dialog" style="text-align: center">
 						<div class="rewordmodal-container"  >
 							<h3 style="color:white">추천TOP 사용자<br></h3>
 							<div class="reword1" style="height:30%">
 							<%for(Board reword: rewordUser){ %>
-						<div id="selectRw" style=" display:flex; align-items: center; justify-content: center; ">
+						<div id="selectRw" style=" display:flex;height:22px; align-items: center; justify-content: center; ">
 					 	
 					 		<input type="hidden" value="<%=reword.getBid()%>">
 					 		<div style="flex-basis:100px">
@@ -223,8 +223,7 @@ CSS
 							<h3  style="color:white">추천TOP 게시글<br></h3>
 							
 					 	<%for(Board reword: rewordBoard){ %>
-					 		<div id="selectReword" style=" display:flex; align-items: center; justify-content: center; ">
-					 	
+					 		<div id="selectReword" style=" display:flex; height:22px; align-items: center; justify-content: center; ">
 					 		<input type="hidden" value="<%=reword.getBid()%>">
 					 		<div style="flex-basis:100px">
 							<span><%=reword.getbType() %>위</span>
@@ -236,14 +235,12 @@ CSS
 							<span>추천수: <%=reword.getbGood()%></span>
 							</div>
 							</div>
-							
-						
 							<%} %> 
 							</div>
 						</div>
 					</div>
 				</div>
-	
+	<%} %>
 
 
 	<script>
