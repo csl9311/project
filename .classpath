@@ -10,9 +10,5 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cos.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/AjaxServer"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/세미프로젝트서버"/>
-	<classpathentry kind="lib" path="C:/Users/jsh/Downloads/apache-tomcat-8.5.42-windows-x64/apache-tomcat-8.5.42/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jsh/Downloads/apache-tomcat-8.5.42-windows-x64/apache-tomcat-8.5.42/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
