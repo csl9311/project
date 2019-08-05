@@ -31,11 +31,21 @@ public class ShopListServlet extends HttpServlet {
 		int cid = Integer.parseInt(request.getParameter("cid"));
 		String cName = null;
 		switch (cid) {
-		case 10: cName = "스피커"; break;
-		case 20: cName = "헤드셋"; break;
-		case 30: cName = "헤드폰이어폰"; break;
-		case 40: cName = "블루투스사운드"; break;
-		case 50: cName = "마이크"; break;
+		case 10:
+			cName = "스피커";
+			break;
+		case 20:
+			cName = "헤드셋";
+			break;
+		case 30:
+			cName = "헤드폰이어폰";
+			break;
+		case 40:
+			cName = "블루투스사운드";
+			break;
+		case 50:
+			cName = "마이크";
+			break;
 		}
 
 		int listCount = service.getListCount(cName);
@@ -84,6 +94,7 @@ public class ShopListServlet extends HttpServlet {
 			list = service.selectkeyList(currentPage, cName, key);
 		} else {
 			list = service.selectList(currentPage, cName);
+
 		}
 
 		String page = null;

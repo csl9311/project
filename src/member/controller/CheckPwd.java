@@ -27,7 +27,7 @@ public class CheckPwd extends HttpServlet {
 		String id = loginUser.getId();
 		String pw = (String) request.getParameter("pwd");
 		
-		boolean pwCheck = new MemberService().checkPw(id, pw);
+		boolean pwCheck = new MemberService().pwCheck(id, pw);
 		
 		String page = "";
 		if(pwCheck) {

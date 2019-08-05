@@ -24,11 +24,7 @@ public class ShopMainServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		System.out.println(123);
 		ShopService service = new ShopService();
-		System.out.println(456);
-		
 
 		String key = request.getParameter("key");
 		String sortBy = request.getParameter("sort");

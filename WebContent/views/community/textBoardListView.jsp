@@ -175,17 +175,17 @@ table td{
 					<% } %>
 				<% } %>
 			</table>
-			
+			<form>
 			<div class="text-center">
 				<select class="selectpicker">
-				  <option>제목</option>
-				  <option>제목 + 내용</option>
-				  <option>글쓴이</option>
+				  <option value=1>제목</option>
+				  <option value=2>제목 + 내용</option>
+				  <option value=3>글쓴이</option>
 				</select>
 				<input type="text" id="searchText" placeholder="검색할 내용을 입력하세요">
-				<input type="submit" id="searchBtn" class="btn btn-success" value="검색">
+				<input type="button" id="searchBtn" class="btn btn-success" value="검색">
 			</div>
-			
+			</form>
 			<div class="text-center">
 				<ul class="pagination">
 					<% if(!list.isEmpty()){ %>
@@ -232,6 +232,16 @@ table td{
            var tbid = $(this).parent().children().children('input').val();
            location.href="<%= request.getContextPath() %>/detail.tb?tbid=" + tbid;
 		});
+	});
+	
+	$('#searchBtn').click(function(){
+		$(this).closest('#search').submit();
+		var search = $('#searchText').val();
+		var error = <%=request.getAttribute("error")%>;
+		if(error==1){
+			alert("없는 검색어입니다.");
+			$('.aviCommonBoard').append(document.createTextNode(search));
+		}
 	});
 	</script>
 </body>

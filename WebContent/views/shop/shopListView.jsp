@@ -124,11 +124,11 @@
 			    		}
 					}	
 				</script>
-				<!-- <select id="selectBox">
+				<select id="selectBox">
 					<option value="8">8개씩 정렬</option>
 					<option value="12">12개씩 정렬</option>
 					<option value="16">16개씩 정렬</option>
-				</select> -->
+				</select>
 			</div>
 		</div>
 		<div id="items">

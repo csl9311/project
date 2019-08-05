@@ -23,18 +23,18 @@ public class AddressUpdate extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int address_code = Integer.parseInt(request.getParameter("address_code"));
 		String postNum = request.getParameter("postNum");
-		String roadAddress = request.getParameter("roadAddress");
-		String jibunAddress = request.getParameter("jibunAddress");
+		String address = request.getParameter("address");
 		String address_detail = request.getParameter("address_detail");
 		
-		Address address = new Address(address_code, postNum, roadAddress, jibunAddress, address_detail);
-		int result = new MemberService().addressUpdate(address);
+		Address add = new Address(address_code, postNum, address, address_detail);
+		int result = new MemberService().addressUpdate(add);
 		
-		String page = request.getParameter("page");
+		String id = request.getParameter("member_id");
+		String page = request.getParameter("page") + "?id=" + id;
 		if(result > 0) {
+			request.setAttribute("msg", "수정되었습니다.");
 		} else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "주소 수정에 실패했습니다.");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
 	}

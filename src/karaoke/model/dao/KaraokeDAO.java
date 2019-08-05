@@ -137,7 +137,7 @@ public class KaraokeDAO {
 		int result = 0;
 		
 		String query = prop.getProperty("getListCount");
-		
+		System.out.println(query);
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
@@ -167,31 +167,28 @@ public class KaraokeDAO {
 		int startRow = (currentPage - 1) * posts + 1;
 		int endRow = startRow + posts - 1;
 		
-		String query = prop.getProperty("selectList");
+		String query = prop.getProperty("selectKaraokeList");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, 1);
+			System.out.println(query);
+			pstmt.setInt(1, endRow);
+			pstmt.setInt(2, startRow);
 			
 			rset = pstmt.executeQuery();
 			
-			/*list = new ArrayList<Karaoke>();
+			list = new ArrayList<Karaoke>();
 			
 			while(rset.next()) {
-				Board b = new Board(rset.getInt("bId"),
-									rset.getInt("btype"),
-									rset.getString("cname"),
-									rset.getString("btitle"),
-									rset.getString("bcontent"),
-									rset.getString("nickname"),
-									rset.getInt("bcount"),
-									rset.getDate("create_date"),
-									rset.getDate("modify_date"),
-									rset.getString("status"));	
-				list.add(b);
-			}*/
+				Karaoke k = new Karaoke(rset.getString("kname"),
+									rset.getInt("onecoin"),
+									rset.getInt("threecoin"),
+									rset.getString("ktime"),
+									rset.getString("status"),
+									rset.getString("address"),
+									rset.getString("address_detail"));	
+				list.add(k);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
