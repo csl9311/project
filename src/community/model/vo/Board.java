@@ -39,17 +39,30 @@ public class Board {
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
-	
-	
 
-	public Board(int bid, String bWriter,String userWriter) {
+	public Board(int bid, String bWriter, String userWriter) {
 		super();
 		this.bid = bid;
 		this.bWriter = bWriter;
 		this.userWriter = userWriter;
 	}
 
+	public Board(int bType, String bWriter, int bGood) {
+
+		this.bType = bType;
+		this.bWriter = bWriter;
+		this.bGood = bGood;
+	}
 	
+	public Board(int bType,int bid,String bTitle, String bWriter, int bGood) {
+
+		this.bType = bType;
+		this.bWriter = bWriter;
+		this.bGood = bGood;
+		this.bTitle = bTitle;
+		this.bid=bid;
+	}
+
 	public String getUserWriter() {
 		return userWriter;
 	}
@@ -148,10 +161,9 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [bid=" + bid + ", bType=" + bType + ", bTitle=" + bTitle
-				+ ", bAddress=" + bAddress + ", bContent=" + bContent + ", bWriter=" + bWriter + ", bCount=" + bCount
-				+ ", bGood=" + bGood + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status="
-				+ status + "]";
+		return "Board [bid=" + bid + ", bType=" + bType + ", bTitle=" + bTitle + ", bAddress=" + bAddress
+				+ ", bContent=" + bContent + ", bWriter=" + bWriter + ", bCount=" + bCount + ", bGood=" + bGood
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
 	}
 
 }

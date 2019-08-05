@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,19 +21,30 @@ body {
 <div class="mainArea">
 	<div class="container">
 		 <div class="row">
-		 	<form method="post" action="writeAction.jsp">
+		 	<form method="post" action="<%=request.getContextPath()%>/insert.tb">
 			 	<table class="table table-striped" style="text-align:center; border:1px; solid #dddddd">
 			 		<thead>
 						<tr>
-							<th colspan="1" style="background-color:#eeeeee; text-align: center;">게시글 작성</th>
+							<% if(request.getParameter("tbtype").equals("2")) { %>
+							
+							<th colspan="1" style="background-color:#eeeeee; text-align: center;">
+								<input type="hidden" value="2" name="tbtype">
+								공지사항 작성
+							</th>
+							<% } else { %>
+							<th colspan="1" style="background-color:#eeeeee; text-align: center;">
+								<input type="hidden" value="1" name="tbtype">
+								게시글 작성
+							</th>
+							<% } %>
 						</tr>		 		
 			 		</thead>
 			 		<tbody>
 			 			<tr>
-			 				<td><input type="text" class="form-control" placeholder="글제목" name="bbsTitle" maxlength="50"></td>
+			 				<td><input type="text" class="form-control" placeholder="글제목" name="tbTitle" maxlength="50"></td>
 			 			</tr>
 			 			<tr>	
-			 				<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height:350px"></textarea> </td>
+			 				<td><textarea class="form-control" placeholder="글 내용" name="tbContent" maxlength="2048" style="height:350px"></textarea> </td>
 			 			</tr>	
 			 		</tbody>
 			 	</table>
