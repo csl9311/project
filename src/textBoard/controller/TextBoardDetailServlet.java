@@ -1,4 +1,4 @@
-package TextBoard.controller;
+package textBoard.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import TextBoard.model.service.TextBoardService;
-import TextBoard.model.vo.TextBoard;
-import TextBoard.model.vo.TextBoardReply;
+import textBoard.model.service.TextBoardService;
+import textBoard.model.vo.TextBoard;
+import textBoard.model.vo.TextBoardReply;
 
 /**
  * Servlet implementation class TextBoardDetailServlet
@@ -43,7 +43,7 @@ public class TextBoardDetailServlet extends HttpServlet {
 		String page=null;
 		
 		if(tb != null) {
-			page = "views/community/textBoardDetailView.jsp";
+			page = "views/textBoard/textBoardDetailView.jsp";
 			request.setAttribute("tb", tb);
 			
 			request.setAttribute("list", list);

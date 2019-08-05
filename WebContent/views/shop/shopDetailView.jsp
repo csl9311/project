@@ -29,7 +29,7 @@
         3) 배송정보 칸의 안내창(물음표) 이미지 hover이벤트(시간남으면)
    -->
 	<!-- 상세 페이지 전체 감싸는 div -->
-	<div id="Index" class="flex column">
+	<div id="Index" class="flex column" style="height:auto">
 		<!-- 소분류 카테고리 -->
 		<nav id="shopCategory">
 			<ul id="sct_ul">
@@ -263,7 +263,7 @@
 							</tr>
 							<tr class="reviewContent" style="display: none;">
 								<td colspan="5">
-									<div class="text_box">
+									<div class="text_box" style="display:inline-block;">
 										<blockquote id="rContent<%=i%>" class="fromUser">
 											<div class="fromUserImg">
 												<%
@@ -314,6 +314,7 @@
 									%>
 								</td>
 							</tr>
+							
 							<%
 								}
 									}
@@ -321,6 +322,7 @@
 							%>
 							<!-- DB 데이터 수에 따라 추가될 tr 부분 끝 -->
 						</table>
+						
 					</div>
 				</div>
 			</div>

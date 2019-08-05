@@ -1,4 +1,4 @@
-package TextBoard.model.dao;
+package textBoard.model.dao;
 
 import static common.JDBCTemplate.close;
 
@@ -13,8 +13,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import TextBoard.model.vo.TextBoard;
-import TextBoard.model.vo.TextBoardReply;
+import textBoard.model.vo.TextBoard;
+import textBoard.model.vo.TextBoardReply;
 
 public class TextBoardDAO {
 	private Properties prop = new Properties();

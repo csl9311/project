@@ -1,4 +1,4 @@
-package TextBoard.controller;
+package textBoard.controller;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import TextBoard.model.service.TextBoardService;
+import textBoard.model.service.TextBoardService;
 
 /**
  * Servlet implementation class TextBoardDeleteServlet

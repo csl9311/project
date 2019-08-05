@@ -1,4 +1,4 @@
-package TextBoard.controller;
+package textBoard.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import TextBoard.model.service.TextBoardService;
-import TextBoard.model.vo.TextBoardReply;
+import textBoard.model.service.TextBoardService;
+import textBoard.model.vo.TextBoardReply;
 
 /**
  * Servlet implementation class TextBoardReplyInsertSevlet

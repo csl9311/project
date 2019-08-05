@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="karaoke.model.vo.*, java.util.*, common.PageInfo" %>
+<%
+	ArrayList<Karaoke> list = (ArrayList<Karaoke>)request.getAttribute("list");
+	ArrayList<Attachment> at = (ArrayList<Attachment>)request.getAttribute("at");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,8 +165,9 @@ hr.hr-style {
 }
 </style>
 <meta charset="UTF-8">
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2126183a3359f675cc302c8972c00e81&libraries=services,clusterer,drawing"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2126183a3359f675cc302c8972c00e81"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=LIBRARY"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=services,clusterer,drawing"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -163,8 +176,6 @@ hr.hr-style {
 <title>노래방 찾기</title>
 </head>
 <%@include file="/views/common/coinheader.jsp"%>
-<link rel="stylesheet"
-href="<%=request.getContextPath()%>/css/community/freeBoardView.css">
 <body>
 <div id="mainArea">
 	<!-- 탭 영역 -->
@@ -189,31 +200,69 @@ href="<%=request.getContextPath()%>/css/community/freeBoardView.css">
 			
 			<!-- 목록 나타나는 부분 -->
 			<ul class="list-group list-group-flush">
+			<% if(list.isEmpty()){ %>
+				<li class="list-group-item">목록이 없습니다.</li>
+			<% } else { %>
+				<% for(Karaoke k : list) { %>
 				<a href="#">
 			  		<li class="list-group-item">
-			  			<div class="listArea"> <!-- html5 부터 a태그 아래에 블럭태그 사용 가능 -->
+			  			<div class="listArea">
 					  		<div class="imgArea">
 					  			<div class="thumb">
-					  				<div class="thumbimg" style="background-image: 
-					  				url('photo1.jpg');  background-size: cover;">
-					  				</div>
+					  				<div class="thumbimg" style="background-image: url('<%=request.getContextPath()%>/views/search/photo1.jpg');  background-size: cover;"></div>
 					  			</div>
 					  		</div>
 				  			<div class="listTextArea">
-	      						<h3 class="mb-2">노래방 이름 들어갈 곳</h3>
+	      						<h3 class="mb-2"><%= k.getKaraokeName() %></h3>
 	      						<span class="fa fa-star checked"></span>
 	      						4.5
 	      						<span class="review-SubTitle">리뷰</span>
 	      						1232개
 	      						<br>
-	      						<span class="location">경기도 고양시 일산 어딘가</span>
+	      						<span class="location"><%= k.getAddress() %><%= k.getAddressDetail() %> 에 위치함</span>
 	      					</div>
       					</div>
       				</li>
       			</a>
+				<% } %>
+			<% } %>
 			</ul>	
 			
-		
+			
+			<%-- <script>
+			
+			$(window).scroll(function() {
+			    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+			    href="<%= request.getContextPath() %>/list.ko?currentPage=<%= currentPage + 1 %>"
+			    <% for(Karaoke k : list) { %>
+			      $("ul.list-group").append("<h1>Page " + page);
+			    <% } %>
+			    }
+			});
+			</script> 			
+			
+			
+			
+			
+			
+			<script>
+			function getLocation() {
+				  if (navigator.geolocation) { // GPS를 지원하면
+				    navigator.geolocation.getCurrentPosition(function(position) {
+				      alert(position.coords.latitude + ' ' + position.coords.longitude);
+				    }, function(error) {
+				      console.error(error);
+				    }, {
+				      enableHighAccuracy: false,
+				      maximumAge: 0,
+				      timeout: Infinity
+				    });
+				  } else {
+				    alert('GPS를 지원하지 않습니다');
+				  }
+				}
+			getLocation();
+			</script>--%>
 
 			
 			<!-- 목록 끝 -->
@@ -221,6 +270,7 @@ href="<%=request.getContextPath()%>/css/community/freeBoardView.css">
 		<!-- 탭2 -->
 		<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 	  <!-- 지도 표시되는 부분 -->
+	  
 	  <div id="mapapi"></div>
 	  <!-- 지도 스크립트 -->
 		<script>
@@ -229,6 +279,7 @@ href="<%=request.getContextPath()%>/css/community/freeBoardView.css">
 		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 		        level: 3 // 지도의 확대 레벨
 		    }; 
+			
 			$('#nav-profile-tab').on('click', function() {
 				setTimeout(function() {	
 					map.relayout();
@@ -244,39 +295,39 @@ href="<%=request.getContextPath()%>/css/community/freeBoardView.css">
 		// 주소로 좌표를 검색합니다
 		geocoder.addressSearch('서울특별시 강남구 역삼1동 테헤란로1길 28', function(result, status) {
 	
-		    // 정상적으로 검색이 완료됐으면 
+			  // 정상적으로 검색이 완료됐으면 
 		     if (status === kakao.maps.services.Status.OK) {
-				console.log("!232");
+
 		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	
+
 		        // 결과값으로 받은 위치를 마커로 표시합니다
 		        var marker = new kakao.maps.Marker({
 		            map: map,
 		            position: coords
 		        });
-	
+
 		        // 인포윈도우로 장소에 대한 설명을 표시합니다
 		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">슈퍼스타코인노래연습장</div>'
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
 		        });
 		        infowindow.open(map, marker);
-	
+
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		        map.setCenter(coords);
-		        
 		    } 
 		});    
 		</script>
 		<!-- 지도 스크립트 끝 -->
+		
+		
+			
+			
 		</div>
 		<!-- 탭2 끝 -->
 	</div>
 	<!-- 내용 끝 -->
 </div>
-
-							<!--  -->
-	<%@ include file="../common/coinfooter.jsp"%>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/js/header.js"></script>
+<%@ include file="../common/coinfooter.jsp"%>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/header.js"></script>	
 </body>
 </html>

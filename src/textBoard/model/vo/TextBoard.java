@@ -1,4 +1,4 @@
-package TextBoard.model.vo;
+package textBoard.model.vo;
 
 import java.sql.Date;
 

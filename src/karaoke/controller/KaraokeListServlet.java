@@ -1,15 +1,19 @@
 package karaoke.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import common.PageInfo;
+import karaoke.model.service.KaraokeService;
+import karaoke.model.vo.Attachment;
+import karaoke.model.vo.Karaoke;
 
 
 /**
@@ -22,43 +26,58 @@ public class KaraokeListServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-//	public String getList(SearchVO param, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-//	    Gson gson = new Gson();
-//	    DataSet set = new DataSet();
-//	    try {
-//	        int totalCnt = service.getListCnt(param);  //데이터의 전체 갯수를 가져온다.
-//	        int page = param.getPage();  //파라메터 page값을 받는다.
-//	        if (page==1){
-//	            param.setStartNum(1);
-//	            param.setEndNum(20);  //데이터를 20개씩 가져오겠다.
-//	        }else{
-//	            param.setStartNum(page+(19*(page-1)));  //10개씩 가져오고싶다면 19->9로 
-//	            param.setEndNum(page*20);   //20, 40, 60
-//	        }
-//	        //위에서 구한, 데이터를 가져올 시작 rownum과 끝 rownum을 값을 같이 보낸다. 이 사이의 데이터를 조회
-//	        List<DataVO> list = service.getList(param);  //조회한 데이터를 가져온다.
-//	 
-//	        set.setRows(list);
-//	        set.setTotCnt(totalCnt);
-//	        set.setStartNum(param.getStartNum());
-//	        set.setResultCode(200);
-//	    } catch (Exception e) {
-//	        e.printStackTrace();
-//	    }
-//	    return gson.toJson(set);
-//	}
-
-
+    public KaraokeListServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		Gson gson = new Gson();
-//		DataSet set = new DataSet();
-//		try {
-//			int totalCnt = service.selectList();
-//		}
+		 request.setCharacterEncoding("UTF-8"); 
+		 KaraokeService service = new KaraokeService();
+			
+			int listCount = service.getListCount(); 
+			
+			
+			int currentPage;	
+			int limit;			
+			int maxPage;		
+			int startPage;		
+			int endPage;		
+			
+			currentPage = 1;
+			if(request.getParameter("currentPage") != null) {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			limit = 10;
+			
+			maxPage = (int)((double)listCount/limit +0.9); //페이지수 측정
+	        startPage = (((int)((double)currentPage/limit+0.9))-1) *limit+1;
+	        endPage = startPage + limit -1;
+			if(maxPage < endPage) {
+				endPage = maxPage;
+			}
+			
+			PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+			System.out.println("23" + pi);
+			ArrayList<Karaoke> list = service.selectList(currentPage);
+			ArrayList<Attachment> at = service.selectAlist(currentPage);			
+			System.out.println(at);
+			String page = null;
+			if(list != null) {
+				page = "views/search/searchView.jsp";
+				request.setAttribute("list", list);
+				request.setAttribute("at", at);
+				request.setAttribute("pi", pi);
+			} else {
+				page = "views/common/errorPage.jsp";
+				request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
+			}
+			
+			RequestDispatcher view = request.getRequestDispatcher(page);
+			view.forward(request, response);
 	
 		
 	}

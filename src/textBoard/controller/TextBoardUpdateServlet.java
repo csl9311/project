@@ -1,7 +1,6 @@
-package TextBoard.controller;
+package textBoard.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import TextBoard.model.service.TextBoardService;
-import TextBoard.model.vo.TextBoard;
 import member.model.vo.Member;
+import textBoard.model.service.TextBoardService;
+import textBoard.model.vo.TextBoard;
 
 /**
  * Servlet implementation class TextBoardUpdateServlet

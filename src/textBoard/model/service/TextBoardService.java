@@ -1,14 +1,16 @@
-package TextBoard.model.service;
+package textBoard.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import TextBoard.model.dao.TextBoardDAO;
-import TextBoard.model.vo.TextBoard;
-import TextBoard.model.vo.TextBoardReply;
-import community.model.dao.BoardDAO;
+import textBoard.model.dao.TextBoardDAO;
+import textBoard.model.vo.TextBoard;
+import textBoard.model.vo.TextBoardReply;
 
 public class TextBoardService {
 
