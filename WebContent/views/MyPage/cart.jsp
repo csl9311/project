@@ -18,11 +18,11 @@
 </head>
 <body>
 	<div id="index">
-		<div id="mypage">
-
+		<div id="mypage">	
 			<div>
 				<!-- 상품목록 -->
 				<p>장바구니</p>
+				
 				<table class="tab-1">
 					<tr>
 						<td width="100px">전체선택&nbsp;<input type="checkbox"></td>
@@ -31,60 +31,63 @@
 						<td>옵션</td>
 						<td width="50px">수량</td>
 						<td>상품 금액</td>
-						<td>배송비</td>
 						<td>합계</td>
 						<td>선택</td>
 					</tr>
 					<%
 						for (int i = 0; i < info.size(); i++) {
 							Payment p = info.get(i);
-							if(!p.getpOption().equals("없음")){
+							if (!p.getpOption().equals("없음")) {
 								String[] arr = p.getpOption().split(",");
-							for(int j = 0 ; j < arr.length/2 ; j ++) {
-								if(j%2==0){
-					%>		<tr>
-							<td><input type="checkbox">
-							<td>이미지</td>
-							<td><%=p.getpName() %></td>
-							<%
-								for(int k=0; k<arr.length;k++){						
-								if(k%2==0){									
-							%>
-								<td><%=arr[k] %></td>
-								<td><%=arr[k+1] %></td>															
-							
-							<td>10000원</td>
-								<td>3000원</td>
-								<td>9900원</td>
-								<td>
-								<br>
-								<button class="cartBtn">주문하기</button>
-								<br>
-								<button class="cartBtn">삭제</button>
-								</td>	
-								<%break;						
-								}} %>						
-						</tr>
-						
-					<%}}}else {%>
-							<tr>
-							<td><input type="checkbox">
-							<td>이미지</td>
-							<td><%= p.getpName() %></td>	
-							<td><%= p.getpOption() %></td>
-							<td><%= p.getAmount() %></td>					
-							<td>10000원</td>
-							<td>3000원</td>
-							<td>9900원</td>
-							<td><br>
-							<button class="cartBtn">주문하기</button><br>
-							<button class="cartBtn">삭제</button>
-							</td>							
-						</tr>
-						<% }}%> 
+								for (int j = 0; j < arr.length / 2; j++) {
+									if (j % 2 == 0) {
+					%>
+					
 					<tr>
-						<td colspan="5" style="text-align: left">ㅋㅋㅋ</td>
-						<td colspan="5">상품구매가격</td>
+						<td><input type="checkbox">
+						<td>이미지</td>
+						<td><%=p.getpName()%></td>
+						<%
+							for (int k = 0; k < arr.length; k++) {
+												if (k % 2 == 0) {
+						%>
+						<td><%=arr[k]%></td>
+						<td><%=arr[k + 1]%></td>
+						<td><%=p.getPrice()%></td>
+						<td><%=p.getPrice() * p.getAmount()%></td>
+						<td><br>
+
+							<button class="cartBtn">삭제</button></td>
+						<%
+							break;
+												}
+											}
+						%>
+					</tr>
+
+					<%
+						}%>
+					
+					<%}
+							} else {
+					%>
+					<tr>
+						<td><input type="checkbox">
+						<td>이미지</td>
+						<td><%=p.getpName()%></td>						
+						<td><%=p.getpOption()%></td>
+						<td><%=p.getAmount()%></td>
+						<td><%=p.getPrice()%></td>
+						<td><%=p.getPrice() * p.getAmount()%></td>
+						<td><br>
+						<button class="cartBtn">삭제</button></td>
+					</tr>
+					<%
+						}
+						}
+					%> 
+					<tr>
+						<td colspan="9">상품구매가격</td>
 					</tr>
 				</table>
 			</div>
@@ -107,18 +110,13 @@
 				</table>
 				<!-- 금액 끝 -->
 				<br>
-				<button onclick="allpayment()">전체상품주문</button>
-				&nbsp;&nbsp;
-				<button onclick="selectpayment()">선택상품주문</button>
-	<script>
-	
-	function allpayment(){
-		location.href="<%=request.getContextPath()%>/views/MyPage/payment.jsp";
-	}
-	function selectpaymnet(){
-		location.href="<%=request.getContextPath()%>/views/MyPage/payment.jsp";
-	}
-	</script>
+				
+				<div>
+				<form action="<%=request.getContextPath()%>/paylist.ca" method="post">		
+				<input type="submit" value="전체상품주문">
+				</form>				
+				</div>
+				
 			</div>
 			<div>
 				<br> <br> 장바구니 이용안내
@@ -131,9 +129,11 @@
 				<p>[전체 상품 주문] 버튼을 누르시면 장바구니의 구분없이 선택된 모든 상품에 대한 주문/결제가 이루어집니다.</p>
 				<p>단, 전체 상품을 주문/결제하실 경우, 상품별 무이자할부 혜택을 받으실 수 없습니다.</p>
 			</div>
-
-
+			
+		
 		</div>
 	</div>
+	
+	
 </body>
 </html>

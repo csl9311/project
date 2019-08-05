@@ -23,9 +23,9 @@
 <body>
 	<!--
       해야할 것 :
-		
+
 		1) 상품평 ROWNUM 있는 VIEW 만들어서 컬럼 교체
-		2) input [type=text]로 건 CSS 고치기 	
+		2) input [type=text]로 건 CSS 고치기
         3) 배송정보 칸의 안내창(물음표) 이미지 hover이벤트(시간남으면)
    -->
 	<!-- 상세 페이지 전체 감싸는 div -->
@@ -125,26 +125,27 @@
 						<ul id="ct_btn_ul">
 							<li>
 								<div id="ct_btn_cart">
-									<form name="itemForm" method="post" id="itemForm">
-										<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>"> 
-										<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>"> 
-										<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>"> 
-										<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>"> 
-										<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>"> 
-										<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>"> 
-										<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>"> 
-										<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>"> 
-										<input type="hidden" id="option" name="option" value=""> 
-										<input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> 
-										<input type="hidden" id="amount" name="amount" value="1"> 
+								<form action="" id="itemform" name="itemForm" method="get">
+										<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>">
+										<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>">
+										<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>">
+										<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>">
+										<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>">
+										<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>">
+										<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>">
+										<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>">
+										<input type="hidden" id="option" name="option" value="">
+										<input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>">
+										<input type="hidden" id="amount" name="amount" value="1">
 										<input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
-										<button style="width: 100%; height: 100%;">CART</button>
+										<button id="cartbtn" style="width: 100%; height: 100%;">CART</button>
 									</form>
 								</div>
 							</li>
 							<li>
 								<div id="ct_btn_buy">
-									<button style="width: 100%; height: 100%;" form="itemForm">BUY</button>
+
+									<button id="buybtn" style="width: 100%; height: 100%;" form="itemForm">BUY</button>
 								</div>
 							</li>
 						</ul>
@@ -246,7 +247,7 @@
 							<tr>
 								<td colspan="5">게시글이 없습니다.</td>
 							</tr>
-							<!-- DB 데이터 수에 따라 추가될 tr 부분 시작 
+							<!-- DB 데이터 수에 따라 추가될 tr 부분 시작
 								// 유저글	-->
 							<%
 								} else {
@@ -266,7 +267,7 @@
 										<blockquote id="rContent<%=i%>" class="fromUser">
 											<div class="fromUserImg">
 												<%
-													// 리뷰 이미지가 있을 시 
+													// 리뷰 이미지가 있을 시
 																for (int k = 0; k < attList.size(); k++) {
 																	if (!attList.isEmpty() && rList.get(i).getrId() == attList.get(k).getrId()) {
 												%>
@@ -292,7 +293,7 @@
 													for (int j = 0; j < aList.size(); j++) {
 														if (!aList.isEmpty() && rList.get(i).getrId() == aList.get(j).getaRId()) {
 									%>
-									<input type="hidden" id="aId<%=j%>" value="<%=aList.get(j).getaId()%>"> 
+									<input type="hidden" id="aId<%=j%>" value="<%=aList.get(j).getaId()%>">
 									<input type="hidden" id="a_rId<%=j%>" value="<%=aList.get(j).getaRId()%>">
 									<div class="text_box_title">
 										<blockquote>
@@ -326,7 +327,12 @@
 		</div>
 	</div>
 	<script>
-		
+		// 장바구니 SUBMIT
+			$('#cartbtn').click(function(){
+		   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
+		   $('#itemform').submit();
+		});
+
 		// 옵션이 선택되면 td추가
 		$('#select').on("change", function() {
 			var item = $(this).children('option:selected').text();
@@ -340,7 +346,6 @@
 			var tr = $('#addTr').html();
 			$('#itemTableTbody').append(tr);
 		});
-
 		// X누르면 td 제거
 		function deleteItem() {
 			$(event.target).closest('.amountTr').remove();
@@ -379,7 +384,7 @@
 				totalPrice = <%=p.getPrice()%> * $('#noOption input[type=text]').val();
 			<%}%>
 			$('#totPrice').text(totalPrice);
-			$('#price').val(totalPrice);
+			$('#totalPrice').val(totalPrice);
 			console.log(totalPrice);
 		}
 
@@ -398,11 +403,12 @@
 			for (var i = 0; i < eleCount; i++) {
 				if (i == eleCount - 1) {
 					selectOption += $('.amount_name').eq(i).text() + ","
-							+ $('input[type=text]').eq(i + 1).val();
+							+ $('#Index input[type=text]').eq(i + 1).val();
+					console.log($('#Index input[type=text]').eq(i + 1).val());
 					amount += parseInt($('#Index input[type=text]').eq(i).val());
 				} else {
 					selectOption += $('.amount_name').eq(i).text() + ","
-							+ $('input[type=text]').eq(i + 1).val() + ",";
+							+ $('#Index input[type=text]').eq(i + 1).val() + ",";
 					amount += parseInt($('#Index input[type=text]').eq(i).val());
 				}
 			}
@@ -414,7 +420,7 @@
 			$('#option').val(selectOption);
 			$('#amount').val(amount);
 		}
-		
+
 		// 리뷰 수정
 			$(document).on('click', '.update', function(e){
 			<%if (loginUser != null) {%>
@@ -427,8 +433,8 @@
 			var imgName = "";
 			console.log(letter);
 			var pName = "<%=p.getpName()%>";
-			
-			if(letter == 'R') { // 유저글이면 
+
+			if(letter == 'R') { // 유저글이면
 				/* rId = $('#rId'+i).text(); // 글번호(테이블 시퀀스넘버)
 				rContent = $('#text_under_img'+i).text();
 				rr = $('#rContent'+i);
@@ -441,11 +447,11 @@
 					}
 					alert(imgName) */;
 				/* window.open("views/shop/shopReviewUpdateView.jsp?pId="+pId+"&rId="+rId+"&rContent="+rContent+"&imgName="+imgName+"&pName="+pName,
-							"상품평 수정", 
+							"상품평 수정",
 							"width=600px, height=680px, left=500, top=50, toolbar=0, resizable=0, status=0, menubar=0, scrollbars=0"); */
 					$('#rtArea'+i).attr('readonly', false);
 					$('#updateR'+i).children('a').css('color', '#E55451')
-				
+
 					$(this).on('click', function(){
 						var rId = $('#rId'+i).text(); // 글번호(테이블 시퀀스넘버)
 						var content = $('#rtArea'+i).val();
@@ -467,17 +473,17 @@
 									updateBtn();
 							}
 						});
-					});	
-							
+					});
+
 			} else {						// 관리자글이면
 				$('#tArea'+i).attr('readonly', false);
 				$('#updateA'+i).children('a').css('color', '#E55451')
-			
+
 				$(this).on('click', function(){
 					var a_rId = $('#a_rId'+i).val(); // 글번호(테이블 시퀀스넘버)
 					var content = $('#tArea'+i).val();
 					var aContent = content.trim();
-					var aId = $('#aId'+i).val(); 
+					var aId = $('#aId'+i).val();
 
 					$.ajax({
 						url: "updateAnswer.do",
@@ -495,12 +501,12 @@
 								updateBtn();
 						}
 					});
-				});	
+				});
 			}
 			<%}%>
 		});
 		console.log( $('.table_header'));
-		
+
 		// review <=> qna switch
 		// qna랑 review ajax로 가져오는거
 		$('.switch').on('click', function(){
@@ -532,7 +538,7 @@
 					var $headerTr = $("<tr>").attr('class','table_header');
 					$headerTr.append($table_header);
 					$cb_table.append($headerTr);
-					
+
 					// 사용자 글이 있을 시 찍어내는 for문
 					for(var i = 0; i < data.rList.length; i++) {
 						var $tr = $("<tr>").attr('class','reviewTitle');
@@ -541,14 +547,14 @@
 						var $rWriterTd = $("<td>").text(data.rList[i].rWriter).attr({'class':'rWriter','id':'rWriter'+i});
 						var $rModityDateTd = $("<td>").text(data.rList[i].rModifyDate).attr({'class':'rModifyDate','id':'rModifyDate'+i});
 						var $rCountTd = $("<td>").text(data.rList[i].rCount).attr({'class':'rCount','id':'rCount'+i});
- 						
+
 					 	$tr.append($rIdTd);
 						$tr.append($rtitleTd);
 						$tr.append($rWriterTd);
 						$tr.append($rModityDateTd);
-						$tr.append($rCountTd); 
+						$tr.append($rCountTd);
 						$cb_table.append($tr);
-						
+
 						var $tr2 = $('<tr>').attr('class', 'reviewContent').css('display', 'none');
 						var $td = $('<td>').attr('colspan', '5');
 						var $div = $('<div>').attr('class','text_box');
@@ -566,17 +572,17 @@
 							}
 							if(k >= 2) break;
 						}
-						var $textDiv = $('<textArea>').attr({'class':'tArea','readonly':'true','id':'rtArea'+i}).val(data.rList[i].rContent); 
+						var $textDiv = $('<textArea>').attr({'class':'tArea','readonly':'true','id':'rtArea'+i}).val(data.rList[i].rContent);
 						var $span = $('<span>').css('display', 'none').attr({'class':'update','id':'updateR'+i});
 						var $a = $('<a>').text('update');
-						
+
 						$span.append($a);
 						$blockquote.append($fromUserImgDiv);
 						$blockquote.append($textDiv);
 						$div.append($blockquote);
 						$div.append($span);
 						$td.append($div);
-						
+
 							// 사용자 글 하나 끝
 							// 관리자 답변이 있을 시에 대한 for문 시작
 							for(var j = 0; j < data.aList.length; j++ ){
@@ -595,37 +601,37 @@
 									var $textArea = $('<textArea>').attr({'class':'tArea','readonly':'true','id':'tArea'+j}).val(data.aList[j].aContent);
 									var $span2 = $('<span>').attr({'class':'update','id':'updateA'+j}).css('display', 'none');
 									var $a2 = $('<a>').text('update');
-									
+
 									$blockquote2.append($b);
 									$blockquote2.append('&nbsp;&nbsp;');
 									$blockquote2.append($p);
 									$div3.append($hidden);
 									$div3.append($hidden2);
 									$div3.append($blockquote2);
-									
+
 									$span2.append($a2);
 									$blockquote3.append($textArea);
 									$div4.append($blockquote3);
 									$div4.append($span2);
-									
+
 									$td.append($div3);
 									$td.append($div4);
 								}
 							}
-						
+
 						$tr2.append($td);
 						$cb_table.append($tr2);
-						
+
 					}
-				}	
+				}
 			});
-		}); 
+		});
 
 		// 리뷰 제목 누르면 펼쳐지는 이벤트
 		$(document).on("click",".reviewTitle",function() {
 			$(this).next().toggle();
 		});
-		
+
 		// review와 QnA에서 로그인 유저의 아이디와 일치하면 수정하는 버튼 보이기
 		 $(function(){
 			 updateBtn();
@@ -633,7 +639,7 @@
 		 $(window).ajaxComplete(function(){
 			 updateBtn();
 		 });
-		 
+
 		function updateBtn(){
 			console.log("updateBtn");
 			for(var i = 0; i < <%=rList.size()%>; i++) {
@@ -678,6 +684,14 @@
 			windowWidth = $(window).width();
 			cssResize();
 		});
+		$('#cartbtn').click(function(){
+			   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
+			   $('#itemform').submit();
+			});
+		$('#buybtn').click(function(){
+			   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
+			   $('#itemform').submit();
+			});
 	</script>
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>
