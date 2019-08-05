@@ -253,5 +253,18 @@ public class ShopService {
 		return pay;
 	}
 
+	public int updateCount(int rId) {
+		Connection conn = getConnection();
+		int result = new ShopDAO().updateCount(conn, rId);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		} 
+		close(conn);
+		return result;
+	}
+
 }
 
