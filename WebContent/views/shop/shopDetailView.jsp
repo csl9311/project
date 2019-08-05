@@ -255,8 +255,8 @@
 										if (rList.get(i).getrType() == 1) {
 							%>
 							<tr class="reviewTitle">
-								<td id="rId<%=i%>"><%=rList.get(i).getrId()%></td>
-								<td id="rTitle<%=i%>"><%=rList.get(i).getrTitle()%></td>
+								<td id="rId<%=i%>" class="rId"><%=rList.get(i).getrId()%></td>
+								<td id="rTitle<%=i%>" class="rTitle"><%=rList.get(i).getrTitle()%></td>
 								<td id="rWriter<%=i%>" class="writer"><%=rList.get(i).getrWriter()%></td>
 								<td id="modifyDate<%=i%>"><%=rList.get(i).getModifyDate()%></td>
 								<td id="rcount<%=i%>"><%=rList.get(i).getrCount()%></td>
@@ -434,20 +434,6 @@
 			var pName = "<%=p.getpName()%>";
 
 			if(letter == 'R') { // 유저글이면
-				/* rId = $('#rId'+i).text(); // 글번호(테이블 시퀀스넘버)
-				rContent = $('#text_under_img'+i).text();
-				rr = $('#rContent'+i);
-				rrr = $('#rContent'+i).children().children('.hidden').eq(0).text();
-				alert(rrr); */
-/* 				var k = 0;
-					while(k < 3){
-						imgName += $('#rContent'+i).children().children('.hidden').eq(k).text()+"/";
-						k++;
-					}
-					alert(imgName) */;
-				/* window.open("views/shop/shopReviewUpdateView.jsp?pId="+pId+"&rId="+rId+"&rContent="+rContent+"&imgName="+imgName+"&pName="+pName,
-							"상품평 수정",
-							"width=600px, height=680px, left=500, top=50, toolbar=0, resizable=0, status=0, menubar=0, scrollbars=0"); */
 					$('#rtArea'+i).attr('readonly', false);
 					$('#updateR'+i).children('a').css('color', '#E55451')
 
@@ -508,7 +494,7 @@
 
 		// review <=> qna switch
 		// qna랑 review ajax로 가져오는거
-		$('.switch').on('click', function(){
+		$('.switch').on('click', function reviewPrint(){
 			var pId = '<%=pId%>';
 			var type;
 			var str = $(event.target).text().length;
@@ -629,8 +615,26 @@
 		// 리뷰 제목 누르면 펼쳐지는 이벤트
 		$(document).on("click",".reviewTitle",function() {
 			$(this).next().toggle();
+			var i = $('event.target').id;
+			/* .replace(/[^0-9]/g,""); */
+			var rId = event.currentTarget.id;
+			console.log("i : " + i);
+			console.log("rId : " + rId);
+			
+			$.ajax({
+				url: "reviewCount.do",
+				type: "get",
+				data: {rId:rId},
+				success:function(data){
+					if(data.result > 0) {
+						alert("성공");
+						reviewPrint();
+					} else {
+						alert("실패");
+					}
+				}
+			});
 		});
-
 		// review와 QnA에서 로그인 유저의 아이디와 일치하면 수정하는 버튼 보이기
 		 $(function(){
 			 updateBtn();
@@ -692,6 +696,8 @@
 			   $('#itemform').submit();
 			});
 	</script>
-	<%@ include file="/views/common/coinfooter.jsp"%>
+	<div >	</div>
+
 </body>
+<%@ include file="/views/common/coinfooter.jsp"%>
 </html>

@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<footer id="myFooter"  >
+<div id="myFooter"  >
 
 	<div class="containerbg">
         <div class="container" >
@@ -61,7 +61,7 @@
             <p>© 2019 Copyright 코노차자조 Corp. </p>
         </div>
         
-    </footer>
+    </div>
 </body>
 
 <script> 
