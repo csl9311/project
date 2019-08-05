@@ -30,7 +30,7 @@
 
 <%-- 검색 영역 --%>
 		<form class="center search" action="<%=request.getContextPath()%>/searchMem.admin" method="get">
-			<input type="search" name="search">
+			<input type="search" name="keyword">
 			<button type="submit">검색</button>
 		</form>
 
@@ -44,7 +44,7 @@
 			<% } else { %>
 			<table class="resultList">
 				<tr>
-					<th>ID</th>
+					<th><input name="sort" type="hidden" value="id">ID</th>
 					<th>이름</th>
 					<th>생년월일</th>
 					<th>연락처</th>
