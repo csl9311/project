@@ -125,7 +125,7 @@
 						<ul id="ct_btn_ul">
 							<li>
 								<div id="ct_btn_cart">
-									<form name="itemForm" method="post" id="itemForm">
+								<form action="" id="itemform" name="itemForm" method="get">
 										<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>"> 
 										<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>"> 
 										<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>"> 
@@ -133,18 +133,18 @@
 										<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>"> 
 										<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>"> 
 										<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>"> 
-										<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>"> 
-										<input type="hidden" id="option" name="option" value=""> 
-										<input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> 
-										<input type="hidden" id="amount" name="amount" value="1"> 
+										<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>">
+										<input type="hidden" id="option" name="option" value="">
+										<input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>">
+										<input type="hidden" id="amount" name="amount" value="1">
 										<input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
-										<button style="width: 100%; height: 100%;">CART</button>
+										<button id="cartbtn" style="width: 100%; height: 100%;">CART</button>
 									</form>
 								</div>
 							</li>
 							<li>
 								<div id="ct_btn_buy">
-									<button style="width: 100%; height: 100%;" form="itemForm">BUY</button>
+									<button id="buybtn" style="width: 100%; height: 100%;" form="itemForm">BUY</button>
 								</div>
 							</li>
 						</ul>

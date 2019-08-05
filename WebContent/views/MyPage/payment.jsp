@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="product.model.vo.*, member.model.vo.*, java.util.*, shop.model.vo.*"%>
 <%@ include file="Form.jsp"%>	
-<%
+<%	
+	request.setCharacterEncoding("UTF-8");
 	ArrayList<Payment> pay = (ArrayList<Payment>) request.getAttribute("pay");
-	String phone = request.getParameter("phone");
+	String phone = loginUser.getPhone();
 	String name = request.getParameter("name"); 
-	int point = Integer.parseInt(request.getParameter("point"));
 	String email= request.getParameter("email");
 	if(email==null){
 	  email="-";
@@ -92,7 +92,7 @@
 						}
 						}
 					%> 
-				</table>목록 -->
+				</table>
 
 		<br> <br>
 		<!-- 주문자 정보 -->
@@ -176,7 +176,7 @@
 					<td>포인트 사용</td>
 					<td><input type="text" id="po" value="">원</td>
 					<td><input type="button" onclick="all();" value="전액사용"></td>
-					<td>(보유 포인트 : <%=point %> 포인트)</td>
+					<td>(보유 포인트 :  포인트)</td>
 				</tr>
 			</table>
 			<!-- 할인 및 포인트 끝 -->
@@ -216,7 +216,7 @@
 		$('#phone2').attr('value', <%=phone%>)		
 	}
 	function all(){
-		$('#po').attr('value', <%=point%>)
+		$('#po').attr('value', "")
 	}
 	
 	var IMP = window.IMP; // 생략가능

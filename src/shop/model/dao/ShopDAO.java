@@ -994,4 +994,41 @@ public class ShopDAO {
 		return info;
 	}
 
+	public ArrayList<Payment> selectpay(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectpay");
+		
+		ArrayList<Payment> pay = new ArrayList<Payment>();
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Payment payment = new Payment(rset.getInt(1),
+									  rset.getInt(2),
+									  rset.getInt(3),
+									  rset.getInt(4),
+									  rset.getString(5),
+									  rset.getString(6),
+									  rset.getString(7));
+				
+				pay.add(payment);
+			
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return pay;
+	}
+
+
 }
