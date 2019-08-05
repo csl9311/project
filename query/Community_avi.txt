@@ -142,7 +142,7 @@ When they try to suffocate me
 Don't you underestimate me
 'Cause I know that I won't go speechless
 All I know is I won't go speechless
-Speechless]','nickname',DEFAULT,DEFAULT,'<iframe width="879" height="494" src="https://www.youtube.com/embed/S8e1geEpnTA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',SYSDATE,SYSDATE,DEFAULT);
+Speechless]','외쿡인',5,DEFAULT,'<iframe width="879" height="494" src="https://www.youtube.com/embed/S8e1geEpnTA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',SYSDATE,SYSDATE,DEFAULT);
 
 
 INSERT INTO BOARD VALUES(SEQ_BID.NEXTVAL,2,DEFAULT,'[일소라] 일반인 박정준 - 행복하지 말아요 (MC the max) cover',q'[원곡을 넘어서는 일반인들의 소름돋는 라이브가 궁금하다면 일소라 구독하기! ]','nickname',DEFAULT,DEFAULT,'<iframe width="1280" height="720" src="https://www.youtube.com/embed/d9w_jsRlH3c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',SYSDATE,SYSDATE,DEFAULT);
@@ -280,7 +280,7 @@ Key는 1키 올렸습니다.
 
 즐겁게 들어주세요!!!!
 
-이상 ballader 도 되어보고싶은 rock vocalist 의 멘트 였습니다. ]','이혁',DEFAULT,DEFAULT,'<iframe width="1280" height="720" src="https://www.youtube.com/embed/97YgnJzuTyo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',SYSDATE,SYSDATE,DEFAULT);
+이상 ballader 도 되어보고싶은 rock vocalist 의 멘트 였습니다. ]','이혁',7,DEFAULT,'<iframe width="1280" height="720" src="https://www.youtube.com/embed/97YgnJzuTyo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',SYSDATE,SYSDATE,DEFAULT);
 INSERT INTO BOARD VALUES(SEQ_BID.NEXTVAL,2,DEFAULT,'Sia - Chandelier (Original Key) - Cover by E.Hyuk',q'[이혁의 도장깨기!! 
 
 두번째 컨텐츠  Sia - Chandelier 불러 봤습니다.
@@ -292,7 +292,7 @@ INSERT INTO BOARD VALUES(SEQ_BID.NEXTVAL,2,DEFAULT,'Sia - Chandelier (Original K
 INSERT INTO BOARD VALUES(SEQ_BID.NEXTVAL,2,DEFAULT,'윤종신 - 좋니 [세로라이브] 라이브 버전 LIVE',q'[좋니? ]','윤종신이다',DEFAULT,DEFAULT,'<iframe width="1280" height="721" src="https://www.youtube.com/embed/jy_UiIQn_d0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',SYSDATE,SYSDATE,DEFAULT);
 INSERT INTO BOARD VALUES(SEQ_BID.NEXTVAL,2,DEFAULT,'[일소라] 개쩌는 라이브 인증하며 일반인이 부른 ‘신용재’ (하은 (라코스테남)) cover',q'[ 개쩌는 라이브 인증하며 일반인이 부른 ‘신용재’ (하은 (라코스테남))
 
-와,, 라이브실력 에바쎄바 개오지고 지렸다;;;ㅎㄷㄷ]','nickname',DEFAULT,DEFAULT,'<iframe width="1280" height="720" src="https://www.youtube.com/embed/8pIBdhifGq4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',SYSDATE,SYSDATE,DEFAULT);
+와,, 라이브실력 에바쎄바 개오지고 지렸다;;;ㅎㄷㄷ]','nickname',7,DEFAULT,'<iframe width="1280" height="720" src="https://www.youtube.com/embed/8pIBdhifGq4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',SYSDATE,SYSDATE,DEFAULT);
 INSERT INTO BOARD VALUES(SEQ_BID.NEXTVAL,2,DEFAULT,'놀이터에서 아퍼 (기리보이) 커버! 와.. 매력 있다',q'[놀이터에서 아퍼 (기리보이) 커버!
 
 와.. 진짜 잘하네 릴타치 파트 좋아
@@ -340,7 +340,7 @@ INSERT INTO BOARD VALUES(SEQ_BID.NEXTVAL,2,DEFAULT,'제 라이브 들어주세�
 COMMIT;
 
 
-
+------------------------------------------------------------------------------------------------------------------------------------
 
 -- 1. BOARD ����Ʈ BID �������� ���� ���� 
 SELECT BID, BTYPE, CNAME, BTITLE, BCONTENT, NICKNAME, BCOUNT, B.CREATE_DATE, B.MODIFY_DATE, B.STATUS
