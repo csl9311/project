@@ -403,8 +403,7 @@
 			for (var i = 0; i < eleCount; i++) {
 				if (i == eleCount - 1) {
 					selectOption += $('.amount_name').eq(i).text() + ","
-							+ $('#Index input[type=text]').eq(i + 1).val();
-					console.log($('#Index input[type=text]').eq(i + 1).val());
+							+ $('#Index input[type=text]').eq(i).val();
 					amount += parseInt($('#Index input[type=text]').eq(i).val());
 				} else {
 					selectOption += $('.amount_name').eq(i).text() + ","
