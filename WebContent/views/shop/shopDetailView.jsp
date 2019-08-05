@@ -138,13 +138,14 @@
 										<input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> 
 										<input type="hidden" id="amount" name="amount" value="1"> 
 										<input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
-										<button style="width: 100%; height: 100%;">CART</button>
+										<button id="cartbtn" style="width: 100%; height: 100%;">CART</button>
 									</form>
 								</div>
 							</li>
 							<li>
 								<div id="ct_btn_buy">
-									<button style="width: 100%; height: 100%;" form="itemForm">BUY</button>
+								
+									<button id="buybtn" style="width: 100%; height: 100%;" form="itemForm">BUY</button>
 								</div>
 							</li>
 						</ul>
@@ -326,6 +327,11 @@
 		</div>
 	</div>
 	<script>
+		// 장바구니 SUBMIT 
+			$('#cartbtn').click(function(){
+		   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
+		   $('#itemform').submit();
+		});
 		
 		// 옵션이 선택되면 td추가
 		$('#select').on("change", function() {
@@ -398,7 +404,8 @@
 			for (var i = 0; i < eleCount; i++) {
 				if (i == eleCount - 1) {
 					selectOption += $('.amount_name').eq(i).text() + ","
-							+ $('input[type=text]').eq(i + 1).val();
+							+ $('#Index input[type=text]').eq(i + 1).val();
+					console.log($('#Index input[type=text]').eq(i + 1).val());
 					amount += parseInt($('#Index input[type=text]').eq(i).val());
 				} else {
 					selectOption += $('.amount_name').eq(i).text() + ","
