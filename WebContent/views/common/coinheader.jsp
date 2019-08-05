@@ -29,7 +29,8 @@
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			<a href="<%=request.getContextPath()%>/views/search/searchView.jsp">코인노래방 찾기</a>
 			<a href="<%=request.getContextPath()%>/shopMain.do">shop</a>
-			<a href="<%=request.getContextPath()%>/list.bo">커뮤니티</a>
+			<a href="<%=request.getContextPath()%>/list.bo">영상게시판</a>
+			<a href="<%=request.getContextPath()%>/list.tb">자유게시판</a>
 			<a href="#">Q&#38;A</a>
 			<%-- 로그인 시 --%>
 			<%if (loginUser != null) {%>
