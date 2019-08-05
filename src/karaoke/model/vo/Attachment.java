@@ -20,6 +20,12 @@ public class Attachment {
 		this.kid = kid;
 	}
 
+	public Attachment(int fid, String changeName) {
+		super();
+		this.fid = fid;
+		this.changeName = changeName;
+	}
+
 	public int getFid() {
 		return fid;
 	}

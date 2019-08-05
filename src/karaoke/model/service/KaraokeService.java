@@ -67,4 +67,11 @@ public class KaraokeService {
 		close(conn);
 		return list;
 	}
+
+	public ArrayList<Attachment> selectAlist(int currentPage) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> at = new KaraokeDAO().selectAlist(conn, currentPage);
+		close(conn);
+		return at;
+	}
 }

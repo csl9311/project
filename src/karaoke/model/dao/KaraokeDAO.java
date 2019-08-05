@@ -42,9 +42,10 @@ public class KaraokeDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, a.getPostNum());
-			pstmt.setString(2, a.getAddress());
-			pstmt.setString(3, a.getAddress_detail());
-			pstmt.setString(4, a.getId());
+			pstmt.setString(2, a.getRoadAddress());
+			pstmt.setString(3, a.getJibunAddress());
+			pstmt.setString(4, a.getAddress_detail());
+			pstmt.setString(5, a.getId());
 			pstmt.executeUpdate();
 						
 			result = pstmt.executeUpdate();
@@ -137,7 +138,7 @@ public class KaraokeDAO {
 		int result = 0;
 		
 		String query = prop.getProperty("getListCount");
-		
+		System.out.println(query);
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
@@ -167,31 +168,62 @@ public class KaraokeDAO {
 		int startRow = (currentPage - 1) * posts + 1;
 		int endRow = startRow + posts - 1;
 		
-		String query = prop.getProperty("selectList");
+		String query = prop.getProperty("selectKaraokeList");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, 1);
+			System.out.println(query);
+			pstmt.setInt(1, endRow);
+			pstmt.setInt(2, startRow);
 			
 			rset = pstmt.executeQuery();
 			
-			/*list = new ArrayList<Karaoke>();
+			list = new ArrayList<Karaoke>();
 			
 			while(rset.next()) {
-				Board b = new Board(rset.getInt("bId"),
-									rset.getInt("btype"),
-									rset.getString("cname"),
-									rset.getString("btitle"),
-									rset.getString("bcontent"),
-									rset.getString("nickname"),
-									rset.getInt("bcount"),
-									rset.getDate("create_date"),
-									rset.getDate("modify_date"),
-									rset.getString("status"));	
-				list.add(b);
-			}*/
+				Karaoke k = new Karaoke(rset.getString("kname"),
+									rset.getInt("onecoin"),
+									rset.getInt("threecoin"),
+									rset.getString("ktime"),
+									rset.getString("status"),
+									rset.getString("roadaddress"),
+									rset.getString("address_detail"));	
+				list.add(k);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Attachment> selectAlist(Connection conn, int currentPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> list = null;
+		int posts = 10;
+		
+		int startRow = (currentPage - 1) * posts + 1;
+		int endRow = startRow + posts - 1;
+		
+		String query = prop.getProperty("selectAttachmentList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			pstmt.setInt(1, endRow);
+			pstmt.setInt(2, startRow);
+			
+			list = new ArrayList<Attachment>();
+			
+			while(rset.next()) {
+				list.add(new Attachment(rset.getInt("bid"),
+										rset.getString("change_name")));
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
