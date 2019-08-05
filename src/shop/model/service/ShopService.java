@@ -237,6 +237,12 @@ public class ShopService {
 		close(conn);
 		return result;
 	}
+	public ArrayList<Payment> selectPurchase(String userId) {
+		Connection conn= getConnection();
+		ArrayList<Payment> info = new ShopDAO().selectPurchase(conn, userId);
+		
+		return null;
+	}
 
 }
 
