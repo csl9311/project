@@ -6,6 +6,9 @@
     list-style: none;
     
 }
+html{
+	min-height:100%;
+}
 
 body::-webkit-scrollbar { 
     display: none; 

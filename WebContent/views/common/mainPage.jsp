@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/main/mainbanner.css">
 
 <body>
-	<div id="main">
+	<div id="main" >
 		<!--*****************배너광고 영역  ************** -->
-		<div id="Index">
+		<div id="Index" style="min-height:80vh">
 			<div id="slider-wrap">
 				<ul id="slider">
 					<li>
