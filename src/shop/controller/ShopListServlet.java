@@ -84,7 +84,6 @@ public class ShopListServlet extends HttpServlet {
 			list = service.selectkeyList(currentPage, cName, key);
 		} else {
 			list = service.selectList(currentPage, cName);
-
 		}
 
 		String page = null;
