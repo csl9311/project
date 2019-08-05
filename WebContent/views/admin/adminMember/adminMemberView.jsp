@@ -4,7 +4,6 @@
 <%@ include file="/views/common/coinheader.jsp"%>
 
 <%
-	
 	ArrayList<Member> list = (ArrayList<Member>) request.getAttribute("memberList");
 	HashMap<String, Integer> addressCountMap = (HashMap<String, Integer>) request.getAttribute("addressCountMap");
 	String msg = (String) request.getAttribute("msg");
@@ -53,7 +52,7 @@
 					<th>등급</th>
 					<th>회원가입일</th>
 					<th>포인트</th>
-					<th>주소 갯수</th>
+					<th>주소 개수</th>
 					<th>정보 수정</th>
 					<!-- 영역 클릭 시 정렬 -->
 				</tr>

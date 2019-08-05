@@ -1,6 +1,7 @@
 package shop.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,20 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
-import product.model.vo.Product;
 import shop.model.service.ShopService;
+import shop.model.vo.Payment;
 
 /**
- * Servlet implementation class CartServlet
+ * Servlet implementation class PayList
  */
-@WebServlet("/cart.ca")
-public class CartServlet extends HttpServlet {
+@WebServlet("/paylist.ca")
+public class PayList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartServlet() {
+    public PayList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,32 +35,26 @@ public class CartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession(); //세션호출해서
+		HttpSession session = request.getSession();
 		Member sessionMember = (Member)session.getAttribute("loginUser");
 		String userId= sessionMember.getId();
-		int pid = Integer.parseInt(request.getParameter("pId"));
-		String pname = request.getParameter("pName");
-		int price = Integer.parseInt(request.getParameter("price"));
-		String option = request.getParameter("option");
-		int amount = Integer.parseInt(request.getParameter("amount"));
+		System.out.println("userid"+ userId);
 		
-		if(option.equals("")) {	
-			option="없음";
+		ArrayList<Payment> pay = new ShopService().selectpay(userId);
+		
+		String page= null;
+		
+		if(pay!=null) {
+			page= "views/MyPage/payment.jsp";
+			request.setAttribute("pay",pay);					
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "장바구니 조회에 실패했습니다.");
 		}
-		Product product= new Product(pid, price, amount, pname, option);
-		int result= new ShopService().insertCart(userId,product);
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
 		
-		if(result>0) {
-			
-			response.sendRedirect(request.getHeader("referer"));
-	
-		} else {
-	         request.setAttribute("msg", "장바구니에 넣지 못하였습니다.");
-	         RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-	 		view.forward(request, response);
-	 		
-	      }
-
+		
 	}
 
 	/**
