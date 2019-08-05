@@ -1,4 +1,5 @@
 package admin.model.service;
+
 import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
@@ -15,5 +16,16 @@ public class AdminService {
 		close(conn);
 		return list;
 	}
-	
+
+	public int insertProduct(Product p) {
+		Connection conn = getConnection();
+		int result = new AdminDAO().insertProduct(conn, p);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 }

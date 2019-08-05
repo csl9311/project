@@ -60,23 +60,14 @@
         <div class="footer-copyright">
             <p>© 2019 Copyright 코노차자조 Corp. </p>
         </div>
-        
+
     </div>
 </body>
-<!-- 
-<script> 
+<!--
+<script>
 
 
-//**************가변footer 
-var Height_Index = Number(document.getElementById("Index").clientHeight);
-window.onload  = changeContentSize;
-window.onresize  = changeContentSize;
-function changeContentSize() {
-var Height_Window   = Number(document.documentElement.clientHeight);
-var Height_Footer   = Number(document.getElementById("myFooter").clientHeight);
-var ContentTop = Height_Window - Height_Footer - 5;
-document.getElementById("Index").style.minHeight = Height_Index + 'px';
-document.getElementById("Index").style.height = ContentTop + "px";
-}
- </script> -->
+//**************가변footer
+
+ </script>
 </html>
