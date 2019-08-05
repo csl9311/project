@@ -9,30 +9,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import admin.model.service.AdminService;
-import product.model.vo.Product;
+import member.model.service.MemberService;
 
-@WebServlet("/admin.allProductList")
-public class AdminGetProductList extends HttpServlet {
+@WebServlet("/admin.search")
+public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AdminGetProductList() {
+	public Search() {
+		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		AdminService service = new AdminService();
-		ArrayList<Product> list = service.getAllProduct();
+		String keyword = request.getParameter("keyword");
 		
-		String page = "";
+		ArrayList<?> list = new MemberService().search(keyword);
+		
 		if(list != null) {
-			request.setAttribute("list", list);
-			page = "views/admin/admin_productView.jsp";
-		} else {
-			request.setAttribute("msg", "상품목록 조회에 실패했습니다.");
-			page = "views/common/errorPage.jsp";
+			request.setAttribute("memberList", list);
+			request.getRequestDispatcher("").forward(request, response);;
 		}
-		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

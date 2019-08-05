@@ -6,8 +6,11 @@
 	String rId = request.getParameter("rId");
 	String rContent = (String) (request.getParameter("rContent"));
 	String imgName = (String)(request.getParameter("imgName"));
-	String[] arr = imgName.split("\\/");
-
+	String[] arr = null;
+	if(!imgName.equals("///")){
+		arr = imgName.split("\\/");
+	}
+	
 	System.out.println(pId);
 	System.out.println(rId);
 %>
@@ -256,19 +259,23 @@ img {
 			<div id="review_attach">
 				<div id="review_attach_inner">
 					<ul id="thumUl">
-					<% int i = 0;
+					<% 
+					
+					int i = 0;
+					
+					if(arr != null){
 					for(i = 1; i < arr.length+1; i++){ %>
 						<li>
 							<div class="add_thmb" id="contentImgArea<%=i%>">
 								<img id="contentImg<%=i%>" class="notEmpty" src="<%=request.getContextPath()%>/review_uploadFiles/<%=arr[i-1]%>">
 							</div>
 						</li>
-					<%} 
+					<%} }
 						if(i < 4) {
 							for(int j = i; j < 4; j++) {%>
 								<li>
-									<div class="add_thmb" id="contentImgArea<%=j%>">
-										<img id="contentImg<%=j%>" src="../../img/shopImg/picture_WH.png">
+									<div class="add_thmb" id="contentImgArea<%=i%>">
+										<img id="contentImg<%=i%>" src="../../img/shopImg/picture_WH.png">
 									</div>
 								</li>
 							<%}
@@ -306,36 +313,24 @@ img {
 				$("#thumbnailImg3").click();
 			});
 		});
-<%-- 			function deleteImg(num){
-				switch(num){
-				case 1:
-					deleteImgName += "<%=arr[0]%>"+"/";
-					break;
-				case 2: 
-					deleteImgName += "<%=arr[1]%>"+"/";
-					break;
-				case 3:
-					deleteImgName += "<%=arr[2]%>"+"/";
-					break;
-				}
-			deleteImg(num);
-		} --%>
+			
 		function LoadImg(value, num){
 			if(value.files && value.files[0]){
 				var reader = new FileReader();
+				
 				reader.onload = function(e){								
 					switch(num){
 					case 1:
+						deleteImg(num);
 						$("#contentImg1").attr("src", e.target.result); 
-						deleteImgName += "<%=arr[0]%>"+"/";
 						break;
 					case 2: 
+						deleteImg(num);
 						$("#contentImg2").attr("src", e.target.result);
-						deleteImgName += "<%=arr[1]%>"+"/";
 						break;
 					case 3:
+						deleteImg(num);
 						$("#contentImg3").attr("src", e.target.result);
-						deleteImgName += "<%=arr[2]%>"+"/";
 						break;
 					}
 				}
@@ -343,13 +338,27 @@ img {
 			}
 		}
 		
+		function deleteImg(num){
+			if(<%=arr%> != null){
+				switch(num){
+				case 1:
+					deleteImgName += "<%= arr==null ? "": arr[0]%>"+"/";
+					break;
+				case 2: 
+					deleteImgName += "<%= arr==null ? "": arr[1]%>"+"/";
+					break;
+				case 3:
+					deleteImgName += "<%= arr==null ? "": arr[2]%>"+"/";
+					break;
+				}
+			}			
+		}
+		
 		$('#submitBtn').on('click', function(){
 			if(confirm("정말 수정하시겠습니까?")){
 			var rId = '<%=rId%>';
 			var content = $("#textArea").val();
-			alert(content);
 			var rContent = content.trim();
-			alert(rContent);
 			var form = $('#file_form');
 			var pId = '<%=pId%>';
 			
@@ -371,7 +380,7 @@ img {
 				    processData:false,
 					data : fileData,	
 					success : function(data) {
-						if (data.result > 0) { // 수정 성공시
+						if (data.result > 1) { // 수정 성공시
 									alert("수정에 성공했습니다!");
 									window.opener.location.reload();
 									self.close();

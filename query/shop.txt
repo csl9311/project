@@ -1,27 +1,29 @@
-drop table product;
-drop table category;
-drop table subcategory;
-drop table product_op;
-drop table brand;
-drop table rattachment;
-drop table pattachment;
-drop view pdetail;
-drop view plist;
+ï»¿drop table product cascade constraints;
+drop table category cascade constraints;
+drop table subcategory cascade constraints;
+drop table product_op cascade constraints;
+drop table brand cascade constraints;
+drop table rattachment cascade constraints;
+drop table pattachment cascade constraints;
+drop table review cascade constraints;
+drop table ANSWER  cascade constraints;
+drop view pdetail cascade constraints;
+drop view plist cascade constraints;
 drop sequence SEQ_PID;
 drop sequence SEQ_AID;
 drop sequence SEQ_RID;
 drop sequence SEQ_RFID;
 drop sequence SEQ_PFID;
 
------------------------------------------------Å×ÀÌºí
+-----------------------------------------------í…Œì´ë¸”
 
--- Ä«Å×°í¸® Å×ÀÌºí
+-- ì¹´í…Œê³ ë¦¬ í…Œì´ë¸”
 create table CATEGORY(
     CID number primary key,
-    CNAME varchar2(100) check (CNAME in ('½ºÇÇÄ¿','Çìµå¼Â','ÇìµåÆùÀÌ¾îÆù','ºí·çÅõ½º»ç¿îµå','¸¶ÀÌÅ©'))
+    CNAME varchar2(100) check (CNAME in ('ìŠ¤í”¼ì»¤','í—¤ë“œì…‹','í—¤ë“œí°ì´ì–´í°','ë¸”ë£¨íˆ¬ìŠ¤ì‚¬ìš´ë“œ','ë§ˆì´í¬'))
 );
 
--- ¼­ºêÄ«Å×°í¸®
+-- ì„œë¸Œì¹´í…Œê³ ë¦¬
 create table SUBCATEGORY(
     sub_cid number primary key,
     sub_cname varchar2(100) not null,
@@ -29,7 +31,12 @@ create table SUBCATEGORY(
     FOREIGN key (cid) REFERENCES CATEGORY on delete cascade
 );
 
--- »óÇ°
+-- ë¸Œëœë“œ
+create table BRAND(
+    BID number primary key,
+    BNAME varchar2(100) not null unique
+);   
+-- ìƒí’ˆ
 create table PRODUCT(
     PID NUMBER PRIMARY KEY,
     PNAME varchar2(100) not null unique,
@@ -50,20 +57,14 @@ create table PRODUCT(
 
 create sequence SEQ_PID;
 
--- »óÇ° ¿É¼Ç
+-- ìƒí’ˆ ì˜µì…˜
 create table PRODUCT_OP(
     pid number primary key,
     PRODUCT_OP varchar2(200) not null,
     foreign key (pid) references product on delete cascade
 );
 
--- ºê·£µå
-create table BRAND(
-    BID number primary key,
-    BNAME varchar2(100) not null unique
-);   
-
--- À¯ÀúÀÇ ¸®ºä¿Í QnA±Û        
+-- ìœ ì €ì˜ ë¦¬ë·°ì™€ QnAê¸€        
 CREATE TABLE REVIEW( 
   RID NUMBER PRIMARY KEY,
   RTYPE NUMBER,
@@ -81,7 +82,7 @@ CREATE TABLE REVIEW(
 
 CREATE SEQUENCE SEQ_RID;
 
--- °ü¸®ÀÚÀÇ ´äº¯±Û
+-- ê´€ë¦¬ìì˜ ë‹µë³€ê¸€
 CREATE TABLE ANSWER( 
   AID NUMBER PRIMARY KEY,
   ATYPE NUMBER,
@@ -101,22 +102,23 @@ CREATE TABLE ANSWER(
 
 CREATE SEQUENCE SEQ_AID;
 
--- ¸®ºä»çÁø µî·Ï °æ·Î
+-- ë¦¬ë·°ì‚¬ì§„ ë“±ë¡ ê²½ë¡œ
 create table RATTACHMENT(
     RFID NUMBER PRIMARY KEY,
     ORIGIN_NAME VARCHAR2(255) NOT NULL,
     CHANGE_NAME VARCHAR2(255) NOT NULL,
     FILE_PATH VARCHAR2(1000) NOT NULL,
-    RID NUMBER NOT NULL, -- ¸®ºä±Û¹øÈ£
-    PID NUMBER NOT NULL, -- »óÇ°¹øÈ£
+    RID NUMBER NOT NULL, -- ë¦¬ë·°ê¸€ë²ˆí˜¸
+    PID NUMBER NOT NULL, -- ìƒí’ˆë²ˆí˜¸
     UPLOAD_DATE DATE DEFAULT SYSDATE,  
+    STATUS varchar2(1) default 'Y',
     FOREIGN KEY(RID) REFERENCES REVIEW(RID) on delete cascade,
     FOREIGN KEY(PID) REFERENCES PRODUCT(PID) on delete cascade
 );
 
 CREATE SEQUENCE SEQ_RFID;
  
--- »óÇ°»çÁø µî·Ï °æ·Î
+-- ìƒí’ˆì‚¬ì§„ ë“±ë¡ ê²½ë¡œ
 create table PATTACHMENT(
     PFID NUMBER PRIMARY KEY,
     ORIGIN_NAME VARCHAR2(255) NOT NULL,
@@ -129,9 +131,9 @@ create table PATTACHMENT(
 
 CREATE SEQUENCE SEQ_PFID;
  
------------------------------------------------ºä
+-----------------------------------------------ë·°
         
--- »óÇ° Á¶È¸¿ë ºä
+-- ìƒí’ˆ ì¡°íšŒìš© ë·°
 create or replace view "CONO"."PLIST"("PID", "PNAME", "CNAME", "SUB_CNAME", 
                         "BNAME", "PRICE", "STOCK", "SELLCOUNT", "REGDATE", "MODIFY_DATE", "DESCRIPTION", "USEOPTION")
 as
@@ -143,44 +145,44 @@ from PRODUCT p join category c on(p.CID = c.CID)
 order by pid);
 
 
------------------------------------------------µ¥ÀÌÅÍ
+-----------------------------------------------ë°ì´í„°
 
--- CATEGORY µ¥ÀÌÅÍ
-insert into category values(10, '½ºÇÇÄ¿');
-insert into category values(20, 'Çìµå¼Â');
-insert into category values(30, 'ÇìµåÆùÀÌ¾îÆù');
-insert into category values(40, 'ºí·çÅõ½º»ç¿îµå');
-insert into category values(50, '¸¶ÀÌÅ©');
+-- CATEGORY ë°ì´í„°
+insert into category values(10, 'ìŠ¤í”¼ì»¤');
+insert into category values(20, 'í—¤ë“œì…‹');
+insert into category values(30, 'í—¤ë“œí°ì´ì–´í°');
+insert into category values(40, 'ë¸”ë£¨íˆ¬ìŠ¤ì‚¬ìš´ë“œ');
+insert into category values(50, 'ë§ˆì´í¬');
 
--- SUBCATEGORY µ¥ÀÌÅÍ
-insert into subcategory values(11, '2Ã¤³Î', 10);
-insert into subcategory values(12, '2.1Ã¤³Î ÀÌ»ó', 10);
-insert into subcategory values(13, '»ç¿îµå¹Ù[PC/TV]', 10);
-insert into subcategory values(14, '½ºÇÇÄ¿Æù/Æ÷ÅÍºí/µµÅ·½ºÇÇÄ¿', 10);
-insert into subcategory values(21, 'Çìµå¼Â', 20);
-insert into subcategory values(22, '¾Ç¼¼¼­¸®', 20);
-insert into subcategory values(31, 'ÀÌ¾îÆù', 30);
-insert into subcategory values(32, 'ÇìµåÆù', 30);
-insert into subcategory values(33, '¾Ç¼¼»ç¸®/Æ÷ÅÍºíÇÃ·¹ÀÌ¾î', 30);
-insert into subcategory values(41, 'ºí·çÅõ½º ½ºÇÇÄ¿', 40);
-insert into subcategory values(42, 'ºí·çÅõ½º ÈŞ´ë¿ë½ºÇÇÄ¿', 40);
-insert into subcategory values(43, 'ºí·çÅõ½º ÀÌ¾î¼Â', 40);
-insert into subcategory values(44, 'ºí·çÅõ½º ÇìµåÆù', 40);
-insert into subcategory values(45, 'ºí·çÅõ½º ¾Ç¼¼¼­¸®', 40);
-insert into subcategory values(51, 'PC¸¶ÀÌÅ©', 50);
-insert into subcategory values(52, 'À¯¼±¸¶ÀÌÅ©', 50);
-insert into subcategory values(53, '¹«¼±/ºí·çÅõ½º¸¶ÀÌÅ©', 50);
-insert into subcategory values(54, '±â°¡Æù/¸Ş°¡Æù', 50);
-insert into subcategory values(55, '¸¶ÀÌÅ©¿ëÇ°', 50);
+-- SUBCATEGORY ë°ì´í„°
+insert into subcategory values(11, '2ì±„ë„', 10);
+insert into subcategory values(12, '2.1ì±„ë„ ì´ìƒ', 10);
+insert into subcategory values(13, 'ì‚¬ìš´ë“œë°”[PC/TV]', 10);
+insert into subcategory values(14, 'ìŠ¤í”¼ì»¤í°/í¬í„°ë¸”/ë„í‚¹ìŠ¤í”¼ì»¤', 10);
+insert into subcategory values(21, 'í—¤ë“œì…‹', 20);
+insert into subcategory values(22, 'ì•…ì„¸ì„œë¦¬', 20);
+insert into subcategory values(31, 'ì´ì–´í°', 30);
+insert into subcategory values(32, 'í—¤ë“œí°', 30);
+insert into subcategory values(33, 'ì•…ì„¸ì‚¬ë¦¬/í¬í„°ë¸”í”Œë ˆì´ì–´', 30);
+insert into subcategory values(41, 'ë¸”ë£¨íˆ¬ìŠ¤ ìŠ¤í”¼ì»¤', 40);
+insert into subcategory values(42, 'ë¸”ë£¨íˆ¬ìŠ¤ íœ´ëŒ€ìš©ìŠ¤í”¼ì»¤', 40);
+insert into subcategory values(43, 'ë¸”ë£¨íˆ¬ìŠ¤ ì´ì–´ì…‹', 40);
+insert into subcategory values(44, 'ë¸”ë£¨íˆ¬ìŠ¤ í—¤ë“œí°', 40);
+insert into subcategory values(45, 'ë¸”ë£¨íˆ¬ìŠ¤ ì•…ì„¸ì„œë¦¬', 40);
+insert into subcategory values(51, 'PCë§ˆì´í¬', 50);
+insert into subcategory values(52, 'ìœ ì„ ë§ˆì´í¬', 50);
+insert into subcategory values(53, 'ë¬´ì„ /ë¸”ë£¨íˆ¬ìŠ¤ë§ˆì´í¬', 50);
+insert into subcategory values(54, 'ê¸°ê°€í°/ë©”ê°€í°', 50);
+insert into subcategory values(55, 'ë§ˆì´í¬ìš©í’ˆ', 50);
 
--- BRAND µ¥ÀÌÅÍ
-insert into brand values(10, '¾ÆÀÌ¸®¹ö');
-insert into brand values(20, 'ºê¸®Ã÷');
-insert into brand values(30, '»ï¼ºÀüÀÚ');
+-- BRAND ë°ì´í„°
+insert into brand values(10, 'ì•„ì´ë¦¬ë²„');
+insert into brand values(20, 'ë¸Œë¦¬ì¸ ');
+insert into brand values(30, 'ì‚¼ì„±ì „ì');
 insert into brand values(40, 'ABKO');
 insert into brand values(50, 'APPLE');
 
--- PRODUCT µ¥ÀÌÅÍ
+-- PRODUCT ë°ì´í„°
 insert into product values(SEQ_PID.nextval, 'BA-C1', 40, 41, 20, 54900, 100, 32, default, default, null, 'N');
 insert into product values(SEQ_PID.nextval, 'IBS-400', 10, 13, 10, 28500, 79, 12, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'IR-S30 SHINY', 10, 11, 10, 19900, 50, 54, default, default, null, 'Y');
@@ -190,11 +192,11 @@ insert into product values(SEQ_PID.nextval, 'IR-SB200', 10, 13, 10, 29900, 79, 2
 insert into product values(SEQ_PID.nextval, 'IR-SB300', 10, 13, 10, 35000, 2, 54, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'IR-SB100', 10, 13, 10, 24900, 2, 76, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'IR-H70V SoundTake', 20, 21, 10, 16900, 20, 45, default, default, null, 'Y');
-insert into product values(SEQ_PID.nextval, 'ºí·©Å© IGH-M10V', 20, 21, 10, 13000, 20, 54, default, default, null, 'N');
+insert into product values(SEQ_PID.nextval, 'ë¸”ë­í¬ IGH-M10V', 20, 21, 10, 13000, 20, 54, default, default, null, 'N');
 insert into product values(SEQ_PID.nextval, 'IR-H50V STONE', 20, 21, 10, 13200, 50, 87, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'IGE-101', 20, 21, 10, 22000, 50, 89, default, default, null, 'N');
 insert into product values(SEQ_PID.nextval, 'IGH-L20 Blank LED', 20, 21, 10, 11800, 0, 34, default, default, null, 'N');
-insert into product values(SEQ_PID.nextval, 'Astell Kem AK120¥±', 30, 33, 10, 1877000, 0, 23, default, default, null, 'N');
+insert into product values(SEQ_PID.nextval, 'Astell Kem AK120â…¡', 30, 33, 10, 1877000, 0, 23, default, default, null, 'N');
 insert into product values(SEQ_PID.nextval, 'Astell Kern AK120', 30, 33, 10, 1487000, 0, 45, default, default, null, 'N');
 insert into product values(SEQ_PID.nextval, 'BHC-50M', 30, 31, 10, 8000, 50, 56, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'BHC-40M', 30, 31, 10, 6900, 50, 89, default, default, null, 'Y');
@@ -203,13 +205,13 @@ insert into product values(SEQ_PID.nextval, 'BHC-60M', 30, 31, 10, 11600, 50, 23
 insert into product values(SEQ_PID.nextval, 'ICP-X07i', 30, 31, 10, 12900, 50, 89, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'LGH-L300', 30, 32, 10, 14100, 50, 23, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'IR-R1000 WOODEN BOX', 40, 41, 10, 49900, 50, 345, default, default, null, 'N');
-insert into product values(SEQ_PID.nextval, '»ç¿îµå ¸¶Å© BTS-H7N', 40, 41, 10, 109900, 50, 65, default, default, null, 'N');
-insert into product values(SEQ_PID.nextval, '»ç¿îµå µå·³ BTS-D3N', 40, 41, 10, 37920, 50, 87, default, default, null, 'Y');
+insert into product values(SEQ_PID.nextval, 'ì‚¬ìš´ë“œ ë§ˆí¬ BTS-H7N', 40, 41, 10, 109900, 50, 65, default, default, null, 'N');
+insert into product values(SEQ_PID.nextval, 'ì‚¬ìš´ë“œ ë“œëŸ¼ BTS-D3N', 40, 41, 10, 37920, 50, 87, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'IR-BT400 HEAVY STONE', 40, 41, 10, 35000, 50, 34, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'IR-BT500 COFFE', 40, 41, 10, 21000, 50, 567, default, default, null, 'Y');
-insert into product values(SEQ_PID.nextval, '»ç¿îµå ¸¶ÀÌÆ® BTS-MF1', 40, 41, 10, 61130, 50, 987, default, default, null, 'N');
-insert into product values(SEQ_PID.nextval, '»ç¿îµå ¹Ú½º BTS-M5', 40, 41, 10, 44520, 50, 234, default, default, null, 'Y');
-insert into product values(SEQ_PID.nextval, '»ç¿îµå Æê BTS-PT3W', 40, 41, 10, 25860, 50, 12, default, default, null, 'Y');
+insert into product values(SEQ_PID.nextval, 'ì‚¬ìš´ë“œ ë§ˆì´íŠ¸ BTS-MF1', 40, 41, 10, 61130, 50, 987, default, default, null, 'N');
+insert into product values(SEQ_PID.nextval, 'ì‚¬ìš´ë“œ ë°•ìŠ¤ BTS-M5', 40, 41, 10, 44520, 50, 234, default, default, null, 'Y');
+insert into product values(SEQ_PID.nextval, 'ì‚¬ìš´ë“œ í« BTS-PT3W', 40, 41, 10, 25860, 50, 12, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'CITYLIFE IR-R5000', 40, 41, 10, 69900, 0, 65, default, default, null, 'N');
 insert into product values(SEQ_PID.nextval, 'IR-TWS100', 40, 43, 10, 59000, 50, 123, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'BR-1200', 10, 12, 20, 21900, 50, 32, default, default, null, 'N');
@@ -235,14 +237,14 @@ insert into product values(SEQ_PID.nextval, 'BA-GY20', 10, 14, 20, 29400, 50, 21
 insert into product values(SEQ_PID.nextval, 'BA-GY10', 10, 14, 20, 31050, 50, 23, default, default, null, 'N');
 insert into product values(SEQ_PID.nextval, 'BZ-CR9910', 10, 14, 20, 32400, 50, 43, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'BZ-RT3800', 10, 14, 20, 49680, 50, 432, default, default, null, 'N');
-insert into product values(SEQ_PID.nextval, 'BA-PR1 »ç¿îµå¿öÅ©', 10, 14, 20, 25200, 50, 23, default, default, null, 'Y');
-insert into product values(SEQ_PID.nextval, 'BZ-CR2949', 10, 14, 20, 29920, 50, 42, default, default, '½Ã°è/¾Ë¶÷/¶óµğ¿À', 'N');
-insert into product values(SEQ_PID.nextval, 'BZ-CR3181', 10, 14, 20, 26400, 50, 23, default, default, '½Ã°è/¾Ë¶÷/¶óµğ¿À', 'N');
-insert into product values(SEQ_PID.nextval, 'BZ-R3740', 10, 14, 20, 25230, 0, 64, default, default, '¶óµğ¿À/¾Ë¶÷', 'N');
-insert into product values(SEQ_PID.nextval, 'KG40', 20, 21, 20, 62000, 30, 32, default, default, '°¡»ó7.1ch', 'N');
-insert into product values(SEQ_PID.nextval, 'K680', 20, 21, 20, 25000, 30, 65, default, default, 'Çìµå¼Â / À½¾Ç+ÅëÈ­¿ë / Çì¾î¹êµåÇü / À¯¼± / ½ºÅ×·¹¿À / ¸®¸ğÄÁ / ¸¶ÀÌÅ© / ±æÀÌÁ¶Àı¹êµå / °íÁ¤Å¬¸³¾Ç¼¼¼­¸® Á¦°ø
+insert into product values(SEQ_PID.nextval, 'BA-PR1 ì‚¬ìš´ë“œì›Œí¬', 10, 14, 20, 25200, 50, 23, default, default, null, 'Y');
+insert into product values(SEQ_PID.nextval, 'BZ-CR2949', 10, 14, 20, 29920, 50, 42, default, default, 'ì‹œê³„/ì•ŒëŒ/ë¼ë””ì˜¤', 'N');
+insert into product values(SEQ_PID.nextval, 'BZ-CR3181', 10, 14, 20, 26400, 50, 23, default, default, 'ì‹œê³„/ì•ŒëŒ/ë¼ë””ì˜¤', 'N');
+insert into product values(SEQ_PID.nextval, 'BZ-R3740', 10, 14, 20, 25230, 0, 64, default, default, 'ë¼ë””ì˜¤/ì•ŒëŒ', 'N');
+insert into product values(SEQ_PID.nextval, 'KG40', 20, 21, 20, 62000, 30, 32, default, default, 'ê°€ìƒ7.1ch', 'N');
+insert into product values(SEQ_PID.nextval, 'K680', 20, 21, 20, 25000, 30, 65, default, default, 'í—¤ë“œì…‹ / ìŒì•…+í†µí™”ìš© / í—¤ì–´ë°´ë“œí˜• / ìœ ì„  / ìŠ¤í…Œë ˆì˜¤ / ë¦¬ëª¨ì»¨ / ë§ˆì´í¬ / ê¸¸ì´ì¡°ì ˆë°´ë“œ / ê³ ì •í´ë¦½ì•…ì„¸ì„œë¦¬ ì œê³µ
 ', 'Y');
-insert into product values(SEQ_PID.nextval, 'K-S2 USB Hub', 20, 21, 20, 18000, 30, 432, default, default, 'USB Çãºê / 1:5 / 2Æ÷Æ® / Type A / ¹«Àü¿ø / Çìµå¼Â, ÇìµåÆù, ¸¶ÀÌÅ© ¿¬°áÆ÷Æ® / ÄÉÀÌºí ±æÀÌ: 1.2m', 'N');
+insert into product values(SEQ_PID.nextval, 'K-S2 USB Hub', 20, 21, 20, 18000, 30, 432, default, default, 'USB í—ˆë¸Œ / 1:5 / 2í¬íŠ¸ / Type A / ë¬´ì „ì› / í—¤ë“œì…‹, í—¤ë“œí°, ë§ˆì´í¬ ì—°ê²°í¬íŠ¸ / ì¼€ì´ë¸” ê¸¸ì´: 1.2m', 'N');
 insert into product values(SEQ_PID.nextval, 'K35GH', 20, 21, 20, 19800, 30, 432, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'HS20', 20, 21, 20, 94000, 30, 23, default, default, null, 'N');
 insert into product values(SEQ_PID.nextval, 'BHST-3', 20, 22, 20, 29700, 30, 21, default, default, null, 'Y');
@@ -271,53 +273,53 @@ insert into product values(SEQ_PID.nextval, 'BE-ME120', 40, 43, 20, 12330, 50, 8
 insert into product values(SEQ_PID.nextval, 'BE-ME110', 40, 43, 20, 8200, 50, 21, default, default, null, 'Y');
 insert into product values(SEQ_PID.nextval, 'MP500 IMPACT', 50, 51, 40, 37000, 50, 45, default, default, null, 'N');
 
---PRODUCT_OP µ¥ÀÌÅÍ
-insert into product_op values(2, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(3, 'ºí·¢/ÄÚ¹ßÆ®ºí·ç');
-insert into product_op values(4, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(5, 'ºí·¢/¿ìµå');
-insert into product_op values(6, 'ºí·¢/·ÎÁî°ñµå/ÄÚ¹ßÆ®ºí·ç');
-insert into product_op values(7, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(8, 'ºí·¢/·ÎÁî°ñµå/ÄÚ¹ßÆ®ºí·ç');
-insert into product_op values(9, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(11, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(16, 'ºí·¢/È­ÀÌÆ®/¹ÎÆ®/±×·¹ÀÌ');
-insert into product_op values(17, 'ºí·¢/È­ÀÌÆ®/¹ÎÆ®');
-insert into product_op values(19, 'ºí·¢/·ÎÁî°ñµå/°ñµå/È­ÀÌÆ®');
-insert into product_op values(20, 'ºí·¢/°ñµå/½Ç¹ö');
-insert into product_op values(21, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(24, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(25, 'È­ÀÌÆ®/ºí·ç/¿À·»Áö');
-insert into product_op values(26, 'ºí·ç/ÇÎÅ©/±×¸°');
-insert into product_op values(28, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(29, 'ºí·¢/È­ÀÌÆ®/¹ÎÆ®/ºê¶ó¿î/ÇÎÅ©');
-insert into product_op values(31, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(35, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(47, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(53, '¿ìµå/½Ç¹ö');
-insert into product_op values(55, 'ºí·¢/·¹µå');
-insert into product_op values(60, '¿»·Î¿ì/·¹µå');
-insert into product_op values(62, 'ºí·ç/·¹µå');
-insert into product_op values(64, 'ºí·¢/·¹µå');
-insert into product_op values(65, 'È­ÀÌÆ®/·¹µå');
-insert into product_op values(69, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(70, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(71, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(85, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(86, 'ºí·¢/È­ÀÌÆ®');
-insert into product_op values(87, 'ºí·¢/ÇÎÅ©');
+--PRODUCT_OP ë°ì´í„°
+insert into product_op values(2, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(3, 'ë¸”ë™/ì½”ë°œíŠ¸ë¸”ë£¨');
+insert into product_op values(4, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(5, 'ë¸”ë™/ìš°ë“œ');
+insert into product_op values(6, 'ë¸”ë™/ë¡œì¦ˆê³¨ë“œ/ì½”ë°œíŠ¸ë¸”ë£¨');
+insert into product_op values(7, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(8, 'ë¸”ë™/ë¡œì¦ˆê³¨ë“œ/ì½”ë°œíŠ¸ë¸”ë£¨');
+insert into product_op values(9, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(11, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(16, 'ë¸”ë™/í™”ì´íŠ¸/ë¯¼íŠ¸/ê·¸ë ˆì´');
+insert into product_op values(17, 'ë¸”ë™/í™”ì´íŠ¸/ë¯¼íŠ¸');
+insert into product_op values(19, 'ë¸”ë™/ë¡œì¦ˆê³¨ë“œ/ê³¨ë“œ/í™”ì´íŠ¸');
+insert into product_op values(20, 'ë¸”ë™/ê³¨ë“œ/ì‹¤ë²„');
+insert into product_op values(21, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(24, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(25, 'í™”ì´íŠ¸/ë¸”ë£¨/ì˜¤ë Œì§€');
+insert into product_op values(26, 'ë¸”ë£¨/í•‘í¬/ê·¸ë¦°');
+insert into product_op values(28, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(29, 'ë¸”ë™/í™”ì´íŠ¸/ë¯¼íŠ¸/ë¸Œë¼ìš´/í•‘í¬');
+insert into product_op values(31, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(35, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(47, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(53, 'ìš°ë“œ/ì‹¤ë²„');
+insert into product_op values(55, 'ë¸”ë™/ë ˆë“œ');
+insert into product_op values(60, 'ì˜ë¡œìš°/ë ˆë“œ');
+insert into product_op values(62, 'ë¸”ë£¨/ë ˆë“œ');
+insert into product_op values(64, 'ë¸”ë™/ë ˆë“œ');
+insert into product_op values(65, 'í™”ì´íŠ¸/ë ˆë“œ');
+insert into product_op values(69, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(70, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(71, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(85, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(86, 'ë¸”ë™/í™”ì´íŠ¸');
+insert into product_op values(87, 'ë¸”ë™/í•‘í¬');
 
--- ANSWER / REVIEW °¡µ¥ÀÌÅÍ
+-- ANSWER / REVIEW ê°€ë°ì´í„°
 
-insert into REVIEW values(SEQ_RID.nextval, 1, 29, 'asd', 'Ã¹¹øÂ° ÈÄ±â', '¸¶ÀÌÅ© Á¤¸» ÁÁ¾Æ¿ä!', default, sysdate, sysdate, default);
-insert into ANSWER values(SEQ_AID.nextval, 1, 29, 1, 'admin', 'Ã¹¹ø¤Š ÈÄ±â ´äº¯', '°¨»çÇÕ´Ï´Ù!', default, sysdate, sysdate, 'Y');
-insert into REVIEW values(SEQ_RID.nextval, 2, 29, 'qwe', 'Ã¹¹øÂ° Áú¹®', '¹è¼Û ¾ğÁ¦ ¿À³ª¿ä?', default, sysdate, sysdate, 'Y');
-insert into ANSWER values(SEQ_AID.nextval, 2, 29, 2, 'admin', 'Ã¹¹øÂ° ´äº¯', 'ÁË¼ÛÇÕ´Ï´Ù.', default, sysdate, sysdate, 'Y');
-insert into REVIEW values(SEQ_RID.nextval, 1, 29, 'zxc', 'µÎ¹øÂ° ÈÄ±â', '¶Ç »ç°í ½Í¾î¿ä!', default, sysdate, sysdate, default);
-insert into REVIEW values(SEQ_RID.nextval, 1, 29, 'xcv', '¼¼¹øÂ° ÈÄ±â', 'º°·Î³×¿ä.', default, sysdate, sysdate, default);
-insert into REVIEW values(SEQ_RID.nextval, 1, 29, 'asd', '³×¹øÂ° ÈÄ±â', '±×³É ±×·¡¿ä.', default, sysdate, sysdate, default);
-insert into REVIEW values(SEQ_RID.nextval, 1, 29, 'sdf', '´Ù¼¸¹øÂ° ÈÄ±â', '¿ÏÀü ÁÁ¾Æ¿ä!', default, sysdate, sysdate, default);
-insert into ANSWER values(SEQ_AID.nextval, 1, 29, 1, 'admin', 'µÎ¹øÂ° ÈÄ±â ´äº¯', '°¨»çÇÕ´Ï´Ù!', default, sysdate, sysdate, 'Y');
-insert into ANSWER values(SEQ_AID.nextval, 1, 29, 1, 'admin', '¼¼¹øÂ° ÈÄ±â ´äº¯', '¸¸Á·½ÃÄÑµå¸®Áö ¸øÇØ¼­ ÁË¼ÛÇÕ´Ï´Ù.', default, sysdate, sysdate, 'Y');
+insert into REVIEW values(SEQ_RID.nextval, 1, 29, 'asd', 'ì²«ë²ˆì§¸ í›„ê¸°', 'ë§ˆì´í¬ ì •ë§ ì¢‹ì•„ìš”!', default, sysdate, sysdate, default);
+insert into ANSWER values(SEQ_AID.nextval, 1, 29, 1, 'admin', 'ì²«ë²ˆì¨° í›„ê¸° ë‹µë³€', 'ê°ì‚¬í•©ë‹ˆë‹¤!', default, sysdate, sysdate, 'Y');
+insert into REVIEW values(SEQ_RID.nextval, 2, 29, 'qwe', 'ì²«ë²ˆì§¸ ì§ˆë¬¸', 'ë°°ì†¡ ì–¸ì œ ì˜¤ë‚˜ìš”?', default, sysdate, sysdate, 'Y');
+insert into ANSWER values(SEQ_AID.nextval, 2, 29, 2, 'admin', 'ì²«ë²ˆì§¸ ë‹µë³€', 'ì£„ì†¡í•©ë‹ˆë‹¤.', default, sysdate, sysdate, 'Y');
+insert into REVIEW values(SEQ_RID.nextval, 1, 29, 'zxc', 'ë‘ë²ˆì§¸ í›„ê¸°', 'ë˜ ì‚¬ê³  ì‹¶ì–´ìš”!', default, sysdate, sysdate, default);
+insert into REVIEW values(SEQ_RID.nextval, 1, 29, 'xcv', 'ì„¸ë²ˆì§¸ í›„ê¸°', 'ë³„ë¡œë„¤ìš”.', default, sysdate, sysdate, default);
+insert into REVIEW values(SEQ_RID.nextval, 1, 29, 'asd', 'ë„¤ë²ˆì§¸ í›„ê¸°', 'ê·¸ëƒ¥ ê·¸ë˜ìš”.', default, sysdate, sysdate, default);
+insert into REVIEW values(SEQ_RID.nextval, 1, 29, 'sdf', 'ë‹¤ì„¯ë²ˆì§¸ í›„ê¸°', 'ì™„ì „ ì¢‹ì•„ìš”!', default, sysdate, sysdate, default);
+insert into ANSWER values(SEQ_AID.nextval, 1, 29, 1, 'admin', 'ë‘ë²ˆì§¸ í›„ê¸° ë‹µë³€', 'ê°ì‚¬í•©ë‹ˆë‹¤!', default, sysdate, sysdate, 'Y');
+insert into ANSWER values(SEQ_AID.nextval, 1, 29, 1, 'admin', 'ì„¸ë²ˆì§¸ í›„ê¸° ë‹µë³€', 'ë§Œì¡±ì‹œì¼œë“œë¦¬ì§€ ëª»í•´ì„œ ì£„ì†¡í•©ë‹ˆë‹¤.', default, sysdate, sysdate, 'Y');
 
 COMMIT;
