@@ -4,6 +4,7 @@
 <%@ include file="/views/common/coinheader.jsp"%>
 <%
 	ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("list");
+	String alert = (String)request.getAttribute("alert");
 %>
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,13 @@
 <link rel="stylesheet" href='<%=request.getContextPath()%>/css/admin/admin.css'>
 </head>
 <body>
+<% if (alert != null){%>
+	<script>
+		alert('<%=alert%>');
+	</script>
+<%}%>
+
+<% if (loginUser.getGrade().equals("관리자")) {%>
 	<div class="emptyHeader"></div>
 	<div class="content">
 		<%-- 검색 영역 --%>
@@ -22,7 +30,7 @@
 		</form>
 		<div class="emptyHeader"></div>
 		<div id="productUpdate" class="center none">
-			<form action="" method="post">
+			<form action="<%=request.getContextPath()%>/product.insert" method="post">
 				<table>
 					<tr>
 						<td ><label>상품명</label></td>
@@ -34,19 +42,37 @@
 					</tr>
 					<tr>
 						<td><label>카테고리</label></td>
-						<td colspan="3"><input name="category" type="text"></td>
+						<td colspan="3">
+						<select name="categoryNo">
+							<option value="10">스피커</option>
+							<option value="20">헤드셋</option>
+							<option value="30">헤드폰이어폰</option>
+							<option value="40">블루투스사운드</option>
+							<option value="50">마이크</option>
+						</select>
+						</td>
 					</tr>
 					<tr>
 						<td><label>세부카테고리</label></td>
-						<td colspan="3"><input name="subCate" type="text"></td>
+						
+						<td colspan="3">
+						<select name="subCategoryNo">
+							<option value="10">스피커</option>
+							<option value="20">헤드셋</option>
+							<option value="30">헤드폰이어폰</option>
+							<option value="40">블루투스사운드</option>
+							<option value="50">마이크</option>
+						</select>
+						<input name="subCate" type="text">
+						</td>
 					</tr>
 					<tr>
 						<td><label>가격</label></td>
-						<td colspan="3"><input name="price" type="text"></td>
+						<td colspan="3"><input name="price" type="number"></td>
 					</tr>
 					<tr>
 						<td><label>재고</label></td>
-						<td colspan="3"><input name="stock" type="text"></td>
+						<td colspan="3"><input name="stock" type="number"></td>
 					</tr>
 					<tr>
 						<td><label>옵션</label></td>
@@ -65,12 +91,16 @@
 						<td class="option1Detail"><input id="addOption1" class="adminButton" type="button" value="옵션 추가"></td>
 						<td class="option1Detail"><input id="delOption1" class="adminButton" type="button" value="옵션 삭제"></td>
 					</tr>
-					
 					<tr class="option2 none">
 						<td class="option2Detail"><label>옵션2</label></td>
 						<td class="option2Detail"><input name="option2" type="text"></td>
 						<td class="option2Detail"><input id="addOption2" class="adminButton" type="button" value="옵션 추가"></td>
 						<td class="option2Detail"><input id="delOption2" class="adminButton" type="button" value="옵션 삭제"></td>
+					</tr>
+					<tr class="option3 none">
+						<td class="option3Detail"><label>옵션2</label></td>
+						<td class="option3Detail"><input name="option3" type="text"></td>
+						<td colspan="2" class="option3Detail"><input id="delOption3" class="adminButton" type="button" value="옵션 삭제"></td>
 					</tr>
 				</table>
 				<input class="adminButton" style="margin:10px;"type="submit" value="등록">
@@ -98,6 +128,16 @@
 				$('.option1').css('display', 'none');
 				$('#optionCheckN').css('background', 'black');
 				$('#optionCheckY').css('background', 'white');
+			});
+			$('#addOption2').click(function(){
+				$('.option3').css('display', 'table-row');
+				$('.option3Detail').css('display', 'table-cell');
+			});
+			$('#delOption2').click(function(){
+				$('.option2').css('display', 'none');
+			});
+			$('#delOption3').click(function(){
+				$('.option3').css('display', 'none');
 			});
 		</script>
 		<div class="center">
@@ -151,6 +191,13 @@
 			<%
 				}
 			}
+		} else {
+		%>
+			<script>
+				alert("관리자 계정으로 로그인해주세요.");
+			</script>
+		<%
+		}
 		%>
 	</div>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/admin/admin.js"></script>

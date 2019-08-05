@@ -5,6 +5,7 @@ import static common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -61,5 +62,30 @@ public class AdminDAO {
 			close(stmt);
 		}
 		return list;
+	}
+
+	public int insertProduct(Connection conn, Product p) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, p.getPrice());
+			pstmt.setInt(2, p.getStock());
+			pstmt.setInt(3, p.getBrandNo());
+			pstmt.setInt(4, p.getCategoryNo());
+			pstmt.setInt(5, p.getSubCategoryNo());
+			pstmt.setString(6, p.getpName());
+			pstmt.setString(7, p.getUseOption());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
