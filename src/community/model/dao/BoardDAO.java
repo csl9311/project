@@ -69,13 +69,13 @@ public class BoardDAO {
 		int result = 0;
 
 		String query = prop.getProperty("getListAVICount");
-
+		System.out.println("dddd"+query);
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
 
 			if (rset.next()) {
-				result = rset.getInt(1);
+				result = rset.getInt(1);	
 			}
 
 		} catch (SQLException e) {
@@ -85,6 +85,7 @@ public class BoardDAO {
 			close(rset);
 			close(stmt);
 		}
+		System.out.println("결과값:"+result);
 		return result;
 	}
 
