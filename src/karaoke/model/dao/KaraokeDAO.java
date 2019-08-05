@@ -154,6 +154,7 @@ public class KaraokeDAO {
 			close(stmt);
 		}
 		
+		System.out.println(result);
 		
 		return result;
 	}

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" import="karaoke.model.vo.*, java.util.*, common.PageInfo" %>
 <%
 	ArrayList<Karaoke> list = (ArrayList<Karaoke>)request.getAttribute("list");
-	ArrayList<Attachment> at = (ArrayList<Karaoke>)request.getAttribute("at");
+	ArrayList<Attachment> at = (ArrayList<Attachment>)request.getAttribute("at");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 	int listCount = pi.getListCount();
