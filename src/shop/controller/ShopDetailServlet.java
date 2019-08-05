@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import product.model.vo.Product;
 import shop.model.service.ShopService;
 import shop.model.vo.Answer;
+import shop.model.vo.RAttachment;
 import shop.model.vo.Review;
 
 @WebServlet("/shopDetail.do")
@@ -34,9 +35,11 @@ public class ShopDetailServlet extends HttpServlet {
 		
 		ArrayList<Review> rList = service.selectReviewList(pId, 1);
 		ArrayList<Answer> aList = service.selectAnswerList(pId, 1);
+		ArrayList<RAttachment> attList = service.selectRAttachmentList(pId);
 		
 		System.out.println("rList: " + rList);
 		System.out.println("aList: " + aList);
+		System.out.println("attList: " + attList);
 		
 		String option = "";
 		
@@ -51,6 +54,7 @@ public class ShopDetailServlet extends HttpServlet {
 			request.setAttribute("option", option);
 			request.setAttribute("rList", rList);
 			request.setAttribute("aList", aList);
+			request.setAttribute("attList", attList);
 			
 		} else {
 			page = "views/common/errorPage.jsp";

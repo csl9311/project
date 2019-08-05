@@ -10,6 +10,7 @@
 
 	ArrayList<Review> rList = (ArrayList<Review>) request.getAttribute("rList"); // 유저의 리뷰와 QnA질문
 	ArrayList<Answer> aList = (ArrayList<Answer>) request.getAttribute("aList"); // 관리자의 리뷰 답변과 QnA질문 답변
+	ArrayList<RAttachment> attList = (ArrayList<RAttachment>) request.getAttribute("attList"); // 리뷰 사진 리스트
 %>
 <!DOCTYPE html>
 <html>
@@ -125,7 +126,18 @@
 							<li>
 								<div id="ct_btn_cart">
 									<form name="itemForm" method="post" id="itemForm">
-										<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>"> <input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>"> <input type="hidden" id="price" name="price" value="<%=p.getPrice()%>"> <input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>"> <input type="hidden" id="category" name="category" value="<%=p.getCategory()%>"> <input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>"> <input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>"> <input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>"> <input type="hidden" id="option" name="option" value=""> <input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> <input type="hidden" id="amount" name="amount" value="1"> <input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
+										<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>"> 
+										<input type="hidden" id="pName" name="pName" value="<%=p.getpName()%>"> 
+										<input type="hidden" id="price" name="price" value="<%=p.getPrice()%>"> 
+										<input type="hidden" id="brand" name="brand" value="<%=p.getBrand()%>"> 
+										<input type="hidden" id="category" name="category" value="<%=p.getCategory()%>"> 
+										<input type="hidden" id="subCategory" name="subCategory" value="<%=p.getSubCategory()%>"> 
+										<input type="hidden" id="stock" name="stock" value="<%=p.getStock()%>"> 
+										<input type="hidden" id="sellCount" name="sellCount" value="<%=p.getSellCount()%>"> 
+										<input type="hidden" id="option" name="option" value=""> 
+										<input type="hidden" id="regDate" name="regDate" value="<%=p.getRegDate()%>"> 
+										<input type="hidden" id="amount" name="amount" value="1"> 
+										<input type="hidden" id="modifyDate" name="modifyDate" value="<%=p.getModifyDate()%>">
 										<button style="width: 100%; height: 100%;">CART</button>
 									</form>
 								</div>
@@ -171,7 +183,7 @@
 							<li><a href="#cb_detail" class="clicked_category">DETAIL</a></li>
 							<li><a href="#cb_info">INFO</a></li>
 							<li><a href="#cb_review">REVIEW </a></li>
-							<li><a href="#cb_qna">Q&#38;A </a></li>
+							<li><a href="#cb_review">Q&#38;A </a></li>
 						</ul>
 					</div>
 					<img alt="상세정보" src="<%=request.getContextPath()%>/img/shopImg/photo2.jpg">
@@ -182,7 +194,7 @@
 							<li><a href="#cb_detail">DETAIL</a></li>
 							<li><a href="#cb_info" class="clicked_category">INFO</a></li>
 							<li><a href="#cb_review">REVIEW </a></li>
-							<li><a href="#cb_qna">Q&#38;A </a></li>
+							<li><a href="#cb_review">Q&#38;A </a></li>
 						</ul>
 					</div>
 					<div id="cb_info_wrap">
@@ -213,7 +225,7 @@
 					<div class="cb_cate">
 						<ul>
 							<li><a href="#cb_detail">DETAIL</a></li>
-							<li><a href="#cb_info" >INFO</a></li>
+							<li><a href="#cb_info">INFO</a></li>
 							<li class="switch"><a href="#cb_review" class="clicked_category">REVIEW </a></li>
 							<li class="switch"><a href="#cb_qna">Q&#38;A </a></li>
 						</ul>
@@ -234,13 +246,13 @@
 							<tr>
 								<td colspan="5">게시글이 없습니다.</td>
 							</tr>
+							<!-- DB 데이터 수에 따라 추가될 tr 부분 시작 
+								// 유저글	-->
 							<%
 								} else {
 									for (int i = 0; i < rList.size(); i++) {
 										if (rList.get(i).getrType() == 1) {
 							%>
-							<!-- DB 데이터 수에 따라 추가될 tr 부분 시작 
-								// 유저글	-->
 							<tr class="reviewTitle">
 								<td id="rId<%=i%>"><%=rList.get(i).getrId()%></td>
 								<td id="rTitle<%=i%>"><%=rList.get(i).getrTitle()%></td>
@@ -251,25 +263,41 @@
 							<tr class="reviewContent" style="display: none;">
 								<td colspan="5">
 									<div class="text_box">
-										<blockquote id="rContent<%=i%>">
-											<%=rList.get(i).getrContent()%>
-											<br> <br> <br>
+										<blockquote id="rContent<%=i%>" class="fromUser">
+											<div class="fromUserImg">
+												<%
+													// 리뷰 이미지가 있을 시 
+																for (int k = 0; k < attList.size(); k++) {
+																	if (!attList.isEmpty() && rList.get(i).getrId() == attList.get(k).getrId()) {
+												%>
+												<div id="hidden<%=k%>" class="hidden" style="display: none;"><%=attList.get(k).getChangeName()%></div>
+												<div id="reviewImg_div<%=k%>" class="reviewImg_div">
+													<img id="reviewImg<%=k%>" class="reviewImg" src="<%=request.getContextPath()%>/review_uploadFiles/<%=attList.get(k).getChangeName()%>">
+												</div>
+												<%
+													}
+																}
+												%>
+											</div>
+											<%-- <div id="text_under_img<%=i%>" class="text_under_img"><%=rList.get(i).getrContent()%></div> --%>
+											<textArea id="rtArea<%=i%>" class="tArea" readonly="readonly"><%=rList.get(i).getrContent()%></textArea>
 										</blockquote>
 										<span id="updateR<%=i%>" class="update" style="display: none"> <a>UPDATE</a>
 										</span>
 
 									</div>
-									
+
 									<%
 										// 관리자 답변
-										for (int j = 0; j < aList.size(); j++) {
-											if (!aList.isEmpty() && rList.get(i).getrId() == aList.get(j).getaRId()) {
+													for (int j = 0; j < aList.size(); j++) {
+														if (!aList.isEmpty() && rList.get(i).getrId() == aList.get(j).getaRId()) {
 									%>
-									<input type="hidden" id="aId<%=j%>" value="<%=aList.get(j).getaId()%>">
+									<input type="hidden" id="aId<%=j%>" value="<%=aList.get(j).getaId()%>"> 
 									<input type="hidden" id="a_rId<%=j%>" value="<%=aList.get(j).getaRId()%>">
 									<div class="text_box_title">
 										<blockquote>
-											<b id="aWriter<%=j%>" class="writer"><%=aList.get(j).getaWriter()%></b>&nbsp;&nbsp;<p id="aModifyDate<%=j%>"><%=aList.get(j).getModifyDate()%></p>
+											<b id="aWriter<%=j%>" class="writer"><%=aList.get(j).getaWriter()%></b>&nbsp;&nbsp;
+											<p id="aModifyDate<%=j%>"><%=aList.get(j).getModifyDate()%></p>
 										</blockquote>
 									</div>
 									<div class="text_box">
@@ -279,11 +307,16 @@
 										<span id="updateA<%=j%>" class="update" style="display: none"> <a>UPDATE</a>
 										</span>
 									</div>
-									<% 
-									}} %>
+									<%
+										}
+													}
+									%>
 								</td>
 							</tr>
-							<% }}}
+							<%
+								}
+									}
+								}
 							%>
 							<!-- DB 데이터 수에 따라 추가될 tr 부분 끝 -->
 						</table>
@@ -391,14 +424,50 @@
 			var rContent; // 글내용
 			var rId; // 글번호
 			var a_rId;
+			var imgName = "";
 			console.log(letter);
+			var pName = "<%=p.getpName()%>";
 			
 			if(letter == 'R') { // 유저글이면 
-				rId = $('#rId'+i).text(); // 글번호(테이블 시퀀스넘버)
-				rContent = $('#rContent'+i).text();
-				window.open("views/shop/shopReviewView.jsp?pId="+pId+"&rId="+rId+"&rContent="+rContent+"&pName=<%=p.getpName()%>&",
+				/* rId = $('#rId'+i).text(); // 글번호(테이블 시퀀스넘버)
+				rContent = $('#text_under_img'+i).text();
+				rr = $('#rContent'+i);
+				rrr = $('#rContent'+i).children().children('.hidden').eq(0).text();
+				alert(rrr); */
+/* 				var k = 0;
+					while(k < 3){
+						imgName += $('#rContent'+i).children().children('.hidden').eq(k).text()+"/";
+						k++;
+					}
+					alert(imgName) */;
+				/* window.open("views/shop/shopReviewUpdateView.jsp?pId="+pId+"&rId="+rId+"&rContent="+rContent+"&imgName="+imgName+"&pName="+pName,
 							"상품평 수정", 
-							"width=600px, height=680px, left=0, top=0, toolbar=0, resizable=0, status=0, menubar=0, scrollbars=0");
+							"width=600px, height=680px, left=500, top=50, toolbar=0, resizable=0, status=0, menubar=0, scrollbars=0"); */
+					$('#rtArea'+i).attr('readonly', false);
+					$('#updateR'+i).children('a').css('color', '#E55451')
+				
+					$(this).on('click', function(){
+						var rId = $('#rId'+i).text(); // 글번호(테이블 시퀀스넘버)
+						var content = $('#rtArea'+i).val();
+						var rContent = content.trim();
+
+						$.ajax({
+							url: "updateReview.do",
+							type: "post",
+							data: {rId:rId, rContent:rContent},
+							success:function(data){
+								console.log(data.result);
+								if(data.result>0){
+									$('#updateR'+i).children('a').css('color', '');
+									$('#rtArea'+i).text(data.rContent);
+									$('#rModifyDate'+i).text(data.modify_date);
+								} else {
+									alert("수정에 실패했습니다.");
+								}
+									updateBtn();
+							}
+						});
+					});	
 							
 			} else {						// 관리자글이면
 				$('#tArea'+i).attr('readonly', false);
@@ -435,9 +504,7 @@
 		// review <=> qna switch
 		// qna랑 review ajax로 가져오는거
 		$('.switch').on('click', function(){
-			console.log("switch");
-			console.log($(event.target));
-			var pId = <%=pId%>;
+			var pId = '<%=pId%>';
 			var type;
 			var str = $(event.target).text().length;
 			var str2 = "QNA".length + 1;
@@ -485,12 +552,27 @@
 						var $tr2 = $('<tr>').attr('class', 'reviewContent').css('display', 'none');
 						var $td = $('<td>').attr('colspan', '5');
 						var $div = $('<div>').attr('class','text_box');
-						var $blockquote = $('<blockquote>').attr('id', 'rContent'+i).text(data.rList[i].rContent);
-						var $br = $('<br>');
+						var $blockquote = $('<blockquote>').attr({'id':'rContent'+i,'class':'fromUser'});
+						var $fromUserImgDiv = $('<div>').attr('class', 'fromUserImg');
+						// 리뷰 사진이 있다면 찍는 for문
+						for(var k = 0; k < data.attList.length; k++){
+							if(data.attList[k].rId == data.rList[i].rId) {
+								var $hiddenDiv = $('<div>').attr('id','hidden'+k).css('display','none').text(data.attList[k].changeName);
+								var $div2 = $('<div>').attr({'id':'reviewImg_div'+k,'class':'reviewImg_div'});
+								var $img = $('<img>').attr({'id':'reviewImg'+k, 'class':'reviewImg', 'src':'<%=request.getContextPath()%>/review_uploadFiles/'+data.attList[k].changeName});
+								$div2.append($img);
+								$fromUserImgDiv.append($hiddenDiv);
+								$fromUserImgDiv.append($div2);
+							}
+							if(k >= 2) break;
+						}
+						var $textDiv = $('<textArea>').attr({'class':'tArea','readonly':'true','id':'rtArea'+i}).val(data.rList[i].rContent); 
 						var $span = $('<span>').css('display', 'none').attr({'class':'update','id':'updateR'+i});
 						var $a = $('<a>').text('update');
 						
 						$span.append($a);
+						$blockquote.append($fromUserImgDiv);
+						$blockquote.append($textDiv);
 						$div.append($blockquote);
 						$div.append($span);
 						$td.append($div);
@@ -502,13 +584,13 @@
 									console.log(data.rList[i].rId);
 									console.log(data.aList.length);
 								if(data.rList[i].rId == data.aList[j].aRId) {
-									var $div2 = $('<div>').attr('class', 'text_box_title');
+									var $div3 = $('<div>').attr('class', 'text_box_title');
 									var $hidden = $('<input type=hidden>').attr('id', 'aId'+i).val(data.aList[j].aId);
 									var $hidden2 = $('<input type=hidden>').attr('id', 'a_rId'+i).val(data.aList[j].aRId);
 									var $blockquote2 = $('<blockquote>');
 									var $b = $('<b>').attr({'class':'writer','id':'aWriter'+j}).text(data.aList[j].aWriter);
 									var $p = $('<p>').attr('id', 'aModifyDate'+j).text(data.aList[j].aModifyDate);
-									var $div3 = $('<div>').attr('class', 'text_box');
+									var $div4 = $('<div>').attr('class', 'text_box');
 									var $blockquote3 = $('<blockquote>').attr('id', 'aContent'+j);
 									var $textArea = $('<textArea>').attr({'class':'tArea','readonly':'true','id':'tArea'+j}).val(data.aList[j].aContent);
 									var $span2 = $('<span>').attr({'class':'update','id':'updateA'+j}).css('display', 'none');
@@ -517,17 +599,17 @@
 									$blockquote2.append($b);
 									$blockquote2.append('&nbsp;&nbsp;');
 									$blockquote2.append($p);
-									$div2.append($hidden);
-									$div2.append($hidden2);
-									$div2.append($blockquote2);
+									$div3.append($hidden);
+									$div3.append($hidden2);
+									$div3.append($blockquote2);
 									
 									$span2.append($a2);
 									$blockquote3.append($textArea);
-									$div3.append($blockquote3);
-									$div3.append($span2);
+									$div4.append($blockquote3);
+									$div4.append($span2);
 									
-									$td.append($div2);
 									$td.append($div3);
+									$td.append($div4);
 								}
 							}
 						
@@ -559,13 +641,13 @@
 					var rWriter = $('#rWriter'+i); /* 리뷰 작성자 */
 					var aWriter = $('#aWriter'+i); /* 리뷰 답변인 */
 					var userId = "<%=loginUser.getId()%>";
-						if (userId == $('#rWriter' + i).text()) {
-							$('#updateR' + i).toggle();
-						} else if (userId == $('#aWriter' + i).text()) {
-							$('#updateA' + i).toggle();
-						}
-			<%}%>
-			}
+				if (userId == $('#rWriter' + i).text()) {
+					$('#updateR' + i).toggle();
+				} else if (userId == $('#aWriter' + i).text()) {
+					$('#updateA' + i).toggle();
+				}
+	<%}%>
+		}
 		}
 		// 창 사이즈 줄어들면 화면 css변경
 		var windowWidth = $(window).width();
@@ -581,7 +663,6 @@
 			} else {
 				$('#content_top').css({
 					'flex-direction' : '',
-					'height' : '100%'
 				});
 				$('#ct_col_lft').css({
 					'width' : '',

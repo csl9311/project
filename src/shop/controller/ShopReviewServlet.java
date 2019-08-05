@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 
 import shop.model.service.ShopService;
 import shop.model.vo.Answer;
+import shop.model.vo.RAttachment;
 import shop.model.vo.Review;
 
 @WebServlet("/shopReview.do")
@@ -38,6 +39,7 @@ public class ShopReviewServlet extends HttpServlet {
 		int type = Integer.parseInt(request.getParameter("type"));
 		ArrayList<Review> rList = service.selectReviewList(pId, type);
 		ArrayList<Answer> aList = service.selectAnswerList(pId, type);
+		ArrayList<RAttachment> attList = service.selectRAttachmentList(pId);
 		
 		JsonArray reviewArr = new JsonArray();
 		JsonObject reviewObj = null;
@@ -70,10 +72,23 @@ public class ShopReviewServlet extends HttpServlet {
 			answerArr.add(answerObj);
 		}
 		
+		JsonArray attArr = new JsonArray();
+		JsonObject attObj = null;
+		
+		for(RAttachment att : attList) {
+			attObj = new JsonObject();
+			attObj.addProperty("rFId", att.getrFId());
+			attObj.addProperty("changeName", att.getChangeName());
+			attObj.addProperty("rId", att.getrId());
+			
+			attArr.add(attObj); 
+		}
+		
 		JsonObject jsonObject = new JsonObject();
 		
 		jsonObject.add("rList", reviewArr);
 		jsonObject.add("aList", answerArr);
+		jsonObject.add("attList", attArr);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		response.setContentType("application/json; charset=utf-8");

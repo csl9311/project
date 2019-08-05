@@ -16,6 +16,8 @@ public class Answer {
 	private Date modifyDate;
 	private String status;
 	
+	public Answer() {}
+	
 	public Answer(int aId, int aType, int pId, int aRId, String aWriter, String aTitle, String aContent, int aCount,
 			Date createDate, Date modifyDate, String status) {
 		super();
