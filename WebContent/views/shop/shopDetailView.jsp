@@ -346,7 +346,6 @@
 			var tr = $('#addTr').html();
 			$('#itemTableTbody').append(tr);
 		});
-
 		// X누르면 td 제거
 		function deleteItem() {
 			$(event.target).closest('.amountTr').remove();
@@ -385,7 +384,7 @@
 				totalPrice = <%=p.getPrice()%> * $('#noOption input[type=text]').val();
 			<%}%>
 			$('#totPrice').text(totalPrice);
-			$('#price').val(totalPrice);
+			$('#totalPrice').val(totalPrice);
 			console.log(totalPrice);
 		}
 
@@ -404,12 +403,11 @@
 			for (var i = 0; i < eleCount; i++) {
 				if (i == eleCount - 1) {
 					selectOption += $('.amount_name').eq(i).text() + ","
-							+ $('#Index input[type=text]').eq(i + 1).val();
-					console.log($('#Index input[type=text]').eq(i + 1).val());
+							+ $('#Index input[type=text]').eq(i).val();
 					amount += parseInt($('#Index input[type=text]').eq(i).val());
 				} else {
 					selectOption += $('.amount_name').eq(i).text() + ","
-							+ $('input[type=text]').eq(i + 1).val() + ",";
+							+ $('#Index input[type=text]').eq(i + 1).val() + ",";
 					amount += parseInt($('#Index input[type=text]').eq(i).val());
 				}
 			}
