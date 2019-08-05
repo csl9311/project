@@ -678,6 +678,14 @@
 			windowWidth = $(window).width();
 			cssResize();
 		});
+		$('#cartbtn').click(function(){
+			   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
+			   $('#itemform').submit();
+			});
+		$('#buybtn').click(function(){
+			   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
+			   $('#itemform').submit();
+			});
 	</script>
 	<%@ include file="/views/common/coinfooter.jsp"%>
 </body>
