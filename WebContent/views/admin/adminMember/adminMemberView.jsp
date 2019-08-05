@@ -15,13 +15,6 @@
 <title>회원관리</title>
 <%-- css 호출 --%>
 <link rel="stylesheet" href='<%=request.getContextPath()%>/css/admin/admin.css'>
-<style type="text/css">
-.resultList tr th, .resultList tr td {
-	width: 12vw;
-	padding: 0px;
-	text-align: center;
-}
-</style>
 </head>
 <body>
 	<div>
@@ -44,7 +37,7 @@
 			<% } else { %>
 			<table class="resultList">
 				<tr>
-					<th><input name="sort" type="hidden" value="id">ID</th>
+					<th>ID</th>
 					<th>이름</th>
 					<th>생년월일</th>
 					<th>연락처</th>
@@ -89,8 +82,8 @@
 			</form>
 			<% }}} else {%>
 				<script>
-				alert("관리자 계정으로 로그인 해주세요.");
-				location.href = "<%=request.getContextPath()%>/index.jsp";
+					alert("관리자 계정으로 로그인 해주세요.");
+					location.href = "<%=request.getContextPath()%>/index.jsp";
 				</script>
 			<%} %>
 		</div>

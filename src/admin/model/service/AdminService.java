@@ -12,7 +12,8 @@ public class AdminService {
 	public ArrayList<Product> getAllProduct() {
 		Connection conn = getConnection();
 		ArrayList<Product> list = new AdminDAO().getAllProduct(conn);
-		return null;
+		close(conn);
+		return list;
 	}
 	
 }

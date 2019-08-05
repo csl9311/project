@@ -15,7 +15,7 @@ import product.model.vo.Product;
 @WebServlet("/admin.allProductList")
 public class AdminGetProductList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	public AdminGetProductList() {
 	}
 
@@ -27,7 +27,7 @@ public class AdminGetProductList extends HttpServlet {
 		String page = "";
 		if(list != null) {
 			request.setAttribute("list", list);
-			page = "views/admin/admin_productView.jsp";
+			page = "views/admin/adminProduct/admin_productView.jsp";
 		} else {
 			request.setAttribute("msg", "상품목록 조회에 실패했습니다.");
 			page = "views/common/errorPage.jsp";

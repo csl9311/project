@@ -7,6 +7,25 @@ public class Product {
 	private String pName, category, subCategory, brand, useOption, option;
 	private Date regDate, modifyDate;
 	
+	
+	// 관리자 상품목록조회
+	public Product(int pId, int price, int stock, int sellCount, String pName, String category, String subCategory,
+			String brand, String useOption, String option, Date regDate, Date modifyDate) {
+		super();
+		this.pId = pId;
+		this.price = price;
+		this.stock = stock;
+		this.sellCount = sellCount;
+		this.pName = pName;
+		this.category = category;
+		this.subCategory = subCategory;
+		this.brand = brand;
+		this.useOption = useOption;
+		this.option = option;
+		this.regDate = regDate;
+		this.modifyDate = modifyDate;
+	}
+
 	public Product(int pId, int price, int stock, int sellCount, String pName, String category, String subCategory,
 			String brand, String useOption, Date regDate, Date modifyDate) {
 		super();
