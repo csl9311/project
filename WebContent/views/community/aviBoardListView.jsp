@@ -199,7 +199,7 @@ CSS
 			<div class="modal fade " id="reword-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 					<div class="modal-dialog" style="text-align: center">
 						<div class="rewordmodal-container"  >
-							<h3 style="color:white">추천TOP 사용자<br></h3>
+							<h3 style="color:white">추천TOP 글쓴이<br></h3>
 							<div class="reword1" style="height:30%">
 							<%for(Board reword: rewordUser){ %>
 						<div id="selectRw" style=" display:flex;height:22px; align-items: center; justify-content: center; ">

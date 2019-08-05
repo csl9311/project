@@ -144,6 +144,16 @@ from PRODUCT p join category c on(p.CID = c.CID)
                 join brand b on(p.bid = b.bid)
 order by pid);
 
+-- 관리자용 뷰
+CREATE OR REPLACE VIEW ADMIN_PRODUCT_VIEW
+AS SELECT PID, PRICE, STOCK, SELLCOUNT, PNAME, CNAME, SUB_CNAME, BNAME, USEOPTION, REGDATE, MODIFY_DATE, NVL(PRODUCT_OP, '-')"PRODUCT_OP"
+
+FROM PRODUCT
+    JOIN CATEGORY USING (CID)
+    JOIN SUBCATEGORY USING (SUB_CID)
+    JOIN BRAND USING (BID)
+    FULL JOIN PRODUCT_OP USING(PID);
+SELECT * FROM ADMIN_PRODUCT_VIEW;
 
 -----------------------------------------------데이터
 

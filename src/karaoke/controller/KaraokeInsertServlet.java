@@ -88,24 +88,26 @@ public class KaraokeInsertServlet extends HttpServlet {
 				System.out.println(originFiles.size());
 				
 				String kname = multiRequest.getParameter("kname");
-				String postnum = multiRequest.getParameter("sample6_postcode");
-				String address = multiRequest.getParameter("sample6_address");
-				String addressDetail = multiRequest.getParameter("sample6_detailAddress");
+				String postnum = multiRequest.getParameter("sample4_postcode");
+				String address = multiRequest.getParameter("sample4_roadAddress");
+				String jibunAddress = multiRequest.getParameter("sample4_jibunAddress");
+				String addressDetail = multiRequest.getParameter("sample4_detailAddress");
 				int one = Integer.parseInt(multiRequest.getParameter("one"));
 				int three = Integer.parseInt(multiRequest.getParameter("three"));
 				String otime = multiRequest.getParameter("startTime");
 				String ctime = multiRequest.getParameter("endTime");
 				String time= otime + " ~ " + ctime;
-				//String user = ((Member)request.getSession().getAttribute("loginUser")).getId();
-				String user = "id";
+				String user = multiRequest.getParameter("id");
 
+				System.out.println(user);
 				
 				Address a = new Address();
 				a.setPostNum(postnum);
-				a.setAddress(address);
+				a.setRoadAddress(address);
 				a.setAddress_detail(addressDetail);
+				a.setJibunAddress(jibunAddress);
 				a.setId(user);
-				System.out.println("여기" + a.getAddress() + "ㄴㄴ" + a.getAddress_detail() + "ㄴㄴ" + a.getId()  + "ㄴㄴ" + a.getPostNum());
+				System.out.println("여기" + a.getRoadAddress() + "ㄴㄴ" + a.getAddress_detail() + "ㄴㄴ" + a.getId()  + "ㄴㄴ" + a.getPostNum());
 				
 				int addressCode = new KaraokeService().insertAddress(a);
 				System.out.println(addressCode);
