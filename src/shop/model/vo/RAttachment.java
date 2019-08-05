@@ -10,9 +10,24 @@ public class RAttachment {
 	private String filePAth;
 	private int rId;
 	private Date uploadDate;
+	private int pId;
+	private String status;
 	
 	public RAttachment() {}
 	
+	public RAttachment(int rFId, String originName, String changeName, String filePAth, int rId, Date uploadDate,
+			int pId, String status) {
+		super();
+		this.rFId = rFId;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePAth = filePAth;
+		this.rId = rId;
+		this.uploadDate = uploadDate;
+		this.pId = pId;
+		this.status = status;
+	}
+
 	public RAttachment(int rFId, String originName, String changeName, String filePAth, int rId,
 			Date uploadDate) {
 		super();
@@ -22,6 +37,21 @@ public class RAttachment {
 		this.filePAth = filePAth;
 		this.rId = rId;
 		this.uploadDate = uploadDate;
+	}
+	
+	
+
+	public RAttachment(String changeName, int rId) {
+		super();
+		this.changeName = changeName;
+		this.rId = rId;
+	}
+	
+	public RAttachment(int rFId, String changeName, int rId) {
+		super();
+		this.rFId = rFId;
+		this.changeName = changeName;
+		this.rId = rId;
 	}
 
 	public int getrFId() {
@@ -72,11 +102,29 @@ public class RAttachment {
 		this.uploadDate = uploadDate;
 	}
 
+	public int getpId() {
+		return pId;
+	}
+
+	public void setpId(int pId) {
+		this.pId = pId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "RAttachment [rFId=" + rFId + ", originName=" + originName + ", changeName=" + changeName + ", filePAth="
-				+ filePAth + ", rId=" + rId + ", uploadDate=" + uploadDate + "]";
+				+ filePAth + ", rId=" + rId + ", uploadDate=" + uploadDate + ", pId=" + pId + ", status=" + status
+				+ "]";
 	}
+	
 	
 	
 }

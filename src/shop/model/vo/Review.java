@@ -52,6 +52,22 @@ public class Review {
 		this.rContent = rContent;
 		this.modifyDate = modifyDate;
 	}
+	
+	
+	
+	public Review(String rContent, Date modifyDate) {
+		super();
+		this.rContent = rContent;
+		this.modifyDate = modifyDate;
+	}
+
+	public Review(int rId, int pId, String rContent, Date modifyDate) {
+		super();
+		this.rId = rId;
+		this.pId = pId;
+		this.rContent = rContent;
+		this.modifyDate = modifyDate;
+	}
 
 	public int getrId() {
 		return rId;

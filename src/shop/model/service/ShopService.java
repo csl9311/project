@@ -187,11 +187,6 @@ public class ShopService {
 		return result;
 	}
 
-	/*
-	 * public int updateReview(int rId, String rContent, Date date) { Connection
-	 * conn = getConnection(); int result = new ShopDAO().updateReview(conn, rId,
-	 * rContent, date); close(conn); return result; }
-	 */
 	public int updateAnswer(int a_rId, String aContent, Date date) {
 		Connection conn = getConnection();
 		int result = new ShopDAO().updateAnswer(conn, a_rId, aContent, date);
@@ -205,21 +200,42 @@ public class ShopService {
 		close(conn);
 		return a;
 	}
-
-	public int updateReview(Review r, ArrayList<RAttachment> fileList) {
+	public Review selectReview(String userId, int rId) {
 		Connection conn = getConnection();
-		ShopDAO dao = new ShopDAO();
-		
-		int result1 = dao.updateReview(conn, r);
-		int result2 = dao.updateRAttachment(conn, fileList, r.getrId());
-		
-		if (result1 > 0 && result2 > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
+		Review review = new ShopDAO().selectReview(conn, userId, rId);
 		close(conn);
-		return result1+result2;
+		return review;
+	}
+
+	/*
+	 * public int updateReview(Review r, ArrayList<RAttachment> fileList) {
+	 * Connection conn = getConnection(); ShopDAO dao = new ShopDAO();
+	 * 
+	 * int result1 = dao.updateReview(conn, r); int result2 =
+	 * dao.updateRAttachment(conn, fileList, r.getrId(), r.getpId());
+	 * 
+	 * if (result1 > 0 && result2 > 0) { commit(conn); } else { rollback(conn); }
+	 * close(conn); return result1+result2; }
+	 */
+	public int updateReview(Review r) {
+		Connection conn = getConnection();
+		int result = new ShopDAO().updateReview(conn, r);
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<RAttachment> selectRAttachmentList(int pId) {
+		Connection conn = getConnection();
+		ArrayList<RAttachment> attList = new ShopDAO().selectRAttachmentList(conn, pId);
+		close(conn);
+		return attList;
+	}
+
+	public int deleteRAttachemnt(ArrayList<RAttachment> atList) {
+		Connection conn = getConnection();
+		int result = new ShopDAO().deleteRAttachemnt(conn, atList);
+		close(conn);
+		return result;
 	}
 
 }

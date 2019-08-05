@@ -851,7 +851,36 @@ public class ShopDAO {
 		return a;
 	}
 
-	public int updateRAttachment(Connection conn, ArrayList<RAttachment> fileList, int rId) {
+	public Review selectReview(Connection conn, String userId, int rId) {
+		PreparedStatement pstmt = null;
+		ResultSet r = null;
+		Review review = null;
+		
+		String query = prop.getProperty("selectReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, rId);
+			
+			r = pstmt.executeQuery();
+			
+			if(r.next()) {
+				review = new Review(r.getString("rContent"),
+								r.getDate("modify_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(r);
+			close(pstmt);
+		}
+		return review;
+	}
+
+	
+	
+	public int updateRAttachment(Connection conn, ArrayList<RAttachment> fileList, int rId, int pId) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -865,6 +894,7 @@ public class ShopDAO {
 				pstmt.setString(2, at.getChangeName());
 				pstmt.setString(3, at.getFilePAth());
 				pstmt.setInt(4, rId);
+				pstmt.setInt(5, pId);
 
 				result += pstmt.executeUpdate(); // 계속 더해줄것
 
@@ -876,4 +906,63 @@ public class ShopDAO {
 		}
 		return result;
 	}
+
+	public ArrayList<RAttachment> selectRAttachmentList(Connection conn, int pId) {
+		PreparedStatement pstmt = null;
+		ResultSet r = null;
+		ArrayList<RAttachment> attList = new ArrayList<RAttachment>();
+		RAttachment rat = null;
+		System.out.println(pId);
+		System.out.println(pId+1);
+		
+		String query = prop.getProperty("selectRAttachmentList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			System.out.println(query);
+			pstmt.setInt(1, pId);
+			
+			r = pstmt.executeQuery();
+			
+			while(r.next()) {
+				rat = new RAttachment(r.getInt("rfid"),
+										r.getString("change_name"),
+										r.getInt("rId"));
+				attList.add(rat);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(r);
+			close(pstmt);
+		}
+		
+		return attList;
+	}
+
+	public int deleteRAttachemnt(Connection conn, ArrayList<RAttachment> atList) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteRAttachemnt");
+		int result = 0;
+		
+		try {
+			for (int i = 0; i < atList.size(); i++) {
+				RAttachment at = atList.get(i);
+
+				pstmt = conn.prepareStatement(query);
+				System.out.println(query);
+				pstmt.setString(1, at.getChangeName());
+				
+				result = pstmt.executeUpdate();
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

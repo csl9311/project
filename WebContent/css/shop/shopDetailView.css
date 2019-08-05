@@ -1,5 +1,8 @@
 @charset "UTF-8";
-
+html, body {
+  height: 100%;
+  margin: 0;
+}
 .color1 {
 	color: rgb(210, 210, 210);
 }
@@ -10,7 +13,7 @@
 #Index {
 	background: rgb(40, 44, 52);
 	width: 100%;
-	height: 100%;
+	min-height: 100%;
 	display: inline-flex;
 	flex-direction: column;
 	color: rgb(210, 210, 210);
@@ -90,6 +93,7 @@ input[type="text"], .amount_Btn, .amount_dltBtn, .sct_btn, select {
 	flex-direction: column;
 	width: 60vw;
 	margin-top: 7vh;
+	height: 100%;
 }
 
 #content_top {
@@ -299,7 +303,11 @@ option[value=""][disabled] {
 	width: 100%;
 }
 #cb_review, #cb_qna{
+	display: inline-block;
 	margin-bottom: 10vh;
+}
+#cb_review td, #cb_qna td{
+	border-bottom: none;
 }
 .cb_review_inner {
 	display: flex;
@@ -317,11 +325,11 @@ option[value=""][disabled] {
 	border-bottom: none;
 }
 
-.table_header {
+.table_header, .text_box_title {
 	background-color: rgb(120, 120, 120) !important;
 }
 
-.cb_table div, .cb_table tr {
+.cb_table tr {
 	border-bottom: 0.5px solid rgb(120, 120, 120);
 }
 
@@ -337,6 +345,7 @@ option[value=""][disabled] {
 }
 
 .tArea{
+	padding-top: 5vh;
 	background: none;
 	border: none;
 	resize: none;
@@ -351,12 +360,36 @@ blockquote {
 	padding-bottom: 1vh;
 	padding-top: 1vh;
 }
+blockquote div{
+	border: none !important;
+}
+
+.fromUser{
+	display: flex;
+	flex-direction: column;
+}
+.fromUserImg{
+	display: flex;
+	flex-direction: row;
+}
+.text_under_img{
+	margin-top: 5vh;
+	margin-bottom: 5vh;
+}
+.reviewImg_div{
+	overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 3%;
+    width: 30%;
+    height: 150px;
+}
 
 .cb_table .text_box:nth-child(2n) {
 	margin-top: 2%;
 }
 .cb_table .text_box{
-	padding-top: 2%;
 	min-height: 150px;
 	display: inline-block;
 }

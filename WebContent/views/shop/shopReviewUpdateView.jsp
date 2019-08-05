@@ -5,6 +5,9 @@
 	String pName = (String) (request.getParameter("pName"));
 	String rId = request.getParameter("rId");
 	String rContent = (String) (request.getParameter("rContent"));
+	String imgName = (String)(request.getParameter("imgName"));
+	String[] arr = imgName.split("\\/");
+
 	System.out.println(pId);
 	System.out.println(rId);
 %>
@@ -208,7 +211,7 @@ img {
 			<form id="file_form" method="post" enctype="multipart/form-data">
 			<input type="hidden" id="pId" name="pId"> 
 			<div id="upper">
-				<p>상품평 작성</p>
+				<p>상품평 수정</p>
 				<button class="button_close" type="button" onclick="self.close();">X</button>
 			</div>
 			<div id="selected_info">
@@ -253,21 +256,25 @@ img {
 			<div id="review_attach">
 				<div id="review_attach_inner">
 					<ul id="thumUl">
+					<% int i = 0;
+					for(i = 1; i < arr.length+1; i++){ %>
 						<li>
-							<div class="add_thmb" id="contentImgArea1">
-								<img id="contentImg1" src="../../img/shopImg/picture_WH.png">
+							<div class="add_thmb" id="contentImgArea<%=i%>">
+								<img id="contentImg<%=i%>" class="notEmpty" src="<%=request.getContextPath()%>/review_uploadFiles/<%=arr[i-1]%>">
 							</div>
 						</li>
-						<li>
-							<div class="add_thmb" id="contentImgArea2">
-								<img id="contentImg2" src="../../img/shopImg/picture_WH.png">
-							</div>
-						</li>
-						<li>
-							<div class="add_thmb" id="contentImgArea3">
-								<img id="contentImg3" src="../../img/shopImg/picture_WH.png">
-							</div>
-						</li>
+					<%} 
+						if(i < 4) {
+							for(int j = i; j < 4; j++) {%>
+								<li>
+									<div class="add_thmb" id="contentImgArea<%=j%>">
+										<img id="contentImg<%=j%>" src="../../img/shopImg/picture_WH.png">
+									</div>
+								</li>
+							<%}
+						}
+					%>
+						
 					</ul>
 					<ul id="submitUl">
 						<li><button type="button" id="submitBtn">등록</button></li>
@@ -285,6 +292,7 @@ img {
 		</div>
 	</div>
 	<script>
+	var deleteImgName = null;
 		$(function(){
 			$("#fileArea").hide();
 			
@@ -298,21 +306,36 @@ img {
 				$("#thumbnailImg3").click();
 			});
 		});
-		
+<%-- 			function deleteImg(num){
+				switch(num){
+				case 1:
+					deleteImgName += "<%=arr[0]%>"+"/";
+					break;
+				case 2: 
+					deleteImgName += "<%=arr[1]%>"+"/";
+					break;
+				case 3:
+					deleteImgName += "<%=arr[2]%>"+"/";
+					break;
+				}
+			deleteImg(num);
+		} --%>
 		function LoadImg(value, num){
 			if(value.files && value.files[0]){
 				var reader = new FileReader();
-				
 				reader.onload = function(e){								
 					switch(num){
 					case 1:
-						$("#contentImg1").attr("src", e.target.result);
+						$("#contentImg1").attr("src", e.target.result); 
+						deleteImgName += "<%=arr[0]%>"+"/";
 						break;
 					case 2: 
 						$("#contentImg2").attr("src", e.target.result);
+						deleteImgName += "<%=arr[1]%>"+"/";
 						break;
 					case 3:
 						$("#contentImg3").attr("src", e.target.result);
+						deleteImgName += "<%=arr[2]%>"+"/";
 						break;
 					}
 				}
@@ -324,8 +347,11 @@ img {
 			if(confirm("정말 수정하시겠습니까?")){
 			var rId = '<%=rId%>';
 			var content = $("#textArea").val();
+			alert(content);
 			var rContent = content.trim();
+			alert(rContent);
 			var form = $('#file_form');
+			var pId = '<%=pId%>';
 			
 			var fileData = new FormData();
 			fileData.append("file1", $("#thumbnailImg1")[0].files[0]);
@@ -333,7 +359,10 @@ img {
 			fileData.append("file3", $("#thumbnailImg3")[0].files[0]);
 			fileData.append("rId", rId);
 			fileData.append("rContent", rContent);
+			fileData.append("pId", pId);
+			fileData.append("deleteImgName", deleteImgName);
 			
+			alert(deleteImgName);
 
 			$.ajax({
 				url: "<%=request.getContextPath()%>/updateReview.do",
@@ -342,7 +371,7 @@ img {
 				    processData:false,
 					data : fileData,	
 					success : function(data) {
-						if (data.result > 1) { // 수정 성공시
+						if (data.result > 0) { // 수정 성공시
 									alert("수정에 성공했습니다!");
 									window.opener.location.reload();
 									self.close();
