@@ -259,7 +259,7 @@
 								<td id="rTitle<%=i%>" class="rTitle"><%=rList.get(i).getrTitle()%></td>
 								<td id="rWriter<%=i%>" class="writer"><%=rList.get(i).getrWriter()%></td>
 								<td id="modifyDate<%=i%>"><%=rList.get(i).getModifyDate()%></td>
-								<td id="rcount<%=i%>"><%=rList.get(i).getrCount()%></td>
+								<td id="rcount<%=i%>" class="rCount"><%=rList.get(i).getrCount()%></td>
 							</tr>
 							<tr class="reviewContent" style="display: none;">
 								<td colspan="5">
@@ -616,46 +616,6 @@
 		};
 
 		// 리뷰 제목 누르면 펼쳐지는 이벤트
-	/* 	function countPlus(e){
-			console.log("들어옴? ㅠ");
-			$(e.target).next().toggle();
-			
-		}
-		$(document).on("click",".reviewTitle",function() {
-			var rId = $(this).children('.rId').text();
-			var reviewTitle = $(this);
-			console.log("누구?:" + reviewTitle);
-			
-		 	$.ajax({
-				url: "reviewCount.do",
-				type: "get",
-				data: {rId:rId},
-		 		success:function(data){
-					if(data.result > 0) {
-						alert("성공");
-						var type = 1;
-						var str = $('.switch').children('.clicked_category').text();
-						if(type.length < 5) type = 2;
-						if(type = 1){
-							$('.switch').children('.clicked_category').prev().attr('class', 'clicked_categoty');
-							$('.switch').children('.clicked_category').attr('class', '');
-							
-						} else {
-							$('.switch').children('.clicked_category').next().attr('class', 'clicked_categoty');
-							$('.switch').children('.clicked_category').attr('class', '');
-						}
-						reviewPrint(type);
-						countPlus(reviewTitle);
-					} else {
-						alert("실패");
-					}
-				}
-			}).done(function countPlus(){
-				console.log("들어옴? ㅠ");
-				reviewTitle.next().toggle();
-			}); 
-		}); */
-		
 		function countPlus(e){
 			console.log("들어옴? ㅠ");
 			$(e.target).next().toggle();
@@ -672,12 +632,10 @@
 				data: {rId:rId},
 		 		success:function(data){
 					if(data.result > 0) {
-						alert("성공");
 						reviewTitle.children('.rCount').text(data.count);
 						console.log(data.count);
 						reviewTitle.next().toggle();
 					} else {
-						alert("실패");
 					}
 		 		}
 		 	});
