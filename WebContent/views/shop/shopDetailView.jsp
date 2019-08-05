@@ -408,7 +408,7 @@
 					amount += parseInt($('#Index input[type=text]').eq(i).val());
 				} else {
 					selectOption += $('.amount_name').eq(i).text() + ","
-							+ $('input[type=text]').eq(i + 1).val() + ",";
+							+ $('#Index input[type=text]').eq(i + 1).val() + ",";
 					amount += parseInt($('#Index input[type=text]').eq(i).val());
 				}
 			}
