@@ -75,8 +75,7 @@
 								type : 'get',
 								success : function(data) {
 									alert("로그아웃되었습니다.");
-									location.href = "<%=request.getContextPath()%>
-						/index.jsp";
+									location.href = "<%=request.getContextPath()%>/index.jsp";
 										}
 									});
 						}

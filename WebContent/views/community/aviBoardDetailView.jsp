@@ -285,6 +285,9 @@ ul{
 			 
 			 
 				$('#insertReply').click(function(){
+					 if(doubleSubmitCheck()) return;
+
+					
 					var content = $('.contentarea').val();
 					
 					if(!($.isEmptyObject(content))){	
@@ -401,6 +404,20 @@ ul{
 				<%-- location.href='<%= request.getContextPath( )%>/deletereply.bo?no='+number+&bid=<%=board.getBid() %>; --%>	
 			}
 		};
+		
+		
+		   var doubleSubmitFlag = false;
+		    function doubleSubmitCheck(){
+		        if(doubleSubmitFlag){
+		            return doubleSubmitFlag;
+		        }else{
+		            doubleSubmitFlag = true;
+		            return false;
+		        }
+		    }
+
+
+
 		
 	
 	
