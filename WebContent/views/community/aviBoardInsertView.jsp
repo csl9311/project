@@ -53,7 +53,7 @@
 					<td>
 						<!-- <span style="font-size:20px; cursor:pointer"   data-toggle="modal" data-target="#insert-avi">영상등록</span> -->
 						<span style="float: left; cursor: pointer; margin-bottom: 5px;"
-						onclick="displayAviAddress()" id="opendiv">영상 삽입 하기</span>
+						 id="opendiv">영상 삽입 하기</span>
 
 						<div class="insertAddress fulldiv" style="display: none;">
 							<input type="text"
@@ -146,7 +146,8 @@
 
 								$('.youtubeInsert').css("display",
 										"inline-block");
-
+								
+								  document.getElementById("youtubeInsert").scrollIntoView(); 
 							} else {
 								$('.youtubeInsert').css("display", "none");
 							}

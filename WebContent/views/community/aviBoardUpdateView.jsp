@@ -139,7 +139,7 @@
 
 									$('.youtubeInsert').css("display",
 											"inline-block");
-
+									document.getElementById("youtubeInsert").scrollIntoView(); 
 								} else {
 
 								}
