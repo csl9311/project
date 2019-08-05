@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/views/common/coinheader.jsp"%>
-<% System.out.println(loginUser.getGrade()); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,9 +32,10 @@
 <%-- jQuery --%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <%} else {%>
-	<div class="center">
-		<h3>관리자계정으로 로그인해주세요.</h3>
-	</div>
+	<script>
+		alert("관리자 계정으로 로그인 해주세요.");
+		location.href = "<%=request.getContextPath()%>/index.jsp";
+	</script>
 <%}%>
 </body>
 </html>

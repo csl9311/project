@@ -4,7 +4,7 @@
 <%@ include file="/views/common/coinheader.jsp"%>
 
 <%
-	ArrayList<Member> list = (ArrayList<Member>) request.getAttribute("memberList");
+	ArrayList<Member> list = (ArrayList<Member>) request.getAttribute("list");
 	HashMap<String, Integer> addressCountMap = (HashMap<String, Integer>) request.getAttribute("addressCountMap");
 	String msg = (String) request.getAttribute("msg");
 %>
@@ -62,7 +62,7 @@
 					Member member = list.get(i);
 			%>
 			<hr>
-			<form action="<%=request.getContextPath()%>/selectMember" method="get">
+			<form action="<%=request.getContextPath()%>/selectMember" method="post">
 				<table class="resultList">
 					<tr>
 						<td>
@@ -88,7 +88,10 @@
 				</table>
 			</form>
 			<% }}} else {%>
-				<h2 class="center">관리자 계정으로 로그인해주세요.</h2>
+				<script>
+				alert("관리자 계정으로 로그인 해주세요.");
+				location.href = "<%=request.getContextPath()%>/index.jsp";
+				</script>
 			<%} %>
 		</div>
 	<script>
