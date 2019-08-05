@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div id="myFooter"  >
+<div id="myFooter" >
 
 	<div class="containerbg">
         <div class="container" >
@@ -63,7 +63,7 @@
         
     </div>
 </body>
-
+<!-- 
 <script> 
 
 
@@ -78,5 +78,5 @@ var ContentTop = Height_Window - Height_Footer - 5;
 document.getElementById("Index").style.minHeight = Height_Index + 'px';
 document.getElementById("Index").style.height = ContentTop + "px";
 }
- </script>
+ </script> -->
 </html>

@@ -254,7 +254,7 @@
 									for (int i = 0; i < rList.size(); i++) {
 										if (rList.get(i).getrType() == 1) {
 							%>
-							<tr class="reviewTitle">
+							<tr class="reviewTitle" id="reviewTitle<%=i%>">
 								<td id="rId<%=i%>" class="rId"><%=rList.get(i).getrId()%></td>
 								<td id="rTitle<%=i%>" class="rTitle"><%=rList.get(i).getrTitle()%></td>
 								<td id="rWriter<%=i%>" class="writer"><%=rList.get(i).getrWriter()%></td>
@@ -496,8 +496,7 @@
 
 		// review <=> qna switch
 		// qna랑 review ajax로 가져오는거
-		$('.switch').on('click', function reviewPrint(){
-			var pId = '<%=pId%>';
+		$('.switch').on('click', function (){
 			var type;
 			var str = $(event.target).text().length;
 			var str2 = "QNA".length + 1;
@@ -510,9 +509,11 @@
 				$(event.currentTarget).prev().children().attr('class', '');
 				$(event.target).attr('class', 'clicked_category');
 			}
-			console.log(str);
-			console.log(str2);
-			console.log("type : " + type);
+			reviewPrint(type);
+		});
+		
+		function reviewPrint(type){
+			var pId = '<%=pId%>';
 			$.ajax({
 				url: "shopReview.do",
 				type: "post",
@@ -528,7 +529,7 @@
 
 					// 사용자 글이 있을 시 찍어내는 for문
 					for(var i = 0; i < data.rList.length; i++) {
-						var $tr = $("<tr>").attr('class','reviewTitle');
+						var $tr = $("<tr>").attr({'class':'reviewTitle','id':'reviewTitle'+i});
 						var $rIdTd = $("<td>").text(data.rList[i].rId).attr({'class':'rId','id':'rId'+i});
 						var $rtitleTd = $("<td>").text(data.rList[i].rTitle).attr({'class':'rTitle','id':'rTitle'+i});
 						var $rWriterTd = $("<td>").text(data.rList[i].rWriter).attr({'class':'rWriter','id':'rWriter'+i});
@@ -612,31 +613,76 @@
 					}
 				}
 			});
-		});
+		};
 
 		// 리뷰 제목 누르면 펼쳐지는 이벤트
-		$(document).on("click",".reviewTitle",function() {
-			$(this).next().toggle();
-			var i = $('event.target').id;
-			/* .replace(/[^0-9]/g,""); */
-			var rId = event.currentTarget.id;
-			console.log("i : " + i);
-			console.log("rId : " + rId);
+	/* 	function countPlus(e){
+			console.log("들어옴? ㅠ");
+			$(e.target).next().toggle();
 			
-			$.ajax({
+		}
+		$(document).on("click",".reviewTitle",function() {
+			var rId = $(this).children('.rId').text();
+			var reviewTitle = $(this);
+			console.log("누구?:" + reviewTitle);
+			
+		 	$.ajax({
 				url: "reviewCount.do",
 				type: "get",
 				data: {rId:rId},
-				success:function(data){
+		 		success:function(data){
 					if(data.result > 0) {
 						alert("성공");
-						reviewPrint();
+						var type = 1;
+						var str = $('.switch').children('.clicked_category').text();
+						if(type.length < 5) type = 2;
+						if(type = 1){
+							$('.switch').children('.clicked_category').prev().attr('class', 'clicked_categoty');
+							$('.switch').children('.clicked_category').attr('class', '');
+							
+						} else {
+							$('.switch').children('.clicked_category').next().attr('class', 'clicked_categoty');
+							$('.switch').children('.clicked_category').attr('class', '');
+						}
+						reviewPrint(type);
+						countPlus(reviewTitle);
 					} else {
 						alert("실패");
 					}
 				}
-			});
-		});
+			}).done(function countPlus(){
+				console.log("들어옴? ㅠ");
+				reviewTitle.next().toggle();
+			}); 
+		}); */
+		
+		function countPlus(e){
+			console.log("들어옴? ㅠ");
+			$(e.target).next().toggle();
+			
+		}
+		$(document).on("click",".reviewTitle",function() {
+			var rId = $(this).children('.rId').text();
+			var reviewTitle = $(this);
+			console.log("누구?:" + reviewTitle);
+			
+		 	$.ajax({
+				url: "reviewCount.do",
+				type: "get",
+				data: {rId:rId},
+		 		success:function(data){
+					if(data.result > 0) {
+						alert("성공");
+						reviewTitle.children('.rCount').text(data.count);
+						console.log(data.count);
+						reviewTitle.next().toggle();
+					} else {
+						alert("실패");
+					}
+		 		}
+		 	});
+		 });	
+		
 		// review와 QnA에서 로그인 유저의 아이디와 일치하면 수정하는 버튼 보이기
 		 $(function(){
 			 updateBtn();

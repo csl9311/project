@@ -1039,9 +1039,32 @@ public class ShopDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, rId);
+			pstmt.setInt(2, rId);
 			
 			result = pstmt.executeUpdate();
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectReviewCount(Connection conn, int rId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		int result = 0;
+		
+		String query = prop.getProperty("selectReviewCount");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("RCOUNT");
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

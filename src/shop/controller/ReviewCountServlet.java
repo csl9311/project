@@ -30,9 +30,11 @@ public class ReviewCountServlet extends HttpServlet {
 		
 		int rId = Integer.parseInt(request.getParameter("rId"));
 		int result = new ShopService().updateCount(rId);
+		int count = new ShopService().selectReviewCount(rId);
 		
 		JsonObject jObj = new JsonObject();
 		jObj.addProperty("result", result);
+		jObj.addProperty("count", count);
 		
 		Gson gson = new Gson();
 		response.setContentType("application/json; charset=utf-8");

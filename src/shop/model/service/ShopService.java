@@ -266,5 +266,12 @@ public class ShopService {
 		return result;
 	}
 
+	public int selectReviewCount(int rId) {
+		Connection conn = getConnection();
+		int result = new ShopDAO().selectReviewCount(conn, rId);
+		close(conn);
+		return result;
+	}
+
 }
 
