@@ -3,7 +3,8 @@
 <%@ include file="Form.jsp"%>	
 <%	
 	request.setCharacterEncoding("UTF-8");
-	ArrayList<Payment> pay = (ArrayList<Payment>) request.getAttribute("pay");
+	ArrayList<Cart> pay = (ArrayList<Cart>) request.getAttribute("pay");
+	Address adr = (Address)request.getAttribute("adr");
 	String phone = loginUser.getPhone();
 	int point= loginUser.getPoint();
 	String name = loginUser.getName();
@@ -55,7 +56,7 @@
 					</tr>
 					<%
 						for (int i = 0; i < pay.size(); i++) {
-							Payment p = pay.get(i);
+							Cart p = pay.get(i);
 							if (!p.getpOption().equals("없음")) {
 								String[] arr = p.getpOption().split(",");
 								for (int j = 0; j < arr.length / 2; j++) {
@@ -114,7 +115,7 @@
 				</tr>
 				<tr>
 					<td>주소</td>
-					<td><input type="text">&nbsp;&nbsp;&nbsp;
+					<td><input type="text" value="<%=adr.getPostNum()%>">&nbsp;&nbsp;&nbsp;
 				</tr>
 				<tr>
 					<td></td>
@@ -207,7 +208,7 @@
 					
 					<%int total = 0;
 					for (int i = 0; i < pay.size(); i++) {
-							Payment p = pay.get(i);
+							Cart p = pay.get(i);
 							total += p.getPrice()*p.getAmount();						
 						}%>
 						<%= total %>원
@@ -230,7 +231,7 @@
 	}
 
 var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
-		Payment p = pay.get(i);
+		Cart p = pay.get(i);
 		if(i < pay.size()-1){
 	%><%=p.getCrId()%>,<%
 		} else {

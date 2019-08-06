@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"
 	import="product.model.vo.*, java.util.*, shop.model.vo.*"%>
 <%
-	ArrayList<Payment> info = (ArrayList<Payment>) request.getAttribute("info");
+	ArrayList<Cart> info = (ArrayList<Cart>) request.getAttribute("info");
+	
 
 %>
 <!DOCTYPE html>
@@ -39,7 +40,7 @@
 					</tr>
 					<%
 						for (int i = 0; i < info.size(); i++) {
-							Payment p = info.get(i);
+							Cart p = info.get(i);
 							if (!p.getpOption().equals("없음")) {
 								String[] arr = p.getpOption().split(",");
 								for (int j = 0; j < arr.length / 2; j++) {
@@ -105,7 +106,7 @@
 						<td class="pay1">총 예상 상품 구매가격 =
 						<% int totalprice=0;
 						for(int i=0; i<info.size();i++){
-							Payment p= info.get(i);
+							Cart p= info.get(i);
 							totalprice +=p.getPrice()*p.getAmount();
 							}%>
 							<%=totalprice%>원</td>

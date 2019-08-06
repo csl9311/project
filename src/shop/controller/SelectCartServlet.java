@@ -44,9 +44,6 @@ public class SelectCartServlet extends HttpServlet {
 		
 		if(info!=null) {
 			page= "views/MyPage/cart.jsp";
-			for(int i=0; i<info.size();i++) {
-			System.out.println("info"+ info.get(i).getCrId());
-			}
 			request.setAttribute("info",info);					
 		}else {
 			page = "views/MyPage/emptycart.jsp";
