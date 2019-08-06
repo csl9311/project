@@ -18,7 +18,7 @@ import shop.model.vo.Cart;
 /**
  * Servlet implementation class SelectCartServlet
  */
-@WebServlet("/selectcart.ca")
+@WebServlet("/selectCart.ca")
 public class SelectCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
