@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import admin.model.service.AdminService;
 import product.model.vo.Product;
 
-@WebServlet("/product.insert")
+@WebServlet("/admin.productInsert")
 public class AdminProductInsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -63,14 +63,13 @@ public class AdminProductInsert extends HttpServlet {
 
 		String page = "";
 		if (result1 > 0) {
-			page = "/admin.allProductList";
-			request.setAttribute("alert", "상품이 등록되었습니다.");
+			response.sendRedirect(request.getHeader("referer"));
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "상품등록에 실패했습니다.");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
-		;
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

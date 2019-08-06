@@ -21,14 +21,20 @@ public class AdminProductSelect extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("서블릿 접근");
 		int pId = Integer.parseInt(request.getParameter("pId"));
 		Product product = new AdminService().selectProduct(pId);
-
 		String page = "";
 		if (product != null) {
 			page = "views/admin/adminProduct/admin_productDetail.jsp";
 			request.setAttribute("product", product);
+			
+			String getOption = request.getParameter("option");
+			Product option = null;
+			
+			if(getOption.equals("Y")) {
+				option = new AdminService().selectOption(pId);
+			}
+			request.setAttribute("option", option);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "상품정보조회에 실패했습니다.");

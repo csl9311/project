@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import member.model.dao.MemberDAO;
 import member.model.vo.Address;
 import member.model.vo.Member;
-import member.model.vo.Payment;
-import shop.model.vo.PAttachment;
+import shop.model.dao.ShopDAO;
+import shop.model.vo.RAttachment;
+import shop.model.vo.Review;
 
 public class MemberService {
 	public ArrayList<Member> selectAll() {
@@ -139,13 +140,7 @@ public class MemberService {
 		return result;
 	}
 
-	public ArrayList<Payment> selectPayment(String userId) {
-		System.out.println("서비스 들어옴?");
-		Connection conn = getConnection();
-		ArrayList<Payment> pList = new MemberDAO().selectPayment(conn, userId);
-		close(conn);
-		return pList;
-	}
+	
 
 	public Address selectAdr(String userId) {
 		Connection conn= getConnection();
@@ -155,6 +150,18 @@ public class MemberService {
 		return adr;
 	}
 
-
-
+	public int insertReview(Review r, ArrayList<RAttachment> fileList) {
+		Connection conn = getConnection();
+		MemberDAO dao = new MemberDAO();
+		int result1 = dao.insertReview(conn, r);
+		int result2 = dao.insertRAttachment(conn, fileList);
+		
+		if (result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1+result2;
+	}
 }

@@ -22,13 +22,7 @@ public class Search extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String keyword = request.getParameter("keyword");
-		
-		ArrayList<?> list = new MemberService().search(keyword);
-		
-		if(list != null) {
-			request.setAttribute("memberList", list);
-			request.getRequestDispatcher("").forward(request, response);;
-		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

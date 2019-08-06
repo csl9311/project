@@ -8,6 +8,15 @@ public class Product {
 	private String pName, category, subCategory, brand, useOption, option;
 	private Date regDate, modifyDate;
 
+	@Override
+	public String toString() {
+		return "Product [pId=" + pId + ", price=" + price + ", stock=" + stock + ", sellCount=" + sellCount
+				+ ", amount=" + amount + ", brandNo=" + brandNo + ", categoryNo=" + categoryNo + ", subCategoryNo="
+				+ subCategoryNo + ", pName=" + pName + ", category=" + category + ", subCategory=" + subCategory
+				+ ", brand=" + brand + ", useOption=" + useOption + ", option=" + option + ", regDate=" + regDate
+				+ ", modifyDate=" + modifyDate + "]";
+	}
+
 	// 관리자 상품 등록
 	public Product(int pId, int price, int stock, int brandNo, int categoryNo, int subCategoryNo, String pName,
 			String useOption) {
@@ -22,7 +31,6 @@ public class Product {
 		this.useOption = useOption;
 	}
 
-	
 	// 관리자 상품 등록 select>option 변경
 	public Product(int subCategoryNo, String subCategory) {
 		super();
@@ -30,8 +38,20 @@ public class Product {
 		this.subCategory = subCategory;
 	}
 
-	
-
+	// 관리자 상품 정보 수정
+	public Product(int pId, int price, int stock, int brandNo, int categoryNo, int subCategoryNo, String pName,
+			String useOption, Date regDate) {
+		super();
+		this.pId = pId;
+		this.price = price;
+		this.stock = stock;
+		this.brandNo = brandNo;
+		this.categoryNo = categoryNo;
+		this.subCategoryNo = subCategoryNo;
+		this.pName = pName;
+		this.useOption = useOption;
+		this.regDate = regDate;
+	}
 
 	// 관리자 상품목록조회
 	public Product(int pId, int price, int stock, int sellCount, String pName, String category, String subCategory,
@@ -86,17 +106,17 @@ public class Product {
 		this.option = option;
 	}
 
+	public Product(String option) {
+		super();
+		this.option = option;
+	}
+
 	public int getAmount() {
 		return amount;
 	}
 
 	public void setAmount(int amount) {
 		this.amount = amount;
-	}
-
-	public Product(String option) {
-		super();
-		this.option = option;
 	}
 
 	public int getpId() {

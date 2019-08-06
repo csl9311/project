@@ -20,7 +20,11 @@
 
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 <style>
+.menu{
+	text-align: right;
+}
 .payadr {
+	
 	width: 30vw;
 }
 
@@ -110,27 +114,31 @@
 			<p>주문 정보</p>
 			<table class="pay-tab">
 				<tr>
-					<td>주문하시는 분&nbsp;&nbsp;&nbsp;</td>
+					<td class="menu">주문하시는 분&nbsp;&nbsp;&nbsp;</td>
 					<td><input type="text" id="name" style="width: 10vw" value="<%=name%>"></td>
 				</tr>
 				<tr>
-					<td>주소</td>
-					<td><input type="text" value="<%=adr.getPostNum()%>">&nbsp;&nbsp;&nbsp;
+					<td class="menu">주소&nbsp;&nbsp;&nbsp;</td>
+					<td><input type="text" class="payadr" value="<%=adr.getPostNum()%>" readonly>&nbsp;&nbsp;&nbsp;
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="text" class="payadr"></td>
+					<td><input type="text" class="payadr" value="<%=adr.getRoadAddress()%>" readonly></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="text" class="payadr"></td>
+					<td><input type="text" class="payadr" value="<%=adr.getJibunAddress()%>" readonly></td>
 				</tr>
 				<tr>
-					<td>휴대전화</td>
+					<td></td>
+					<td><input type="text" class="payadr" value="<%=adr.getAddress_detail()%>" readonly></td>
+				</tr>
+				<tr>
+					<td class="menu">휴대전화&nbsp;&nbsp;&nbsp;</td>
 					<td><input type="text" name="phone" id="phone" value="<%=phone %>"></td>
 				</tr>
 				<tr>
-					<td>이메일</td>
+					<td class="menu">이메일&nbsp;&nbsp;&nbsp;</td>
 					<td><input type="text" name="email1" id="email1" value="<%=email %>">
 				</tr>
 			</table>
@@ -139,42 +147,46 @@
 			<!-- 주문자정보 끝 -->
 			<br> <br>
 			<!-- 배송지 정보 -->
-			<form>
+			
 			<p>배송지 정보</p>
 			<table class="pay-tab">
 				<tr>
-					<td>배송지 선택</td>
+					<td class="menu"></td>
 					<td><input type="button" value="주문자 정보와 동일" onclick="copy();">&nbsp;&nbsp;&nbsp;</td>
 				</tr>
 				<tr>
-					<td>받는사람&nbsp;&nbsp;&nbsp;</td>
-					<td><input type="text" name="name2" id="name2" style="width: 10vw" value=""></td>					
+					<td class="menu">받는사람&nbsp;&nbsp;&nbsp;</td>
+					<td><input type="text" name="recipient" id="recipient" style="width: 10vw" value=""></td>					
 				</tr>
 				<tr>
-					<td>주소</td>
-					<td><input type="text">&nbsp;&nbsp;&nbsp;
+					<td class="menu">주소&nbsp;&nbsp;&nbsp;</td>
+					<td><input type="text" class="payadr" id="postNum">
 						<button>주소 찾기</button></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="text" class="payadr"></td>
+					<td><input type="text" class="payadr" id="roadAddress"></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="text" class="payadr"></td>
+					<td><input type="text" class="payadr" id="jibunAddress"></td>
 				</tr>
 				<tr>
-					<td>휴대전화</td>
-					<td><input type="text" name="phone2" id="phone2" value=""></td>
+					<td></td>
+					<td><input type="text" class="payadr" id="address_detail"></td>
+				</tr>
+				<tr>
+					<td class="menu">휴대전화&nbsp;&nbsp;&nbsp;</td>
+					<td><input type="text" name="recipientPhone" id="recipientPhone" value=""></td>
 				</tr>
 				
 				<tr>
-					<td>배송시 요청사항</td>
-					<td><input type="text" class="delrequest"> <br>
+					<td class="menu">배송시 요청사항&nbsp;&nbsp;&nbsp;</td>
+					<td><input type="text" class="delrequest" id="req" value=""><br>
 					<label>ex)경비실에 맡겨주세요</label></td>
 				</tr>
 			</table>
-			</form>
+		
 			<!-- 배송지정보 끝 -->
 			
 		</div>
@@ -182,7 +194,7 @@
 		<div id="pay-div1">
 			<br>
 			<!-- 할인,포인트 -->
-			<p>할인 및 포인트</p>
+			<p style="text-align:left; font-size:larger">할인 및 포인트</p>
 			<table>
 				<tr>
 					<td>포인트 사용</td>
@@ -196,7 +208,7 @@
 		<div id="pay-div1">
 			<!-- 결제정보 -->
 			<br> <br>
-			<p>결제 정보</p>
+			<p style="text-align:left; font-size:larger">결제 정보</p>
 			<table class="pay-tab">
 				<tr>
 					<td>총 주문 금액</td>
@@ -204,8 +216,7 @@
 					<td>총 결제예정 금액</td>
 				</tr>
 				<tr>
-					<td>
-					
+					<td class="menu">					
 					<%int total = 0;
 					for (int i = 0; i < pay.size(); i++) {
 							Cart p = pay.get(i);
@@ -213,10 +224,11 @@
 						}%>
 						<%= total %>원
 						<input id="total" type="hidden" value="<%= total %>"></td>
-					<td>-원</td>
-					<td>=원</td>
+					<td class="menu">원</td>
+					<td class="menu">=원</td>
 				</tr>
 			</table>
+			<br>
 			<button id="payment">결제하기</button>
 		</div>
 		<!-- 결제정보끝 -->
@@ -226,8 +238,15 @@
 	
 	<script>
 	function copy(){
-		$('#name2').attr('value', '<%=name%>');
-		$('#phone2').attr('value', '<%=phone%>');
+		$('#recipient').attr('value', '<%=name%>');
+		$('#recipientPhone').attr('value', '<%=phone%>');
+		$('#postNum').attr('value', '<%=adr.getPostNum()%>');
+		$('#roadAddress').attr('value', '<%=adr.getRoadAddress()%>');
+		$('#jibunAddress').attr('value', '<%=adr.getJibunAddress()%>');
+		$('#address_detail').attr('value', '<%=adr.getAddress_detail()%>');
+	}
+	function all(){
+		$('#po').attr('value', "<%=point%>");		
 	}
 
 var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
@@ -246,8 +265,25 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	var name= $('#firstName0').val();
 	var total= $('#total').val();
 	var totalamount =$('#totalamount').val();
+	
 	$('#payment').click(function(){
-	 location.href="<%=request.getContextPath()%>/purchase.ca?list="+list;
+		var recipient = $('#recipient').val();
+		var recipienPhone = $('#recipientPhone').val();
+		var address1 = $('#postNum').val();
+		var address2 = $('#roadAddress').val();
+		var address3 = $('#jibunAddress').val();
+		var address4 = $('#address_detail').val();		
+		var address = address1 +" " + address2 + " "+ address3 + " "+ address4;
+		var req = document.getElementById('req').value;
+		console.log(address);
+		console.log(recipient);
+		console.log(req);		
+		var shipinfo= new Object();
+		shipinfo.recipient = recipient;
+		shipinfo.recipienPhone = recipienPhone;
+		shipinfo.address = address;
+		shipinfo.req= req;
+		location.href="<%=request.getContextPath()%>/purchase.ca?list="+list+"&shipinfo="+shipinfo;
 	});
 	
 	<%-- $('#payment').click(function(){
@@ -258,7 +294,7 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	    name : name,
 	    amount : '100',
 	    buyer_email : '<%=loginUser.getEmail()%>',
-	    buyer_name : '<%=loginUser.getName()%>',
+	    buyer_name : '<%=loginUser.getName()%>'외,
 	    buyer_tel : '<%=loginUser.getPhone()%>',
 	    buyer_addr : '서울특별시 강남구 삼성동',
 	    buyer_postcode : '123-456',
