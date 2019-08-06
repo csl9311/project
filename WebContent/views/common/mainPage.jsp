@@ -82,7 +82,7 @@ cursor:pointer;
 				<img src="<%=request.getContextPath()%>/img/cmboard/video.png" onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
 				<img src="<%=request.getContextPath()%>/img/cmboard/shopcart.png"  onclick="location.href='<%=request.getContextPath()%>/shopMain.do';" >
 				<%if(loginUser!=null){ %>
-				<img src="<%=request.getContextPath()%>/img/cmboard/mypage.png"  onclick="location.href='<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp;" >
+				<img src="<%=request.getContextPath()%>/img/cmboard/mypage.png"  onclick="location.href='<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp';" >
 				<%} %>
 
 
