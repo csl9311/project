@@ -16,7 +16,6 @@
 		<button class=btn-primary onclick="update()">개인정보수정</button>
 		<button class=btn-primary onclick="purchase()">구매내역</button>
 		<button class=btn-primary onclick="cart()">장바구니</button>
-		<button class=btn-primary >작성글 목록</button>
 		
 	</div>
 	

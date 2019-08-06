@@ -9,12 +9,18 @@
 <%@ include file="Form.jsp"%>
 <style>
 	body{
-	min-height:100%;
+	
 	background: rgb(40, 44, 52);
+		
 }
+#ssee{
+min-height:60vh;
+}
+
 </style>
 </head>
-<body >
+<body>
+<div id="ssee">
 <div id="mypage">
 <!-- 아이콘  -->
 	  <div style="display:inline-block">
@@ -33,11 +39,11 @@
 
   <!-- 아이콘 끝 -->
 </div>
-
+</div>
    
    <script>
       function update(){
-         location.href="<%= request.getContextPath()%>/views/MyPagePcheck.jsp";
+         location.href="<%= request.getContextPath()%>/views/MyPage/check.jsp";
       }
       function cart(){
          location.href="<%= request.getContextPath()%>/selectcart.ca";
