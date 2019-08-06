@@ -1,4 +1,4 @@
-package member.controller;
+package payment.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
-import member.model.vo.Payment;
+import payment.model.service.PaymentService;
+import payment.model.vo.Payment;
 import shop.model.service.ShopService;
 import shop.model.vo.PAttachment;
 
@@ -33,11 +34,11 @@ public class SelectPaymentServlet extends HttpServlet {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String userId = loginUser.getId();
 		
-		MemberService memberService = new MemberService();
+		PaymentService paymentService = new PaymentService();
 		
 		ShopService shopService = new ShopService();
 		
-		ArrayList<Payment> payList = memberService.selectPayment(userId);
+		ArrayList<Payment> payList = paymentService.selectPayment(userId);
 		ArrayList<PAttachment> picList = shopService.selectAllPAttachmentList();
 		System.out.println(payList.size());
 		System.out.println(picList.size());
