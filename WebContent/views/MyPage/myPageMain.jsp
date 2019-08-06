@@ -29,14 +29,8 @@
 	  <label>장바구니</label><br>
       <img src="../../img/mypageImg/cart.png" onclick="cart()" width="300px" height="300px">
       </div><br>
-      <div style="display:inline-block">
-	  <label>내가 쓴 게시판</label><br>
-      <img src="../../img/mypageImg/board.png" onclick="update()" width="300px" height="300px">
-      </div>
-      <div style="display:inline-block">
-	  <label>Q&A</label><br>
-      <img src="../../img/mypageImg/Q&A.png" onclick="update()" width="300px" height="300px">
-      </div>
+      
+
   <!-- 아이콘 끝 -->
 </div>
 
@@ -46,7 +40,7 @@
          location.href="<%= request.getContextPath()%>/views/MyPagePcheck.jsp";
       }
       function cart(){
-         location.href="<%= request.getContextPath()%>/selectcart.ca"
+         location.href="<%= request.getContextPath()%>/selectcart.ca";
       }
   		function purchase(){
 		location.href="<%= request.getContextPath()%>/views/MyPage/purchase.jsp";

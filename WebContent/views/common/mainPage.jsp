@@ -29,7 +29,7 @@ cursor:pointer;
 							<span>Sub-title #1</span>
 						</div>
 						
-						<img onclick="location.href='<%=request.getContextPath()%>/list.bo';" src="<%=request.getContextPath()%>/img/cmboard/bono.jpg">
+						<img onclick="location.href='<%=request.getContextPath()%>/list.bo';" style="cursor:pointer" src="<%=request.getContextPath()%>/img/cmboard/bono.jpg">
 						
 					</li>
 
@@ -93,6 +93,7 @@ cursor:pointer;
 		</div>
 
 
+		<%@ include file="/views/common/coinfooter.jsp"%>
 		<script>
 			//slide-wrap
 			var slideWrapper = document.getElementById('slider-wrap');
@@ -178,6 +179,4 @@ cursor:pointer;
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/main/header.js"> </script>
 	</div>
 </body>
-
-		<%@ include file="/views/common/coinfooter.jsp"%>
 </html>

@@ -9,13 +9,15 @@ public class Karaoke {
 	private String time;
 	private String status;
 	private int addressCode;
-	private String address;
+	private String roadAddress;
 	private String addressDetail;
 	
 	public Karaoke() {}
 
-	public Karaoke(int kid, String refId, String karaokeName, int oneCoin, int threeCoin, String time,
-			String status, String postNum, int addressCode) {
+	
+	
+	public Karaoke(int kid, String refId, String karaokeName, int oneCoin, int threeCoin, String time, String status,
+			int addressCode) {
 		super();
 		this.kid = kid;
 		this.refId = refId;
@@ -27,25 +29,31 @@ public class Karaoke {
 		this.addressCode = addressCode;
 	}
 
-	
-	public Karaoke(String karaokeName, int oneCoin, int threeCoin, String time, String status, String address,
-			String addressDetail) {
+
+
+	public Karaoke(int kid, String refId, String karaokeName, int oneCoin, int threeCoin, String time, String status,
+			int addressCode, String roadAddress, String addressDetail) {
 		super();
+		this.kid = kid;
+		this.refId = refId;
 		this.karaokeName = karaokeName;
 		this.oneCoin = oneCoin;
 		this.threeCoin = threeCoin;
 		this.time = time;
 		this.status = status;
-		this.address = address;
+		this.addressCode = addressCode;
+		this.roadAddress = roadAddress;
 		this.addressDetail = addressDetail;
 	}
 
-	public String getAddress() {
-		return address;
-	}
 
-	public void setAddress(String address) {
-		this.address = address;
+
+	public String getRoadAddress() {
+		return roadAddress;
+	}
+	
+	public void setRoadAddress(String roadAddress) {
+		this.roadAddress = roadAddress;
 	}
 
 	public String getAddressDetail() {

@@ -1,4 +1,4 @@
-package shop.controller;
+package karaoke.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,23 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import member.model.vo.Member;
-import shop.model.service.ShopService;
-import shop.model.vo.Payment;
+import karaoke.model.service.KaraokeService;
+import karaoke.model.vo.Attachment;
+import karaoke.model.vo.Karaoke;
 
 /**
- * Servlet implementation class Purchase
+ * Servlet implementation class KaraokeDetailServlet
  */
-@WebServlet("/purchase.ca")
-public class Purchase extends HttpServlet {
+@WebServlet("/detail.ko")
+public class KaraokeDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Purchase() {
+    public KaraokeDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,24 +32,20 @@ public class Purchase extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		Member sessionMember = (Member)session.getAttribute("loginUser");
-		String userId= sessionMember.getId();
-		String[] arr= request.getParameter("list").split(",");
-		ArrayList<Payment> pay = new ArrayList<Payment>();
-		for(int i=0; i<arr.length;i++) {
-		System.out.println("list="+arr[i]);
-		Payment p = new ShopService().selectPurchase(userId,arr[i]);
-		pay.add(p);
-		}
-		for(int i=0; i<pay.size();i++) {
-			Payment p= pay.get(i);
-			System.out.println(p.getpId());
-			
-		}
-
+		int kid = Integer.parseInt(request.getParameter("kid"));
 		
+		KaraokeService service = new KaraokeService();
+		Karaoke karaoke = service.selectKaraoke(kid);
+		ArrayList<Attachment> fileList = service.selectAttachment(kid);
+		
+		if(fileList != null) {
+			request.setAttribute("karaoke", karaoke);
+			request.setAttribute("fileList", fileList);
+			request.getRequestDispatcher("views/search/searchDetail.jsp").forward(request, response);
+		} else {
+			request.setAttribute("msg", "열람 실패 ㅠㅠ");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**
