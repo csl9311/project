@@ -56,47 +56,4 @@ public class AdminService {
 		return product;
 	}
 
-	public int updateProduct(Product p) {
-		Connection conn = getConnection();
-		int result = new AdminDAO().updateProduct(conn, p);
-		if (result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		close(conn);
-		return result;
-	}
-
-	public int updateOption(String optionResult, int pId) {
-		Connection conn = getConnection();
-		int result = new AdminDAO().updateOption(conn, optionResult, pId);
-		if (result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		close(conn);
-		return result;
-	}
-
-	public Product selectOption(int pId) {
-		Connection conn = getConnection();
-		Product product = new AdminDAO().selectOption(conn, pId);
-		close(conn);
-		return product;
-	}
-
-	public int deleteProduct(int pId) {
-		Connection conn = getConnection();
-		int result = new AdminDAO().deleteProduct(conn, pId);
-		if(result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		close(conn);
-		return result;
-	}
-
 }
