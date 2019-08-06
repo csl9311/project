@@ -85,7 +85,6 @@ public class KaraokeInsertServlet extends HttpServlet {
 						
 					}
 				}
-				System.out.println(originFiles.size());
 				
 				String kname = multiRequest.getParameter("kname");
 				String postnum = multiRequest.getParameter("sample4_postcode");
@@ -107,7 +106,6 @@ public class KaraokeInsertServlet extends HttpServlet {
 				a.setAddress_detail(addressDetail);
 				a.setJibunAddress(jibunAddress);
 				a.setId(user);
-				System.out.println("여기" + a.getRoadAddress() + "ㄴㄴ" + a.getAddress_detail() + "ㄴㄴ" + a.getId()  + "ㄴㄴ" + a.getPostNum());
 				
 				int addressCode = new KaraokeService().insertAddress(a);
 				System.out.println(addressCode);

@@ -63,8 +63,7 @@ public class KaraokeListServlet extends HttpServlet {
 			PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 			System.out.println("23" + pi);
 			ArrayList<Karaoke> list = service.selectList(currentPage);
-			ArrayList<Attachment> at = service.selectAlist(currentPage);			
-			System.out.println(at);
+			ArrayList<Attachment> at = service.selectAlist(currentPage);
 			String page = null;
 			if(list != null) {
 				page = "views/search/searchView.jsp";

@@ -74,4 +74,19 @@ public class KaraokeService {
 		close(conn);
 		return at;
 	}
+
+	public Karaoke selectKaraoke(int kid) {
+		Connection conn = getConnection();
+		Karaoke karaoke = new KaraokeDAO().selectKaraoke(conn, kid);
+		close(conn);
+		
+		return karaoke;
+	}
+
+	public ArrayList<Attachment> selectAttachment(int kid) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> list = new KaraokeDAO().selectAttachment(conn, kid);
+		close(conn);
+		return list;
+	}
 }

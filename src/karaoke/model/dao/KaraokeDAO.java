@@ -1,6 +1,6 @@
 package karaoke.model.dao;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
-
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 import karaoke.model.vo.Attachment;
 import karaoke.model.vo.Karaoke;
@@ -138,7 +136,6 @@ public class KaraokeDAO {
 		int result = 0;
 		
 		String query = prop.getProperty("getListCount");
-		System.out.println(query);
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
@@ -154,7 +151,6 @@ public class KaraokeDAO {
 			close(stmt);
 		}
 		
-		System.out.println(result);
 		
 		return result;
 	}
@@ -182,11 +178,14 @@ public class KaraokeDAO {
 			list = new ArrayList<Karaoke>();
 			
 			while(rset.next()) {
-				Karaoke k = new Karaoke(rset.getString("kname"),
+				Karaoke k = new Karaoke(rset.getInt("kid"),
+									rset.getString("ref_id"),
+									rset.getString("kname"),
 									rset.getInt("onecoin"),
 									rset.getInt("threecoin"),
 									rset.getString("ktime"),
 									rset.getString("status"),
+									rset.getInt("address_code"),
 									rset.getString("roadaddress"),
 									rset.getString("address_detail"));	
 				list.add(k);
@@ -214,14 +213,14 @@ public class KaraokeDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			rset = pstmt.executeQuery();
 			pstmt.setInt(1, endRow);
 			pstmt.setInt(2, startRow);
 			
+			rset = pstmt.executeQuery();
 			list = new ArrayList<Attachment>();
 			
 			while(rset.next()) {
-				list.add(new Attachment(rset.getInt("bid"),
+				list.add(new Attachment(rset.getInt("kid"),
 										rset.getString("change_name")));
 			}
 			
@@ -232,6 +231,73 @@ public class KaraokeDAO {
 			close(pstmt);
 		}
 		
+		return list;
+	}
+
+	public Karaoke selectKaraoke(Connection conn, int kid) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Karaoke k = null;
+		
+		String query = prop.getProperty("selectKaraoke");
+		System.out.println(query);
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, kid);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				k = new Karaoke(rset.getInt("kid"),
+								rset.getString("ref_id"),
+								rset.getString("kname"),
+								rset.getInt("onecoin"),
+								rset.getInt("threecoin"),
+								rset.getString("ktime"),
+								rset.getString("status"),
+								rset.getInt("address_code"),
+								rset.getString("roadaddress"),
+								rset.getString("address_detail"));				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return k;
+	}
+
+	public ArrayList<Attachment> selectAttachment(Connection conn, int kid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> list  =  null;
+		
+		String query = prop.getProperty("selectAttachment");
+		System.out.println(query);
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, kid);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Attachment>();
+			
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				at.setFid(rset.getInt("fid"));
+				at.setOriginName(rset.getString("origin_name"));
+				at.setChangeName(rset.getString("change_name"));
+				at.setFilePath(rset.getString("file_path"));
+				at.setFileLevel(rset.getInt("file_level"));
+				
+				list.add(at);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 		return list;
 	}
 	
