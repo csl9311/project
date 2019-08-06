@@ -139,7 +139,7 @@
 <%-- 주소 insert --%>
 		<div class="emptyHeader"></div>
 		<div class="center">
-			<button class="adminButton" id="insertButton" onclick = "insertAddress();">새로운 주소 추가</button>
+			<button class="adminButton" id="insertButton" style="width:auto;" onclick="insertAddress();">새로운 주소 추가</button>
 		</div>
 		
 		<div class="center none" id="insertDiv">
