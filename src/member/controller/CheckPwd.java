@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
-@WebServlet("/checkpwd.me")
+@WebServlet(name="CheckPwd", urlPatterns="/checkpwd.me")
 public class CheckPwd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
-@WebServlet("/member.login")
+@WebServlet(name="LoginServlet", urlPatterns="/member.login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,8 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-
+		
+		System.out.println(userPwd);
 		Member member = new Member(userId, userPwd);
 		Member login = new MemberService().loginMember(member);
 		Member loginUser = null;

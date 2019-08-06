@@ -169,3 +169,16 @@ body::-webkit-scrollbar {
 
 
 
+.mainMenu img{
+	height: 100px;
+	width: 100px;
+	margin: 15px;
+	cursor:pointer;
+}
+
+.mainMenu img:hover{
+	opacity:0.6;
+
+}
+
+
