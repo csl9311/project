@@ -73,22 +73,26 @@ public class InsertReview extends HttpServlet {
 			System.out.println(originFiles.size());
 			System.out.println(originFiles);
 			
-			ArrayList<RAttachment> fileList = new ArrayList<RAttachment>();
-			for (int i = originFiles.size() - 1; i >= 0; i--) {
-				RAttachment at = new RAttachment();
-				at.setFilePAth(savePath);
-				at.setOriginName(originFiles.get(i));
-				at.setChangeName(saveFiles.get(i));
-
-				fileList.add(at);
-			}
-			System.out.println("fileList.size() : " + fileList.size());
-			
 			int pId = Integer.parseInt(multiRequest.getParameter("pId"));
+			System.out.println(pId);
 			String rContent = multiRequest.getParameter("rContent");
 			Date date = new Date(new GregorianCalendar().getTimeInMillis());
 			String rTitle = multiRequest.getParameter("rTitle");
 			String str = "Review";
+			
+			ArrayList<RAttachment> fileList = new ArrayList<RAttachment>();
+			for (int i = originFiles.size() - 1; i >= 0; i--) {
+				System.out.println(1234);
+				RAttachment at = new RAttachment();
+				at.setFilePAth(savePath);
+				at.setOriginName(originFiles.get(i));
+				at.setChangeName(saveFiles.get(i));
+				at.setpId(pId);
+
+				fileList.add(at);
+			}
+			System.out.println();
+			System.out.println("fileList.size() : " + fileList.size());
 			
 			Review r = new Review();
 			r.setrType(1);
@@ -97,8 +101,10 @@ public class InsertReview extends HttpServlet {
 			r.setModifyDate(date);
 			r.setpId(pId);
 			r.setrWriter(userId);
+			System.out.println(userId);
 			
 			result = service.insertReview(r, fileList);
+			System.out.println("result : " + result);
 		}
 		///// 사진
 		
