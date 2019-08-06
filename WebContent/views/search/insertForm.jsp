@@ -101,7 +101,7 @@ body{
 					    <input type="text" class="form-control" id="kname" name="kname">
 					  </div>
 					  <div class="form-group">
-					    <input type="button" class="btn btn-primary" onclick="sample4_execDaumPostcode();" value="주소 검색"/>
+					    <button type="button" class="btn btn-primary" onclick="sample4_execDaumPostcode();">주소 검색</button>
 					    <br><span class="s1">우편번호<input type="text" class="form-control" id="sample4_postcode" name="sample4_postcode" placeholder="우편번호" readonly></span>
 					    <br><span class="s1">도로명 주소<input type="text" class="form-control" id="sample4_roadAddress" name="sample4_roadAddress" readonly/></span>
 					    <br><span class="s1">지번 주소<input type="text" class="form-control" id="sample4_jibunAddress" name="sample4_jibunAddress" readonly/></span>

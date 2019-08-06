@@ -35,7 +35,7 @@ public class KaraokeDAO {
 	public int insertAddress(Connection conn, Address a) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+		System.out.println("주소 넣는데 왜");
 		String query = prop.getProperty("insertAddress");
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -169,7 +169,6 @@ public class KaraokeDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			System.out.println(query);
 			pstmt.setInt(1, endRow);
 			pstmt.setInt(2, startRow);
 			
@@ -241,7 +240,6 @@ public class KaraokeDAO {
 		Karaoke k = null;
 		
 		String query = prop.getProperty("selectKaraoke");
-		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, kid);
@@ -274,7 +272,6 @@ public class KaraokeDAO {
 		ArrayList<Attachment> list  =  null;
 		
 		String query = prop.getProperty("selectAttachment");
-		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, kid);
@@ -299,6 +296,33 @@ public class KaraokeDAO {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int selectReview(Connection conn, String krwriter) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("selectReply");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, krwriter);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result=rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+		
 	}
 	
 }

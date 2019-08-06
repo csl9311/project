@@ -37,7 +37,7 @@ public class KaraokeDetailServlet extends HttpServlet {
 		KaraokeService service = new KaraokeService();
 		Karaoke karaoke = service.selectKaraoke(kid);
 		ArrayList<Attachment> fileList = service.selectAttachment(kid);
-		
+		System.out.println(fileList);
 		if(fileList != null) {
 			request.setAttribute("karaoke", karaoke);
 			request.setAttribute("fileList", fileList);
