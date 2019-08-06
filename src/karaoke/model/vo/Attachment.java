@@ -20,9 +20,9 @@ public class Attachment {
 		this.kid = kid;
 	}
 
-	public Attachment(int fid, String changeName) {
+	public Attachment(int kid, String changeName) {
 		super();
-		this.fid = fid;
+		this.kid = kid;
 		this.changeName = changeName;
 	}
 

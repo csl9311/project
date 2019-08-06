@@ -194,7 +194,18 @@ hr.hr-style {
 				<form class="form-inline">
 					<input class="form-control mr-sm-2" type="search" aria-label="Search">
 			   	 	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+			   	 <% if(loginUser!=null) { %>
+					<% if(loginUser.getNickName().equals("관리자")) { %>
+						<button type="button" id="insertbtn" class="btn btn-primary" onclick="insertko();">노래방 등록</button>
+					<% } %>
+				<% } %>
 				</form>
+				<script>
+					$("#insertbtn").click(function(){
+						location.href="<%=request.getContextPath()%>/views/search/insertForm.jsp";
+					});
+				</script>
+				
 			</div>
 			<!-- 검색 끝 -->
 			
@@ -203,15 +214,22 @@ hr.hr-style {
 			<% if(list.isEmpty()){ %>
 				<li class="list-group-item">목록이 없습니다.</li>
 			<% } else { %>
-				<% for(Karaoke k : list) { %>
-				<a href="#">
+				<% for(int i=0;i<list.size();i++) { 
+					Karaoke k = list.get(i); %>
+				<a href="<%=request.getContextPath()%>/detail.ko?kid=<%= k.getKid()%>">
 			  		<li class="list-group-item">
 			  			<div class="listArea">
+			  			<input type="hidden" value="<%= k.getKid() %>">
+			  			<%for(int j=0; j<at.size(); j++){
+							Attachment a = at.get(j);%>
+							<%if(k.getKid() == a.getKid()) { %>
 					  		<div class="imgArea">
 					  			<div class="thumb">
-					  				<div class="thumbimg" style="background-image: url('<%=request.getContextPath()%>/views/search/photo1.jpg');  background-size: cover;"></div>
+					  				<div class="thumbimg" style="background-image: url('<%=request.getContextPath()%>/img/karaoke/<%=a.getChangeName()%>');  background-size: cover;"></div>
 					  			</div>
 					  		</div>
+					  		<% } %>
+					  	<% } %>
 				  			<div class="listTextArea">
 	      						<h3 class="mb-2"><%= k.getKaraokeName() %></h3>
 	      						<span class="fa fa-star checked"></span>
@@ -219,7 +237,7 @@ hr.hr-style {
 	      						<span class="review-SubTitle">리뷰</span>
 	      						1232개
 	      						<br>
-	      						<span class="location"><%= k.getAddress() %><%= k.getAddressDetail() %> 에 위치함</span>
+	      						<span class="location"><%= k.getRoadAddress() %><%= k.getAddressDetail() %> 에 위치함</span>
 	      					</div>
       					</div>
       				</li>

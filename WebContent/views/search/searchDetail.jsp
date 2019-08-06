@@ -1,23 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="karaoke.model.vo.*, java.util.*"%>
+<% Karaoke karaoke = (Karaoke)request.getAttribute("karaoke"); 
+   ArrayList<Attachment> fileList = (ArrayList<Attachment>)request.getAttribute("fileList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <style>
 body {
-	background-color: rgb(40, 44, 52) !important;;
+	background-color: rgb(40, 44, 52) !important;
+	color:#fff !important;
+	
 }
-
+#carousel{
+	margin-top:0px;
+	padding-top:0px;
+}
+#carousel>.carousel-inner>.item{
+	height: 40em;
+	
+}
+.carousel-inner>.item>img {
+	height: 100%;
+	overflow:hidden !important;
+	padding:0px;
+}
 .carousel {
 	height: 100%;
-    margin-top: 20px;
 	overflow: hidden;
 }
 
 .item .thumb {
 	width: 25%;
-	height: auto;
+	height: 8em;
 	cursor: pointer;
 	float: left;
 }
@@ -25,6 +41,7 @@ body {
 	width: 100%;
 	height: 100%;
 	margin: 2px;
+	overflow: hidden;
 }
 
 .item active{
@@ -218,7 +235,9 @@ hr.hr-style {
 
 </style>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2126183a3359f675cc302c8972c00e81"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=LIBRARY"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=services,clusterer,drawing"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -226,7 +245,7 @@ hr.hr-style {
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/main/mainbanner.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<title>Insert title here</title>
+<title>노래방 상세 보기</title>
 </head>
 <body>
 
@@ -240,45 +259,44 @@ hr.hr-style {
   <div class="row">
     <div class="col-sm-6">
         <div id="carousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
+            <div class="carousel-inner">.
+            <% for(int i=0; i<fileList.size(); i++){%>
+            	<% if (i==0) { %>
                 <div class="item active">
-                    <img src="photo1.jpg">
+                    <img src="<%= request.getContextPath() %>/img/karaoke/<%= fileList.get(i).getChangeName() %>">
                 </div>
-                <div class="item">
-                    <img src="photo2.jpg">
+            	<% } else { %>
+            	<div class="item">
+                    <img src="<%= request.getContextPath() %>/img/karaoke/<%= fileList.get(i).getChangeName() %>">
                 </div>
-                <div class="item">
-                    <img src="photo1.jpg">
-                </div>
-                <div class="item">
-                    <img src="photo2.jpg">
-                </div>
-                <div class="item">
-                    <img src="photo1.jpg">
-                </div>
-                <div class="item">
-                    <img src="photo2.jpg">
-                </div>
-                <div class="item">
-                    <img src="photo1.jpg">
-                </div>
-                
+        		<% } %>
+        	<% } %>
             </div>
         </div> 
     <div class="clearfix">
         <div id="thumbcarousel" class="carousel slide" data-interval="false">
             <div class="carousel-inner">
+            <% int i; %>
                 <div class="item active">
-                    <div data-target="#carousel" data-slide-to="0" class="thumb"><img src="photo1.jpg"></div>
-                    <div data-target="#carousel" data-slide-to="1" class="thumb"><img src="photo2.jpg"></div>
-                    <div data-target="#carousel" data-slide-to="2" class="thumb"><img src="photo1.jpg"></div>
-                    <div data-target="#carousel" data-slide-to="3" class="thumb"><img src="photo2.jpg"></div>
-                </div><!-- /item -->
-                <div class="item">
-                    <div data-target="#carousel" data-slide-to="4" class="thumb"><img src="photo1.jpg"></div>
-                    <div data-target="#carousel" data-slide-to="5" class="thumb"><img src="photo2.jpg"></div>
-                    <div data-target="#carousel" data-slide-to="6" class="thumb"><img src="photo1.jpg"></div>
-                </div><!-- /item -->
+            <% for(i=0;i<fileList.size();i++) {%>
+                    <div data-target="#carousel" data-slide-to="<%= i %>" class="thumb">
+                    	<img src="<%= request.getContextPath() %>/img/karaoke/<%= fileList.get(i).getChangeName() %>">
+                    </div>
+                    <% if(i==4) break; %>
+            <% } %> 
+            <% for(int j=i;j<fileList.size();j++) { %>
+            <div class="item">
+            	<% if(fileList.get(i)!=null) { %>
+            		<% for(i=0;i<fileList.size();i++) {%>
+                    <div data-target="#carousel" data-slide-to="<%= i %>" class="thumb">
+                    	<img src="<%= request.getContextPath() %>/img/karaoke/<%= fileList.get(i).getChangeName() %>">
+                    </div>
+                    <% if(i==4) break; %>
+                    <%= j=i %>
+            		<% } %> 
+            	<% } %>   
+ 			<% } %>      
+                </div>
             </div><!-- /carousel-inner -->
             <a class="left carousel-control" href="#thumbcarousel" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -301,7 +319,7 @@ hr.hr-style {
 		<span class="review-SubTitle">후기</span>
 		<a href="#"><span class="review-count">123</span>
 		<span class="gotorev"> ▶  </span></a>
-		<p class="location-text">경기 수원시 팔달구 매산로 2-11 에 위치함</p>
+		<p class="location-text"><%= karaoke.getRoadAddress()%><%= karaoke.getAddressDetail()%>에 위치함</p>
 		
 		<button id="location-button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="material-icons">place</i> 지도보기</button>
 		<div class="modal fade bd-example-modal-lg"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -315,55 +333,65 @@ hr.hr-style {
     				</div>
     				<div class="modal-body">
     				<div id="mapdiv"></div>
-    				<!-- 지도 스크립트 -->
-    			
-    				
-    				
-    				<script>  
-    				var markers = [
-    				    {
-    				        position: new kakao.maps.LatLng(33.450701, 126.570667)
-    				    },
-    				    {
-    				        position: new kakao.maps.LatLng(33.450001, 126.570467), 
-    				        text: '텍스트를 표시할 수 있어요!' // text 옵션을 설정하면 마커 위에 텍스트를 함께 표시할 수 있습니다     
-    				    }
-    				];
-
-    				var staticMapContainer  = document.getElementById('mapdiv'), // 이미지 지도를 표시할 div  
-    				    staticMapOption = { 
-    				        center: new kakao.maps.LatLng(33.450701, 126.570667), // 이미지 지도의 중심좌표
-    				        level: 3, // 이미지 지도의 확대 레벨
-    				        marker: markers // 이미지 지도에 표시할 마커 
-    				    };    
-
-    				// 이미지 지도를 생성합니다
-    				var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
-    				
-    				$('#location-button').on('click', function() {
-    					setTimeout(function() {	
-    						staticMap.relayout();
-    					}, 500);
-    				});
-    				
-					</script>
-    				
-    				
     				</div>
+    				<script>
+						var mapContainer = document.getElementById('mapdiv'), // 지도를 표시할 div 
+					    mapOption = {
+					        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+					        level: 3 // 지도의 확대 레벨
+					    }; 
+						
+						$('#location-button').on('click', function() {
+							setTimeout(function() {	
+								map.relayout();
+							}, 300);
+						});
+					// 지도를 생성합니다    
+					var map = new kakao.maps.Map(mapContainer, mapOption); 
+				
+					// 주소-좌표 변환 객체를 생성합니다
+					var geocoder = new kakao.maps.services.Geocoder();
+					 
+					
+					// 주소로 좌표를 검색합니다
+					geocoder.addressSearch('서울특별시 강남구 역삼1동 테헤란로1길 28', function(result, status) {
+				
+						  // 정상적으로 검색이 완료됐으면 
+					     if (status === kakao.maps.services.Status.OK) {
+			
+					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			
+					        // 결과값으로 받은 위치를 마커로 표시합니다
+					        var marker = new kakao.maps.Marker({
+					            map: map,
+					            position: coords
+					        });
+			
+					        // 인포윈도우로 장소에 대한 설명을 표시합니다
+					        var infowindow = new kakao.maps.InfoWindow({
+					            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+					        });
+					        infowindow.open(map, marker);
+			
+					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+					        map.setCenter(coords);
+					    } 
+					});    
+					</script>
     			</div>
 			</div>
 		</div>
 		<p></p><hr class="hr-style"><br>
 		<h4>이용정보</h4>
-		<span><strong>이용시간</strong></span><span class="paddingLeft">매일</span><span class="optionMenu">11:00~23:00</span>
+		<span><strong>이용시간</strong></span><span class="paddingLeft">매일</span><span class="optionMenu"><%= karaoke.getTime() %></span>
 		<br>
 		<div class="box1">
 		<div class="box2">
 		<span><strong>가격정보</strong></span>
 		</div>
 		<div class="box3">
-		<span>1곡</span><span class="optionMenu">----------</span><span class="paddingLeft">500원</span><br>
-		<span>3곡</span><span class="optionMenu">----------</span><span class="paddingLeft">1000원</span>
+		<span>1곡</span><span class="optionMenu">----------</span><span class="paddingLeft"><%= karaoke.getOneCoin() %>원</span><br>
+		<span>3곡</span><span class="optionMenu">----------</span><span class="paddingLeft"><%= karaoke.getThreeCoin() %>원</span>
 		</div>
 		</div>
     </div> <!-- /col-sm-6 -->
