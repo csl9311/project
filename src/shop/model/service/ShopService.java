@@ -305,4 +305,18 @@ public class ShopService {
 		return pay;
 	}
 
+	public int deleteCart(int caid,String userId) {
+		
+		Connection conn = getConnection();
+		int result = new ShopDAO().deleteCart(conn, userId, caid);
+		System.out.println("dd"+result);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 }

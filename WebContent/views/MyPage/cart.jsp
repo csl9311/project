@@ -50,20 +50,20 @@ img{
 									if (j % 2 == 0) {
 					%>
 					
-					<tr>
+					<tr class="deleteone<%=i%>">
 						<td>이미지</td>
 						<td><%=p.getpName()%></td>
 						<%
 							for (int k = 0; k < arr.length; k++) {
 												if (k % 2 == 0) {
 						%>
-						<td><%=arr[k]%></td>
+						<td ><%=arr[k]%></td>
 						<td><%=arr[k + 1]%></td>
 						<td><%=p.getPrice()%>원</td>
 						<td><%=p.getPrice() * p.getAmount()%>원</td>
 						<td><br>
 
-							<button class="cartBtn" onclick="deletecart();">삭제</button>
+							<button class="cartBtn" onclick="deletecart(<%=i%>,<%=p.getCrId() %>);">삭제</button>
 							<br>
 							</td>
 						<%
@@ -79,15 +79,15 @@ img{
 					<%}
 							} else {
 					%>
-					<tr>
+					<tr class="delete<%=i%>">
 						<td>이미지</td>
-						<td><%=p.getpName()%></td>						
+						<td ><%=p.getpName()%></td>						
 						<td><%=p.getpOption()%></td>
 						<td><%=p.getAmount()%></td>
 						<td><%=p.getPrice()%>원</td>
 						<td><%=p.getPrice() * p.getAmount()%>원</td>
 						<td><br>
-						<button class="cartBtn" onclick="deletecart();">삭제</button><br></td>
+						<button class="cartBtn" onclick=deletecart(<%=i%>,<%=p.getCrId() %>)>삭제</button><br></td>
 					</tr>
 					<%
 						}
@@ -177,15 +177,36 @@ img{
 		
 		</div>
 	</div>
+		<%} %>
 	<script>
 	function shop(){
 		location.href="<%= request.getContextPath()%>/shopMain.do";
 	}
 
-	<%} %>
-		function deletecart(){
+
+		function deletecart(i,caid){
+			console.log(i);
+			var userId = '<%=loginUser.getId()%>';
+			$('.delete'+i).remove();
+			$('.deleteone'+i).remove();
+		
 			
-		}
+			$.ajax({
+				url: "cartdelete.ca",
+				type: "get",
+				data: {caid:caid,userId:userId},
+				success: function(data){
+					console.log("송신");
+				
+					
+				}
+			
+				
+				});
+			
+			location.reload();
+			}
+	
 	
 	</script>
 	

@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="com.sun.xml.internal.bind.v2.runtime.Location, 
-		member.model.vo.*, shop.model.vo.*, java.util.ArrayList,
-		payment.model.vo.*"%>
+<%@page import="com.sun.xml.internal.bind.v2.runtime.Location, member.model.vo.*, shop.model.vo.*, java.util.ArrayList"%>
 <%
 	
-	ArrayList<Payment> pList = (ArrayList<Payment>)request.getAttribute("payList");
+	ArrayList<Payment> pList = (ArrayList<Payment>)request.getAttribute("pList");
 	ArrayList<PAttachment> picList = (ArrayList<PAttachment>)request.getAttribute("picList");
 	System.out.println(pList.size());
 	System.out.println(picList.size());
@@ -32,19 +30,6 @@
 }
 #index{
 	min-height : 70vh;
-}
-img{
-	width: 100px; height: 100px;
-}
-p{
-	margin-top: 3%; 
-}
-button{
-	background-color: rgb(210,210,210); 
-	border: none;
-	height: 30px;
-	font-weight: 800;
-	color: rgb(40,40,40);
 }
 </style>
 </head>
@@ -75,32 +60,30 @@ button{
 						<td>주문처리상태</td>
 						<td>상품평등록</td>
 					</tr>
-						<% 
-						int i = 0;
-						for(Payment p : pList) { 
+						<% for(Payment p : pList) { 
+							int i = 0;
 						%>
 							
 					<tr>
-						<td class="oNo">
-						<%=p.getoNo() %>
-						<input type="hidden" value="<%=p.getpId()%>">
-						</td>
+						<td><%=p.getoNo() %></td>
 						<% for(PAttachment pic : picList) {
 							if(pic.getpId() == p.getpId()){ %>
-							<td><img class="pic" src="<%=pic.getFilePAth()%>"></td>
+							<td><img src="<%=pic.getFilePAth()%>"></td>
 						<% }}%>
-						<td colspan="3">
-						<p class="pName"><%=p.getpName()%><p>
+						<td colspan="3"><%=p.getpName()%>
+						<p id="prdInfo<%=i%>"></p>
 						<% if(p.getpOption() != null) {%>
-						<p class="pOption" id="pOption<%=i%>">
-						<%=p.getpOption()%></p>
-						<%} %>
+							<script>
+							$('#prdInfo'+<%=i%>).text(<%=p.getpOption()%>);
+							</script>
 						</td>	
-						<td class="pAmount"><%=p.getAmount()%></td>
-						<td class="pPrice"><%=(int)p.getAmount()*p.getPrice()%></td>
-						<td class="pHistory"><%=p.getHistory()%></td>
+						<%} %>
+						<td><%=p.getAmount()%></td>
+						<td><%=p.getAmount()%>*<%=p.getPrice()%></td>
+						<td></td>
 						<td><button onclick="review();">상품평 등록</button></td>
 					</tr>
+							
 					<% i++; }%>
 				</table>
 			</div>
@@ -108,29 +91,7 @@ button{
 	</div>
 	<script>
 	function review(){
-		var oNo;	// 장바구니 번호
-		var pId; // 상품 아이디
-		var pName; // 상품명
-		var pic; // 사진
-		var pOption;  // 옵션
-		var e = $(event.target).parent(); // 맨 마지막 td
-		
-		console.log(e);
-		
-		oNo = $(e).prevAll().eq(5).text().trim();
-		pName = $(e).prevAll().find('.pName').text();
-		pic = $(e).prevAll().find('.pic').attr('src');
-		pOption = $(e).prevAll().find('.pOption').text().trim();
-		pId = $(e).prevAll().find('input').val();
-		
-		console.log("pId : " +  pId);
-		console.log("oNo : " +  oNo);
-		console.log(pName);
-		console.log(pic);
-		console.log("pOption : " + pOption);
-		
-		window.open("<%=request.getContextPath()%>/views/shop/InsertReviewView.jsp?pName="+pName+"&pic="+pic+"&pOption="+pOption+"&pId="+pId,
-				"상품평 입력창","width=600px, height=680px, left=500, top=50");
+		window.open("<%=request.getContextPath()%>/views/shop/shopReviewInsertView.jsp","상품평 입력창","width=600px, height=680px, left=500, top=50, toolbar=0, resizable=0, status=0, menubar=0, scrollbars=0");
 	}
 	</script>
 	

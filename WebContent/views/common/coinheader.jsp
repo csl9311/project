@@ -93,7 +93,7 @@
 				<%-- 로고 --%>
 				<div class="logo"
 					onclick="location.href='<%=request.getContextPath()%>/views/common/mainPage.jsp'"
-					style="cursor: pointer; display: inline-block;width:80px;height:50px">
+					style="cursor: pointer; display: inline-block;width:80px;height:50px;opacity:0.8;">
 					<img src="<%=request.getContextPath()%>/img/cmboard/singsing.png"
 						style=" top: 0; left: 0; width:80px;height:50px" />
 				</div>

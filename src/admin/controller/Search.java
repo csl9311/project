@@ -23,6 +23,7 @@ public class Search extends HttpServlet {
 			throws ServletException, IOException {
 		String keyword = request.getParameter("keyword");
 		
+		ArrayList<?> list = new MemberService().search(keyword);
 		
 		if(list != null) {
 			request.setAttribute("memberList", list);

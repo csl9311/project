@@ -50,7 +50,7 @@ img{
          location.href="<%=request.getContextPath()%>/views/MyPage/check.jsp";
       }
       function cart(){
-         	location.href="<%=request.getContextPath()%>/selectCart.ca";
+         location.href="<%=request.getContextPath()%>/selectcart.ca;
       }
   		function purchase(){
 			location.href="<%=request.getContextPath()%>/selectPayment.do";
