@@ -339,10 +339,9 @@ img {
 		// 리뷰 등록 ajax
 		$('#submitBtn').on('click', function(){
 			if(confirm("정말 수정하시겠습니까?")){
-			var content = $("#textArea").val();
-			var rContent = content.trim();
+			var rContent = $("#textArea").val().trim();
 			var form = $('#file_form');
-			var rTitle = $('#title').text().trim();
+			var rTitle = $('#title').val().trim();
 			
 			var fileData = new FormData();
 			fileData.append("file1", $("#thumbnailImg1")[0].files[0]);
