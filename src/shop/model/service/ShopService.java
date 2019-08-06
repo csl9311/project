@@ -306,7 +306,7 @@ public class ShopService {
 	}
 
 	public int deleteCart(int caid,String userId) {
-		
+	
 		Connection conn = getConnection();
 		int result = new ShopDAO().deleteCart(conn, userId, caid);
 		System.out.println("dd"+result);
