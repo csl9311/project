@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="shop.model.vo.*, product.model.vo.*, java.util.*"%>
 <%
-	String pId = request.getParameter("pId");
-	String pName = (String) (request.getParameter("pName"));
-	String rId = request.getParameter("rId");
-	String rContent = (String) (request.getParameter("rContent"));
-	System.out.println(pId);
-	System.out.println(rId);
+	String pOption = request.getParameter("pOption");
+	String pName = request.getParameter("pName");
+	String pic = request.getParameter("pic");
 %>
 
 <!DOCTYPE html>
@@ -21,6 +18,7 @@
 }
 
 body {
+
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
@@ -37,6 +35,21 @@ body {
 	cursor: pointer;
 }
 
+#title{
+	width: 100%;
+	height: 25px;
+	background: none;
+	resize: none;
+	border: none;
+	font-size: 1.3em;
+	text-align: center;
+	align-content: center;
+	text-overflow: ellipsis;
+	color: rgb(210, 210, 210);
+	overflow: hidden;
+	margin-bottom: 2%;
+	font-family: '돋움체';
+}
 #wrap {
 	width: 90%;
 	color: rgb(210, 210, 210);
@@ -53,7 +66,7 @@ body {
 }
 
 #upper {
-	margin-top: -3%;
+	margin-top: -5%;
 	width: 100%;
 	border-bottom: 2px solid rgb(210, 210, 210);
 	text-align: center;
@@ -116,7 +129,7 @@ img {
 	margin-bottom: 5%;
 }
 
-#review_textarea {
+#review_textArea {
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -124,7 +137,7 @@ img {
 	background-color: rgb(75, 75, 75);
 }
 
-#review_textarea textArea {
+#review_textArea textArea {
 	background-color: rgb(75, 75, 75);
 	width: 90%;
 	height: 40vh;
@@ -132,7 +145,6 @@ img {
 	resize: none;
 	border: none;
 	color: rgb(210, 210, 210);
-	border: none;
 }
 
 #review_attach {
@@ -208,20 +220,21 @@ img {
 			<form id="file_form" method="post" enctype="multipart/form-data">
 			<input type="hidden" id="pId" name="pId"> 
 			<div id="upper">
-				<p>상품평 작성</p>
+				<textArea id="title" placeholder="제목을 입력해주세요"></textArea>
 				<button class="button_close" type="button" onclick="self.close();">X</button>
 			</div>
 			<div id="selected_info">
 				<div id="selecetd_img">
-					<img alt="상품명" src="../../img/shopImg/photo2.jpg">
+					<img alt="상품명" src="<%=pic%>">
 				</div>
 				<div id="item_info">
-					<p id="item"><%=pName%></p>
+					<p id="pName"><%=pName%></p>
+					<p id="pOption"><%=pOption%></p>
 				</div>
 			</div>
 			<div class="review">
-				<div id="review_textarea">
-					<textArea id="textArea" placeholder="상품평 내용(최대 2000자)을 입력해 주세요."><%=rContent%></textArea>
+				<div id="review_textArea">
+					<textArea id="textArea" placeholder="상품평 내용(최대 200자)을 입력해 주세요."></textArea>
 					<span id="byteCheck">0</span>
 					<script>
 							// 글자수 체크
@@ -238,7 +251,7 @@ img {
 							$("#textArea").keyup(function( e ){
 							 msg_length = $(this).val().bytes(); 
 							
-							 if( msg_length <= 3999 ) {     
+							 if( msg_length <= 400) {     
 							  $("#byteCheck").css("color", "#9e9b9b");    
 							  $("#byteCheck").html(parseInt(msg_length/2));  
 							 }
@@ -326,22 +339,21 @@ img {
 		// 리뷰 등록 ajax
 		$('#submitBtn').on('click', function(){
 			if(confirm("정말 수정하시겠습니까?")){
-			var rId = '<%=rId%>';
 			var content = $("#textArea").val();
 			var rContent = content.trim();
 			var form = $('#file_form');
+			var rTitle = $('#title').text().trim();
 			
 			var fileData = new FormData();
 			fileData.append("file1", $("#thumbnailImg1")[0].files[0]);
 			fileData.append("file2", $("#thumbnailImg2")[0].files[0]);
 			fileData.append("file3", $("#thumbnailImg3")[0].files[0]);
-			fileData.append("rId", rId);
 			fileData.append("rContent", rContent);
-			
-			/* 여기 url 바꾸시고 필요한 정보 append 하시면 될 것 같아요 */
+			fileData.append("pId", pId);
+			fileData.append("rTitle", rTitle);
 			
 			$.ajax({
-				url: "<%=request.getContextPath()%>/updateReview.do", 
+				url: "<%=request.getContextPath()%>/insertReview.do", 
 					type : "post",
 					contentType:false,
 				    processData:false,
