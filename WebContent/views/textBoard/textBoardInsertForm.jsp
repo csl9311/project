@@ -8,7 +8,8 @@ body {
 	background-color: rgb(40, 44, 52) !important;
 }
 .mainArea{
-	width: 
+	padding-top: 1em;
+	min-height: 50em;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

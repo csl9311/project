@@ -82,9 +82,7 @@ body{
     clear: both;
 }
 
-.table{
-	border-radius: 10px;
-}
+
 
 .contentArea{
 	padding-top: 4em;
@@ -105,6 +103,9 @@ body{
 
 .pagination{
 	padding-top: 8px;
+}
+table{
+	margin-bottom:0px !important;
 }
 table th{
 	text-align: center;
@@ -145,28 +146,24 @@ table td{
 	<!--  -->
 	<div class="container bc">
 		<div class="contentArea">
-			<table class="table table-dark table-hover" id="list">
+			<table class="table table-dark" id="list">
 				<thead>
 					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>날짜</th>
-						<th>조회수</th>
+						<th style="text-align: left">번호</th>
+						<th style="text-align: center">제목</th>
+						<th style="text-align: right">작성자</th>
+						<th style="text-align: right">날짜</th>
+						<th style="text-align: right">조회수</th>
 					</tr>
 				</thead>
-				<% if(list.isEmpty()){ %>
-					<tr>
-						<td colspan="5" style="text-align:center;">
-						게시글이 없습니다.
-						</td>
-					</tr>
-				<% } else { %>
-					<% for(TextBoard tb : list) { %>
+			</table>
+			<table class="table table-secondary table-hover" id="list">
+				<% for(TextBoard tb : list) { %>
+					<% if(tb.getTbType()==2){ %>
 						<tbody>
 							<tr>
 								<td><%= tb.getTbid() %><input type="hidden" value="<%= tb.getTbid() %>"></td>
-								<td><%= tb.getTbTitle() %></td>
+								<td><strong>[공지]</strong><%= tb.getTbTitle() %></td>
 								<td><%= tb.getTbWriter() %></td>
 								<td><%= tb.getCreateDate() %></td>
 								<td><%= tb.getTbCount() %></td>				
@@ -175,7 +172,41 @@ table td{
 					<% } %>
 				<% } %>
 			</table>
-			<form>
+			<table class="table table-dark table-hover" id="list">
+				<% if(list.isEmpty()){ %>
+					<tr>
+						<td colspan="5" style="text-align:center;">
+						게시글이 없습니다.
+						</td>
+					</tr>
+				<% } else { %>
+					<% for(TextBoard tb : list) { %>
+						<% if(tb.getTbType()==2){ %>
+							<tbody>
+								<tr>
+									<td><%= tb.getTbid() %><input type="hidden" value="<%= tb.getTbid() %>"></td>
+									<td><strong>[공지]</strong><%= tb.getTbTitle() %></td>
+									<td><%= tb.getTbWriter() %></td>
+									<td><%= tb.getCreateDate() %></td>
+									<td><%= tb.getTbCount() %></td>				
+								</tr>
+							</tbody>
+						<% } else {%>
+							<tbody>
+								<tr>
+									<td><%= tb.getTbid() %><input type="hidden" value="<%= tb.getTbid() %>"></td>
+									<td><%= tb.getTbTitle() %></td>
+									<td><%= tb.getTbWriter() %></td>
+									<td><%= tb.getCreateDate() %></td>
+									<td><%= tb.getTbCount() %></td>				
+								</tr>
+							</tbody>
+						<% } %>
+					<% } %>
+				<% } %>
+			</table>
+			
+			<!-- <form>
 			<div class="text-center">
 				<select class="selectpicker">
 				  <option value=1>제목</option>
@@ -185,7 +216,7 @@ table td{
 				<input type="text" id="searchText" placeholder="검색할 내용을 입력하세요">
 				<input type="button" id="searchBtn" class="btn btn-success" value="검색">
 			</div>
-			</form>
+			</form> -->
 			<div class="text-center">
 				<ul class="pagination">
 					<% if(!list.isEmpty()){ %>

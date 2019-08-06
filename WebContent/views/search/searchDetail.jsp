@@ -251,10 +251,6 @@ hr.hr-style {
 
 
 <%@include file="../common/coinheader.jsp" %>
-
-
-
-
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
@@ -433,30 +429,34 @@ hr.hr-style {
   		</div>
   		
   	</div>
+  	<% if(loginUser!=null) { %>
   	<div class="col-sm-12">
   		<div class="reviewWrite">
+  		<form action="<%= request.getContextPath() %>/reply.ko" method="get">
   			<div class="textArea" id="replytext">
-  				<textarea rows="5"></textarea>
+  				<textarea name="replytext" rows="5"></textarea>
   			</div>
   			<div class="submitArea">
-  				<form>
+  				
+  				<input type="hidden" name=krwriter value="<%= loginUser.getId() %>">
+  				<input type="hidden" name=ref_kid value="<%= karaoke.getKid() %>">
 	  				<span>
-	  					<select class="form-control">
-	  						<option>★☆☆☆☆</option>
-	  						<option>★★☆☆☆</option>
-	  						<option>★★★☆☆</option>
-	  						<option>★★★★☆</option>
-	  						<option>★★★★★</option>
+	  					<select class="form-control" name=krating>
+	  						<option value="1">★☆☆☆☆</option>
+	  						<option value="2">★★☆☆☆</option>
+	  						<option value="3">★★★☆☆</option>
+	  						<option value="4">★★★★☆</option>
+	  						<option value="5" selected>★★★★★</option>
 	  					</select>
 	  				</span><br>
   					<span><button class="btn btn-success">리뷰 작성</button></span>
-  				</form>
-  			</div>
+  				</div>
+  			</form>
   		</div>
   	</div>
+  	<% } %>
   </div>
 </div> <!-- /container -->
-
 </body>
 <%@ include file="../common/coinfooter.jsp"%>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/header.js"></script>

@@ -49,20 +49,6 @@ public class KaraokeInsertServlet extends HttpServlet {
 				String root = request.getSession().getServletContext().getRealPath("/");
 				String savePath = root + "img/Karaoke/";
 				
-				System.out.println(savePath);
-				
-			
-			
-			/*
-				cos.jar에서 파일 명 변환하는 클래스를 제공하고 있음
-				== DefaultFileRenamePolicy
-					: 같은 파일 명이 존재하는지 검사하고 있을 경우에는 파일 명 뒤에 숫자를 붙여줌
-						ex) aaa.jpg, aaa1.jpg, aaa2.jpg
-						
-				MultipartRequest mr = new MultipartRequest(
-						request, savePath, maxSize, encoding, new DefaultFileRenamePolicy());
-			*/
-			
 				MultipartRequest multiRequest
 					= new MultipartRequest(request, savePath, maxSize,
 											"UTF-8", new MyFileRenamePolicy());	
@@ -98,8 +84,6 @@ public class KaraokeInsertServlet extends HttpServlet {
 				String time= otime + " ~ " + ctime;
 				String user = multiRequest.getParameter("id");
 
-				System.out.println(user);
-				
 				Address a = new Address();
 				a.setPostNum(postnum);
 				a.setRoadAddress(address);
@@ -108,7 +92,6 @@ public class KaraokeInsertServlet extends HttpServlet {
 				a.setId(user);
 				
 				int addressCode = new KaraokeService().insertAddress(a);
-				System.out.println(addressCode);
 				
 				Karaoke k = new Karaoke();
 				k.setKaraokeName(kname);

@@ -238,10 +238,8 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 		}
 	}%>";
 	console.log(list);
-	$('#payment').click(function(){
-		  location.href="<%=request.getContextPath()%>/purchase.ca?list="+list;
-	});
-	<%-- var IMP = window.IMP; // 생략가능
+
+	var IMP = window.IMP; // 생략가능
 	IMP.init('imp03747157');
 	
 	var name= $('#firstName0').val();
@@ -275,7 +273,7 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	    }
 	    alert(msg); 
 	});
-	}); --%>
+	});
 	
 	
 	</script>

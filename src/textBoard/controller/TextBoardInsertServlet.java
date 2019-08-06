@@ -37,6 +37,7 @@ public class TextBoardInsertServlet extends HttpServlet {
 		String content = request.getParameter("tbContent");
 		int tbtype = Integer.parseInt(request.getParameter("tbtype"));
 		
+		System.out.println("!!"+tbtype);
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");

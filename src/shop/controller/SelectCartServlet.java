@@ -49,7 +49,7 @@ public class SelectCartServlet extends HttpServlet {
 			}
 			request.setAttribute("info",info);					
 		}else {
-			page = "views/common/errorPage.jsp";
+			page = "views/MyPage/emptycart.jsp";
 			request.setAttribute("msg", "장바구니 조회에 실패했습니다.");
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);

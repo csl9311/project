@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import karaoke.model.dao.KaraokeDAO;
 import karaoke.model.vo.Attachment;
 import karaoke.model.vo.Karaoke;
+import karaoke.model.vo.Review;
 import member.model.vo.Address;
 
 public class KaraokeService {
@@ -88,5 +89,13 @@ public class KaraokeService {
 		ArrayList<Attachment> list = new KaraokeDAO().selectAttachment(conn, kid);
 		close(conn);
 		return list;
+	}
+
+	public int selectReview(String krwriter) {
+		Connection conn = getConnection();
+		int result = new KaraokeDAO().selectReview(conn, krwriter);
+		close(conn);
+		
+		return result;
 	}
 }
