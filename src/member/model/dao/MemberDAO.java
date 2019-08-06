@@ -384,6 +384,7 @@ public class MemberDAO {
 
 
 	public ArrayList<Payment> selectPayment(Connection conn, String userId) {
+		System.out.println("DAO 들어옴?");
 		PreparedStatement pstmt = null;
 		ResultSet r = null;
 		ArrayList<Payment> pArr = new ArrayList<Payment>();
@@ -409,12 +410,16 @@ public class MemberDAO {
 								 r.getDate("pay_date"),
 								 r.getString("address"),
 								 r.getString("history"));
-				pArr.add(p);		
+				pArr.add(p);
+				System.out.println("pArr.size() : "+pArr.size());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(r);
+			close(pstmt);
 		}
 		
-		return null;
+		return pArr;
 	}
 }

@@ -43,10 +43,10 @@ min-height:60vh;
    
    <script>
       function update(){
-         location.href="<%= request.getContextPath()%>/views/MyPage/check.jsp";
+         location.href="<%=request.getContextPath()%>/views/MyPage/check.jsp";
       }
       function cart(){
-         location.href="<%= request.getContextPath()%>/views/cart.jsp";
+         location.href="<%=request.getContextPath()%>/views/cart.jsp";
       }
   		function purchase(){
 			location.href="<%=request.getContextPath()%>/selectPayment.do";

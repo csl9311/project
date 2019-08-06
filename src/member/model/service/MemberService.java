@@ -140,6 +140,7 @@ public class MemberService {
 	}
 
 	public ArrayList<Payment> selectPayment(String userId) {
+		System.out.println("서비스 들어옴?");
 		Connection conn = getConnection();
 		ArrayList<Payment> pList = new MemberDAO().selectPayment(conn, userId);
 		close(conn);

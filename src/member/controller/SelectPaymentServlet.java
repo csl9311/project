@@ -37,16 +37,16 @@ public class SelectPaymentServlet extends HttpServlet {
 		
 		ShopService shopService = new ShopService();
 		
-		ArrayList<Payment> payList = memberService.selectPayment(userId); 
+		ArrayList<Payment> payList = memberService.selectPayment(userId);
 		ArrayList<PAttachment> picList = shopService.selectAllPAttachmentList();
+		System.out.println(picList.size());
+		System.out.println(payList.size());
 		
 		String page = null;
 		if (payList != null) {
-			page = "views/MyPage/purchase.jsp";
+			page = "/views/MyPage/purchase.jsp";
 			request.setAttribute("payList", payList);
-			request.setAttribute("picList", picList);
-			System.out.println(picList.size());
-			System.out.println(payList.size());
+			request.setAttribute("payList", payList);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");

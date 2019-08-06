@@ -14,8 +14,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="Form.jsp"%>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/mypage/cart.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/css/mypage/cart.css">
 <style>
 .nav {
 	margin: auto;
