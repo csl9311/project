@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.PageInfo;
 import product.model.vo.Product;
 import shop.model.service.ShopService;
+import shop.model.vo.PAttachment;
 
 @WebServlet("/shopMain.do")
 public class ShopMainServlet extends HttpServlet {
@@ -85,8 +86,9 @@ public class ShopMainServlet extends HttpServlet {
 			list = service.selectAllkeyList(currentPage, key);
 		} else {
 			list = service.selectAllList(currentPage);
-
 		}
+		
+		ArrayList<PAttachment> pAttList = service.selectAllPAttachmentList();
 
 		String page = null;
 		if (list != null) {
@@ -94,6 +96,7 @@ public class ShopMainServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("rankList", rankList);
 			request.setAttribute("newList", newList);
+			request.setAttribute("pAttList", pAttList);
 			request.setAttribute("pi", pi);
 		} else {
 			page = "views/common/errorPage.jsp";

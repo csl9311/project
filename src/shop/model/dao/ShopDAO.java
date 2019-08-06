@@ -16,6 +16,7 @@ import java.util.Properties;
 import member.model.dao.MemberDAO;
 import product.model.vo.Product;
 import shop.model.vo.Answer;
+import shop.model.vo.PAttachment;
 import shop.model.vo.Payment;
 import shop.model.vo.RAttachment;
 import shop.model.vo.Review;
@@ -1072,6 +1073,99 @@ public class ShopDAO {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<PAttachment> selectPAttachmentList(Connection conn, int pId) {
+		PreparedStatement pstmt = null;
+		ResultSet r = null;
+		ArrayList<PAttachment> pattList = new ArrayList<PAttachment>();
+		PAttachment pat = null;
+		
+		String query = prop.getProperty("selectPAttachmentList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			System.out.println(query);
+			pstmt.setInt(1, pId);
+			
+			r = pstmt.executeQuery();
+			
+			while(r.next()) {
+				pat = new PAttachment(r.getInt("pfid"),
+										r.getString("file_path"),
+										r.getInt("filelevel"));
+				pattList.add(pat);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(r);
+			close(pstmt);
+		}
+		
+		return pattList;
+	}
+
+	public PAttachment selectPAttachment(Connection conn, int pId) {
+		PreparedStatement pstmt = null;
+		ResultSet r = null;
+		PAttachment thumbP = new PAttachment();
+		
+		String query = prop.getProperty("selectPAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			System.out.println(query);
+			pstmt.setInt(1, pId);
+			
+			r = pstmt.executeQuery();
+			
+			if(r.next()) {
+				thumbP = new PAttachment(r.getInt("pfid"),
+										r.getString("file_path"),
+										r.getInt("filelevel"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(r);
+			close(pstmt);
+		}
+		return thumbP;
+	}
+
+	public ArrayList<PAttachment> selectAllPAttachmentList(Connection conn) {
+		Statement stmt = null;
+		ResultSet r = null;
+		ArrayList<PAttachment> pattList = new ArrayList<PAttachment>();
+		PAttachment pat = null;
+		
+		String query = prop.getProperty("selectAllPAttachmentList");
+		
+		try {
+			stmt = conn.createStatement();
+			System.out.println(query);
+			
+			r = stmt.executeQuery(query);
+			
+			while(r.next()) {
+				pat = new PAttachment(r.getInt("pfid"),
+										r.getString("file_path"),
+										r.getInt("pId"),
+										r.getInt("filelevel"));
+				pattList.add(pat);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(r);
+			close(stmt);
+		}
+		
+		return pattList;
 	}
 
 

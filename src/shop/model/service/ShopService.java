@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import product.model.vo.Product;
 import shop.model.dao.ShopDAO;
 import shop.model.vo.Answer;
+import shop.model.vo.PAttachment;
 import shop.model.vo.Payment;
 import shop.model.vo.RAttachment;
 import shop.model.vo.Review;
@@ -271,6 +272,27 @@ public class ShopService {
 		int result = new ShopDAO().selectReviewCount(conn, rId);
 		close(conn);
 		return result;
+	}
+
+	public ArrayList<PAttachment> selectPAttachmentList(int pId) {
+		Connection conn = getConnection();
+		ArrayList<PAttachment> pAttList = new ShopDAO().selectPAttachmentList(conn, pId);
+		close(conn);
+		return pAttList;
+	}
+
+	public PAttachment selectPAttachment(int pId) {
+		Connection conn = getConnection();
+		PAttachment thumbP = new ShopDAO().selectPAttachment(conn, pId);
+		close(conn);
+		return thumbP;
+	}
+
+	public ArrayList<PAttachment> selectAllPAttachmentList() {
+		Connection conn = getConnection();
+		ArrayList<PAttachment> pAttList = new ShopDAO().selectAllPAttachmentList(conn);
+		close(conn);
+		return pAttList;
 	}
 
 }

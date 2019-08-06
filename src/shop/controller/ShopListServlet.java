@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import product.model.vo.Product;
 import shop.model.service.ShopService;
+import shop.model.vo.PAttachment;
 import common.PageInfo;
 
 @WebServlet("/shopList.do")
@@ -73,6 +74,7 @@ public class ShopListServlet extends HttpServlet {
 
 		String rank = "sellCount";
 		ArrayList<Product> rankList = service.selectSortList(1, cName, rank);
+		ArrayList<PAttachment> pAttList = service.selectAllPAttachmentList();
 
 		ArrayList<Product> list = null;
 		if (sortBy != null && !sortBy.equals("regdate") && !sortBy.equals("null") && key != null
@@ -93,6 +95,7 @@ public class ShopListServlet extends HttpServlet {
 			request.setAttribute("rankList", rankList);
 			request.setAttribute("pi", pi);
 			request.setAttribute("listCount", listCount);
+			request.setAttribute("pAttList", pAttList);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");

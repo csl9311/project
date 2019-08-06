@@ -9,11 +9,12 @@ public class PAttachment {
 	private String filePAth;
 	private int pId;
 	private Date uploadDate;
+	private int fileLevel;
 	
 	public PAttachment() {}
 
-	public PAttachment(int pFId, String originName, String changeName, String filePAth, int pId,
-			Date uploadDate) {
+	public PAttachment(int pFId, String originName, String changeName, String filePAth, int pId, Date uploadDate,
+			int fileLevel) {
 		super();
 		this.pFId = pFId;
 		this.originName = originName;
@@ -21,8 +22,34 @@ public class PAttachment {
 		this.filePAth = filePAth;
 		this.pId = pId;
 		this.uploadDate = uploadDate;
+		this.fileLevel = fileLevel;
 	}
 
+
+	public PAttachment(int pFId, String filePAth, int fileLevel) {
+		super();
+		this.pFId = pFId;
+		this.filePAth = filePAth;
+		this.fileLevel = fileLevel;
+	}
+	
+	
+
+	public PAttachment(int pFId, String filePAth, int pId, int fileLevel) {
+		super();
+		this.pFId = pFId;
+		this.filePAth = filePAth;
+		this.pId = pId;
+		this.fileLevel = fileLevel;
+	}
+
+	public int getFileLevel() {
+		return fileLevel;
+	}
+
+	public void setFileLevel(int fileLevel) {
+		this.fileLevel = fileLevel;
+	}
 
 	public int getpFId() {
 		return pFId;

@@ -304,6 +304,9 @@ option[value=""][disabled] {
 	.cb_info_inner, .cb_cate a {
 	width: 100%;
 }
+#cb_detail{
+	text-align: center;
+}
 #cb_review, #cb_qna{
 	display: inline-block;
 	margin-bottom: 10vh;
@@ -424,7 +427,7 @@ blockquote div{
 	justify-content: space-between;
 }
 .cb_info_inner{
-	width: 30%;
+	width: 100%;
 }
 
 #cb_info .text_box {

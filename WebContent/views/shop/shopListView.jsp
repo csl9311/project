@@ -1,10 +1,11 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/views/common/coinheader.jsp"%>
-<%@page import="product.model.vo.*, java.util.*,common.PageInfo"%>
+<%@page import="product.model.vo.*, java.util.*,common.PageInfo, shop.model.vo.*"%>
 <%
 	ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("list");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	ArrayList<Product> rankList = (ArrayList<Product>) request.getAttribute("rankList");
+	ArrayList<PAttachment> pAttList = (ArrayList<PAttachment>) request.getAttribute("pAttList");
 	
 	int cid = Integer.parseInt(request.getParameter("cid"));
 
@@ -74,8 +75,16 @@
 					<div class="item_border flex">
 						<div class="item flex column">
 							<div class="item_top">
-								<img class="pointer" alt="" src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
-							</div>
+											<img class="pointer" id="bestImg<%=count%>" alt="" src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
+										<%
+										for(PAttachment pat : pAttList){ %>
+											<%if(p.getpId() == pat.getpId()){ %>
+												<script>
+													$('#bestImg'+<%=count%>).attr("src",'<%=pat.getFilePAth()%>');
+												</script>	
+										<%	}}
+									%>
+									</div>
 							<div class="item_bottom">
 								<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>">
 								<span class="pointer"><b>[<%=p.getBrand()%>]
@@ -134,14 +143,23 @@
 		<div id="items">
 			<ul class="flex">
 				<%
+						int count2 = 0;
 					for (Product p : list) {
 				%>
 				<li>
 					<div class="item_border flex">
 						<div class="item flex column">
 							<div class="item_top">
-								<img alt="" src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg" class="pointer">
-							</div>
+											<img class="pointer" id="img<%=count2%>" alt="" src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
+										<%
+										for(PAttachment pat : pAttList){ %>
+											<%if(p.getpId() == pat.getpId()){ %>
+												<script>
+													$('#img'+<%=count2%>).attr("src",'<%=pat.getFilePAth()%>');
+												</script>	
+										<%	}}
+									%>
+									</div>
 							<div class="item_bottom">
 								<input type="hidden" id="pId" name="pId" value="<%=p.getpId()%>"> 
 								<span class="pointer"><b>[<%=p.getBrand()%>]</b></span><br> 
@@ -152,7 +170,8 @@
 					</div>
 				</li>
 				<%
-					}
+					count2++;
+				}
 				%>
 			</ul>
 			<script>

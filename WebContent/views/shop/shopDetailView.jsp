@@ -4,6 +4,7 @@
 <%
 	Product p = (Product) request.getAttribute("p"); // 상품
 	int pId = p.getpId();
+	PAttachment thumbP = (PAttachment)request.getAttribute("thumbP");
 
 	String option = (String) request.getAttribute("option"); // 옵션
 	String[] opArr = option.split("\\/"); // 옵션 배열로 나눔
@@ -11,6 +12,8 @@
 	ArrayList<Review> rList = (ArrayList<Review>) request.getAttribute("rList"); // 유저의 리뷰와 QnA질문
 	ArrayList<Answer> aList = (ArrayList<Answer>) request.getAttribute("aList"); // 관리자의 리뷰 답변과 QnA질문 답변
 	ArrayList<RAttachment> attList = (ArrayList<RAttachment>) request.getAttribute("attList"); // 리뷰 사진 리스트
+	ArrayList<PAttachment> pAttList = (ArrayList<PAttachment>) request.getAttribute("pAttList"); // 상품 사진 리스트
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -54,7 +57,7 @@
 				<!-- 사진 영역 -->
 				<div id="ct_col_lft">
 					<div id="bigImg">
-						<img alt="" src="<%=request.getContextPath()%>/img/shopImg/다운로드.jpg">
+						<img alt="" src="<%=thumbP.getFilePAth()%>">
 					</div>
 				</div>
 				<!-- // 사진영역 끝 -->
@@ -187,7 +190,11 @@
 							<li><a href="#cb_review">Q&#38;A </a></li>
 						</ul>
 					</div>
-					<img alt="상세정보" src="<%=request.getContextPath()%>/img/shopImg/photo2.jpg">
+					<%
+						for(PAttachment pat : pAttList){ %>
+							<img alt="상세정보" src="<%=pat.getFilePAth()%>">
+					<%}
+					%>
 				</div>
 				<div id="cb_info">
 					<div class="cb_cate">
@@ -198,7 +205,6 @@
 							<li><a href="#cb_review">Q&#38;A </a></li>
 						</ul>
 					</div>
-					<div id="cb_info_wrap">
 						<div class="cb_info_inner">
 							<h3 class="h3_title">상품결제정보</h3>
 							<br>
@@ -220,7 +226,6 @@
 								<b>교환 및 반품정보 교환 및 반품이 가능한 경우</b> <br> - 상품을 공급 받으신 날로부터 10일이내 교환 및 반품이 가능합니다. <br>- 공급받으신 상품 및 용역의 내용이 표시.광고 내용과 다르거나 다르게 이행된 경우에는 공급받은 날로부터 3월이내, 그사실을 알게 된 날로부터 30일이내 <br> <br> <b>교환 및 반품이 불가능한 경우</b> <br> - 고객님의 책임있는 사유로 상품등이 멸실 또는 훼손된 경우. 단, 상품의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외 <br>- 포장된 상품의 일부를 소모하거나 훼손되어 상품가치가 하락된 경우(주문하신 상품 외 기타 동봉된 내용물은 해당사항 없음) <br>- 고객님의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우 <br>- 시간의 경과에 의하여 재판매가 곤란할 정도로 상품등의 가치가 현저히 감소한 경우 <br>- 복제가 가능한 상품등의 포장을 훼손한 경우 (자세한 내용은 카카오톡 1:1 / E-MAIL / 전화 상담을 이용해 주시기 바랍니다.) <br> <br>※ 고객님의 마음이 바뀌어 교환, 반품을 하실 경우 상품반송 비용은 고객님께서 부담하셔야 합니다.
 							</div>
 						</div>
-					</div>
 				</div>
 				<div id="cb_review">
 					<div class="cb_cate">
@@ -263,7 +268,7 @@
 							</tr>
 							<tr class="reviewContent" style="display: none;">
 								<td colspan="5">
-									<div class="text_box" style="display:inline-block;">
+									<div class="text_box">
 										<blockquote id="rContent<%=i%>" class="fromUser">
 											<div class="fromUserImg">
 												<%
@@ -280,12 +285,9 @@
 																}
 												%>
 											</div>
-											<%-- <div id="text_under_img<%=i%>" class="text_under_img"><%=rList.get(i).getrContent()%></div> --%>
 											<textArea id="rtArea<%=i%>" class="tArea" readonly="readonly"><%=rList.get(i).getrContent()%></textArea>
 										</blockquote>
-										<span id="updateR<%=i%>" class="update" style="display: none"> <a>UPDATE</a>
-										</span>
-
+										<span id="updateR<%=i%>" class="update" style="display: none"> <a>UPDATE</a></span>
 									</div>
 
 									<%
@@ -454,8 +456,9 @@
 									$('#updateR'+i).children('a').css('color', '');
 									$('#rtArea'+i).text(data.rContent);
 									$('#rModifyDate'+i).text(data.modify_date);
+									alert("상품평 수정이 완료되었습니다.");
 								} else {
-									alert("수정에 실패했습니다.");
+									alert("상품평 수정에 실패했습니다.");
 								}
 									updateBtn();
 							}
@@ -482,8 +485,9 @@
 								$('#updateA'+i).children('a').css('color', '');
 								$('#tArea'+i).text(data.aContent);
 								$('#aModifyDate'+i).text(data.modify_date);
+								alert("답변 수정이 완료되었습니다.");
 							} else {
-								alert("수정에 실패했습니다.");
+								alert("답변 수정에 실패했습니다.");
 							}
 								updateBtn();
 						}
@@ -562,7 +566,7 @@
 						}
 						var $textDiv = $('<textArea>').attr({'class':'tArea','readonly':'true','id':'rtArea'+i}).val(data.rList[i].rContent);
 						var $span = $('<span>').css('display', 'none').attr({'class':'update','id':'updateR'+i});
-						var $a = $('<a>').text('update');
+						var $a = $('<a>').text('UPDATE');
 
 						$span.append($a);
 						$blockquote.append($fromUserImgDiv);
@@ -588,7 +592,7 @@
 									var $blockquote3 = $('<blockquote>').attr('id', 'aContent'+j);
 									var $textArea = $('<textArea>').attr({'class':'tArea','readonly':'true','id':'tArea'+j}).val(data.aList[j].aContent);
 									var $span2 = $('<span>').attr({'class':'update','id':'updateA'+j}).css('display', 'none');
-									var $a2 = $('<a>').text('update');
+									var $a2 = $('<a>').text('UPDATE');
 
 									$blockquote2.append($b);
 									$blockquote2.append('&nbsp;&nbsp;');
@@ -616,11 +620,12 @@
 		};
 
 		// 리뷰 제목 누르면 펼쳐지는 이벤트
-		function countPlus(e){
-			console.log("들어옴? ㅠ");
-			$(e.target).next().toggle();
-			
-		}
+	/* 	function countPlus(e){
+			if(e == $('.reviewTitle')){
+				$(e.target).next('tr').toggle();
+			}
+		} */
+		
 		$(document).on("click",".reviewTitle",function() {
 			var rId = $(this).children('.rId').text();
 			var reviewTitle = $(this);
@@ -634,7 +639,7 @@
 					if(data.result > 0) {
 						reviewTitle.children('.rCount').text(data.count);
 						console.log(data.count);
-						reviewTitle.next().toggle();
+						reviewTitle.next('tr').toggle();
 					} else {
 					}
 		 		}
@@ -657,9 +662,9 @@
 					var aWriter = $('#aWriter'+i); /* 리뷰 답변인 */
 					var userId = "<%=loginUser.getId()%>";
 				if (userId == $('#rWriter' + i).text()) {
-					$('#updateR' + i).toggle();
+					$('#updateR' + i).css('display','inline-block');
 				} else if (userId == $('#aWriter' + i).text()) {
-					$('#updateA' + i).toggle();
+					$('#updateA' + i).css('display','inline-block');
 				}
 	<%}%>
 		}
