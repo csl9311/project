@@ -36,7 +36,7 @@ public class cartDeleteServlet extends HttpServlet {
 		System.out.println("카트삭제 "+caid);
 		System.out.println(userId);
 		int result =new ShopService().deleteCart(caid,userId);
-		//ㅇㅇ
+		//ㅇ
 		String page = null;
 		System.out.println("댓삭결과"+result);
 		if(result>0) {
