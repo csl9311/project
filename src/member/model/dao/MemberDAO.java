@@ -14,6 +14,8 @@ import java.util.Properties;
 
 import member.model.vo.Address;
 import member.model.vo.Member;
+import shop.model.vo.RAttachment;
+import shop.model.vo.Review;
 
 public class MemberDAO {
 
@@ -402,6 +404,58 @@ public class MemberDAO {
 		}
 
 		return adr;
+	}
+
+	public int insertReview(Connection conn, Review r) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		System.out.println("리뷰입력시작");
+		String query = prop.getProperty("insertReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, r.getrType());
+			pstmt.setInt(2, r.getpId());
+			pstmt.setString(3, r.getrWriter());
+			pstmt.setString(4, r.getrTitle());
+			pstmt.setString(5, r.getrContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+			System.out.println("리뷰입력끝");
+		return result;
+	}
+
+	public int insertRAttachment(Connection conn, ArrayList<RAttachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		System.out.println("사진입력시작");
+		String query = prop.getProperty("insertRAttachment");
+
+		try {
+			for (int i = 0; i < fileList.size(); i++) {
+				RAttachment at = fileList.get(i);
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePAth());
+				pstmt.setInt(4, at.getpId());
+				
+				result += pstmt.executeUpdate(); // 계속 더해줄것
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("사진입력끝");
+		return result;
 	}
 
 }

@@ -114,7 +114,7 @@ input[type="text"], select{
 	border: none;
 }
 
-input[type="text"]::placeholder{
+#Index input[type="text"]::placeholder{
 	text-align: center;
 }
 #items {
