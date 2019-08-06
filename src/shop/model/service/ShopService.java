@@ -290,6 +290,7 @@ public class ShopService {
 		return info;
 	}
 	
+
 	public Payment selectPurchase(String userId, String arr) {
 		Connection conn= getConnection();
 		ShopDAO dao = new ShopDAO();
@@ -304,7 +305,6 @@ public class ShopService {
 		
 		return pay;
 	}
-
 
 }
 

@@ -1156,7 +1156,6 @@ public class ShopDAO {
 				info.add(payment);
 			
 			}
-			System.out.println("info="+info.get(0));
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -1195,6 +1194,7 @@ public class ShopDAO {
 		
 		return result;
 	}
+
 
 
 
