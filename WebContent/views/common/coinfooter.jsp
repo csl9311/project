@@ -20,7 +20,7 @@
         <div class="container" >
             <div class="row">
                 <div class="col-sm-3 footerlogo">
-                    <h2 class="logoimg"><a href="#"> 로고영역 </a></h2>
+                    <h2 class="logoimg"><a href="#"><img src="<%= request.getContextPath() %>/img/cmboard/singsing.png" style="widht:130px;height:130px"> </a></h2>
                 </div>
                 <div class="col-sm-2 footerstart">
                     <h5>Get started</h5>
@@ -63,11 +63,5 @@
 
     </div>
 </body>
-<!--
-<script>
 
-
-//**************가변footer
-
- </script>
 </html>

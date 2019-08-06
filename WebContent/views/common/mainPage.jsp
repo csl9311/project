@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/views/common/coinheader.jsp"%>
+
+<% %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,11 +76,18 @@ cursor:pointer;
 				<div id="slider-pagination-wrap"><ul></ul></div>
 			</div>
 
-			<div class="mainMenu">
-				<button class="btn" type="button" onclick="location.href=''">노래방찾기</button>
-				<button class="btn" type="button" value="2">커뮤니티</button>
-				<button class="btn" type="button" value="3">버튼이미지3</button>
-				<button class="btn" type="button" value="4">쇼핑몰</button>
+			<div class="mainMenu" style="margin-top:50px;">
+				<img src="../../img/cmboard/find.png" onclick="location.href='<%=request.getContextPath()%>/list.ko';" >
+				<img src="../../img/cmboard/board.png" onclick="location.href='<%=request.getContextPath()%>/list.tb';" >
+				<img src="../../img/cmboard/video.png" onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
+				<img src="../../img/cmboard/shopcart.png"  onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
+				<%if(loginInfo!=null){ %>
+				
+				<img src="../../img/cmboard/mypage.png"  onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
+				<%} %>
+				
+				
+				
 			</div>
 
 		</div>
