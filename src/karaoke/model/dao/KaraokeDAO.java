@@ -21,7 +21,7 @@ public class KaraokeDAO {
 	private Properties prop = new Properties();
 	public KaraokeDAO() {
 		String fileName
-			= KaraokeDAO.class.getResource("/sql/Karaoke/Karaoke-query.properties").getPath();
+			= KaraokeDAO.class.getResource("/sql/Karaoke/1Karaoke-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -44,7 +44,6 @@ public class KaraokeDAO {
 			pstmt.setString(3, a.getJibunAddress());
 			pstmt.setString(4, a.getAddress_detail());
 			pstmt.setString(5, a.getId());
-			pstmt.executeUpdate();
 						
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -229,6 +228,7 @@ public class KaraokeDAO {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(list);
 		
 		return list;
 	}
