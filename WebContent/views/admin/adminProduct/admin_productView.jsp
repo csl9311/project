@@ -25,7 +25,7 @@
 		</form>
 		<div class="emptyHeader"></div>
 		<div id="productUpdate" class="center none">
-			<form action="<%=request.getContextPath()%>/product.insert" method="post">
+			<form action="<%=request.getContextPath()%>/admin.productInsert" method="post">
 				<table>
 					<tr>
 						<td><label>상품명</label></td>
@@ -139,6 +139,7 @@
 				<th>월 판매량</th>
 				<th>월 판매금액</th>
 				<th>상품 등록일</th>
+				<th>옵션유무</th>
 				<th>수정</th>
 			</tr>
 		</table>
@@ -149,7 +150,7 @@
 		<form action="<%=request.getContextPath()%>/admin.productSelect" method="post">
 			<table class="resultList" style="color: white; width: 90vw;">
 				<tr>
-					<td><input id="pId<%=i%>" type="hidden" name="pId" value="<%=p.getpId()%>"><%=p.getpName()%></td>
+					<td><input type="hidden" name="pId" value="<%=p.getpId()%>"><%=p.getpName()%></td>
 					<td><%=p.getBrand()%></td>
 					<td><%=p.getCategory()%></td>
 					<td><%=p.getSubCategory()%></td>
@@ -158,7 +159,8 @@
 					<td><%=p.getSellCount()%></td>
 					<td><%=p.getSellCount() * p.getPrice()%></td>
 					<td><%=p.getRegDate()%></td>
-					<td style="padding-bottom: 10px;"><input id= "updateBtn<%=i%>" class="adminButton" type="submit" value="수정"></td>
+					<td><input type="hidden" name="option" value="<%=p.getUseOption()%>"><%=p.getUseOption()%></td>
+					<td style="padding-bottom: 10px;"><input class="adminButton" type="submit" value="수정"></td>
 				</tr>
 			</table>
 		</form>
