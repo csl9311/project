@@ -1195,11 +1195,4 @@ public class ShopDAO {
 		return result;
 	}
 
-
-
-
-
 }
-
-
-

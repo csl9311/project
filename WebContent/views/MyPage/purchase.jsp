@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="com.sun.xml.internal.bind.v2.runtime.Location, member.model.vo.*, shop.model.vo.*, java.util.ArrayList"%>
+<%@page import="com.sun.xml.internal.bind.v2.runtime.Location, 
+		member.model.vo.*, shop.model.vo.*, java.util.ArrayList,
+		payment.model.vo.*"%>
 <%
 	
 	ArrayList<Payment> pList = (ArrayList<Payment>)request.getAttribute("payList");
@@ -42,6 +44,7 @@ button{
 	border: none;
 	height: 30px;
 	font-weight: 800;
+	color: rgb(40,40,40);
 }
 </style>
 </head>
@@ -72,8 +75,9 @@ button{
 						<td>주문처리상태</td>
 						<td>상품평등록</td>
 					</tr>
-						<% for(Payment p : pList) { 
-							int i = 0;
+						<% 
+						int i = 0;
+						for(Payment p : pList) { 
 						%>
 							
 					<tr>
@@ -104,7 +108,7 @@ button{
 	</div>
 	<script>
 	function review(){
-		/* var oNo;	// 장바구니 번호 */
+		var oNo;	// 장바구니 번호
 		var pId; // 상품 아이디
 		var pName; // 상품명
 		var pic; // 사진
@@ -113,19 +117,19 @@ button{
 		
 		console.log(e);
 		
-		/* oNo = $(e).prevAll().eq(5).text().trim(); */
+		oNo = $(e).prevAll().eq(5).text().trim();
 		pName = $(e).prevAll().find('.pName').text();
 		pic = $(e).prevAll().find('.pic').attr('src');
 		pOption = $(e).prevAll().find('.pOption').text().trim();
 		pId = $(e).prevAll().find('input').val();
 		
 		console.log("pId : " +  pId);
-		/* console.log("oNo : " +  oNo); */
+		console.log("oNo : " +  oNo);
 		console.log(pName);
 		console.log(pic);
 		console.log("pOption : " + pOption);
 		
-		window.open("<%=request.getContextPath()%>/views/shop/InsertReviewView.jsp?pName="+pName+"&pic="+pic+"&pOption="+pOption,
+		window.open("<%=request.getContextPath()%>/views/shop/InsertReviewView.jsp?pName="+pName+"&pic="+pic+"&pOption="+pOption+"&pId="+pId,
 				"상품평 입력창","width=600px, height=680px, left=500, top=50");
 	}
 	</script>
