@@ -13,27 +13,28 @@ import admin.model.service.AdminService;
 import product.model.vo.Product;
 
 @WebServlet("/product.insert")
-public class AdminInsertProduct extends HttpServlet {
+public class AdminProductInsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AdminInsertProduct() {
+	public AdminProductInsert() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		AdminService service = new AdminService();
+		int pId = service.getNextPId();
 		int price = Integer.parseInt(request.getParameter("price"));
 		int stock = Integer.parseInt(request.getParameter("stock"));
-		int brandNo = Integer.parseInt(request.getParameter("brand"));
+		int brandNo = Integer.parseInt(request.getParameter("brandNo"));
 		int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
-		int subCategoryNo = Integer.parseInt(request.getParameter("subCate"));
+		int subCategoryNo = Integer.parseInt(request.getParameter("subCategoryNo"));
 		String pName = request.getParameter("name");
 		String useOption = request.getParameter("option");
 
-		Product p = new Product(price, stock, brandNo, categoryNo, subCategoryNo, pName, useOption);
-		int result = service.insertProduct(p);
-		if (result > 0) {
+		Product p = new Product(pId, price, stock, brandNo, categoryNo, subCategoryNo, pName, useOption);
+		int result1 = service.insertProduct(p);
+		if (result1 > 0) {
 			System.out.println("상품등록성공");
 		} else {
 			System.out.println("상품등록실패");
@@ -53,15 +54,17 @@ public class AdminInsertProduct extends HttpServlet {
 			} else {
 				optionResult = option1 + "/" + option2 + "/" + option3;
 			}
-//			result = service.insertOption(optionResult);
-			if(result > 0) {
-				
+			int result2 = service.insertOption(optionResult, pId);
+			if (result2 > 0) {
+				System.out.println("옵션 등록 완료");
+			} else {
+				System.out.println("옵션 등록 실패");
 			}
 		}
 
 		String page = "";
-		if (result > 0) {
-			page = "views/admin/adminProduct/admin_procductView.jsp";
+		if (result1 > 0) {
+			page = "/admin.allProductList";
 			request.setAttribute("alert", "상품이 등록되었습니다.");
 		} else {
 			page = "views/common/errorPage.jsp";

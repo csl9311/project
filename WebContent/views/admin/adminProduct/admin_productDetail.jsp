@@ -2,7 +2,7 @@
 <%@ page import="java.util.ArrayList, product.model.vo.Product"%>
 <%@ include file="/views/common/coinheader.jsp"%>
 <%
-	ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("list");
+	Product p = (Product)request.getAttribute("product");
 	String alert = (String) request.getAttribute("alert");
 %>
 <!DOCTYPE html>
@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title>상품목록</title>
 <link rel="stylesheet" href='<%=request.getContextPath()%>/css/admin/admin.css'>
+<link rel="stylesheet" href='<%=request.getContextPath()%>/css/admin/layer.css'>
 </head>
 <body>
 	<%
@@ -125,9 +126,6 @@
 
 		<div class="emptyHeader"></div>
 		<%-- 상품정보조회 --%>
-		<% if (list == null) { %>
-			<h3>등록된 상품정보가 없습니다.</h3>
-		<% } else { %>
 		<table class="resultList" style="color: white; width: 90vw;">
 			<tr>
 				<th>상품 명</th>
@@ -141,29 +139,41 @@
 				<th>상품 등록일</th>
 				<th>수정</th>
 			</tr>
+			<tr>
+				<td>
+					<input id="pId" type="hidden" name="pId" value="<%=p.getpId()%>">
+					<%=p.getpName()%>
+				</td>
+				<td><%=p.getBrand()%></td>
+				<td><%=p.getCategory()%></td>
+				<td><%=p.getSubCategory()%></td>
+				<td><%=p.getPrice()%></td>
+				<td><%=p.getStock()%></td>
+				<td><%=p.getSellCount()%></td>
+				<td><%=p.getSellCount() * p.getPrice()%></td>
+				<td><%=p.getRegDate()%></td>
+				<td style="padding-bottom: 10px;"><input id= "updateBtn" class="adminButton" type="button" value="수정" onclick="update();"></td>
+			</tr>
 		</table>
+
+		
+		<script>
+			function update(){
+				var $pId = $('#pId').val();
+				console.log($pId);
+				$.ajax({
+					url: "<%=request.getContextPath()%>/product.update",
+					type : 'post',
+					data : {pId : $pId},
+					success : function(data) {
+						/* div 만들고 append 해줘야함. */
+						console.log(data);
+						location.href = "";
+					}
+				});
+			}
+		</script>
 		<%
-				for (int i = 0; i < list.size(); i++) {
-					Product p = list.get(i);
-		%>
-		<form action="<%=request.getContextPath()%>/product.select" method="post">
-			<table class="resultList" style="color: white; width: 90vw;">
-				<tr>
-					<td><input id="pId<%=i%>" type="hidden" name="pId" value="<%=p.getpId()%>"><%=p.getpName()%></td>
-					<td><%=p.getBrand()%></td>
-					<td><%=p.getCategory()%></td>
-					<td><%=p.getSubCategory()%></td>
-					<td><%=p.getPrice()%></td>
-					<td><%=p.getStock()%></td>
-					<td><%=p.getSellCount()%></td>
-					<td><%=p.getSellCount() * p.getPrice()%></td>
-					<td><%=p.getRegDate()%></td>
-					<td style="padding-bottom: 10px;"><input id= "updateBtn<%=i%>" class="adminButton" type="submit" value="수정"></td>
-				</tr>
-			</table>
-		</form>
-		<%			} // for(list.size) : end
-				} // list != null : end
 			} else { // !loginUser.equals("관리자");
 		%>
 		<script>
@@ -171,6 +181,7 @@
 		</script>
 		<% } %>
 	</div>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/admin/layer.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/admin/adminProduct.js"></script>
 </body>
 </html>

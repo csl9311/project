@@ -137,7 +137,7 @@ tr, td, th {
 
 .updateAddress {
 	text-align: center;
-	display:inline-block;
+	display: inline-block;
 	padding: 30px;
 	padding-bottom: 0px;
 }
@@ -148,7 +148,49 @@ tr, td, th {
 }
 
 .resultList tr th, .resultList tr td {
-	width: 12vw;
+	width: 8vw;
 	padding: 0px;
 	text-align: center;
+}
+
+input[type=password] {
+	width: 147px;
+	height: 17px;
+	font-size: 17px;
+	margin: 0px;
+	border: none;
+}
+
+input {
+	border: none;
+}
+
+.agree {
+	width: 20px;
+	height: 20px;
+}
+
+.disagree {
+	width: 20px;
+	height: 20px;
+}
+
+.input[type=radio] {
+	margin-top: 6px;
+}
+
+.genderTd {
+	display: flex;
+}
+
+.gender label {
+	padding-top: 100px;
+}
+
+.pSelect {
+	width: 180px;
+}
+
+.inputOpt {
+	width: 100px;
 }

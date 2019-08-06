@@ -72,13 +72,14 @@ public class AdminDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, p.getPrice());
-			pstmt.setInt(2, p.getStock());
-			pstmt.setInt(3, p.getBrandNo());
-			pstmt.setInt(4, p.getCategoryNo());
-			pstmt.setInt(5, p.getSubCategoryNo());
-			pstmt.setString(6, p.getpName());
-			pstmt.setString(7, p.getUseOption());
+			pstmt.setInt(1, p.getpId());
+			pstmt.setString(2, p.getpName());
+			pstmt.setInt(3, p.getCategoryNo());
+			pstmt.setInt(4, p.getSubCategoryNo());
+			pstmt.setInt(5, p.getBrandNo());
+			pstmt.setInt(6, p.getPrice());
+			pstmt.setInt(7, p.getStock());
+			pstmt.setString(8, p.getUseOption());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -87,5 +88,102 @@ public class AdminDAO {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<Product> getSubCategory(Connection conn, int categoryNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Product> list = null;
+		
+		String query = prop.getProperty("getSubCategory");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, categoryNo);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<>();
+			while(rset.next()) {
+				Product p = new Product(
+					rset.getInt("sub_cid"),
+					rset.getString("sub_cname")
+				);
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	public int insertOption(Connection conn, String optionResult, int pId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertOption");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, pId);
+			pstmt.setString(2, optionResult);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int getNextPId(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int pId = 0;
+		
+		String query = prop.getProperty("getNextPId");
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			if(rset.next()) {
+				pId = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return pId;
+	}
+
+	public Product selectProduct(Connection conn, int pId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Product product = null;
+		
+		String query = prop.getProperty("selectProduct");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, pId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				product = new Product(
+						rset.getInt("pid"),
+						rset.getInt("price"),
+						rset.getInt("stock"),
+						rset.getInt("sellcount"),
+						rset.getString("pname"),
+						rset.getString("cname"),
+						rset.getString("sub_cname"),
+						rset.getString("bname"),
+						rset.getString("useoption"),
+						rset.getString("product_op"),
+						rset.getDate("regdate"),
+						rset.getDate("modify_date")
+				);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return product;
 	}
 }

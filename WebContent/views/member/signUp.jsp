@@ -8,39 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<style>
-input[type=password] {
-	width: 147px;
-	height: 17px;
-	font-size: 17px;
-	margin: 0px;
-	border: none;
-}
-input {
-	border: none;
-}
-
-.agree{
-	width : 20px; height: 20px;
-}
-.disagree{
-	width : 20px; height: 20px;
-}
-
-.input[type=radio]{
-	margin-top: 6px;
-}
-.genderTd{
-	display:flex;
-}
-.gender label{
-	padding-top : 100px;
-}
-
-</style>
 </head>
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/admin/admin.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/admin.css">
 <body>
 	<script>
 		if(<%=msg != null%>){

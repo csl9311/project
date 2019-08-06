@@ -9,9 +9,10 @@ public class Product {
 	private Date regDate, modifyDate;
 
 	// 관리자 상품 등록
-	public Product(int price, int stock, int brandNo, int categoryNo, int subCategoryNo, String pName,
+	public Product(int pId, int price, int stock, int brandNo, int categoryNo, int subCategoryNo, String pName,
 			String useOption) {
 		super();
+		this.pId = pId;
 		this.price = price;
 		this.stock = stock;
 		this.brandNo = brandNo;
@@ -20,6 +21,17 @@ public class Product {
 		this.pName = pName;
 		this.useOption = useOption;
 	}
+
+	
+	// 관리자 상품 등록 select>option 변경
+	public Product(int subCategoryNo, String subCategory) {
+		super();
+		this.subCategoryNo = subCategoryNo;
+		this.subCategory = subCategory;
+	}
+
+	
+
 
 	// 관리자 상품목록조회
 	public Product(int pId, int price, int stock, int sellCount, String pName, String category, String subCategory,

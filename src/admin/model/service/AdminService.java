@@ -28,4 +28,32 @@ public class AdminService {
 		return result;
 	}
 
+	public ArrayList<Product> getSubCategory(int categoryNo) {
+		Connection conn = getConnection();
+		ArrayList<Product> list = new AdminDAO().getSubCategory(conn, categoryNo);
+		close(conn);
+		return list;
+	}
+
+	public int insertOption(String optionResult, int pId) {
+		Connection conn = getConnection();
+		int result = new AdminDAO().insertOption(conn, optionResult, pId);
+		close(conn);
+		return result;
+	}
+
+	public int getNextPId() {
+		Connection conn = getConnection();
+		int result = new AdminDAO().getNextPId(conn);
+		close(conn);
+		return result;
+	}
+
+	public Product selectProduct(int pId) {
+		Connection conn = getConnection();
+		Product product = new AdminDAO().selectProduct(conn, pId);
+		close(conn);
+		return product;
+	}
+
 }
