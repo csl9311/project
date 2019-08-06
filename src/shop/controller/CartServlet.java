@@ -43,6 +43,7 @@ public class CartServlet extends HttpServlet {
 		String option = request.getParameter("option");
 		int amount = Integer.parseInt(request.getParameter("amount"));
 		
+		if(sessionMember.getId()!=null) {
 		if(option.equals("")) {	
 			option="없음";
 		}
@@ -59,6 +60,11 @@ public class CartServlet extends HttpServlet {
 	 		view.forward(request, response);
 	 		
 	      }
+		}else {
+			request.setAttribute("msg", "접근 권한이 없습니다. 로그인을 해주세요");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+		 	view.forward(request, response);
+		}
 
 	}
 

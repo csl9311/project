@@ -60,7 +60,7 @@
 				</tr>
 				<tr>
 					<td class="rowTitle">이름</td>
-					<td colspan="2"><input type="text" name="name"></td>
+					<td colspan="2"><input type="text" name="name" value="<%=name%>"></td>
 				</tr>
 				<tr>
 					<td class="rowTitle">연락처</td>

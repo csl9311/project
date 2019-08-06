@@ -147,4 +147,12 @@ public class MemberService {
 		return pList;
 	}
 
+	public Address selectAdr(String userId) {
+		Connection conn= getConnection();
+		Address adr= new MemberDAO().selectAdr(conn,userId);
+		close(conn);
+		
+		return adr;
+	}
+
 }

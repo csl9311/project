@@ -55,8 +55,8 @@
 						%>
 						<td><%=arr[k]%></td>
 						<td><%=arr[k + 1]%></td>
-						<td><%=p.getPrice()%></td>
-						<td><%=p.getPrice() * p.getAmount()%></td>
+						<td><%=p.getPrice()%>원</td>
+						<td><%=p.getPrice() * p.getAmount()%>원</td>
 						<td><br>
 
 							<button class="cartBtn" onclick="deletecart();">삭제</button>
@@ -80,8 +80,8 @@
 						<td><%=p.getpName()%></td>						
 						<td><%=p.getpOption()%></td>
 						<td><%=p.getAmount()%></td>
-						<td><%=p.getPrice()%></td>
-						<td><%=p.getPrice() * p.getAmount()%></td>
+						<td><%=p.getPrice()%>원</td>
+						<td><%=p.getPrice() * p.getAmount()%>원</td>
 						<td><br>
 						<button class="cartBtn" onclick="deletecart();">삭제</button><br></td>
 					</tr>

@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.service.MemberService;
+import member.model.vo.Address;
 import member.model.vo.Member;
 import shop.model.service.ShopService;
-import shop.model.vo.Payment;
+import shop.model.vo.Cart;
 
 /**
  * Servlet implementation class PayList
@@ -40,7 +42,8 @@ public class PayList extends HttpServlet {
 		String userId= sessionMember.getId();
 		System.out.println("userid"+ userId);
 		
-		ArrayList<Payment> pay = new ShopService().selectpay(userId);
+		Address adr= new MemberService().selectAdr(userId);
+		ArrayList<Cart> pay = new ShopService().selectpay(userId);
 		
 		String page= null;
 		
