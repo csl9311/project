@@ -249,7 +249,7 @@
 			var str = "<%=sort%>";
 			var str2 = "stock";
 			if (str == str2) {
-				$('#stock').prop('checked', true);
+				$('#stock input').prop('checked', true);
 			}
 		});
 	</script>

@@ -46,11 +46,10 @@ public class ShopListServlet extends HttpServlet {
 			} else {
 				listCount = service.getKeyListCount(cName, key);
 			}
-		}
-		if (sortBy != null && !sortBy.equals("null") && sortBy.equals("stock")) {
+		} else if (sortBy != null && !sortBy.equals("null") && sortBy.equals("stock")) {
 			listCount = service.getStockListCount(cName);
 		}
-		
+		System.out.println(listCount);
 		int currentPage;
 		int limit;
 		int maxPage;

@@ -297,6 +297,7 @@ public class ShopDAO {
 		int endRow = startRow + posts - 1;
 
 		String query = prop.getProperty("selectKeySortList"+sortBy);
+		System.out.println(query);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
