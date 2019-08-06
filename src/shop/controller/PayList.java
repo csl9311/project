@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.service.MemberService;
+import member.model.vo.Address;
 import member.model.vo.Member;
 import shop.model.service.ShopService;
-import shop.model.vo.Payment;
+import shop.model.vo.Cart;
 
 /**
  * Servlet implementation class PayList
@@ -40,13 +42,15 @@ public class PayList extends HttpServlet {
 		String userId= sessionMember.getId();
 		System.out.println("userid"+ userId);
 		
-		ArrayList<Payment> pay = new ShopService().selectpay(userId);
+		Address adr= new MemberService().selectAdr(userId);
+		ArrayList<Cart> pay = new ShopService().selectpay(userId);
 		
 		String page= null;
 		
 		if(pay!=null) {
 			page= "views/MyPage/payment.jsp";
-			request.setAttribute("pay",pay);					
+			request.setAttribute("pay",pay);
+			request.setAttribute("adr", adr);
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "장바구니 조회에 실패했습니다.");

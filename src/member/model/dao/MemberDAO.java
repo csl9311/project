@@ -422,4 +422,38 @@ public class MemberDAO {
 		
 		return pArr;
 	}
+
+	public Address selectAdr(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Address adr= null;
+		
+		String query = prop.getProperty("selectAdr");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			rset= pstmt.executeQuery();			
+			if(rset.next()) {
+				
+				adr = new Address(rset.getString("postNum"),
+								  rset.getString("roadAddress"),
+								  rset.getString("jibunAddress"),
+								  rset.getString("address_detail"),
+								  rset.getString("id"));	
+						
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return adr;
+	}
+
 }

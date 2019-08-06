@@ -146,7 +146,7 @@
 				for (int i = 0; i < list.size(); i++) {
 					Product p = list.get(i);
 		%>
-		<form action="<%=request.getContextPath()%>/product.select" method="post">
+		<form action="<%=request.getContextPath()%>/admin.productSelect" method="post">
 			<table class="resultList" style="color: white; width: 90vw;">
 				<tr>
 					<td><input id="pId<%=i%>" type="hidden" name="pId" value="<%=p.getpId()%>"><%=p.getpName()%></td>

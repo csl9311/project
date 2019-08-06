@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import admin.model.dao.AdminDAO;
 import admin.model.service.AdminService;
 import product.model.vo.Product;
 

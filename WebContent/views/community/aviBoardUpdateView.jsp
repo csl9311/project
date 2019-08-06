@@ -32,7 +32,7 @@
 					<tr>
 						<td><input type="text"
 							style="width: 60vw; margin-bottom: 5px; border: 0;" name="title"
-							placeholder="aviBoardName"
+							placeholder="Title 입력란 입니다."
 							value="<%=request.getParameter("title")%>">
 							<hr style="border: 0.7px solid gray"> <br> <input
 							type="hidden" name="bid"

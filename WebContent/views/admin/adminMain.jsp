@@ -18,12 +18,12 @@
 			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/admin.allProductList'">상품관리</div>
 			<br>
 			<%-- 배송관리 --%>
-			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_deliveryView.jsp'">배송관리</div>
+			<%-- <div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_deliveryView.jsp'">배송관리</div> --%>
 			<%-- 공지 CRUD, QNA CRUD --%>
-			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_noticeView.jsp'">공지,QNA</div>
+			<%-- <div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_noticeView.jsp'">공지,QNA</div> --%>
 			<br>
 			<%-- 신고 된 게시글 조회, 삭제 --%>
-			<div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_reportedView.jsp'">게시물 관리</div>
+			<%-- <div class="menu" onclick="location.href='<%=request.getContextPath()%>/views/admin/admin_reportedView.jsp'">게시물 관리</div> --%>
 			<%-- 통계 : 광고 재생 수, 기간 별 신규 가입 --%>
 			<%-- 결제정보조회 --%>
 			<%-- 사업장 정보 등록, 수정, 삭제 --%>

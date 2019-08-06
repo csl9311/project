@@ -135,7 +135,7 @@
 				<tr>
 					<td class="rowTitle">주소<br>(선택사항)</td>
 					<td>
-						<input id="addressActive" class="adminButton" type="button" onclick="sample4_execDaumPostcode()" value="주소 찾기"><br><br>
+						<input id="addressActive" class="adminButton" type="button" onclick="sample4_execDaumPostcode();" value="주소 찾기"><br><br>
 					</td>
 					<td id="addressDetail" class="none">
 						<input type="text" style="background: none; color: white;" name="postNum" id="sample4_postcode" placeholder="우편번호" readonly><br><br>

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
 import shop.model.service.ShopService;
-import shop.model.vo.Payment;
+import shop.model.vo.Cart;
 
 /**
  * Servlet implementation class Purchase
@@ -38,17 +38,17 @@ public class Purchase extends HttpServlet {
 		Member sessionMember = (Member)session.getAttribute("loginUser");
 		String userId= sessionMember.getId();
 		String[] arr= request.getParameter("list").split(",");
-		ArrayList<Payment> pay = new ArrayList<Payment>();
+		ArrayList<Cart> pay = new ArrayList<Cart>();
 		for(int i=0; i<arr.length;i++) {
 		System.out.println("list="+arr[i]);
-		Payment p = new ShopService().selectPurchase(userId,arr[i]);
+		Cart p = new ShopService().selectPurchase(userId,arr[i]);
 		pay.add(p);
 		}
-		for(int i=0; i<pay.size();i++) {
-			Payment p= pay.get(i);
-			System.out.println(p.getpId());
-			
-		}
+//		for(int i=0; i<pay.size();i++) {
+//			Payment p= pay.get(i);
+//			System.out.println(p.getpId());
+//			
+//		}
 
 		
 	}

@@ -78,7 +78,7 @@ h1{
 			<a href="javascript:history.go(-1)">GO BACK</a>
 		</div>
 		<div id="goMain">
-			<a href="mainPage.jsp">GO MAIN</a>
+			<a href="<%=request.getContextPath()%>/views/common/mainPage.jsp">GO MAIN</a>
 		</div>
 	</div>
 		<h1 align="center" style="color:rgb(210,210,210)">ERROR : <%=msg%></h1>

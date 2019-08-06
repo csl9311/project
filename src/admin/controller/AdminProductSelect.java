@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import admin.model.service.AdminService;
 import product.model.vo.Product;
 
-@WebServlet("/product.select")
+@WebServlet("/admin.productSelect")
 public class AdminProductSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

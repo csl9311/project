@@ -25,44 +25,44 @@ cursor:pointer;
 				<ul id="slider">
 					<li>
 						<div>
-							<h3>배너 #1</h3>
-							<span>Sub-title #1</span>
+						<!-- 	<h3>배너 #1</h3>
+							<span>Sub-title #1</span> -->
 						</div>
 
-						<img onclick="location.href='<%=request.getContextPath()%>/list.bo';" src="<%=request.getContextPath()%>/img/cmboard/bono.jpg">
+						<img onclick="location.href='<%=request.getContextPath()%>/list.bo';" src="<%=request.getContextPath()%>/img/banner/ban3.jpg">
 
 					</li>
 
 					<li>
 						<div>
-							<h3>배너 #2</h3>
-							<span>Sub-title #2</span>
+						<!-- 	<h3>배너 #2</h3>
+							<span>Sub-title #2</span> -->
 						</div>
-						<img  src="<%=request.getContextPath()%>/img/cmboard/bono2.jpg">
+						<img  src="<%=request.getContextPath()%>/img/banner/ban5.jpg">
 					</li>
 
 					<li>
 						<div>
-							<h3>배너 #3</h3>
-							<span>Sub-title #3</span>
+							<!-- <h3>배너 #3</h3>
+							<span>Sub-title #3</span> -->
 						</div>
-						<img src="https://i.pinimg.com/originals/e7/05/c8/e705c8e4778f8015b293e307f5517a9c.jpg">
+						<img src="<%=request.getContextPath()%>/img/banner/ban1.jpg">
 					</li>
 
 					<li>
 						<div>
-							<h3>배너 #4</h3>
-							<span>Sub-title #4</span>
+						<!-- 	<h3>배너 #4</h3>
+							<span>Sub-title #4</span> -->
 						</div>
-						<img src="http://itcm.co.kr/files/attach/images/813/596/782/325f0acced8215b4b49a8f5a9a207a8c.png">
+						<img src="<%=request.getContextPath()%>/img/banner/ban4.jpg">
 					</li>
 
 					<li>
 						<div>
-							<h3>배너 #5</h3>
-							<span>Sub-title #5</span>
+							<!-- <h3>배너 #5</h3>
+							<span>Sub-title #5</span> -->
 						</div>
-						<img src="https://png.pngtree.com/thumb_back/fw800/back_pic/02/66/81/39578b81744df9f.jpg">
+						<img src="<%=request.getContextPath()%>/img/banner/ban2.jpg">
 					</li>
 				</ul>
 

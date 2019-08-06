@@ -3,7 +3,8 @@
 <%@ include file="Form.jsp"%>	
 <%	
 	request.setCharacterEncoding("UTF-8");
-	ArrayList<Payment> pay = (ArrayList<Payment>) request.getAttribute("pay");
+	ArrayList<Cart> pay = (ArrayList<Cart>) request.getAttribute("pay");
+	Address adr = (Address)request.getAttribute("adr");
 	String phone = loginUser.getPhone();
 	int point= loginUser.getPoint();
 	String name = loginUser.getName();
@@ -55,7 +56,7 @@
 					</tr>
 					<%
 						for (int i = 0; i < pay.size(); i++) {
-							Payment p = pay.get(i);
+							Cart p = pay.get(i);
 							if (!p.getpOption().equals("없음")) {
 								String[] arr = p.getpOption().split(",");
 								for (int j = 0; j < arr.length / 2; j++) {
@@ -72,8 +73,8 @@
 						%>
 						<td><%=arr[k]%></td>
 						<td><%=arr[k + 1]%></td>
-						<td><%=p.getPrice()%></td>
-						<td><%=p.getPrice() * p.getAmount()%></td>
+						<td><%=p.getPrice()%>원</td>
+						<td><%=p.getPrice() * p.getAmount()%>원</td>
 
 						<%
 							break;
@@ -93,8 +94,8 @@
 						<td><%=p.getpName()%></td>						
 						<td><%=p.getpOption()%></td>
 						<td><%=p.getAmount()%></td>
-						<td><%=p.getPrice()%></td>
-						<td><%=p.getPrice() * p.getAmount()%></td>
+						<td><%=p.getPrice()%>원</td>
+						<td><%=p.getPrice() * p.getAmount()%>원</td>
 					</tr>
 					<%
 						}
@@ -114,7 +115,7 @@
 				</tr>
 				<tr>
 					<td>주소</td>
-					<td><input type="text">&nbsp;&nbsp;&nbsp;
+					<td><input type="text" value="<%=adr.getPostNum()%>">&nbsp;&nbsp;&nbsp;
 				</tr>
 				<tr>
 					<td></td>
@@ -207,7 +208,7 @@
 					
 					<%int total = 0;
 					for (int i = 0; i < pay.size(); i++) {
-							Payment p = pay.get(i);
+							Cart p = pay.get(i);
 							total += p.getPrice()*p.getAmount();						
 						}%>
 						<%= total %>원
@@ -230,11 +231,11 @@
 	}
 
 var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
-		Payment p = pay.get(i);
+		Cart p = pay.get(i);
 		if(i < pay.size()-1){
-	%><%=p.getpId()%>,<%
+	%><%=p.getCrId()%>,<%
 		} else {
-	%><%=p.getpId()%><%
+	%><%=p.getCrId()%><%
 		}
 	}%>";
 	console.log(list);
@@ -245,8 +246,11 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	var name= $('#firstName0').val();
 	var total= $('#total').val();
 	var totalamount =$('#totalamount').val();
-	
 	$('#payment').click(function(){
+	 location.href="<%=request.getContextPath()%>/purchase.ca?list="+list;
+	});
+	
+	<%-- $('#payment').click(function(){
 	IMP.request_pay({
 	    pg : 'inicis', // version 1.1.0부터 지원.
 	    pay_method : 'card',
@@ -263,7 +267,7 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	    if ( rsp.success ) {
 	        var msg = '결제가 완료되었습니다.';
 	        msg += '결제 금액 : ' + rsp.paid_amount;
-	     
+	        
 	        location.href="<%=request.getContextPath()%>/purchase.ca?list="+list;
 	        
 	        
@@ -273,7 +277,7 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	    }
 	    alert(msg); 
 	});
-	});
+	}); --%>
 	
 	
 	</script>
