@@ -29,7 +29,6 @@
 				
 				<table class="tab-1">
 					<tr>
-						<td width="100px">전체선택&nbsp;<input type="checkbox"></td>
 						<td>이미지</td>
 						<td>상품정보</td>
 						<td>옵션</td>
@@ -48,7 +47,6 @@
 					%>
 					
 					<tr>
-						<td><input type="checkbox">
 						<td>이미지</td>
 						<td><%=p.getpName()%></td>
 						<%
@@ -78,7 +76,6 @@
 							} else {
 					%>
 					<tr>
-						<td><input type="checkbox">
 						<td>이미지</td>
 						<td><%=p.getpName()%></td>						
 						<td><%=p.getpOption()%></td>
