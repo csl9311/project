@@ -28,9 +28,9 @@ cursor:pointer;
 							<h3>배너 #1</h3>
 							<span>Sub-title #1</span>
 						</div>
-						
+
 						<img onclick="location.href='<%=request.getContextPath()%>/list.bo';" src="<%=request.getContextPath()%>/img/cmboard/bono.jpg">
-						
+
 					</li>
 
 					<li>
@@ -77,17 +77,16 @@ cursor:pointer;
 			</div>
 
 			<div class="mainMenu" style="margin-top:50px;">
-				<img src="../../img/cmboard/find.png" onclick="location.href='<%=request.getContextPath()%>/list.ko';" >
-				<img src="../../img/cmboard/board.png" onclick="location.href='<%=request.getContextPath()%>/list.tb';" >
-				<img src="../../img/cmboard/video.png" onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
-				<img src="../../img/cmboard/shopcart.png"  onclick="location.href='<%=request.getContextPath()%>/shopMain.do';" >
+				<img src="<%=request.getContextPath()%>/img/cmboard/find.png" onclick="location.href='<%=request.getContextPath()%>/list.ko';" >
+				<img src="<%=request.getContextPath()%>/img/cmboard/board.png" onclick="location.href='<%=request.getContextPath()%>/list.tb';" >
+				<img src="<%=request.getContextPath()%>/img/cmboard/video.png" onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
+				<img src="<%=request.getContextPath()%>/img/cmboard/shopcart.png"  onclick="location.href='<%=request.getContextPath()%>/shopMain.do';" >
 				<%if(loginUser!=null){ %>
-				
-				<img src="../../img/cmboard/mypage.png"  onclick="location.href='<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp;" >
+				<img src="<%=request.getContextPath()%>/img/cmboard/mypage.png"  onclick="location.href='<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp;" >
 				<%} %>
-				
-				
-				
+
+
+
 			</div>
 
 		</div>
@@ -172,8 +171,8 @@ cursor:pointer;
 			var autoSlider = setInterval(function() {
 				plusSlides(1);
 			}, 3000);
-			
-			
+
+
 		</script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/main/header.js"> </script>
 	</div>
