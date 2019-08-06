@@ -119,19 +119,19 @@
 				</tr>
 				<tr>
 					<td class="menu">주소&nbsp;&nbsp;&nbsp;</td>
-					<td><input type="text" class="payadr" value="<%=adr.getPostNum()%>">&nbsp;&nbsp;&nbsp;
+					<td><input type="text" class="payadr" value="<%=adr.getPostNum()%>" readonly>&nbsp;&nbsp;&nbsp;
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="text" class="payadr" value="<%=adr.getRoadAddress()%>"></td>
+					<td><input type="text" class="payadr" value="<%=adr.getRoadAddress()%>" readonly></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="text" class="payadr" value="<%=adr.getJibunAddress()%>"></td>
+					<td><input type="text" class="payadr" value="<%=adr.getJibunAddress()%>" readonly></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="text" class="payadr" value="<%=adr.getAddress_detail()%>"></td>
+					<td><input type="text" class="payadr" value="<%=adr.getAddress_detail()%>" readonly></td>
 				</tr>
 				<tr>
 					<td class="menu">휴대전화&nbsp;&nbsp;&nbsp;</td>
@@ -156,7 +156,7 @@
 				</tr>
 				<tr>
 					<td class="menu">받는사람&nbsp;&nbsp;&nbsp;</td>
-					<td><input type="text" name="name2" id="name2" style="width: 10vw" value=""></td>					
+					<td><input type="text" name="recipient" id="recipient" style="width: 10vw" value=""></td>					
 				</tr>
 				<tr>
 					<td class="menu">주소&nbsp;&nbsp;&nbsp;</td>
@@ -177,12 +177,12 @@
 				</tr>
 				<tr>
 					<td class="menu">휴대전화&nbsp;&nbsp;&nbsp;</td>
-					<td><input type="text" name="phone2" id="phone2" value=""></td>
+					<td><input type="text" name="recipientPhone" id="recipientPhone" value=""></td>
 				</tr>
 				
 				<tr>
 					<td class="menu">배송시 요청사항&nbsp;&nbsp;&nbsp;</td>
-					<td><input type="text" class="delrequest"> <br>
+					<td><input type="text" class="delrequest" id="req" value=""><br>
 					<label>ex)경비실에 맡겨주세요</label></td>
 				</tr>
 			</table>
@@ -238,8 +238,8 @@
 	
 	<script>
 	function copy(){
-		$('#name2').attr('value', '<%=name%>');
-		$('#phone2').attr('value', '<%=phone%>');
+		$('#recipient').attr('value', '<%=name%>');
+		$('#recipientPhone').attr('value', '<%=phone%>');
 		$('#postNum').attr('value', '<%=adr.getPostNum()%>');
 		$('#roadAddress').attr('value', '<%=adr.getRoadAddress()%>');
 		$('#jibunAddress').attr('value', '<%=adr.getJibunAddress()%>');
@@ -265,8 +265,25 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	var name= $('#firstName0').val();
 	var total= $('#total').val();
 	var totalamount =$('#totalamount').val();
+	
 	$('#payment').click(function(){
-	 location.href="<%=request.getContextPath()%>/purchase.ca?list="+list;
+		var recipient = $('#recipient').val();
+		var recipienPhone = $('#recipientPhone').val();
+		var address1 = $('#postNum').val();
+		var address2 = $('#roadAddress').val();
+		var address3 = $('#jibunAddress').val();
+		var address4 = $('#address_detail').val();		
+		var address = address1 +" " + address2 + " "+ address3 + " "+ address4;
+		var req = document.getElementById('req').value;
+		console.log(address);
+		console.log(recipient);
+		console.log(req);		
+		var shipinfo= new Object();
+		shipinfo.recipient = recipient;
+		shipinfo.recipienPhone = recipienPhone;
+		shipinfo.address = address;
+		shipinfo.req= req;
+		location.href="<%=request.getContextPath()%>/purchase.ca?list="+list+"&shipinfo="+shipinfo;
 	});
 	
 	<%-- $('#payment').click(function(){
@@ -277,7 +294,7 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	    name : name,
 	    amount : '100',
 	    buyer_email : '<%=loginUser.getEmail()%>',
-	    buyer_name : '<%=loginUser.getName()%>',
+	    buyer_name : '<%=loginUser.getName()%>'외,
 	    buyer_tel : '<%=loginUser.getPhone()%>',
 	    buyer_addr : '서울특별시 강남구 삼성동',
 	    buyer_postcode : '123-456',

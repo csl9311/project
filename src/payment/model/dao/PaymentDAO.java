@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import member.model.dao.MemberDAO;
 import payment.model.vo.Payment;
+import shop.model.vo.Cart;
 
 public class PaymentDAO {
 	
@@ -56,5 +57,20 @@ public class PaymentDAO {
 		}
 
 		return pArr;
+	}
+	public int insertPurchase(Connection conn, String userId, ArrayList<Cart> pay, Object shipinfo) {
+		PreparedStatement pstmt =null;
+		
+		int result=0;
+		
+		String query = prop.getProperty("selectPayment");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

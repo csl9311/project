@@ -14,6 +14,8 @@ public class Payment {
 	private Date payDate;
 	private String address;
 	private String history;
+	private String recipient;
+	private String req;
 	
 	public Payment () {} 
 	
@@ -32,7 +34,36 @@ public class Payment {
 		this.address = address;
 		this.history = history;
 	}
+
+	public Payment(int oNo, String userId, String phone, int pId, int price, int amount, String pName, String pOption,
+			Date payDate, String address, String history, String recipient, String req) {
+		super();
+		this.oNo = oNo;
+		this.userId = userId;
+		this.phone = phone;
+		this.pId = pId;
+		this.price = price;
+		this.amount = amount;
+		this.pName = pName;
+		this.pOption = pOption;
+		this.payDate = payDate;
+		this.address = address;
+		this.history = history;
+		this.recipient = recipient;
+		this.req = req;
+	}
 	
+	
+	
+
+	public Payment(String phone, String address, String recipient, String req) {
+		super();
+		this.phone = phone;
+		this.address = address;
+		this.recipient = recipient;
+		this.req = req;
+	}
+
 	public int getoNo() {
 		return oNo;
 	}
