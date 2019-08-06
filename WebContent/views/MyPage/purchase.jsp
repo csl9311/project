@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="com.sun.xml.internal.bind.v2.runtime.Location, member.model.vo.*, shop.model.vo.*, java.util.ArrayList"%>
+<%@page import="com.sun.xml.internal.bind.v2.runtime.Location, payment.model.vo.*, shop.model.vo.*, java.util.ArrayList"%>
 <%
 	
 	ArrayList<Payment> pList = (ArrayList<Payment>)request.getAttribute("pList");
