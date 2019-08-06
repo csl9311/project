@@ -21,11 +21,13 @@
 #empty{
 	height: 30vh;
 }
-
+#index{
+	min-height : 70vh;
+}
 </style>
 </head>
 <body>
-	<div id="Index">
+	<div id="index">
 		<div id="mypage">
 			<div>
 				<ul class="nav nav-pills">
@@ -66,11 +68,12 @@
 	</div>
 	<script>
 	function review(){
-		window.open("shopReviewInsertView.jsp","ReviewInsertView","width=600, height=1000");
+		window.open("/views/shop/shopReviewInsertView.jsp","ReviewInsertView","width=600, height=1000");
 	}
 	</script>
 	
 
 </body>
-</html>
 <%@ include file="/views/common/coinfooter.jsp"%>
+</html>
+

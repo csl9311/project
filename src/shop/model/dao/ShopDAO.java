@@ -693,70 +693,6 @@ public class ShopDAO {
 		}
 		return list;
 	}
-	public int insertCart(Connection conn, String userId, Product product) {
-		PreparedStatement pstmt = null;
-		int result=0;
-		
-		String query =prop.getProperty("insertCart");
-		
-		try {
-			pstmt =conn.prepareStatement(query);
-			pstmt.setInt(1, product.getpId());
-			pstmt.setInt(2,  product.getPrice());
-			pstmt.setInt(3, product.getAmount());
-			pstmt.setString(4, product.getpName());
-			pstmt.setString(5, product.getOption());
-			pstmt.setString(6, userId);
-			
-			
-			result=pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
-		
-		return result;
-	}
-
-	public ArrayList<Payment> selectCart(Connection conn, String userId) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("selectCart");
-		
-		ArrayList<Payment> info = new ArrayList<Payment>();
-		try {
-			pstmt= conn.prepareStatement(query);
-			pstmt.setString(1, userId);
-			
-			rset= pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Payment payment = new Payment(rset.getInt(1),
-									  rset.getInt(2),
-									  rset.getInt(3),
-									  rset.getInt(4),
-									  rset.getString(5),
-									  rset.getString(6),
-									  rset.getString(7));
-				
-				info.add(payment);
-			
-			}
-			System.out.println("info="+info.get(0));
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return info;
-	}
 
 	public int selectWriter(Connection conn, String userId, int rId, String str) {
 		PreparedStatement pstmt = null;
@@ -879,8 +815,6 @@ public class ShopDAO {
 		}
 		return review;
 	}
-
-	
 	
 	public int updateRAttachment(Connection conn, ArrayList<RAttachment> fileList, int rId, int pId) {
 		PreparedStatement pstmt = null;
@@ -965,71 +899,6 @@ public class ShopDAO {
 			close(pstmt);
 		}
 		return result;
-	}
-	public ArrayList<Payment> selectPurchase(Connection conn, String userId) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("selectpurchase");
-		
-		ArrayList<Payment> info = new ArrayList<Payment>();
-		try {
-			pstmt= conn.prepareStatement(query);
-			pstmt.setString(1, userId);
-			
-			rset= pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Payment payment = new Payment();
-	
-			
-			}
-			System.out.println("info="+info.get(0));
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return info;
-	}
-
-	public ArrayList<Payment> selectpay(Connection conn, String userId) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("selectpay");
-		
-		ArrayList<Payment> pay = new ArrayList<Payment>();
-		try {
-			pstmt= conn.prepareStatement(query);
-			pstmt.setString(1, userId);
-			
-			rset= pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Payment payment = new Payment(rset.getInt(1),
-									  rset.getInt(2),
-									  rset.getInt(3),
-									  rset.getInt(4),
-									  rset.getString(5),
-									  rset.getString(6),
-									  rset.getString(7));
-				
-				pay.add(payment);
-			
-			}
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return pay;
 	}
 
 	public int updateCount(Connection conn, int rId) {
@@ -1169,5 +1038,168 @@ public class ShopDAO {
 		return pattList;
 	}
 
+	public Payment selectPurchase(Connection conn, String userId, String arr) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Payment payment=null;
+		String query = prop.getProperty("selectpurchase");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, arr);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				payment = new Payment(rset.getInt(1),
+						  rset.getInt(2),
+						  rset.getInt(3),
+						  rset.getInt(4),
+						  rset.getString(5),
+						  rset.getString(6),
+						  rset.getString(7));
+	
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return payment;
+	}
+
+	public ArrayList<Payment> selectpay(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectpay");
+		
+		ArrayList<Payment> pay = new ArrayList<Payment>();
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Payment payment = new Payment(rset.getInt(1),
+									  rset.getInt(2),
+									  rset.getInt(3),
+									  rset.getInt(4),
+									  rset.getString(5),
+									  rset.getString(6),
+									  rset.getString(7));
+				
+				pay.add(payment);
+			
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return pay;
+	}
+
+	public int deleteCart(Connection conn, String userId, String arr) {
+		PreparedStatement pstmt =null;
+		int result=0;
+		
+		String query= prop.getProperty("deletecart");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, arr);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public ArrayList<Payment> selectCart(Connection conn, String userId) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectCart");
+		
+		ArrayList<Payment> info = new ArrayList<Payment>();
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Payment payment = new Payment(rset.getInt(1),
+									  rset.getInt(2),
+									  rset.getInt(3),
+									  rset.getInt(4),
+									  rset.getString(5),
+									  rset.getString(6),
+									  rset.getString(7));
+				
+				info.add(payment);
+			
+			}
+			System.out.println("info="+info.get(0));
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return info;
+	}
+	
+	public int insertCart(Connection conn, String userId, Product product) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		
+		String query =prop.getProperty("insertCart");
+		
+		try {
+			pstmt =conn.prepareStatement(query);
+			pstmt.setInt(1, product.getpId());
+			pstmt.setInt(2,  product.getPrice());
+			pstmt.setInt(3, product.getAmount());
+			pstmt.setString(4, product.getpName());
+			pstmt.setString(5, product.getOption());
+			pstmt.setString(6, userId);
+			
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+
 
 }
+
+
+
