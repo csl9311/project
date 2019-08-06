@@ -15,6 +15,9 @@
 #index{
 	min-height: 80vh;	
 }
+img{
+	cursor: pointer;
+}
 </style>
 <%@  include file="Form.jsp"%>
 <link rel="stylesheet"
@@ -22,7 +25,7 @@
 </head>
 <body>
 <% if(info.size() !=0 ) {%>
-	<div id="index">
+	<div id="Index">
 		<div id="mypage">	
 			<div>
 				<!-- 상품목록 -->
