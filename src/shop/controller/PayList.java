@@ -44,7 +44,7 @@ public class PayList extends HttpServlet {
 		
 		Address adr= new MemberService().selectAdr(userId);
 		ArrayList<Cart> pay = new ShopService().selectpay(userId);
-		
+		System.out.println("adr="+adr.getJibunAddress());
 		String page= null;
 		
 		if(pay!=null) {

@@ -4,6 +4,8 @@
 	String pOption = request.getParameter("pOption");
 	String pName = request.getParameter("pName");
 	String pic = request.getParameter("pic");
+	String oNo = request.getParameter("oNo");
+	int pId = Integer.parseInt(request.getParameter("pId"));
 %>
 
 <!DOCTYPE html>
@@ -339,18 +341,23 @@ img {
 		// 리뷰 등록 ajax
 		$('#submitBtn').on('click', function(){
 			if(confirm("정말 수정하시겠습니까?")){
-			var content = $("#textArea").val();
-			var rContent = content.trim();
+			var rContent = $("#textArea").val().trim();
 			var form = $('#file_form');
-			var rTitle = $('#title').text().trim();
+			var rTitle = $('#title').val().trim();
+			var oNo = '<%=oNo%>';
+			var pId = <%=pId%>;
 			
 			var fileData = new FormData();
 			fileData.append("file1", $("#thumbnailImg1")[0].files[0]);
 			fileData.append("file2", $("#thumbnailImg2")[0].files[0]);
 			fileData.append("file3", $("#thumbnailImg3")[0].files[0]);
 			fileData.append("rContent", rContent);
-			fileData.append("pId", pId);
 			fileData.append("rTitle", rTitle);
+			fileData.append("pId", pId);
+			console.log(pId);
+			console.log(rTitle);
+			console.log(rContent);
+			
 			
 			$.ajax({
 				url: "<%=request.getContextPath()%>/insertReview.do", 
