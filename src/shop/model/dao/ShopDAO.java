@@ -1108,18 +1108,19 @@ public class ShopDAO {
 		return pay;
 	}
 
-	public int deleteCart(Connection conn, String userId, String arr) {
+	public int deleteCart(Connection conn, String userId, int arr) {
 		PreparedStatement pstmt =null;
 		int result=0;
 		
 		String query= prop.getProperty("deletecart");
-		
+		System.out.println("111"+arr);
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setString(1, userId);
-			pstmt.setString(2, arr);
+			pstmt.setInt(2, arr);
+			System.out.println("시발"+userId);
 			result = pstmt.executeUpdate();
-			
+			System.out.println("결과"+result);	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
