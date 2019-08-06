@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/views/common/coinheader.jsp"%>
 
-<% %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +29,7 @@ cursor:pointer;
 							<span>Sub-title #1</span>
 						</div>
 						
-						<img onclick="location.href='<%=request.getContextPath()%>/list.bo';" style="cursor:pointer" src="<%=request.getContextPath()%>/img/cmboard/bono.jpg">
+						<img onclick="location.href='<%=request.getContextPath()%>/list.bo';" src="<%=request.getContextPath()%>/img/cmboard/bono.jpg">
 						
 					</li>
 
@@ -80,10 +80,10 @@ cursor:pointer;
 				<img src="../../img/cmboard/find.png" onclick="location.href='<%=request.getContextPath()%>/list.ko';" >
 				<img src="../../img/cmboard/board.png" onclick="location.href='<%=request.getContextPath()%>/list.tb';" >
 				<img src="../../img/cmboard/video.png" onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
-				<img src="../../img/cmboard/shopcart.png"  onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
-				<%if(loginInfo!=null){ %>
+				<img src="../../img/cmboard/shopcart.png"  onclick="location.href='<%=request.getContextPath()%>/shopMain.do';" >
+				<%if(loginUser!=null){ %>
 				
-				<img src="../../img/cmboard/mypage.png"  onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
+				<img src="../../img/cmboard/mypage.png"  onclick="location.href='<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp;" >
 				<%} %>
 				
 				
@@ -93,7 +93,6 @@ cursor:pointer;
 		</div>
 
 
-		<%@ include file="/views/common/coinfooter.jsp"%>
 		<script>
 			//slide-wrap
 			var slideWrapper = document.getElementById('slider-wrap');
@@ -179,4 +178,6 @@ cursor:pointer;
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/main/header.js"> </script>
 	</div>
 </body>
+
+		<%@ include file="/views/common/coinfooter.jsp"%>
 </html>

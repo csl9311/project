@@ -9,7 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-@WebFilter(filterName = "encoding", urlPatterns = { "/*" })
+@WebFilter(filterName = "encoding", urlPatterns = { "/" })
 public class CommonFilter implements Filter {
 
     public CommonFilter() {
