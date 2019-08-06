@@ -17,7 +17,7 @@ import member.model.dao.MemberDAO;
 import product.model.vo.Product;
 import shop.model.vo.Answer;
 import shop.model.vo.PAttachment;
-import shop.model.vo.Payment;
+import shop.model.vo.Cart;
 import shop.model.vo.RAttachment;
 import shop.model.vo.Review;
 
@@ -1038,10 +1038,10 @@ public class ShopDAO {
 		return pattList;
 	}
 
-	public Payment selectPurchase(Connection conn, String userId, String arr) {
+	public Cart selectPurchase(Connection conn, String userId, String arr) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Payment payment=null;
+		Cart payment=null;
 		String query = prop.getProperty("selectpurchase");
 		
 		try {
@@ -1052,7 +1052,7 @@ public class ShopDAO {
 			rset= pstmt.executeQuery();
 			
 			if(rset.next()) {
-				payment = new Payment(rset.getInt(1),
+				payment = new Cart(rset.getInt(1),
 						  rset.getInt(2),
 						  rset.getInt(3),
 						  rset.getInt(4),
@@ -1072,13 +1072,13 @@ public class ShopDAO {
 		return payment;
 	}
 
-	public ArrayList<Payment> selectpay(Connection conn, String userId) {
+	public ArrayList<Cart> selectpay(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("selectpay");
 		
-		ArrayList<Payment> pay = new ArrayList<Payment>();
+		ArrayList<Cart> pay = new ArrayList<Cart>();
 		try {
 			pstmt= conn.prepareStatement(query);
 			pstmt.setString(1, userId);
@@ -1086,7 +1086,7 @@ public class ShopDAO {
 			rset= pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Payment payment = new Payment(rset.getInt(1),
+				Cart payment = new Cart(rset.getInt(1),
 									  rset.getInt(2),
 									  rset.getInt(3),
 									  rset.getInt(4),
@@ -1130,14 +1130,14 @@ public class ShopDAO {
 		return result;
 	}
 
-	public ArrayList<Payment> selectCart(Connection conn, String userId) {
+	public ArrayList<Cart> selectCart(Connection conn, String userId) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("selectCart");
 		
-		ArrayList<Payment> info = new ArrayList<Payment>();
+		ArrayList<Cart> info = new ArrayList<Cart>();
 		try {
 			pstmt= conn.prepareStatement(query);
 			pstmt.setString(1, userId);
@@ -1145,7 +1145,7 @@ public class ShopDAO {
 			rset= pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Payment payment = new Payment(rset.getInt(1),
+				Cart payment = new Cart(rset.getInt(1),
 									  rset.getInt(2),
 									  rset.getInt(3),
 									  rset.getInt(4),

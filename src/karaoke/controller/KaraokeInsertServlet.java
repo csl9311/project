@@ -118,7 +118,7 @@ public class KaraokeInsertServlet extends HttpServlet {
 					fileList.add(at);
 				}
 				int result = new KaraokeService().insertKaroke(k, fileList);
-				
+				System.out.println("1232"+saveFiles);
 				if(result > 0) {
 					response.sendRedirect("list.ko");
 				} else {

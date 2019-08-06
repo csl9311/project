@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import member.model.vo.Address;
 import member.model.vo.Member;
+import member.model.vo.Payment;
 
 public class MemberDAO {
 
@@ -381,4 +382,39 @@ public class MemberDAO {
 		return result;
 	}
 
+
+	public ArrayList<Payment> selectPayment(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet r = null;
+		ArrayList<Payment> pArr = new ArrayList<Payment>();
+		Payment p = new Payment();
+		
+		String query = prop.getProperty("selectPayment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			r = pstmt.executeQuery();
+			
+			while(r.next()) {
+				p = new Payment( r.getInt("oNo"),
+								 r.getString("userId"),
+								 r.getString("phone"),
+								 r.getInt("pId"),
+								 r.getInt("price"),
+								 r.getInt("amount"),
+								 r.getString("pName"),
+								 r.getString("pOption"),
+								 r.getDate("pay_date"),
+								 r.getString("address"),
+								 r.getString("history"));
+				pArr.add(p);		
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }

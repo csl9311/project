@@ -181,7 +181,7 @@ body{
 					  </div>
 					  <div class="form-group">
 					  	<p><strong>타이틀 사진 첨부</strong><span class="subfont">(선택된 사진이 대표 사진이 됩니다.)</span></p>
-					    <input "multiple="multiple" type="file" name="kimg1" id="kimg1">
+					    <input multiple="multiple" type="file" name="kimg1" id="kimg1">
 					    <p class="help-block"></p>
 					  </div>
 					  <div class="form-group">
@@ -189,7 +189,7 @@ body{
 					    <input multiple="multiple" type="file" name="kimg2" id="kimg2">
 					    <p class="help-block"></p>
 					  </div>
-					<button type="submit" id="insertBtn" class="btn btn-success">등록!</button>
+					<input type="submit" id="insertBtn" class="btn btn-success" value="등록">
 				</form>
 			</div>
 		</div>

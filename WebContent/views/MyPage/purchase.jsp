@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="com.sun.xml.internal.bind.v2.runtime.Location, member.model.vo.*, shop.model.vo.*, java.util.ArrayList"%>
+<%
+	
+	ArrayList<Payment> pList = (ArrayList<Payment>)request.getAttribute("pList");
+	ArrayList<PAttachment> picList = (ArrayList<PAttachment>)request.getAttribute("picList");
+	System.out.println(pList.size());
+	System.out.println(picList.size());
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,22 +61,38 @@
 						<td>주문처리상태</td>
 						<td>상품평등록</td>
 					</tr>
+						<% for(Payment p : pList) { 
+							int i = 0;
+						%>
+							
 					<tr>
-						<td></td>
-						<td><img src=""></td>
-						<td colspan="3">z</td>
-						<td>1</td>
-						<td>10000원</td>
+						<td><%=p.getoNo() %></td>
+						<% for(PAttachment pic : picList) {
+							if(pic.getpId() == p.getpId()){ %>
+							<td><img src="<%=pic.getFilePAth()%>"></td>
+						<% }}%>
+						<td colspan="3"><%=p.getpName()%>
+						<p id="prdInfo<%=i%>"></p>
+						<% if(p.getpOption() != null) {%>
+							<script>
+							$('#prdInfo'+<%=i%>).text(<%=p.getpOption()%>);
+							</script>
+						</td>	
+						<%} %>
+						<td><%=p.getAmount()%></td>
+						<td><%=p.getAmount()%>*<%=p.getPrice()%></td>
 						<td></td>
 						<td><button onclick="review();">상품평 등록</button></td>
 					</tr>
+							
+					<% i++; }%>
 				</table>
 			</div>
 		</div>
 	</div>
 	<script>
 	function review(){
-		window.open("/views/shop/shopReviewInsertView.jsp","ReviewInsertView","width=600, height=1000");
+		window.open("<%=request.getContextPath()%>/views/shop/shopReviewInsertView.jsp","상품평 입력창","width=600px, height=680px, left=500, top=50, toolbar=0, resizable=0, status=0, menubar=0, scrollbars=0");
 	}
 	</script>
 	

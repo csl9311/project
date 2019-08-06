@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import member.model.dao.MemberDAO;
 import member.model.vo.Address;
 import member.model.vo.Member;
+import member.model.vo.Payment;
+import shop.model.vo.PAttachment;
 
 public class MemberService {
 	public ArrayList<Member> selectAll() {
@@ -137,6 +139,11 @@ public class MemberService {
 		return result;
 	}
 
-	
+	public ArrayList<Payment> selectPayment(String userId) {
+		Connection conn = getConnection();
+		ArrayList<Payment> pList = new MemberDAO().selectPayment(conn, userId);
+		close(conn);
+		return pList;
+	}
 
 }
