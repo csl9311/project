@@ -29,7 +29,7 @@
 				<tr>
 					<td><input type="text"
 						style="width: 60vw; margin-bottom: 5px; border: 0;"
-						name="title" placeholder="aviBoardName">
+						name="title" placeholder="Title입력란입니다.">
 						<hr style="border: 0.7px solid gray"> <br></td>
 
 				</tr>
