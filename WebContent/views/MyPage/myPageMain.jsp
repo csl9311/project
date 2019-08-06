@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
@@ -16,6 +16,9 @@
 #ssee{
 min-height:60vh;
 }
+img{
+	cursor: pointer;
+}
 
 </style>
 </head>
@@ -23,6 +26,7 @@ min-height:60vh;
 <div id="ssee">
 <div id="mypage">
 <!-- 아이콘  -->
+<div id="Index">
 	  <div style="display:inline-block">
 	  <label>개인정보수정</label><br>
       <img src="../../img/mypageImg/personal.png" onclick="update()" width="300px" height="300px">  
@@ -40,7 +44,7 @@ min-height:60vh;
   <!-- 아이콘 끝 -->
 </div>
 </div>
-   
+   </div>
    <script>
       function update(){
          location.href="<%=request.getContextPath()%>/views/MyPage/check.jsp";

@@ -29,7 +29,7 @@ cursor:pointer;
 							<span>Sub-title #1</span> -->
 						</div>
 
-						<img onclick="location.href='<%=request.getContextPath()%>/list.bo';" src="<%=request.getContextPath()%>/img/banner/ban3.jpg">
+						<img <%-- onclick="location.href='<%=request.getContextPath()%>/list.bo';" --%> src="<%=request.getContextPath()%>/img/banner/ban3.jpg">
 
 					</li>
 

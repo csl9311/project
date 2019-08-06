@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import member.model.vo.Address;
 import member.model.vo.Member;
+import member.model.vo.Payment;
 
 public class MemberDAO {
 
@@ -161,7 +162,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
-
+	
 // 아이디 중복확인
 	public int checkId(Connection conn, String id) {
 		PreparedStatement pstmt = null;
@@ -173,7 +174,7 @@ public class MemberDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, id);
 			rset = pstmt.executeQuery();
-
+			
 			if (rset.next()) {
 				result = rset.getInt(1);
 			}
@@ -185,7 +186,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
-
+	
 // 닉네임 중복확인
 	public int checkNick(Connection conn, String nickName) {
 		PreparedStatement pstmt = null;
@@ -197,7 +198,7 @@ public class MemberDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, nickName);
 			rset = pstmt.executeQuery();
-
+			
 			if (rset.next()) {
 				result = rset.getInt(1);
 			}
@@ -209,7 +210,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
-
+	
 	public int checkEmail(Connection conn, String email) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -220,7 +221,7 @@ public class MemberDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, email);
 			rset = pstmt.executeQuery();
-
+			
 			if (rset.next()) {
 				result = rset.getInt(1);
 			}
@@ -232,6 +233,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
+
 
 // 관리자페이지에서 회원정보 수정
 	public int adminUpdateMember(Connection conn, Member member) {
@@ -259,12 +261,12 @@ public class MemberDAO {
 		}
 		return result;
 	}
-
+	
 // 주소 입력
 	public int addressInsert(Connection conn, Address address) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-
+		
 		String query = prop.getProperty("insertAddress");
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -273,16 +275,15 @@ public class MemberDAO {
 			pstmt.setString(3, address.getJibunAddress());
 			pstmt.setString(4, address.getAddress_detail());
 			pstmt.setString(5, address.getId());
-
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
+			close(pstmt);			
 		}
 		return result;
 	}
-
 // 주소 수정
 	public int addressUpdate(Connection conn, Address add) {
 		PreparedStatement pstmt = null;
@@ -305,7 +306,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
-
+	
 // 주소 삭제
 	public int addressDelete(Connection conn, Address address) {
 		PreparedStatement pstmt = null;
@@ -339,9 +340,13 @@ public class MemberDAO {
 
 			addressList = new ArrayList<>();
 			while (rset.next()) {
-				Address address = new Address(rset.getInt("address_code"), rset.getString("postnum"),
-						rset.getString("roadaddress"), rset.getString("jibunaddress"),
-						rset.getString("address_detail"));
+				Address address = new Address(
+					rset.getInt("address_code"),
+					rset.getString("postnum"),
+					rset.getString("roadaddress"),
+					rset.getString("jibunaddress"),
+					rset.getString("address_detail")
+					);
 				addressList.add(address);
 			}
 		} catch (SQLException e) {
@@ -377,30 +382,77 @@ public class MemberDAO {
 		return result;
 	}
 
-	public Address selectAdr(Connection conn, String userId) {
+
+	public ArrayList<Payment> selectPayment(Connection conn, String userId) {
+		System.out.println("DAO 들어옴?");
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		Address adr = null;
-
-		String query = prop.getProperty("selectAdr");
-
+		ResultSet r = null;
+		ArrayList<Payment> pArr = new ArrayList<Payment>();
+		Payment p = new Payment();
+		
+		String query = prop.getProperty("selectPayment");
+		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userId);
-			rset = pstmt.executeQuery();
-			if (rset.next()) {
-
-				adr = new Address(rset.getString("postNum"), rset.getString("roadAddress"),
-						rset.getString("jibunAddress"), rset.getString("address_detail"), rset.getString("id"));
-
+			
+			r = pstmt.executeQuery();
+			
+			while(r.next()) {
+				p = new Payment( r.getInt("oNo"),
+								 r.getString("userId"),
+								 r.getString("phone"),
+								 r.getInt("pId"),
+								 r.getInt("price"),
+								 r.getInt("amount"),
+								 r.getString("pName"),
+								 r.getString("pOption"),
+								 r.getDate("pay_date"),
+								 r.getString("address"),
+								 r.getString("history"));
+				pArr.add(p);
+				System.out.println("pArr.size() : "+pArr.size());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(r);
+			close(pstmt);
+		}
+		
+		return pArr;
+	}
+
+	public Address selectAdr(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Address adr= null;
+		
+		String query = prop.getProperty("selectAdr");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			rset= pstmt.executeQuery();			
+			if(rset.next()) {
+				
+				adr = new Address(rset.getString("postNum"),
+								  rset.getString("roadAddress"),
+								  rset.getString("jibunAddress"),
+								  rset.getString("address_detail"),
+								  rset.getString("id"));	
+						
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
 			close(pstmt);
 			close(rset);
 		}
-
+		
+		
 		return adr;
 	}
 

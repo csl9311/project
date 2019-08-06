@@ -22,7 +22,7 @@ public class Search extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String keyword = request.getParameter("keyword");
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
