@@ -1,14 +1,14 @@
 package shop.model.vo;
 
-public class Payment {
+public class Cart {
 	private int crId, pId, price, amount;
 	private String pName, pOption, userId;
 	
 
-	public Payment() {}
+	public Cart() {}
 
 
-	public Payment(int crId, int pId, int price, int amount, String pName, String pOption, String userId) {
+	public Cart(int crId, int pId, int price, int amount, String pName, String pOption, String userId) {
 		super();
 		this.crId = crId;
 		this.pId = pId;

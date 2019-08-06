@@ -23,7 +23,7 @@
       </div>
       <div style="display:inline-block">
 	  <label>구매내역</label><br>
-      <img src="../../img/mypageImg/Purchase.png" onclick="purchase()" width="300px" height="300px">
+      <img src="../../img/mypageImg/Purchase.png" onclick="purchase();" width="300px" height="300px">
       </div>
       <div style="display:inline-block">
 	  <label>장바구니</label><br>
@@ -40,10 +40,10 @@
          location.href="<%= request.getContextPath()%>/views/MyPagePcheck.jsp";
       }
       function cart(){
-         location.href="<%= request.getContextPath()%>/selectcart.ca";
+         location.href="<%= request.getContextPath()%>/views/cart.jsp";
       }
   		function purchase(){
-		location.href="<%= request.getContextPath()%>/views/MyPage/purchase.jsp";
+			location.href="<%=request.getContextPath()%>/selectPayment.do";
 	  }
 
    

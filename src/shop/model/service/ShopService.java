@@ -13,7 +13,7 @@ import product.model.vo.Product;
 import shop.model.dao.ShopDAO;
 import shop.model.vo.Answer;
 import shop.model.vo.PAttachment;
-import shop.model.vo.Payment;
+import shop.model.vo.Cart;
 import shop.model.vo.RAttachment;
 import shop.model.vo.Review;
 
@@ -260,9 +260,9 @@ public class ShopService {
 		return pAttList;
 	}
 	
-	public ArrayList<Payment> selectpay(String userId) {
+	public ArrayList<Cart> selectpay(String userId) {
 		Connection conn= getConnection();
-		ArrayList<Payment> pay = new ShopDAO().selectpay(conn, userId);
+		ArrayList<Cart> pay = new ShopDAO().selectpay(conn, userId);
 		
 		close(conn);
 		return pay;
@@ -283,17 +283,17 @@ public class ShopService {
 		return result;
 	}
 
-	public ArrayList<Payment> selectCart(String userId) {
+	public ArrayList<Cart> selectCart(String userId) {
 		Connection conn= getConnection();
-		ArrayList<Payment> info = new ShopDAO().selectCart(conn, userId);
+		ArrayList<Cart> info = new ShopDAO().selectCart(conn, userId);
 		close(conn);
 		return info;
 	}
 	
-	public Payment selectPurchase(String userId, String arr) {
+	public Cart selectPurchase(String userId, String arr) {
 		Connection conn= getConnection();
 		ShopDAO dao = new ShopDAO();
-		Payment pay = dao.selectPurchase(conn, userId,arr);
+		Cart pay = dao.selectPurchase(conn, userId,arr);
 		
 		int result= dao.deleteCart(conn, userId,arr);
 		if(result>0) {
