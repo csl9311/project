@@ -37,8 +37,19 @@ public class Purchase extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member sessionMember = (Member)session.getAttribute("loginUser");
 		String userId= sessionMember.getId();
-		
-		ArrayList<Payment> pay = new ShopService().selectPurchase(userId);
+		String[] arr= request.getParameter("list").split(",");
+		ArrayList<Payment> pay = new ArrayList<Payment>();
+		for(int i=0; i<arr.length;i++) {
+		System.out.println("list="+arr[i]);
+		Payment p = new ShopService().selectPurchase(userId,arr[i]);
+		pay.add(p);
+		}
+		for(int i=0; i<pay.size();i++) {
+			Payment p= pay.get(i);
+			System.out.println(p.getpId());
+			
+		}
+
 		
 	}
 

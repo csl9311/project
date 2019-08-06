@@ -19,7 +19,7 @@ import karaoke.model.vo.Karaoke;
 @WebServlet("/detail.ko")
 public class KaraokeDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,7 +33,7 @@ public class KaraokeDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int kid = Integer.parseInt(request.getParameter("kid"));
-		
+
 		KaraokeService service = new KaraokeService();
 		Karaoke karaoke = service.selectKaraoke(kid);
 		ArrayList<Attachment> fileList = service.selectAttachment(kid);

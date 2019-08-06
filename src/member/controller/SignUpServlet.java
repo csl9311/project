@@ -14,7 +14,7 @@ import member.model.service.MemberService;
 import member.model.vo.Address;
 import member.model.vo.Member;
 
-@WebServlet("/member.signUp")
+@WebServlet(name="SignUpServlet", urlPatterns="/member.signUp")
 public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

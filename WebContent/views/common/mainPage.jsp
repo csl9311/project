@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/views/common/coinheader.jsp"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,9 +28,9 @@ cursor:pointer;
 							<h3>배너 #1</h3>
 							<span>Sub-title #1</span>
 						</div>
-						
-						<img onclick="location.href='<%=request.getContextPath()%>/list.bo';" style="cursor:pointer" src="<%=request.getContextPath()%>/img/cmboard/bono.jpg">
-						
+
+						<img onclick="location.href='<%=request.getContextPath()%>/list.bo';" src="<%=request.getContextPath()%>/img/cmboard/bono.jpg">
+
 					</li>
 
 					<li>
@@ -74,17 +76,22 @@ cursor:pointer;
 				<div id="slider-pagination-wrap"><ul></ul></div>
 			</div>
 
-			<div class="mainMenu">
-				<button class="btn" type="button" onclick="location.href=''">노래방찾기</button>
-				<button class="btn" type="button" value="2">커뮤니티</button>
-				<button class="btn" type="button" value="3">버튼이미지3</button>
-				<button class="btn" type="button" value="4">쇼핑몰</button>
+			<div class="mainMenu" style="margin-top:50px;">
+				<img src="<%=request.getContextPath()%>/img/cmboard/find.png" onclick="location.href='<%=request.getContextPath()%>/list.ko';" >
+				<img src="<%=request.getContextPath()%>/img/cmboard/board.png" onclick="location.href='<%=request.getContextPath()%>/list.tb';" >
+				<img src="<%=request.getContextPath()%>/img/cmboard/video.png" onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
+				<img src="<%=request.getContextPath()%>/img/cmboard/shopcart.png"  onclick="location.href='<%=request.getContextPath()%>/shopMain.do';" >
+				<%if(loginUser!=null){ %>
+				<img src="<%=request.getContextPath()%>/img/cmboard/mypage.png"  onclick="location.href='<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp;" >
+				<%} %>
+
+
+
 			</div>
 
 		</div>
 
 
-		<%@ include file="/views/common/coinfooter.jsp"%>
 		<script>
 			//slide-wrap
 			var slideWrapper = document.getElementById('slider-wrap');
@@ -164,10 +171,12 @@ cursor:pointer;
 			var autoSlider = setInterval(function() {
 				plusSlides(1);
 			}, 3000);
-			
-			
+
+
 		</script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/main/header.js"> </script>
 	</div>
 </body>
+
+		<%@ include file="/views/common/coinfooter.jsp"%>
 </html>
