@@ -11,6 +11,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+#index{
+	min-height: 80vh;	
+}
 </style>
 <%@  include file="Form.jsp"%>
 <link rel="stylesheet"
@@ -57,7 +60,9 @@
 						<td><%=p.getPrice() * p.getAmount()%></td>
 						<td><br>
 
-							<button class="cartBtn">삭제</button></td>
+							<button class="cartBtn" onclick="deletecart();">삭제</button>
+							<br>
+							</td>
 						<%
 							break;
 												}
@@ -80,15 +85,13 @@
 						<td><%=p.getPrice()%></td>
 						<td><%=p.getPrice() * p.getAmount()%></td>
 						<td><br>
-						<button class="cartBtn">삭제</button></td>
+						<button class="cartBtn" onclick="deletecart();">삭제</button><br></td>
 					</tr>
 					<%
 						}
 						}
 					%> 
-					<tr>
-						<td colspan="9">상품구매가격</td>
-					</tr>
+					
 				</table>
 			</div>
 			<!-- 상품목록 끝 -->
@@ -99,13 +102,17 @@
 				<table class="tab-2">
 					<tr>
 						<td>총 상품금액</td>
-						<td>총 배송비</td>
-						<td>결제예정금액</td>
 					</tr>
 					<tr>
-						<td class="pay1">10000원</td>
-						<td class="pay1">3000원</td>
-						<td class="pay1">13000원</td>
+						<td class="pay1">총 예상 상품 구매가격 =
+						<% int totalprice=0;
+						for(int i=0; i<info.size();i++){
+							Payment p= info.get(i);
+							totalprice +=p.getPrice()*p.getAmount();
+							}%>
+							<%=totalprice%>원</td>
+						
+					
 					</tr>
 				</table>
 				<!-- 금액 끝 -->
@@ -133,7 +140,14 @@
 		
 		</div>
 	</div>
+	<script>
+		function deletecart(){
+			
+		}
+	
+	</script>
 	
 	
 </body>
+ <%@ include file="/views/common/coinfooter.jsp"%>
 </html>

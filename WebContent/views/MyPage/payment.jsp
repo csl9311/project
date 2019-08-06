@@ -5,11 +5,11 @@
 	request.setCharacterEncoding("UTF-8");
 	ArrayList<Payment> pay = (ArrayList<Payment>) request.getAttribute("pay");
 	String phone = loginUser.getPhone();
-	String name = request.getParameter("name"); 
-	String email= request.getParameter("email");
-	if(email==null){
-	  email="-";
-	}
+	int point= loginUser.getPoint();
+	String name = loginUser.getName();
+	System.out.println(loginUser.getName());
+	String email= loginUser.getEmail();
+
 %>
 <!DOCTYPE html>
 <html>
@@ -30,15 +30,19 @@
 .delrequest {
 	width: 30vw;
 }
+#index{
+	min-height: 110vh;	
+}
 </style>
 </head>
+
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/mypage/cart.css">
 <body>
-    <div id="Index">
+    <div id="index">
 	<div id="mypage">
 		<!-- 상품목록 -->
-		<div style="text-align:left">
+		<div>
 		<table class="tab-1">
 					<tr>
 						<td>이미지</td>
@@ -47,6 +51,7 @@
 						<td width="50px">수량</td>
 						<td>상품 금액</td>
 						<td>합계</td>
+
 					</tr>
 					<%
 						for (int i = 0; i < pay.size(); i++) {
@@ -58,7 +63,9 @@
 					%>					
 					<tr>
 						<td>이미지</td>
-						<td><%=p.getpName()%></td>
+						<td >
+						<input id="firstName<%=i%>" type="hidden" value="<%=p.getpName()%>">
+						<%=p.getpName()%></td>
 						<%
 							for (int k = 0; k < arr.length; k++) {
 												if (k % 2 == 0) {
@@ -67,6 +74,7 @@
 						<td><%=arr[k + 1]%></td>
 						<td><%=p.getPrice()%></td>
 						<td><%=p.getPrice() * p.getAmount()%></td>
+
 						<%
 							break;
 												}
@@ -93,10 +101,10 @@
 						}
 					%> 
 				</table>
-
+			</div>
 		<br> <br>
 		<!-- 주문자 정보 -->
-		<div id="pay-div1">
+		<div id="pay-div1" style="text-align:left">
 			<br>
 			<p>주문 정보</p>
 			<table class="pay-tab">
@@ -122,7 +130,7 @@
 				</tr>
 				<tr>
 					<td>이메일</td>
-					<td><input type="text" name="email" id="email" value="<%=email %>">
+					<td><input type="text" name="email1" id="email1" value="<%=email %>">
 				</tr>
 			</table>
 			
@@ -130,6 +138,7 @@
 			<!-- 주문자정보 끝 -->
 			<br> <br>
 			<!-- 배송지 정보 -->
+			<form>
 			<p>배송지 정보</p>
 			<table class="pay-tab">
 				<tr>
@@ -164,7 +173,9 @@
 					<label>ex)경비실에 맡겨주세요</label></td>
 				</tr>
 			</table>
+			</form>
 			<!-- 배송지정보 끝 -->
+			
 		</div>
 
 		<div id="pay-div1">
@@ -174,9 +185,9 @@
 			<table>
 				<tr>
 					<td>포인트 사용</td>
-					<td><input type="text" id="po" value="">원</td>
+					<td><input type="text" id="po">원</td>
 					<td><input type="button" onclick="all();" value="전액사용"></td>
-					<td>(보유 포인트 :  포인트)</td>
+					<td>(보유 포인트 : <%=point %> 포인트)</td>
 				</tr>
 			</table>
 			<!-- 할인 및 포인트 끝 -->
@@ -188,72 +199,86 @@
 			<table class="pay-tab">
 				<tr>
 					<td>총 주문 금액</td>
-					<td>총 할인 + 부가결제 금액</td>
+					<td>포인트 사용</td>
 					<td>총 결제예정 금액</td>
 				</tr>
 				<tr>
-					<td>원</td>
+					<td>
+					
+					<%int total = 0;
+					for (int i = 0; i < pay.size(); i++) {
+							Payment p = pay.get(i);
+							total += p.getPrice()*p.getAmount();						
+						}%>
+						<%= total %>원
+						<input id="total" type="hidden" value="<%= total %>"></td>
 					<td>-원</td>
 					<td>=원</td>
-				</tr>
-				<tr>
-					<td colspan="3">총 할인금액 0원</td>
-				</tr>
-				<tr>
-					<td colspan="3">총 부가결제금액 0원</td>
 				</tr>
 			</table>
 			<button id="payment">결제하기</button>
 		</div>
 		<!-- 결제정보끝 -->
-		</div>
+		
 	</div>
 	</div>
 	
 	<script>
 	function copy(){
-		$('#name2').attr('value', <%=name%>)
-		$('#phone2').attr('value', <%=phone%>)		
+		$('#name2').attr('value', '<%=name%>');
+		$('#phone2').attr('value', '<%=phone%>');
 	}
-	function all(){
-		$('#po').attr('value', "")
-	}
-	
-	var IMP = window.IMP; // 생략가능
+
+var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
+		Payment p = pay.get(i);
+		if(i < pay.size()-1){
+	%><%=p.getpId()%>,<%
+		} else {
+	%><%=p.getpId()%><%
+		}
+	}%>";
+	console.log(list);
+	$('#payment').click(function(){
+		  location.href="<%=request.getContextPath()%>/purchase.ca?list="+list;
+	});
+	<%-- var IMP = window.IMP; // 생략가능
 	IMP.init('imp03747157');
+	
+	var name= $('#firstName0').val();
+	var total= $('#total').val();
+	var totalamount =$('#totalamount').val();
 	
 	$('#payment').click(function(){
 	IMP.request_pay({
 	    pg : 'inicis', // version 1.1.0부터 지원.
 	    pay_method : 'card',
 	    merchant_uid : 'merchant_' + new Date().getTime(),
-	    name : 'ABKO 헤드셋',
-	    amount : 500,
-	    buyer_email : 'iamport@siot.do',
-	    buyer_name : '구매자이름',
-	    buyer_tel : '010-1234-5678',
+	    name : name,
+	    amount : '100',
+	    buyer_email : '<%=loginUser.getEmail()%>',
+	    buyer_name : '<%=loginUser.getName()%>',
+	    buyer_tel : '<%=loginUser.getPhone()%>',
 	    buyer_addr : '서울특별시 강남구 삼성동',
 	    buyer_postcode : '123-456',
 	    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 	}, function(rsp) {
 	    if ( rsp.success ) {
 	        var msg = '결제가 완료되었습니다.';
-	        msg += '고유ID : ' + rsp.imp_uid;
-	        msg += '상점 거래ID : ' + rsp.merchant_uid;
 	        msg += '결제 금액 : ' + rsp.paid_amount;
-	        msg += '카드 승인번호 : ' + rsp.apply_num;
+	     
+	        location.href="<%=request.getContextPath()%>/purchase.ca?list="+list;
 	        
 	        
 	    } else {
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
 	    }
-	    alert(msg);
+	    alert(msg); 
 	});
-	});
+	}); --%>
 	
 	
 	</script>
 </body>
-</html>
 <%@ include file="/views/common/coinfooter.jsp"%>
+</html>

@@ -17,10 +17,13 @@
 .p {
 	font-size: small;
 }
+#index{
+	min-height : 70vh;
+
 </style>
 </head>
 <body>
-	<div id="Index">
+	<div id="index">
 		<div id="mypage">
 			<div>
 				<ul class="nav nav-pills">
