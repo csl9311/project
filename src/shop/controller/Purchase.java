@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
+import payment.model.vo.Payment;
 import shop.model.service.ShopService;
 import shop.model.vo.Cart;
 

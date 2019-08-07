@@ -130,6 +130,22 @@ public class Payment {
 	public void setHistory(String history) {
 		this.history = history;
 	}
+	public String getRecipient() {
+		return recipient;
+	}
+
+	public void setRecipient(String recipient) {
+		this.recipient = recipient;
+	}
+
+	public String getReq() {
+		return req;
+	}
+
+	public void setReq(String req) {
+		this.req = req;
+	}
+
 	@Override
 	public String toString() {
 		return "Payment [oNo=" + oNo + ", userId=" + userId + ", phone=" + phone + ", pId=" + pId + ", price=" + price

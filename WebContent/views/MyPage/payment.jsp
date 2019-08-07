@@ -277,7 +277,7 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 		var req = document.getElementById('req').value;
 		console.log(address);
 		console.log(recipient);
-		console.log(req);		
+		console.log(req);
 		var shipinfo= new Object();
 		shipinfo.recipient = recipient;
 		shipinfo.recipienPhone = recipienPhone;

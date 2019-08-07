@@ -24,7 +24,7 @@
 <body>
 
 	<div class="content">
-		<form action="<%=request.getContextPath()%>/member.signUp" method="post">
+		<form action="<%=request.getContextPath()%>/member.memberupdate" method="post">
 			<table class="signUpTable">
 				<tr>
 					<td class="rowTitle">아이디</td>

@@ -63,12 +63,13 @@ public class PaymentDAO {
 		
 		int result=0;
 		
-		String query = prop.getProperty("selectPayment");
+		String query = prop.getProperty("insertPurchase");
 		
 		try {
 			pstmt=conn.prepareStatement(query);
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return result;
