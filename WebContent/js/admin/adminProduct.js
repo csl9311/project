@@ -8,14 +8,14 @@ $active.click(function() {
 });
 
 $('#optionCheckY').click(function(){
-	$('#optionCheckY').css('background', 'black');
-	$('#optionCheckN').css('background', 'white');
+	$('#optionCheckY').css('background', 'black').attr('selected');
+	$('#optionCheckN').css('background', 'white').removeAttr('selected');
 	$('.option1').css('display', 'table-row');
 	$('.option1Detail').css('display', 'table-cell');
 });
 $('#optionCheckN').click(function(){
-	$('#optionCheckN').css('background', 'black');
-	$('#optionCheckY').css('background', 'white');
+	$('#optionCheckN').css('background', 'black').attr('selected');
+	$('#optionCheckY').css('background', 'white').removeAttr('selected');
 	$('.option1').css('display', 'none');
 	$('.option1Detail').css('display', 'table-cell');
 	$('.option2').css('display', 'none');

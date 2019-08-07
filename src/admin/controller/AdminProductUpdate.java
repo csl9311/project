@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import admin.model.service.AdminService;
 import product.model.vo.Product;
 
@@ -26,7 +28,7 @@ public class AdminProductUpdate extends HttpServlet {
 		AdminService service = new AdminService();
 		int pId = Integer.parseInt(request.getParameter("pId"));
 		String pName = request.getParameter("pName");
-		int brandNo = Integer.parseInt(request.getParameter("brand"));
+		int brandNo = Integer.parseInt(request.getParameter("brandNo"));
 		int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
 		int subCategoryNo = Integer.parseInt(request.getParameter("subCate"));
 		int price = Integer.parseInt(request.getParameter("price"));
@@ -52,6 +54,7 @@ public class AdminProductUpdate extends HttpServlet {
 		String option2 = request.getParameter("option2");
 		String option3 = request.getParameter("option3");
 		String optionResult = "";
+		int result2 = 0;
 		if (useOption.equals("Y")) {
 			if (option1.equals("")) {
 				optionResult = "";
@@ -62,21 +65,21 @@ public class AdminProductUpdate extends HttpServlet {
 			} else {
 				optionResult = option1 + "/" + option2 + "/" + option3;
 			}
-			int result2 = service.updateOption(optionResult, pId);
+			result2 = service.updateOption(optionResult, pId);
 			if (result2 > 0) {
 				System.out.println("옵션 등록 완료");
 			} else {
 				System.out.println("옵션 등록 실패");
 			}
-		}
-		String page = "";
-		if (result1 > 0) {
-			response.sendRedirect(request.getHeader("referer"));
 		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "상품수정에 실패했습니다.");
+			useOption = "N";
+			optionResult = "";
+			result2 = service.updateOption(optionResult, pId);
 		}
-		request.getRequestDispatcher(page).forward(request, response);
+		Product product = new AdminService().selectProduct(pId);
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(product, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

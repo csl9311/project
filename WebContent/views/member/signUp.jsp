@@ -201,7 +201,7 @@
 			$('#submit').removeAttr('disabled').css({'background' : 'green'});
 		} else {
 			$('#submit').prop('disabled', 'disabled').css({'background' : 'gray'});
-			
+
 		}
 	}
 	
