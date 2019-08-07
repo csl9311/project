@@ -38,7 +38,7 @@
 			<a href="<%=request.getContextPath()%>/list.ko">코인노래방
 				찾기</a> <a href="<%=request.getContextPath()%>/shopMain.do">쇼핑몰</a> <a
 				href="<%=request.getContextPath()%>/list.bo">영상게시판</a> <a
-				href="<%=request.getContextPath()%>/list.tb">자유게시판</a> <a href="#">Q&#38;A</a>
+				href="<%=request.getContextPath()%>/list.tb">자유게시판</a>
 			<%-- 로그인 시 --%>
 			<%
 				if (loginUser != null) {

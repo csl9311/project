@@ -130,7 +130,7 @@
 				</tr>
 				<tr class="center">
 					<td colspan="3"><button class="adminButton" type="submit">수정완료</button></td>
-					<td colspan="3"><button class="adminButton" type="button" onclick="location.href='javascript:history.go(-1)'">이전 페이지로</button></td>
+					<td colspan="3"><button class="adminButton" style="width: 180px;" type="button" onclick="location.href='javascript:history.go(-1)'">이전 페이지로</button></td>
 				</tr>
 			</table>
 		</form>

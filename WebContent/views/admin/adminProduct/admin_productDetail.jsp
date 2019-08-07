@@ -27,9 +27,6 @@
 	%>
 	<div class="emptyHeader"></div>
 	<div class="content">
-		<%-- 검색 영역 --%>
-			
-		<div class="emptyHeader"></div>
 		<%-- 상품정보조회 --%>
 		<table class="resultList" style="color: white; width:40vw;">
 			<tr>
@@ -91,11 +88,11 @@
 			<tr>
 				<td><label>옵션</label></td>
 				<td>
-					<input name="option" id="optionCheckY" type="radio" value="Y" style="width: 15px; height: 15px; background: white;" <%=selected[0]%>>
+					<input class="option" name="option" id="optionCheckY" type="radio" value="Y" style="width: 15px; height: 15px; background: white;" <%=selected[0]%>>
 					<label>있음</label>
 				</td>
 				<td>
-					<input name="option" id="optionCheckN" type="radio" value="N" style="width: 15px; height: 15px; background: white;" <%=selected[1]%>>
+					<input class="option" name="option" id="optionCheckN" type="radio" value="N" style="width: 15px; height: 15px; background: white;" <%=selected[1]%>>
 					<label>없음</label>
 				</td>
 			</tr>
@@ -182,6 +179,11 @@
 				var $price = $('#price').val();
 				var $stock = $('#stock').val();
 				var $regDate = $('#regDate').val();
+				var $option = $('input[name=option]')[0].value;
+				console.log($('input[name=option]')[0].value);
+				var $input_option1 = $('#input_option1').val();
+				var $input_option2 = $('#input_option2').val();
+				var $input_option3 = $('#input_option3').val();
 				
 				$.ajax({
 					url: "<%=request.getContextPath()%>/admin.productUpdate",
@@ -195,24 +197,36 @@
 						price : $price,
 						stock : $stock,
 						regDate : $regDate,
+						option : $option,
+						option1 : $input_option1,
+						option2 : $input_option2,
+						option3 : $input_option3
 					},
 					success : function(data) {
 						alert("수정되었습니다.");
-						location.replace();
+						history.go(-1);
+					},
+					error: function(data){
+						alert("카테고리를 선택해주세요.");
 					}
 				});
 			}
 			function deleteProduct(){
-				var $pId = $('#pId').val();
-				$.ajax({
-					url: "<%=request.getContextPath()%>/admin.productDelete",
-					type : 'post',
-					data : {pId : $pId},
-					success : function(data) {
-						alert("삭제되었습니다.");
-						location.replace();
-					}
-				});
+				var check = confirm("정말 삭제하시겠습니까?");
+				if(check){
+					var $pId = $('#pId').val();
+					$.ajax({
+						url: "<%=request.getContextPath()%>/admin.productDelete",
+						type : 'post',
+						data : {pId : $pId},
+						success : function(data) {
+							alert("삭제되었습니다.");
+							history.go(-1);
+						}
+					});
+				} else {
+					alert("취소하셨습니다.");
+				}
 			}
 		</script>
 		<%

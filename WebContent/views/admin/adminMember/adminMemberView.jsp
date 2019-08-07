@@ -22,12 +22,6 @@
 		<div class="emptyHeader"></div>
 
 <%-- 검색 영역 --%>
-		<form class="center search" action="<%=request.getContextPath()%>/searchMem.admin" method="get">
-			<input type="search" name="keyword">
-			<button type="submit">검색</button>
-		</form>
-
-		<div class="emptyHeader"></div>
 <%-- 회원정보조회, 등급 수정, 관리자 권한부여 --%>
 		<div>
 		<% if(loginUser.getGrade().equals("관리자")) {%>

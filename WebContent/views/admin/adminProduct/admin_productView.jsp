@@ -18,12 +18,6 @@
 	%>
 	<div class="emptyHeader"></div>
 	<div class="content">
-		<%-- 검색 영역 --%>
-		<form class="search center" action="<%=request.getContextPath()%>/searchProduct.admin" method="get">
-			<input type="search" name="search">
-			<button type="submit">검색</button>
-		</form>
-		<div class="emptyHeader"></div>
 		<div id="productUpdate" class="center none">
 			<form action="<%=request.getContextPath()%>/admin.productInsert" method="post">
 				<table>
