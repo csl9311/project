@@ -152,7 +152,7 @@
 			<table class="pay-tab">
 				<tr>
 					<td class="menu"></td>
-					<td><input id="butn" type="button" value="주문자 정보와 동일" onclick="copy();">&nbsp;&nbsp;&nbsp;</td>
+					<td><input id="butn" type="button" value="주문자 정보와 동일">&nbsp;&nbsp;&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="menu">받는사람&nbsp;&nbsp;&nbsp;</td>
