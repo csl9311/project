@@ -58,20 +58,32 @@ public class PaymentDAO {
 
 		return pArr;
 	}
-	public int insertPurchase(Connection conn, String userId, ArrayList<Cart> pay, Object shipinfo) {
+	public int insertPurchase(Connection conn, String userId, Cart ca, Payment shipinfo) {
 		PreparedStatement pstmt =null;
-		
 		int result=0;
-		String nss = shipinfo.
+		
 		String query = prop.getProperty("insertPurchase");
 		
 		try {
 			pstmt=conn.prepareStatement(query);
-			
-			
+			pstmt.setString(1,userId);
+			pstmt.setString(2, shipinfo.getPhone());
+			pstmt.setInt(3, ca.getpId());
+			pstmt.setInt(4, ca.getPrice());
+			pstmt.setInt(5, ca.getAmount());			
+			pstmt.setString(6, ca.getpName());
+			pstmt.setString(7, ca.getpOption());
+			pstmt.setString(8, shipinfo.getAddress());
+			pstmt.setString(9, shipinfo.getRecipient());
+			pstmt.setString(10, shipinfo.getReq());
+			result=pstmt.executeUpdate();
+		
+						
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		return result;
 	}

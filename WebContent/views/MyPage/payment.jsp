@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="product.model.vo.*, member.model.vo.*, java.util.*, shop.model.vo.*"%>
+	pageEncoding="UTF-8" import="product.model.vo.*, member.model.vo.*, java.util.*, shop.model.vo.*, payment.model.vo.*"%>
 <%@ include file="Form.jsp"%>	
 <%	
 	request.setCharacterEncoding("UTF-8");
@@ -278,12 +278,10 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 		console.log(address);
 		console.log(recipient);
 		console.log(req);
-		var shipinfo= new Object();
-		shipinfo.recipient = recipient;
-		shipinfo.recipienPhone = recipienPhone;
-		shipinfo.address = address;
-		shipinfo.req= req;
-		location.href="<%=request.getContextPath()%>/purchase.ca?list="+list+"&shipinfo="+shipinfo;
+		var ship = recipient +","+ recipienPhone +","+ address +","+ req;
+		
+	
+		location.href="<%=request.getContextPath()%>/purchase.ca?list="+list+"&ship="+ship;
 	});
 	
 	<%-- $('#payment').click(function(){

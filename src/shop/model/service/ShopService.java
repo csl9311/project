@@ -290,12 +290,12 @@ public class ShopService {
 		return info;
 	}
 
-	public Cart selectPurchase(String userId, String arr) {
+	public Cart selectPurchase(String userId, int vrr) {
 		Connection conn= getConnection();
 		ShopDAO dao = new ShopDAO();
-		Cart pay = dao.selectPurchase(conn, userId,arr);
+		Cart pay = dao.selectPurchase(conn, userId,vrr);
 
-		int result= dao.deleteCart(conn, userId,arr);
+		int result= dao.deleteCart(conn, userId,vrr);
 		if(result>0) {
 			commit(conn);
 		}else {

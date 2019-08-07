@@ -49,7 +49,7 @@ public class PayList extends HttpServlet {
 		
 		if(pay!=null) {
 			page= "views/MyPage/payment.jsp";
-			request.setAttribute("pay",pay);
+			request.setAttribute("pay", pay);
 			request.setAttribute("adr", adr);
 		}else {
 			page = "views/common/errorPage.jsp";

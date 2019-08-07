@@ -1038,7 +1038,7 @@ public class ShopDAO {
 		return pattList;
 	}
 
-	public Cart selectPurchase(Connection conn, String userId, String arr) {
+	public Cart selectPurchase(Connection conn, String userId, int arr) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Cart payment=null;
@@ -1047,7 +1047,7 @@ public class ShopDAO {
 		try {
 			pstmt= conn.prepareStatement(query);
 			pstmt.setString(1, userId);
-			pstmt.setString(2, arr);
+			pstmt.setInt(2, arr);
 			
 			rset= pstmt.executeQuery();
 			

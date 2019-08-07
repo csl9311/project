@@ -19,10 +19,10 @@ public class PaymentService {
 		return pList;
 	}
 
-	public int insertPurchase(String userId, ArrayList<Cart> pay, Object shipinfo) {
+	public int insertPurchase(String userId, Cart ca, Payment shipinfo) {
 		Connection conn= getConnection();
 		
-		int result = new PaymentDAO().insertPurchase(conn, userId, pay, shipinfo);
+		int result = new PaymentDAO().insertPurchase(conn, userId, ca, shipinfo);
 		
 		if(result>0) {
 			commit(conn);
@@ -30,6 +30,6 @@ public class PaymentService {
 			rollback(conn);
 		}
 		
-		return 0;
+		return result;
 	}
 }

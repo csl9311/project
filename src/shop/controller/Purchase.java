@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
 import payment.model.service.PaymentService;
+import payment.model.vo.Payment;
 import shop.model.service.ShopService;
 import shop.model.vo.Cart;
 
@@ -38,16 +39,40 @@ public class Purchase extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member sessionMember = (Member)session.getAttribute("loginUser");
 		String userId= sessionMember.getId();
-		Object shipinfo = request.getParameter("shipinfo");
+		String[] ship = request.getParameter("ship").split(",");
 		String[] arr= request.getParameter("list").split(",");
+		String recipient = ship[0];
+		String recipienPhone = ship[1];
+		String address = ship[2];
+		String req = ship[3];
+		
+		Payment shipinfo = new Payment();
+		shipinfo.setRecipient(recipient);
+		shipinfo.setPhone(recipienPhone);
+		shipinfo.setAddress(address);
+		shipinfo.setReq(req);
+		int result =0;
+		
 		ArrayList<Cart> pay = new ArrayList<Cart>();
 		for(int i=0; i<arr.length;i++) {
 		System.out.println("list="+arr[i]);
-		Cart p = new ShopService().selectPurchase(userId,arr[i]);
+		int vrr = Integer.parseInt(arr[i]);
+		Cart p = new ShopService().selectPurchase(userId,vrr);
 		
-		int result = new PaymentService().insertPurchase(userId, pay, shipinfo);
 		pay.add(p);
 		}
+		for(int i=0; i<pay.size(); i++) {
+			Cart ca= pay.get(i);
+			result = new PaymentService().insertPurchase(userId, ca, shipinfo);
+		}
+		
+		
+		if(result>0) {
+			System.out.println("dddd"+result);			
+			
+		}
+		
+			
 //		for(int i=0; i<pay.size();i++) {
 //			Payment p= pay.get(i);
 //			System.out.println(p.getpId());
