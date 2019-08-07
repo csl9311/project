@@ -1108,7 +1108,7 @@ public class ShopDAO {
 		return pay;
 	}
 
-	public int deleteCart(Connection conn, String userId, String arr) {
+	public int deleteCart(Connection conn, String userId, int arr) {
 		PreparedStatement pstmt =null;
 		int result=0;
 		
@@ -1117,7 +1117,7 @@ public class ShopDAO {
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setString(1, userId);
-			pstmt.setString(2, arr);
+			pstmt.setInt(2, arr);
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

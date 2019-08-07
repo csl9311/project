@@ -146,22 +146,14 @@ public class MemberService {
 		Connection conn= getConnection();
 		Address adr= new MemberDAO().selectAdr(conn,userId);
 		close(conn);
-		
 		return adr;
 	}
 
-	public int insertReview(Review r, ArrayList<RAttachment> fileList) {
+	public int insertReview(Review r) {
 		Connection conn = getConnection();
 		MemberDAO dao = new MemberDAO();
-		int result1 = dao.insertReview(conn, r);
-		int result2 = dao.insertRAttachment(conn, fileList);
-		
-		if (result1 > 0 && result2 > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
+		int result = dao.insertReview(conn, r);
 		close(conn);
-		return result1+result2;
+		return result;
 	}
 }

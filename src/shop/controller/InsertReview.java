@@ -25,16 +25,15 @@ import member.model.vo.Member;
 import shop.model.vo.RAttachment;
 import shop.model.vo.Review;
 
-
 @WebServlet("/insertReview.do")
 
 public class InsertReview extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    public InsertReview() {
-        super();
-    }
-    
+
+	public InsertReview() {
+		super();
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
@@ -46,67 +45,26 @@ public class InsertReview extends HttpServlet {
 		int result = 0;
 		System.out.println("서블렛 들어옴");
 		
-		///// 사진
-		if (ServletFileUpload.isMultipartContent(request)) {
-			System.out.println("if문 들어옴");
-			int maxSize = 1024 * 1024 * 10;// 10Mbyte
-			String root = request.getSession().getServletContext().getRealPath("/");
-			String savePath = root + "review_uploadFiles/";
-			System.out.println(savePath);
-			
-			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
-					new MyFileRenamePolicy());
-			
-			ArrayList<String> saveFiles = new ArrayList<String>();
-			ArrayList<String> originFiles = new ArrayList<String>();
-			
-			Enumeration<String> files = multiRequest.getFileNames();
-			
-			while (files.hasMoreElements()) {
-				String name = files.nextElement();
-				System.out.println("name:" + name);
-				if (multiRequest.getFilesystemName(name) != null) {
-					saveFiles.add(multiRequest.getFilesystemName(name));
-					originFiles.add(multiRequest.getOriginalFileName(name));
-				}
-			}
-			System.out.println(originFiles.size());
-			System.out.println(originFiles);
-			
-			int pId = Integer.parseInt(multiRequest.getParameter("pId"));
-			System.out.println(pId);
-			String rContent = multiRequest.getParameter("rContent");
-			Date date = new Date(new GregorianCalendar().getTimeInMillis());
-			String rTitle = multiRequest.getParameter("rTitle");
-			String str = "Review";
-			
-			ArrayList<RAttachment> fileList = new ArrayList<RAttachment>();
-			for (int i = originFiles.size() - 1; i >= 0; i--) {
-				System.out.println(1234);
-				RAttachment at = new RAttachment();
-				at.setFilePAth(savePath);
-				at.setOriginName(originFiles.get(i));
-				at.setChangeName(saveFiles.get(i));
-				at.setpId(pId);
-
-				fileList.add(at);
-			}
-			System.out.println();
-			System.out.println("fileList.size() : " + fileList.size());
-			
-			Review r = new Review();
-			r.setrType(1);
-			r.setrTitle(rTitle);
-			r.setrContent(rContent);
-			r.setModifyDate(date);
-			r.setpId(pId);
-			r.setrWriter(userId);
-			System.out.println(userId);
-			
-			result = service.insertReview(r, fileList);
-			System.out.println("result : " + result);
-		}
-		///// 사진
+		String apId = request.getParameter("pId");
+		String atype = request.getParameter("type");
+		
+		int pId = Integer.parseInt(apId);
+		int type = Integer.parseInt(atype);
+		
+		System.out.println("type : " + type);
+		String rContent = request.getParameter("rContent");
+		String rTitle = request.getParameter("rTitle");
+		
+		Review r = new Review();
+		r.setrType(type);
+		r.setrTitle(rTitle);
+		r.setrContent(rContent);
+		r.setpId(pId);
+		r.setrWriter(userId);
+		System.out.println(userId);
+				
+		result = service.insertReview(r);
+		System.out.println("result : " + result);
 		
 		JsonObject jObj = new JsonObject();
 		jObj.addProperty("result", result);
@@ -115,9 +73,9 @@ public class InsertReview extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		gson.toJson(jObj,response.getWriter());
 	}
-	
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

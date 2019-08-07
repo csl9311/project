@@ -62,11 +62,12 @@ public class PaymentDAO {
 		PreparedStatement pstmt =null;
 		
 		int result=0;
-		
+		String nss = shipinfo.
 		String query = prop.getProperty("insertPurchase");
 		
 		try {
 			pstmt=conn.prepareStatement(query);
+			
 			
 		} catch (SQLException e) {
 			

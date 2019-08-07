@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
-import payment.model.vo.Payment;
+import payment.model.service.PaymentService;
 import shop.model.service.ShopService;
 import shop.model.vo.Cart;
 
@@ -44,6 +44,8 @@ public class Purchase extends HttpServlet {
 		for(int i=0; i<arr.length;i++) {
 		System.out.println("list="+arr[i]);
 		Cart p = new ShopService().selectPurchase(userId,arr[i]);
+		
+		int result = new PaymentService().insertPurchase(userId, pay, shipinfo);
 		pay.add(p);
 		}
 //		for(int i=0; i<pay.size();i++) {

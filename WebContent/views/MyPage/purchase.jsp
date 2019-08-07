@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="com.sun.xml.internal.bind.v2.runtime.Location, payment.model.vo.*, shop.model.vo.*, java.util.ArrayList"%>
+<%@page import="com.sun.xml.internal.bind.v2.runtime.Location, 
+		member.model.vo.*, shop.model.vo.*, java.util.ArrayList,
+		payment.model.vo.*"%>
 <%
-
 	ArrayList<Payment> pList = (ArrayList<Payment>)request.getAttribute("payList");
 	ArrayList<PAttachment> picList = (ArrayList<PAttachment>)request.getAttribute("picList");
-	System.out.println(pList.size());
-	System.out.println(picList.size());
  %>
 <!DOCTYPE html>
 <html>
@@ -35,10 +34,10 @@ img{
 	width: 100px; height: 100px;
 }
 p{
-	margin-top: 3%;
+	margin-top: 3%; 
 }
 button{
-	background-color: rgb(210,210,210);
+	background-color: rgb(210,210,210); 
 	border: none;
 	height: 30px;
 	font-weight: 800;
@@ -73,11 +72,11 @@ button{
 						<td>주문처리상태</td>
 						<td>상품평등록</td>
 					</tr>
-						<%
+						<% 
 						int i = 0;
-						for(Payment p : pList) {
+						for(Payment p : pList) { 
 						%>
-
+							
 					<tr>
 						<td class="oNo">
 						<%=p.getoNo() %>
@@ -93,7 +92,7 @@ button{
 						<p class="pOption" id="pOption<%=i%>">
 						<%=p.getpOption()%></p>
 						<%} %>
-						</td>
+						</td>	
 						<td class="pAmount"><%=p.getAmount()%></td>
 						<td class="pPrice"><%=(int)p.getAmount()*p.getPrice()%></td>
 						<td class="pHistory"><%=p.getHistory()%></td>
@@ -112,27 +111,28 @@ button{
 		var pic; // 사진
 		var pOption;  // 옵션
 		var e = $(event.target).parent(); // 맨 마지막 td
-
+		
 		console.log(e);
-
+		
 		oNo = $(e).prevAll().eq(5).text().trim();
 		pName = $(e).prevAll().find('.pName').text();
 		pic = $(e).prevAll().find('.pic').attr('src');
 		pOption = $(e).prevAll().find('.pOption').text().trim();
 		pId = $(e).prevAll().find('input').val();
-
+		
 		console.log("pId : " +  pId);
 		console.log("oNo : " +  oNo);
 		console.log(pName);
 		console.log(pic);
 		console.log("pOption : " + pOption);
-
+		
 		window.open("<%=request.getContextPath()%>/views/shop/InsertReviewView.jsp?pName="+pName+"&pic="+pic+"&pOption="+pOption+"&pId="+pId,
 				"상품평 입력창","width=600px, height=680px, left=500, top=50");
 	}
 	</script>
-
+	
 
 </body>
 <%@ include file="/views/common/coinfooter.jsp"%>
 </html>
+

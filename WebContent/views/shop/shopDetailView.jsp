@@ -237,6 +237,7 @@
 						</ul>
 					</div>
 
+					<span id="write" class="write"> <a>WRITE</a></span>
 					<div class="cb_review_inner">
 						<table class="cb_table">
 							<tr class="table_header">
@@ -336,6 +337,32 @@
 		   $('#itemform').attr('action', '<%=request.getContextPath()%>/cart.ca');
 		   $('#itemform').submit();
 		});
+		
+		// 팝업
+			$('.write').on('click', function(){
+				var pId = $('#pId').val()
+				console.log(pId);
+				
+				var str = $(event.currentTarget).prev().find('.clicked_category').attr('href');
+				alert(str);
+				var str2 = '#cb_review';
+				var type;
+				var title;
+								
+				if(str == str2){ // type == 1(리뷰작성)
+					title = "상품평 등록";
+					type = 1;
+				} else {
+					title = "QNA 작성";
+					type = 2;
+				}
+				
+				var url = "<%=request.getContextPath()%>/views/shop/insertReview.jsp?pId="+pId+"&type="+type; 
+				
+				var option = "width=500, height=550, left=850, top=150, scrollbars, resizable, toolbar = no"
+				var win = window.open(url, "title", option);
+				
+			});
 
 		// 옵션이 선택되면 td추가
 		$('#select').on("change", function() {

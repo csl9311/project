@@ -11,13 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import member.model.service.MemberService;
 import member.model.vo.Member;
 import payment.model.service.PaymentService;
 import payment.model.vo.Payment;
 import shop.model.service.ShopService;
 import shop.model.vo.PAttachment;
-
 
 @WebServlet("/selectPayment.do")
 public class SelectPaymentServlet extends HttpServlet {
@@ -34,8 +32,9 @@ public class SelectPaymentServlet extends HttpServlet {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String userId = loginUser.getId();
 		
-		PaymentService paymentService = new PaymentService();
+		System.out.println(userId);
 		
+		PaymentService paymentService = new PaymentService();
 		ShopService shopService = new ShopService();
 		
 		ArrayList<Payment> payList = paymentService.selectPayment(userId);

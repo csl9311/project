@@ -53,7 +53,7 @@ img{
          location.href="<%=request.getContextPath()%>/selectcart.ca;
       }
   		function purchase(){
-			location.href="<%=request.getContextPath()%>/selectPayment.do";
+  			location.href="<%=request.getContextPath()%>/selectPayment.do";
 	  }
 
    

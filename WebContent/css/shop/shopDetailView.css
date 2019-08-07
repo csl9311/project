@@ -45,7 +45,7 @@ html, body {
 }
 
 #Index li div, #Index li img, #Index select, #Index button,
-	.amount_dltBtn, .reviewTitle, .update {
+	.amount_dltBtn, .reviewTitle, .update, .write {
 	cursor: pointer;
 }
 
@@ -58,7 +58,7 @@ html, body {
 	text-align: left;
 }
 
-.itemPrice, .amount_dltBtn, .update, #ct_col_rgt td:nth-child(2n) {
+.itemPrice, .amount_dltBtn, .update, .write, #ct_col_rgt td:nth-child(2n) {
 	text-align: right;
 }
 
@@ -69,7 +69,7 @@ html, body {
 }
 
 .update, .table_header, #ct_btn_cart span, #ct_btn_buy span,
-	#shopCategory span, .cb_cate a {
+	#shopCategory span, .cb_cate a, .write {
 	font-weight: 600 !important;
 }
 
@@ -398,18 +398,25 @@ blockquote div{
 	min-height: 150px;
 	display: inline-block;
 }
-.update {
+.update{
 	background: none;
 	margin-top: auto;
 	margin-left: auto;
 	display: none;
 }
+.write{
+	background: none;
+	margin-top: auto;
+	margin-left: auto;
+	float: right;
+	font-size: 1.1em;
+}
 
-.update a {
+.update a, .write a{
 	color: rgb(210, 210, 210);
 }
 
-.update a:hover {
+.update a:hover, .write a:hover {
 	color: rgb(100, 100, 100);
 	text-decoration: none;
 }
