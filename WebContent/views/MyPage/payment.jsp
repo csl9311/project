@@ -152,7 +152,7 @@
 			<table class="pay-tab">
 				<tr>
 					<td class="menu"></td>
-					<td><input type="button" value="주문자 정보와 동일" onclick="copy();">&nbsp;&nbsp;&nbsp;</td>
+					<td><input id="butn" type="button" value="주문자 정보와 동일" onclick="copy();">&nbsp;&nbsp;&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="menu">받는사람&nbsp;&nbsp;&nbsp;</td>
@@ -237,14 +237,14 @@
 	</div>
 	
 	<script>
-	function copy(){
+	$('#butn').click(function(){
 		$('#recipient').attr('value', '<%=name%>');
 		$('#recipientPhone').attr('value', '<%=phone%>');
 		$('#postNum').attr('value', '<%=adr.getPostNum()%>');
 		$('#roadAddress').attr('value', '<%=adr.getRoadAddress()%>');
 		$('#jibunAddress').attr('value', '<%=adr.getJibunAddress()%>');
 		$('#address_detail').attr('value', '<%=adr.getAddress_detail()%>');
-	}
+	});
 	function all(){
 		$('#po').attr('value', "<%=point%>");		
 	}
@@ -266,7 +266,7 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	var total= $('#total').val();
 	var totalamount =$('#totalamount').val();
 	
-	$('#payment').click(function(){
+	<%-- $('#payment').click(function(){
 		var recipient = $('#recipient').val();
 		var recipienPhone = $('#recipientPhone').val();
 		var address1 = $('#postNum').val();
@@ -282,9 +282,9 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 		
 	
 		location.href="<%=request.getContextPath()%>/purchase.ca?list="+list+"&ship="+ship;
-	});
+	}); --%>
 	
-	<%-- $('#payment').click(function(){
+	$('#payment').click(function(){
 	IMP.request_pay({
 	    pg : 'inicis', // version 1.1.0부터 지원.
 	    pay_method : 'card',
@@ -292,17 +292,32 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	    name : name,
 	    amount : '100',
 	    buyer_email : '<%=loginUser.getEmail()%>',
-	    buyer_name : '<%=loginUser.getName()%>'외,
+	    buyer_name : '<%=loginUser.getName()%>외',
 	    buyer_tel : '<%=loginUser.getPhone()%>',
 	    buyer_addr : '서울특별시 강남구 삼성동',
 	    buyer_postcode : '123-456',
 	    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 	}, function(rsp) {
 	    if ( rsp.success ) {
+	    	var recipient = $('#recipient').val();
+			var recipienPhone = $('#recipientPhone').val();
+			var address1 = $('#postNum').val();
+			var address2 = $('#roadAddress').val();
+			var address3 = $('#jibunAddress').val();
+			var address4 = $('#address_detail').val();		
+			var address = address1 +" " + address2 + " "+ address3 + " "+ address4;
+			var req = document.getElementById('req').value;
+			console.log(address);
+			console.log(recipient);
+			console.log(req);
+			var ship = recipient +","+ recipienPhone +","+ address +","+ req;
+			
+		
+			
 	        var msg = '결제가 완료되었습니다.';
 	        msg += '결제 금액 : ' + rsp.paid_amount;
 	        
-	        location.href="<%=request.getContextPath()%>/purchase.ca?list="+list;
+	        location.href="<%=request.getContextPath()%>/purchase.ca?list="+list+"&ship="+ship;
 	        
 	        
 	    } else {
@@ -310,8 +325,8 @@ var list = "<%for(int i = 0 ; i < pay.size() ; i ++) {
 	        msg += '에러내용 : ' + rsp.error_msg;
 	    }
 	    alert(msg); 
+		});
 	});
-	}); --%>
 	
 	
 	</script>

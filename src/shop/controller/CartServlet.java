@@ -52,12 +52,9 @@ public class CartServlet extends HttpServlet {
 			}
 			Product product = new Product(pid, price, amount, pname, option);
 			int result = new ShopService().insertCart(userId, product);
-			if (result > 0) {
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('cartin');");
-				out.println("</script>");
-				request.getRequestDispatcher("shopDetail.do?pId=" + pid).forward(request, response);
+			if(result>0) {
+				
+				response.sendRedirect(request.getHeader("referer"));
 			} else {
 				request.setAttribute("msg", "장바구니에 넣지 못하였습니다.");
 				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");

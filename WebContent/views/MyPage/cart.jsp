@@ -146,7 +146,7 @@ img{
 	<div id="index">
 		<div id="mypage">
 			<div style="display: inline-block">
-				<label>장바구니가 비어 있습니다.</label><br> <img src="../../img/mypageImg/empty_cart.jpg" width="1500vw" height="300vh">
+				<label>장바구니가 비어 있습니다.</label><br> <img src="<%=request.getContextPath() %>/img/mypageImg/empty_cart.jpg" width="1500vw" height="300vh">
 			</div>
 			<!-- 상품목록 끝 -->
 			<br> <br>
