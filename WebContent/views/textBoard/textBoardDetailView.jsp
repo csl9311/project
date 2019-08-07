@@ -102,27 +102,11 @@ body {
       				type: "post",
       				data: {rwriter:rwriter, content:content, tbid:tbid},
       				success: function(data){
-      					
-      					$replyTable = $('#col-lg-12');
-      					
-      					for(var key in data){
-      						var $m = $("#reply-Area");
-      						var $con = $("<div class='media-body'></div>").css("width","100%");
-      						var $img = $("<img class='d-flex mr-3 rounded-circle' src='<%= request.getContextPath() %>/img/karaoke/mic.png'>");
-      						var $div1 = $("<h5 class='mt-0'>data[key]key.rwriter</h5>");
-      						var $div2 = $("<p>data[key].content</p>");
-      						
-      						
-      						$con.append($div1);
-      						$con.append($div2);
-      						$m.append($img);
-      						$m.append($con)
-      						$replyTable.append($m);
-      						
-      					}
-      					
-      					$('#replyText').val("");
-      				}
+		      					  setTimeout(function() 
+		      					  {
+		      					    location.reload();
+		      					  }, 100);
+      						}	
       					});
       				});
               </script>

@@ -20,7 +20,6 @@ import karaoke.model.service.KaraokeService;
 import karaoke.model.vo.Attachment;
 import karaoke.model.vo.Karaoke;
 import member.model.vo.Address;
-import member.model.vo.Member;
 
 
 /**

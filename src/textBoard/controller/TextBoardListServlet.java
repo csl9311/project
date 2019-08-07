@@ -48,18 +48,24 @@ public class TextBoardListServlet extends HttpServlet {
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		limit = 10;
+		limit = 20;
 		
-		maxPage = (int)((double)listCount/limit +0.9);
-        startPage = (((int)((double)currentPage/limit+0.9))-1) *limit+1;
+		maxPage = (int)((double)listCount/limit +0.96);
+        startPage = (((int)((double)currentPage/limit+0.95))-1) *limit+1;
         endPage = startPage + limit -1;
 		if(maxPage < endPage) {
 			endPage = maxPage;
 		}
-		System.out.println(maxPage + startPage + endPage + currentPage);
+		
+		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+		System.out.println("ㅇㅇ" + maxPage + startPage + endPage + currentPage);
 		
 		ArrayList<TextBoard> list = service.selectList(currentPage);
+		
+		
+		int ntype=2;
+		ArrayList<TextBoard> nlist = service.selectNlist(ntype);
 		
 		
 		String page = null;
@@ -67,6 +73,7 @@ public class TextBoardListServlet extends HttpServlet {
 			page = "views/textBoard/textBoardListView.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
+			request.setAttribute("nlist", nlist);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "여긴..어디...?");

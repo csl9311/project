@@ -60,16 +60,54 @@ public class TextBoardDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<TextBoard> list = null;
-		int posts = 10;
+		int posts = 20;
 		
 		int startRow = (currentPage - 1) * posts + 1;
 		int endRow = startRow + posts - 1;
 		
 		String query = prop.getProperty("selectList");
+		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, endRow);
 			pstmt.setInt(2, startRow);
+		
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<TextBoard>();
+			
+			
+			while(rset.next()) {
+				TextBoard tb = new TextBoard(rset.getInt("tbid"),
+									rset.getString("tbtitle"),
+									rset.getString("tbcontent"),
+									rset.getString("nickname"),
+									rset.getInt("tbcount"),
+									rset.getDate("create_date"),
+									rset.getDate("modify_date"),
+									rset.getInt("tbtype"),
+									rset.getString("status"));	
+				list.add(tb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<TextBoard> selectNlist(Connection conn, int ntype) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<TextBoard> list = null;
+		
+		String query = prop.getProperty("selectNlist");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, ntype);
 			
 			rset = pstmt.executeQuery();
 			
@@ -96,7 +134,7 @@ public class TextBoardDAO {
 		
 		return list;
 	}
-
+	
 	public int insertTextBoard(Connection conn, TextBoard tb) {
 
 		PreparedStatement pstmt = null;
@@ -291,7 +329,6 @@ public class TextBoardDAO {
 		int result = 0;
 		
 		String query = prop.getProperty("updateTextBoard");
-		System.out.println("asdw" + query);
 		
 		try {
 			pstmt = conn.prepareStatement(query);

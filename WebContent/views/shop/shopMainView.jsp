@@ -47,7 +47,7 @@
 		</nav>
 		<!-- 상단 nav 제외 전체 감싸는 div -->
 		<div id="content">
-			<div id="main_top" class="flex column">
+			<%-- <div id="main_top" class="flex column">
 				<!-- 광고나 탑3 걸 곳 -->
 				<div id="main_top_1" class="flex">
 					<% for(int i = 0; i < 3; i++) {%>
@@ -64,7 +64,7 @@
 						</div>
 					<% } %>
 				</div>
-			</div>
+			</div> --%>
 			<!-- 중간 -->
 
 			<div id="main_middle">

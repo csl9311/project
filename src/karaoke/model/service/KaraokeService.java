@@ -98,4 +98,57 @@ public class KaraokeService {
 		
 		return result;
 	}
+
+	public int insertReview(Review r) {
+		Connection conn = getConnection();
+		
+		int result = new KaraokeDAO().insertReview(conn, r);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int updateReview(Review r) {
+		Connection conn = getConnection();
+		
+		int result = new KaraokeDAO().updateReview(conn, r);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+
+	public ArrayList<Review> selectReviewList(int ref_kid) {
+		Connection conn = getConnection();
+		ArrayList<Review> list = new KaraokeDAO().selectReviewList(conn, ref_kid);
+		close(conn);
+		
+		return list;
+	}
+
+	public double selectRatingAvg(int kid) {
+		Connection conn = getConnection();
+		double result = new KaraokeDAO().selectRatingAvg(conn, kid);
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<Review> selectRList() {
+		Connection conn = getConnection();
+		ArrayList<Review> list = new KaraokeDAO().selectRList(conn);
+		close(conn);
+		return list;
+	}
 }

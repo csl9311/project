@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import karaoke.model.service.KaraokeService;
 import karaoke.model.vo.Attachment;
 import karaoke.model.vo.Karaoke;
+import karaoke.model.vo.Review;
 
 /**
  * Servlet implementation class KaraokeDetailServlet
@@ -37,10 +38,15 @@ public class KaraokeDetailServlet extends HttpServlet {
 		KaraokeService service = new KaraokeService();
 		Karaoke karaoke = service.selectKaraoke(kid);
 		ArrayList<Attachment> fileList = service.selectAttachment(kid);
-		System.out.println(fileList);
+		ArrayList<Review> list = service.selectReviewList(kid);
+		double avg = service.selectRatingAvg(kid);
+		double avgr = Math.round(avg*100.0)/100.0;
+		System.out.println("노래방 상세 조회 성공 ㅇㅇ");
 		if(fileList != null) {
 			request.setAttribute("karaoke", karaoke);
 			request.setAttribute("fileList", fileList);
+			request.setAttribute("list", list);
+			request.setAttribute("avg", avgr);
 			request.getRequestDispatcher("views/search/searchDetail.jsp").forward(request, response);
 		} else {
 			request.setAttribute("msg", "열람 실패 ㅠㅠ");

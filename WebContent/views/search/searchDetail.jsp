@@ -2,16 +2,27 @@
     pageEncoding="UTF-8" import="karaoke.model.vo.*, java.util.*"%>
 <% Karaoke karaoke = (Karaoke)request.getAttribute("karaoke"); 
    ArrayList<Attachment> fileList = (ArrayList<Attachment>)request.getAttribute("fileList");
+   ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("list");
+   double avg = (double)request.getAttribute("avg");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <style>
+
+.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 body {
 	background-color: rgb(40, 44, 52) !important;
 	color:#fff !important;
 	
+}
+.ss {
+	min-height: 80em;
 }
 #carousel{
 	margin-top:0px;
@@ -78,6 +89,8 @@ body {
 }
 .box3{
 	display: inline-block;
+	margin-top: 10px;
+	margin-left: 1em;
 }
 
 
@@ -235,9 +248,6 @@ hr.hr-style {
 
 </style>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=LIBRARY"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=services,clusterer,drawing"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -251,7 +261,7 @@ hr.hr-style {
 
 
 <%@include file="../common/coinheader.jsp" %>
-<div class="container">
+<div class="container ss">
   <div class="row">
     <div class="col-sm-6">
         <div id="carousel" class="carousel slide" data-ride="carousel">
@@ -304,16 +314,24 @@ hr.hr-style {
     </div><!-- /clearfix -->
     </div> <!-- /col-sm-6 -->
     <div class="col-sm-6 fcolor">
-        <h2>노래방</h2>
+        <h2><%= karaoke.getKaraokeName() %></h2>
         <strong>평점</strong>
-	        <span class="fa fa-star checked"></span>
-			<span class="fa fa-star checked"></span>
-			<span class="fa fa-star checked"></span>
-			<span class="fa fa-star"></span>
-			<span class="fa fa-star"></span>
-			<span><strong> / </strong>3.5</span>
+        <% if(review.size()!=0){ %>
+        	<% for(int k=0;k<5;k++){ %>
+        		<% if(k<avg){ %>
+        			<span class="fa fa-star checked"></span>
+        		<% } else { %>
+        			<span class="fa fa-star"></span>
+        		<% } %>
+        	<% } %>
+        <% } else { %>
+	        <% for(int q=0;q<5;q++) { %>
+		        <span class="fa fa-star"></span>
+		    <% } %>
+		<% } %>
+		<span><strong>  / <%= avg %> </strong></span>
 		<span class="review-SubTitle">후기</span>
-		<a href="#"><span class="review-count">123</span>
+		<a href="#"><span class="review-count"><%= review.size() %></span>
 		<span class="gotorev"> ▶  </span></a>
 		<p class="location-text"><%= karaoke.getRoadAddress()%><%= karaoke.getAddressDetail()%>에 위치함</p>
 		
@@ -330,6 +348,9 @@ hr.hr-style {
     				<div class="modal-body">
     				<div id="mapdiv"></div>
     				</div>
+    				<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=services,clusterer,drawing"></script>
+					  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=LIBRARY"></script>
+					  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8"></script>
     				<script>
 						var mapContainer = document.getElementById('mapdiv'), // 지도를 표시할 div 
 					    mapOption = {
@@ -341,38 +362,41 @@ hr.hr-style {
 							setTimeout(function() {	
 								map.relayout();
 							}, 300);
-						});
-					// 지도를 생성합니다    
+						});   
 					var map = new kakao.maps.Map(mapContainer, mapOption); 
-				
-					// 주소-좌표 변환 객체를 생성합니다
-					var geocoder = new kakao.maps.services.Geocoder();
-					 
 					
-					// 주소로 좌표를 검색합니다
-					geocoder.addressSearch('서울특별시 강남구 역삼1동 테헤란로1길 28', function(result, status) {
-				
-						  // 정상적으로 검색이 완료됐으면 
-					     if (status === kakao.maps.services.Status.OK) {
-			
-					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
-					        // 결과값으로 받은 위치를 마커로 표시합니다
-					        var marker = new kakao.maps.Marker({
-					            map: map,
-					            position: coords
-					        });
-			
-					        // 인포윈도우로 장소에 대한 설명을 표시합니다
-					        var infowindow = new kakao.maps.InfoWindow({
-					            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-					        });
-					        infowindow.open(map, marker);
-			
-					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-					        map.setCenter(coords);
-					    } 
-					});    
+					var geocoder = new kakao.maps.services.Geocoder();
+
+					geocoder.addressSearch('<%= karaoke.getRoadAddress() %>', function(result, status) {
+							
+						     if (status === kakao.maps.services.Status.OK) {
+						        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+						        
+						    var markerPosition = coords;
+
+						    var marker = new kakao.maps.Marker({
+						      position: markerPosition,
+						    });
+
+						    marker.setMap(map);  
+							var page=<%= karaoke.getKid() %>
+						        var content = '<div class="customoverlay">' +
+						        '  <a href="#">' +
+						        '    <span class="title" style="color:#000"><%= karaoke.getKaraokeName() %></span>' +
+						        '  </a>' +
+						        '</div>';
+
+						    var position = coords;  
+						    
+						    } 
+						     var customOverlay = new kakao.maps.CustomOverlay({
+				        	        map: map,
+				        	        position: position,
+				        	        content: content,
+				        	        yAnchor: 0.2 
+				        	});
+						    map.setCenter(markerPosition);
+						});   
 					</script>
     			</div>
 			</div>
@@ -398,36 +422,30 @@ hr.hr-style {
   		<h3>후기</h3>
   		<hr class="hr-style">
   		<!-- 리뷰 1 -->
-  		<div class="review">
-  			<div class="index">
-	  			<span class="star">
-			  		<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star"></span>
-	  			</span>
-	  			<span class="id-text">작성자 아이디</span><span class="optionMenu">수정 / 삭제</span>
-	  			<span class="create-date">2019-07-24</span>
-	  			<p>리뷰 내용이 담길건데요</p>
+  		<% if(review.size()!=0){ %>
+	  		<% for(i=0;i<review.size();i++) { %>
+		  		<div class="review">
+		  			<div class="index">
+			  			<span class="star">
+			  			<% for(int m=0;m<5;m++){ %>
+			  				<% if(m<review.get(i).getKrating()) { %>
+					  			<span class="fa fa-star checked"></span>
+					  		<% } else { %>
+								<span class="fa fa-star"></span>
+							<% } %>
+						<% } %>
+			  			</span>
+			  			<span class="id-text"><%= review.get(i).getKrwriter() %></span><span class="optionMenu">삭제</span>
+			  			<span class="create-date"><%= review.get(i).getCreateDate() %></span>
+			  			<p><%= review.get(i).getKrcontent() %></p>
+		  			</div>
+		  		</div>
+	  		<% } %>
+  		<% } else { %>
+  			<div class="py-5 text-center">
+  				<p>등록된 리뷰가 없습니다.</p>
   			</div>
-  		</div>
-  		<!-- 리뷰 2 -->
-  		<div class="review">
-  			<div class="index">
-	  			<span class="star">
-			  		<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star"></span>
-					<span class="fa fa-star"></span>
-	  			</span>
-	  			<span class="id-text">작성자 아이디2</span>
-	  			<span class="create-date">2019-07-23</span>
-	  			<p>리뷰 내용 쓰일공간</p>
-  			</div>
-  		</div>
-  		
+  		<% } %> 		
   	</div>
   	<% if(loginUser!=null) { %>
   	<div class="col-sm-12">
@@ -449,7 +467,7 @@ hr.hr-style {
 	  						<option value="5" selected>★★★★★</option>
 	  					</select>
 	  				</span><br>
-  					<span><button class="btn btn-success">리뷰 작성</button></span>
+  					<span><button type="submit" class="btn btn-success">리뷰 작성</button></span>
   				</div>
   			</form>
   		</div>

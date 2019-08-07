@@ -14,8 +14,6 @@ public class Karaoke {
 	
 	public Karaoke() {}
 
-	
-	
 	public Karaoke(int kid, String refId, String karaokeName, int oneCoin, int threeCoin, String time, String status,
 			int addressCode) {
 		super();
@@ -127,4 +125,5 @@ public class Karaoke {
 	public void setAddressCode(int addressCode) {
 		this.addressCode = addressCode;
 	}
+	
 }

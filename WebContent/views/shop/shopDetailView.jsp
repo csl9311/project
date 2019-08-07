@@ -344,7 +344,6 @@
 				console.log(pId);
 				
 				var str = $(event.currentTarget).prev().find('.clicked_category').attr('href');
-				alert(str);
 				var str2 = '#cb_review';
 				var type;
 				var title;

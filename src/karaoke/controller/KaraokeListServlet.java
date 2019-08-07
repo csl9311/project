@@ -14,6 +14,7 @@ import common.PageInfo;
 import karaoke.model.service.KaraokeService;
 import karaoke.model.vo.Attachment;
 import karaoke.model.vo.Karaoke;
+import karaoke.model.vo.Review;
 
 
 /**
@@ -64,12 +65,15 @@ public class KaraokeListServlet extends HttpServlet {
 			System.out.println("23" + pi);
 			ArrayList<Karaoke> list = service.selectList(currentPage);
 			ArrayList<Attachment> at = service.selectAlist(currentPage);
+			ArrayList<Review> review = service.selectRList();
+			
 			String page = null;
 			if(list != null) {
 				page = "views/search/searchView.jsp";
 				request.setAttribute("list", list);
 				request.setAttribute("at", at);
 				request.setAttribute("pi", pi);
+				request.setAttribute("review", review);
 			} else {
 				page = "views/common/errorPage.jsp";
 				request.setAttribute("msg", "게시판 조회에 실패하였습니다.");

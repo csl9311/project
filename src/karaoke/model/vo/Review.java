@@ -20,6 +20,16 @@ public class Review {
 		this.status = status;
 	}
 
+	
+	public Review(String krwriter, int id, int krating, String krcontent) {
+		super();
+		this.krwriter = krwriter;
+		this.id = id;
+		this.krating = krating;
+		this.krcontent = krcontent;
+	}
+
+
 	public String getKrwriter() {
 		return krwriter;
 	}

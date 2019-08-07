@@ -3,6 +3,7 @@
 <%
 	ArrayList<Karaoke> list = (ArrayList<Karaoke>)request.getAttribute("list");
 	ArrayList<Attachment> at = (ArrayList<Attachment>)request.getAttribute("at");
+	ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 	int listCount = pi.getListCount();
@@ -17,6 +18,12 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
+.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 body{
 	background-color: rgb(40, 44, 52) !important;
 }
@@ -131,7 +138,6 @@ hr.hr-style {
 
 /*   지도    */
 #mapapi {
-	margin: auto;
 	width: 100%;
 	height: 100%;
 }
@@ -139,12 +145,10 @@ hr.hr-style {
 @media ( min-width : 481px) and (max-width: 768px) {
 	#mapapi {
 		width: 100%;
-		height: 700px;
+		height: 100%;
 	}
 	#mainArea{
 		width:100%;
-		margin-left: auto;
-		margin-right: auto;
 	}
 	
 }
@@ -165,9 +169,7 @@ hr.hr-style {
 }
 </style>
 <meta charset="UTF-8">
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=LIBRARY"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=services,clusterer,drawing"></script>
+
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -233,9 +235,22 @@ hr.hr-style {
 				  			<div class="listTextArea">
 	      						<h3 class="mb-2"><%= k.getKaraokeName() %></h3>
 	      						<span class="fa fa-star checked"></span>
-	      						4.5
+	      						<% int count=0; %>
+	      						<% for(int o=0;o<review.size();o++){ %>
+	      							<% if(k.getKid() == review.get(o).getId()) { %>
+	      								<% count++; %>
+	      							<% } %>
+	      						<% } %>
+	      						<% double avg =0.0; double sum = 0.0; %>
+	      						<% for(int l=0;l<review.size();l++){ %>
+	      							<% if(k.getKid() == review.get(l).getId()) { %>
+	      								<% sum += review.get(l).getKrating(); %>
+	      								<% avg = Math.round(((double)sum/(double)count)*100.0)/100.0; %>
+	      							<% } %>
+	      						<% } %>
+	      						<%= avg %> 점
 	      						<span class="review-SubTitle">리뷰</span>
-	      						1232개
+	      						<%= count %>개
 	      						<br>
 	      						<span class="location"><%= k.getRoadAddress() %><%= k.getAddressDetail() %> 에 위치함</span>
 	      					</div>
@@ -245,45 +260,42 @@ hr.hr-style {
 				<% } %>
 			<% } %>
 			</ul>	
-			
-			
-			<%-- <script>
-			
-			$(window).scroll(function() {
-			    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			    href="<%= request.getContextPath() %>/list.ko?currentPage=<%= currentPage + 1 %>"
-			    <% for(Karaoke k : list) { %>
-			      $("ul.list-group").append("<h1>Page " + page);
-			    <% } %>
-			    }
-			});
-			</script> 			
-			
-			
-			
-			
-			
-			<script>
-			function getLocation() {
-				  if (navigator.geolocation) { // GPS를 지원하면
-				    navigator.geolocation.getCurrentPosition(function(position) {
-				      alert(position.coords.latitude + ' ' + position.coords.longitude);
-				    }, function(error) {
-				      console.error(error);
-				    }, {
-				      enableHighAccuracy: false,
-				      maximumAge: 0,
-				      timeout: Infinity
-				    });
-				  } else {
-				    alert('GPS를 지원하지 않습니다');
-				  }
-				}
-			getLocation();
-			</script>--%>
-
-			
 			<!-- 목록 끝 -->
+			
+			<div class="text-center">
+				<ul class="pagination">
+					<% if(!list.isEmpty()){ %>
+					<li><a href="<%= request.getContextPath() %>/list.ko?currentPage=1">&lt;&lt;</a></li>
+					<li><a id="bp" href="<%= request.getContextPath() %>/list.tb?currentPage=<%=  currentPage - 1%>">&lt;</a></li>
+					
+					<% for(int p=startPage; p<=endPage; p++){ %>
+						<% if(p == currentPage){ %>
+							<li><a href="#"><%= p %></a></li>
+						<% } else if(p > currentPage) { %>
+							<li><a href="<%= request.getContextPath() %>/list.ko?currentPage=<%= currentPage + 1 %>"><%= p %></a></li>
+						<% } else { %>
+							<li><a href="<%= request.getContextPath() %>/list.ko?currentPage=<%= currentPage - 1 %>"><%= p %></a></li>
+						<% } %>
+					<% } %>
+					<li><a id="np" href="<%= request.getContextPath() %>/list.ko?currentPage=<%= currentPage + 1 %>">&gt;</a></li>
+					<li><a href="<%= request.getContextPath() %>/list.ko?currentPage=<%= maxPage %>">&gt;&gt;</a></li>
+					<% } %>
+				</ul>
+			</div>
+			<script>
+				if(<%= currentPage %> <= 1){
+					$('#bp').click(function() {
+						return false;
+					});
+				}
+				
+				if(<%= currentPage %> >= <%= maxPage %>){
+					$('#np').click(function() {
+						return false
+					});
+				}
+			</script>
+			
 		</div>
 		<!-- 탭2 -->
 		<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -291,61 +303,143 @@ hr.hr-style {
 	  
 	  <div id="mapapi"></div>
 	  <!-- 지도 스크립트 -->
-		<script>
+	  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=services,clusterer,drawing"></script>
+	  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8&libraries=LIBRARY"></script>
+	  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e8732c5397c277a3b26c4848c8209b8"></script>
+	  
+	  <script>
 			var mapContainer = document.getElementById('mapapi'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		        level: 3 // 지도의 확대 레벨
+		        level: 4 // 지도의 확대 레벨
 		    }; 
-			
 			$('#nav-profile-tab').on('click', function() {
 				setTimeout(function() {	
 					map.relayout();
 				}, 300);
 			});
-		// 지도를 생성합니다    
-		var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			if (navigator.geolocation) {
+			    
+			    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+			    navigator.geolocation.getCurrentPosition(function(position) {
+			        
+			        var lat = position.coords.latitude, // 위도
+			            lon = position.coords.longitude; // 
+			            	
+				    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+				    var markerPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치입니다
 	
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
-		 
-		
-		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch('서울특별시 강남구 역삼1동 테헤란로1길 28', function(result, status) {
+				    // 마커를 생성합니다
+				    var marker = new kakao.maps.Marker({
+				      position: markerPosition
+				    });
 	
-			  // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
+				    // 마커가 지도 위에 표시되도록 설정합니다
+				    marker.setMap(map);  
+	
+				    // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+				    var content = '<div class="customoverlay">' +
+				        '  <a href="#" target="_blank">' +
+				        '    <span class="title">현재위치</span>' +
+				        '  </a>' +
+				        '</div>';
+	
+				    // 커스텀 오버레이가 표시될 위치입니다 
+				    var position = new kakao.maps.LatLng(lat, lon);  
+	
+				    // 커스텀 오버레이를 생성합니다
+				    var customOverlay = new kakao.maps.CustomOverlay({
+				        map: map,
+				        position: position,
+				        content: content,
+				        yAnchor: 0.2 
+				    });
+				    map.setCenter(markerPosition); 
+			      });
+			    
+			} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+			    
+			    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
+			        message = 'geolocation을 사용할수 없어요..'
+			        
+			    displayMarker(locPosition, message);
+			}
 
-		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+			function displayMarker(locPosition, message) {
 
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
+			    // 마커를 생성합니다
+			    var marker = new kakao.maps.Marker({  
+			        map: map, 
+			        position: locPosition
+			    }); 
+			    
+			    var iwContent = message, // 인포윈도우에 표시할 내용
+			        iwRemoveable = true;
 
-		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-		        });
-		        infowindow.open(map, marker);
+			    // 인포윈도우를 생성합니다
+			    var infowindow = new kakao.maps.InfoWindow({
+			        content : iwContent,
+			        removable : iwRemoveable
+			    });
+			    
+			    // 인포윈도우를 마커위에 표시합니다 
+			    infowindow.open(map, marker);
+			    
+			    // 지도 중심좌표를 접속위치로 변경합니다
+			    map.setCenter(locPosition);      
+			}    
+			
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			<%for(int i=0;i<list.size();i++){%>
+				geocoder.addressSearch('<%= list.get(i).getRoadAddress() %>', function(result, status) {
+	
+				    // 정상적으로 검색이 완료됐으면 
+				     if (status === kakao.maps.services.Status.OK) {
+				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				        
+				    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+				    var markerPosition = coords; // 마커가 표시될 위치입니다
 
-		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		        map.setCenter(coords);
-		    } 
-		});    
-		</script>
+				    // 마커를 생성합니다
+				    var marker = new kakao.maps.Marker({
+				      position: markerPosition,
+				    });
+
+				    // 마커가 지도 위에 표시되도록 설정합니다
+				    marker.setMap(map);  
+					var page=<%= list.get(i).getKid() %>
+				        var content = '<div class="customoverlay">' +
+				        '  <a href="detail.ko?kid=<%= list.get(i).getKid() %>" target="_self">' +
+				        '    <span class="title"><%=list.get(i).getKaraokeName() %></span>' +
+				        '  </a>' +
+				        '</div>';
+
+				    // 커스텀 오버레이가 표시될 위치입니다 
+				    var position = coords;  
+				    
+				    } 
+				     var customOverlay = new kakao.maps.CustomOverlay({
+		        	        map: map,
+		        	        position: position,
+		        	        content: content,
+		        	        yAnchor: 0.2 
+		        	});
+				        
+				});   
+			<%}%> 
+	  </script>
 		<!-- 지도 스크립트 끝 -->
-		
-		
-			
-			
 		</div>
 		<!-- 탭2 끝 -->
 	</div>
 	<!-- 내용 끝 -->
 </div>
 <%@ include file="../common/coinfooter.jsp"%>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/header.js"></script>	
 </body>
 </html>

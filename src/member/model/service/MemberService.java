@@ -153,6 +153,11 @@ public class MemberService {
 		Connection conn = getConnection();
 		MemberDAO dao = new MemberDAO();
 		int result = dao.insertReview(conn, r);
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
