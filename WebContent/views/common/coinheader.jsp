@@ -8,13 +8,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>메인페이지</title>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/js/main/header.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/main/header.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/main/loginForm.css">

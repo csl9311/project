@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/views/common/coinheader.jsp"%>
+<%-- <%@ include file="/views/common/coinheader.jsp"%> --%>
 
 
 <!DOCTYPE html>
@@ -8,16 +8,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-</head>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/main/mainbanner.css">
+</head>
 <style>
 #slider-wrap img{
 cursor:pointer;
-
 }
 
 </style>
 <body>
+<jsp:include page="/views/common/coinheader.jsp"></jsp:include>
+
 	<div id="main" >
 		<!--*****************배너광고 영역  ************** -->
 		<div id="Index" style="min-height:80vh">
@@ -81,9 +82,9 @@ cursor:pointer;
 				<img src="<%=request.getContextPath()%>/img/cmboard/board.png" onclick="location.href='<%=request.getContextPath()%>/list.tb';" >
 				<img src="<%=request.getContextPath()%>/img/cmboard/video.png" onclick="location.href='<%=request.getContextPath()%>/list.bo';" >
 				<img src="<%=request.getContextPath()%>/img/cmboard/shopcart.png"  onclick="location.href='<%=request.getContextPath()%>/shopMain.do';" >
-				<%if(loginUser!=null){ %>
+				<%-- <%if(loginUser!=null){ %> --%>
 				<img src="<%=request.getContextPath()%>/img/cmboard/mypage.png"  onclick="location.href='<%=request.getContextPath()%>/views/MyPage/myPageMain.jsp';" >
-				<%} %>
+				<%-- <%} %> --%>
 
 
 
