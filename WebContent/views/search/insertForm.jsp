@@ -181,12 +181,14 @@ body{
 					  </div>
 					  <div class="form-group">
 					  	<p><strong>타이틀 사진 첨부</strong><span class="subfont">(선택된 사진이 대표 사진이 됩니다.)</span></p>
-					    <input multiple="multiple" type="file" name="kimg1" id="kimg1">
+					    <input multiple="multiple" type="file" name="File1" id="kimg1">
 					    <p class="help-block"></p>
 					  </div>
 					  <div class="form-group">
-					  	<p><strong>사진 첨부(여러장 첨부 가능)</strong></p>
-					    <input multiple="multiple" type="file" name="kimg2" id="kimg2">
+					  	<p><strong>사진 첨부</strong></p>
+					    <input type="file" name="file2" id="kimg2">
+					    <input type="file" name="file3" id="kimg2">
+					    <input type="file" name="file4" id="kimg2">
 					    <p class="help-block"></p>
 					  </div>
 					<input type="submit" id="insertBtn" class="btn btn-success" value="등록">
@@ -194,6 +196,16 @@ body{
 			</div>
 		</div>
 	</div>
+	<script>
+	$('#insertBtn').click(function(){
+      
+      if($('#kimg1').val() != "" && $('#kimg2').val()!="" && $('#kname').val()!="" && $('#sample4_postcode').val()!="" && $('#sample4_detailAddress').val()!="" && $('#one').val()!="" && $('#three').val()!="" && $('#startTime').val()!="" && $('#endTime').val()!=""){
+       $('#insertBtn').prop("type","submit"); 
+      }else{
+      alert("모든 항목을 채워주세요!");
+      }
+   });
+	</script>
 </body>
 <%@ include file="../common/coinfooter.jsp"%>
 	<script type="text/javascript"

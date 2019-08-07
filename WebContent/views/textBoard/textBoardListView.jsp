@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="textBoard.model.vo.*, java.util.*, common.PageInfo" %>
 <%
 	ArrayList<TextBoard> list = (ArrayList<TextBoard>)request.getAttribute("list");
+	ArrayList<TextBoard> nlist = (ArrayList<TextBoard>)request.getAttribute("nlist");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 	int listCount = pi.getListCount();
@@ -128,13 +129,13 @@ table td{
 		<img src="<%= request.getContextPath() %>/img/Search/freeBoardTitle.png">
 	</div>
 	<div class="sortArea">
-		<div class="leftA">
+		<!-- <div class="leftA">
 			<select class="form-control">
 				<option>최신순</option>
 				<option>조회순</option>
 				<option>댓글순</option>
 			</select>
-		</div>
+		</div> -->
 		<% if(loginUser !=null){ %>
 			<a class="btn btn-primary pull-right" href="<%= request.getContextPath() %>/views/textBoard/textBoardInsertForm.jsp?tbtype=1">글쓰기</a>
 		<% } %>
@@ -146,19 +147,19 @@ table td{
 	<!--  -->
 	<div class="container bc">
 		<div class="contentArea">
-			<table class="table table-dark" id="list">
+			<table class="table table-dark" id="list-notice">
 				<thead>
 					<tr>
-						<th style="text-align: left">번호</th>
-						<th style="text-align: center">제목</th>
-						<th style="text-align: right">작성자</th>
-						<th style="text-align: right">날짜</th>
-						<th style="text-align: right">조회수</th>
+						<th style="width:9%;">번호</th>
+						<th style="width:29%;">제목</th>
+						<th style="width:21%;">작성자</th>
+						<th style="width:32%;">날짜</th>
+						<th style="width:9%;">조회수</th>
 					</tr>
 				</thead>
 			</table>
 			<table class="table table-secondary table-hover" id="list">
-				<% for(TextBoard tb : list) { %>
+				<% for(TextBoard tb : nlist) { %>
 					<% if(tb.getTbType()==2){ %>
 						<tbody>
 							<tr>
@@ -184,37 +185,38 @@ table td{
 						<% if(tb.getTbType()==2){ %>
 							<tbody>
 								<tr>
-									<td><%= tb.getTbid() %><input type="hidden" value="<%= tb.getTbid() %>"></td>
-									<td><strong>[공지]</strong><%= tb.getTbTitle() %></td>
-									<td><%= tb.getTbWriter() %></td>
-									<td><%= tb.getCreateDate() %></td>
-									<td><%= tb.getTbCount() %></td>				
+									<td style="width:9%;"><%= tb.getTbid() %><input type="hidden" value="<%= tb.getTbid() %>"></td>
+									<td style="width:29%;"><strong>[공지]</strong><%= tb.getTbTitle() %></td>
+									<td style="width:21%;"><%= tb.getTbWriter() %></td>
+									<td style="width:32%;"><%= tb.getCreateDate() %></td>
+									<td style="width:9%;"><%= tb.getTbCount() %></td>				
 								</tr>
 							</tbody>
 						<% } else {%>
 							<tbody>
 								<tr>
-									<td><%= tb.getTbid() %><input type="hidden" value="<%= tb.getTbid() %>"></td>
-									<td><%= tb.getTbTitle() %></td>
-									<td><%= tb.getTbWriter() %></td>
-									<td><%= tb.getCreateDate() %></td>
-									<td><%= tb.getTbCount() %></td>				
+									<td style="width:9%;"><%= tb.getTbid() %><input type="hidden" value="<%= tb.getTbid() %>"></td>
+									<td style="width:29%;"><%= tb.getTbTitle() %></td>
+									<td style="width:21%;"><%= tb.getTbWriter() %></td>
+									<td style="width:32%;"><%= tb.getCreateDate() %></td>
+									<td style="width:9%;"><%= tb.getTbCount() %></td>				
 								</tr>
 							</tbody>
 						<% } %>
 					<% } %>
 				<% } %>
 			</table>
-			
-			<!-- <form>
-			<div class="text-center">
-				<select class="selectpicker">
+			 
+			<!-- <form action=list.tb?select&searchText>
+			<div class="text-center" style="padding-top:3em;">
+				<select class="selectpicker" name="select">
+				  <option value=0>전체</option>
 				  <option value=1>제목</option>
 				  <option value=2>제목 + 내용</option>
 				  <option value=3>글쓴이</option>
 				</select>
-				<input type="text" id="searchText" placeholder="검색할 내용을 입력하세요">
-				<input type="button" id="searchBtn" class="btn btn-success" value="검색">
+				<input type="text" name="searchText" placeholder="검색할 내용을 입력하세요">
+				<button type="submit" class="btn btn-primary">검색</button>
 			</div>
 			</form> -->
 			<div class="text-center">

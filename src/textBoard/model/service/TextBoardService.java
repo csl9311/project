@@ -28,6 +28,13 @@ public class TextBoardService {
 		close(conn);
 		return list;
 	}
+	
+	public ArrayList<TextBoard> selectNlist(int ntype) {
+		Connection conn = getConnection();
+		ArrayList<TextBoard> list = new TextBoardDAO().selectNlist(conn, ntype);
+		close(conn);
+		return list;
+	}
 
 	public int insertTextBoard(TextBoard tb) {
 		Connection conn = getConnection();

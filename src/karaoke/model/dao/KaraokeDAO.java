@@ -13,8 +13,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import karaoke.model.vo.Attachment;
 import karaoke.model.vo.Karaoke;
+import karaoke.model.vo.Review;
 import member.model.vo.Address;
 
 public class KaraokeDAO {
@@ -185,7 +188,7 @@ public class KaraokeDAO {
 									rset.getString("status"),
 									rset.getInt("address_code"),
 									rset.getString("roadaddress"),
-									rset.getString("address_detail"));	
+									rset.getString("address_detail"));
 				list.add(k);
 			}
 		} catch (SQLException e) {
@@ -254,7 +257,7 @@ public class KaraokeDAO {
 								rset.getString("status"),
 								rset.getInt("address_code"),
 								rset.getString("roadaddress"),
-								rset.getString("address_detail"));				
+								rset.getString("address_detail"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -303,7 +306,7 @@ public class KaraokeDAO {
 		ResultSet rset = null;
 		int result = 0;
 		
-		String query = prop.getProperty("selectReply");
+		String query = prop.getProperty("selectReview");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -311,7 +314,7 @@ public class KaraokeDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				result=rset.getInt(1);
+				result=rset.getInt("ref_kid");
 			}
 			
 		} catch (SQLException e) {
@@ -323,6 +326,138 @@ public class KaraokeDAO {
 		
 		return result;
 		
+	}
+
+	public int insertReview(Connection conn, Review r) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertReview");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, r.getKrwriter());
+			pstmt.setInt(2, r.getId());
+			pstmt.setInt(3, r.getKrating());
+			pstmt.setString(4, r.getKrcontent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateReview(Connection conn, Review r) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateReview");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, r.getKrating());
+			pstmt.setString(2, r.getKrcontent());
+			pstmt.setString(3, r.getKrwriter());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<Review> selectReviewList(Connection conn, int ref_kid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> list = null;
+		
+		String query = prop.getProperty("selectReviewList");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, ref_kid);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Review>();
+			
+			while(rset.next()) {
+				Review rv = new Review(rset.getString("nickname"),
+									   rset.getInt("ref_kid"),
+									   rset.getInt("krating"),
+									   rset.getString("krcontent"),
+									   rset.getDate("create_date"),
+									   rset.getString("status"));	
+				list.add(rv);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public double selectRatingAvg(Connection conn, int kid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		double result=0;
+		
+		String query = prop.getProperty("selectRatingAvg");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, kid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getDouble(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return result;
+	}
+
+	public ArrayList<Review> selectRList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> rl = null;
+		
+		String query = prop.getProperty("selectRlist");
+		
+		
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			rl = new ArrayList<Review>();
+			while(rset.next()) {
+				Review r = new Review(rset.getString("krwriter"),
+						   			  rset.getInt("ref_kid"),
+						   			  rset.getInt("krating"),
+						   			  rset.getString("krcontent"),
+						   			  rset.getDate("create_date"),
+						   			  rset.getString("status"));
+				rl.add(r);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return rl;
 	}
 	
 }
